@@ -634,7 +634,7 @@ export default function HealthComparator() {
               <div className="bg-fennec-cream/20 border border-fennec-cream/70 rounded-2xl p-4 flex items-start space-x-3 text-left animate-in fade-in slide-in-from-bottom-2 duration-200">
                 <div className="w-8 h-8 rounded-full overflow-hidden border border-white shrink-0 bg-white shadow-2xs">
                   <img 
-                    src="/assets/images/feny_mascot_avatar_1783245725195.jpg" 
+                    src="/assets/images/feny_mascot_avatar_1783278049191.jpg" 
                     alt="Feny" 
                     className="w-full h-full object-cover"
                   />
@@ -984,7 +984,7 @@ export default function HealthComparator() {
             <div className="bg-fennec-cream/30 p-6 flex items-center space-x-4 border-b border-fennec-cream/40">
               <div className="w-16 h-16 rounded-full border-2 border-white overflow-hidden shadow-sm shrink-0 bg-white">
                 <img 
-                  src="/assets/images/feny_mascot_avatar_1783245725195.jpg" 
+                  src="/assets/images/feny_mascot_avatar_1783278049191.jpg" 
                   alt="Feny" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -1030,7 +1030,7 @@ export default function HealthComparator() {
                         onMouseLeave={() => setFenyAdvice(null)}
                         onFocus={() => setFenyAdvice(HEALTH_ADVICE_MAP.firstName)}
                         onBlur={() => setFenyAdvice(null)}
-                        className="w-full bg-fennec-cream/5 border border-fennec-cream/70 rounded-xl px-3 py-2 text-sm text-fennec-dark focus:outline-none focus:border-fennec-tan"
+                        className="w-full bg-fennec-cream/5 border border-fennec-cream/70 rounded-xl px-3 py-2 text-base md:text-sm text-fennec-dark focus:outline-none focus:border-fennec-tan font-medium"
                       />
                     </div>
                     <div className="modal-stagger-item space-y-1.5">
@@ -1045,7 +1045,7 @@ export default function HealthComparator() {
                         onMouseLeave={() => setFenyAdvice(null)}
                         onFocus={() => setFenyAdvice(HEALTH_ADVICE_MAP.lastName)}
                         onBlur={() => setFenyAdvice(null)}
-                        className="w-full bg-fennec-cream/5 border border-fennec-cream/70 rounded-xl px-3 py-2 text-sm text-fennec-dark focus:outline-none focus:border-fennec-tan"
+                        className="w-full bg-fennec-cream/5 border border-fennec-cream/70 rounded-xl px-3 py-2 text-base md:text-sm text-fennec-dark focus:outline-none focus:border-fennec-tan font-medium"
                       />
                     </div>
                   </div>
@@ -1062,7 +1062,7 @@ export default function HealthComparator() {
                       onMouseLeave={() => setFenyAdvice(null)}
                       onFocus={() => setFenyAdvice(HEALTH_ADVICE_MAP.email)}
                       onBlur={() => setFenyAdvice(null)}
-                      className="w-full bg-fennec-cream/5 border border-fennec-cream/70 rounded-xl px-3 py-2 text-sm text-fennec-dark focus:outline-none focus:border-fennec-tan"
+                      className="w-full bg-fennec-cream/5 border border-fennec-cream/70 rounded-xl px-3 py-2 text-base md:text-sm text-fennec-dark focus:outline-none focus:border-fennec-tan font-medium"
                     />
                   </div>
 
@@ -1078,7 +1078,7 @@ export default function HealthComparator() {
                       onMouseLeave={() => setFenyAdvice(null)}
                       onFocus={() => setFenyAdvice(HEALTH_ADVICE_MAP.phone)}
                       onBlur={() => setFenyAdvice(null)}
-                      className="w-full bg-fennec-cream/5 border border-fennec-cream/70 rounded-xl px-3 py-2 text-sm text-fennec-dark focus:outline-none focus:border-fennec-tan"
+                      className="w-full bg-fennec-cream/5 border border-fennec-cream/70 rounded-xl px-3 py-2 text-base md:text-sm text-fennec-dark focus:outline-none focus:border-fennec-tan font-medium"
                     />
                   </div>
 
@@ -1087,7 +1087,7 @@ export default function HealthComparator() {
                     <select
                       value={formData.timeSlot}
                       onChange={(e) => setFormData(prev => ({...prev, timeSlot: e.target.value}))}
-                      className="w-full bg-white border border-fennec-cream/70 rounded-xl px-3 py-2 text-sm text-fennec-dark focus:outline-none focus:border-fennec-tan font-medium"
+                      className="w-full bg-white border border-fennec-cream/70 rounded-xl px-3 py-2 text-base md:text-sm text-fennec-dark focus:outline-none focus:border-fennec-tan font-medium"
                     >
                       <option value="anytime">N'importe quand (9h00 - 18h00)</option>
                       <option value="morning">Le matin (9h00 - 12h00)</option>

@@ -23,7 +23,7 @@ export default function ProductsGrid({ onTabChange }: ProductsGridProps) {
       badge: "Données officielles 2026",
       badgeColor: "bg-emerald-100 text-emerald-800 border-emerald-200",
       cta: "Comparer les primes",
-      image: "/assets/images/feny_mascot_compare_1783245694484.jpg",
+      image: "/assets/images/feny_mascot_compare_1783278062615.jpg",
     },
     {
       id: 'life-comparator' as AppTab,
@@ -34,7 +34,7 @@ export default function ProductsGrid({ onTabChange }: ProductsGridProps) {
       badge: "Avantage Fiscal Max",
       badgeColor: "bg-blue-100 text-blue-800 border-blue-200",
       cta: "Calculer mon 3ème pilier",
-      image: "/assets/images/feny_mascot_savings_1783245711111.jpg",
+      image: "/assets/images/feny_mascot_savings_1783278076816.jpg",
     },
   ];
 

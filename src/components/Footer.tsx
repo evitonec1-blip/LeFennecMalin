@@ -29,7 +29,7 @@ export default function Footer({ onTabChange }: FooterProps) {
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 rounded-full border border-white/20 overflow-hidden bg-white/10">
                 <img 
-                  src="/assets/images/feny_mascot_avatar_1783245725195.jpg" 
+                  src="/assets/images/feny_mascot_avatar_1783278049191.jpg" 
                   alt="Feny" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"

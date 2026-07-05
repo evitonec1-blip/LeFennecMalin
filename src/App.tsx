@@ -95,7 +95,7 @@ export default function App() {
       <Header currentTab={currentTab} onTabChange={setCurrentTab} />
 
       {/* Main Content Area */}
-      <main ref={contentRef} className="flex-grow">
+      <main ref={contentRef} className={`flex-grow ${(currentTab === 'home' || currentTab === 'about' || currentTab === 'faq') ? 'pb-24 md:pb-0' : ''}`}>
         
         {currentTab === 'home' && (
           <div className="space-y-20 pb-24">
@@ -188,7 +188,7 @@ export default function App() {
                     
                     <div className="relative z-10 w-full max-w-sm aspect-square bg-white rounded-3xl p-4 border border-fennec-cream/60 shadow-lg group hover:scale-101 transition-transform">
                       <img 
-                        src="/assets/images/feny_mascot_compare_1783245694484.jpg" 
+                        src="/assets/images/feny_mascot_compare_1783278062615.jpg" 
                         alt="Feny le Fennec" 
                         className="w-full h-full object-cover rounded-2xl"
                         referrerPolicy="no-referrer"
@@ -323,7 +323,7 @@ export default function App() {
                     {/* Winking fennec avatar stamp top-right */}
                     <div className="absolute top-4 right-4 w-10 h-10 rounded-full overflow-hidden border border-fennec-cream shadow-2xs">
                       <img 
-                        src="/assets/images/feny_mascot_avatar_1783245725195.jpg" 
+                        src="/assets/images/feny_mascot_avatar_1783278049191.jpg" 
                         alt="Feny Avatar" 
                         className="w-full h-full object-cover"
                         referrerPolicy="no-referrer"
@@ -368,7 +368,7 @@ export default function App() {
                 <div className="flex items-center space-x-4">
                   <div className="w-16 h-16 rounded-2xl overflow-hidden shrink-0 border border-white/20">
                     <img 
-                      src="/assets/images/feny_mascot_savings_1783245711111.jpg" 
+                      src="/assets/images/feny_mascot_savings_1783278076816.jpg" 
                       alt="Feny" 
                       className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"
@@ -476,6 +476,32 @@ export default function App() {
 
       {/* Footer Navigation */}
       <Footer onTabChange={setCurrentTab} />
+
+      {/* Sticky Bottom Mobile Bar for phone users */}
+      {(currentTab === 'home' || currentTab === 'about' || currentTab === 'faq') && (
+        <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white/95 backdrop-blur-md border-t border-fennec-cream/50 px-4 py-3 shadow-2xl flex items-center justify-between gap-3 pb-safe-bottom">
+          <button
+            onClick={() => {
+              setCurrentTab('health-comparator');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="flex-1 py-3 px-3.5 bg-fennec-red hover:bg-red-600 text-white font-display font-extrabold text-[11px] rounded-xl flex items-center justify-center space-x-1 shadow-md shadow-fennec-red/20 transition-all active:scale-95"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Assurance Maladie</span>
+          </button>
+          <button
+            onClick={() => {
+              setCurrentTab('life-comparator');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="flex-1 py-3 px-3.5 bg-fennec-dark hover:bg-fennec-terracotta text-white font-display font-extrabold text-[11px] rounded-xl flex items-center justify-center space-x-1 shadow-md shadow-fennec-dark/20 transition-all active:scale-95"
+          >
+            <ArrowUpRight className="w-3.5 h-3.5" />
+            <span>Vie / 3e Pilier</span>
+          </button>
+        </div>
+      )}
 
     </div>
   );
