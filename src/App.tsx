@@ -16,18 +16,46 @@ import FAQSection from './components/FAQSection';
 import LegalSection from './components/LegalSection';
 import HealthComparator from './components/HealthComparator';
 import LifePensionComparator from './components/LifePensionComparator';
+import Preloader from './components/Preloader';
 import { ArrowRight, ShieldCheck, HelpCircle, ArrowUpRight, Scale, Sparkles, CheckCircle } from 'lucide-react';
 import gsap from 'gsap';
 
 export default function App() {
+  const [loading, setLoading] = useState(true);
   const [currentTab, setCurrentTab] = useState<AppTab>('home');
   const [activeVertical, setActiveVertical] = useState<'health' | 'life'>('health');
   
   const contentRef = useRef<HTMLDivElement>(null);
 
+  // Stagger reveal of page content after Preloader finishes
+  useEffect(() => {
+    if (!loading) {
+      const tl = gsap.timeline();
+      
+      // Select header & hero elements
+      gsap.set('.hero-animate', { opacity: 0, y: 35 });
+      gsap.set('header', { yPercent: -100, opacity: 0 });
+      
+      tl.to('header', {
+        yPercent: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power3.out'
+      });
+      
+      tl.to('.hero-animate', {
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+        stagger: 0.12,
+        ease: 'power3.out'
+      }, '-=0.45');
+    }
+  }, [loading]);
+
   // Subtle GSAP fade-in transition when switching tabs or active comparator verticals
   useEffect(() => {
-    if (contentRef.current) {
+    if (!loading && contentRef.current) {
       gsap.killTweensOf(contentRef.current);
       gsap.set(contentRef.current, { opacity: 0, y: 12 });
       gsap.to(contentRef.current, {
@@ -37,7 +65,7 @@ export default function App() {
         ease: 'power2.out',
       });
     }
-  }, [currentTab, activeVertical]);
+  }, [currentTab, activeVertical, loading]);
 
   // Partner logos data
   const dataSources = [
@@ -60,6 +88,9 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#FDFBF9] flex flex-col justify-between font-sans selection:bg-fennec-tan/20">
       
+      {/* GSAP Award-Level Preloader with rolling digits counter */}
+      {loading && <Preloader onComplete={() => setLoading(false)} />}
+
       {/* Header Navigation */}
       <Header currentTab={currentTab} onTabChange={setCurrentTab} />
 
@@ -78,13 +109,13 @@ export default function App() {
                   <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
                     
                     {/* Badge */}
-                    <div className="inline-flex items-center space-x-2 bg-fennec-cream/50 border border-fennec-cream px-3.5 py-1.5 rounded-full text-xs font-bold text-fennec-dark shadow-3xs">
+                    <div className="hero-animate opacity-0 inline-flex items-center space-x-2 bg-fennec-cream/50 border border-fennec-cream px-3.5 py-1.5 rounded-full text-xs font-bold text-fennec-dark shadow-3xs">
                       <span className="w-2 h-2 rounded-full bg-fennec-red animate-pulse" />
                       <span>Comparatifs validés et mis à jour le 5 Juillet 2026</span>
                     </div>
 
                     {/* Headline */}
-                    <h1 className="font-display font-black text-3xl sm:text-4xl md:text-5xl text-fennec-dark leading-tight tracking-tight">
+                    <h1 className="hero-animate opacity-0 font-display font-black text-3xl sm:text-4xl md:text-5xl text-fennec-dark leading-tight tracking-tight">
                       Comparez les assurances en Suisse <br />
                       <span className="text-transparent bg-clip-text bg-gradient-to-r from-fennec-terracotta to-fennec-tan">
                         sans vous faire avoir.
@@ -92,12 +123,12 @@ export default function App() {
                     </h1>
 
                     {/* Subheading */}
-                    <p className="text-base sm:text-lg text-fennec-dark/80 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                    <p className="hero-animate opacity-0 text-base sm:text-lg text-fennec-dark/80 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
                       Données officielles OFSP 2026. Gratuit, 100% indépendant de tout assureur, et conforme à la nLPD suisse. Feny s'occupe de trier pour dénicher les offres les plus adaptées.
                     </p>
 
                     {/* Three Inline Stats Strip */}
-                    <div className="grid grid-cols-3 gap-3 max-w-lg mx-auto lg:mx-0 pt-2">
+                    <div className="hero-animate opacity-0 grid grid-cols-3 gap-3 max-w-lg mx-auto lg:mx-0 pt-2">
                       <div className="bg-white p-3.5 rounded-2xl border border-fennec-cream/40 shadow-2xs text-center">
                         <span className="font-display font-black text-xl md:text-2xl text-fennec-terracotta block">
                           37
@@ -125,7 +156,7 @@ export default function App() {
                     </div>
 
                     {/* Hero Big Tab CTAs */}
-                    <div className="pt-4 space-y-3 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row justify-center lg:justify-start">
+                    <div className="hero-animate opacity-0 pt-4 space-y-3 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row justify-center lg:justify-start">
                       <button
                         onClick={() => handleCtaClick('health')}
                         className={`px-8 py-4 rounded-2xl font-display font-extrabold text-base transition-all duration-300 flex items-center justify-center space-x-2.5 ${
@@ -152,7 +183,7 @@ export default function App() {
                   </div>
 
                   {/* Hero Right Mascot Visual */}
-                  <div className="lg:col-span-5 flex justify-center relative">
+                  <div className="hero-animate opacity-0 lg:col-span-5 flex justify-center relative">
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-fennec-cream/30 rounded-full blur-3xl z-0" />
                     
                     <div className="relative z-10 w-full max-w-sm aspect-square bg-white rounded-3xl p-4 border border-fennec-cream/60 shadow-lg group hover:scale-101 transition-transform">
