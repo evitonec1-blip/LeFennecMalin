@@ -1,0 +1,202 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import React from 'react';
+import { AppTab } from '../types';
+import { ArrowRight, Sparkles, Activity, Shield, Car, Home, Key, Scale } from 'lucide-react';
+import gsap from 'gsap';
+
+interface ProductsGridProps {
+  onTabChange: (tab: AppTab) => void;
+}
+
+export default function ProductsGrid({ onTabChange }: ProductsGridProps) {
+  const activeProducts = [
+    {
+      id: 'health-comparator' as AppTab,
+      icon: <Activity className="w-8 h-8 text-fennec-terracotta" />,
+      title: "Assurance Maladie (LAMal)",
+      tagline: "Économisez jusqu'à CHF 2'400.- par an",
+      desc: "Comparez les primes 2026 de l'ensemble des caisses-maladie agréées par l'OFSP. Choisissez le modèle médecin de famille, HMO ou Telmed le plus avantageux pour votre canton.",
+      badge: "Données officielles 2026",
+      badgeColor: "bg-emerald-100 text-emerald-800 border-emerald-200",
+      cta: "Comparer les primes",
+      image: "/src/assets/images/feny_mascot_compare_1783245694484.jpg",
+    },
+    {
+      id: 'life-comparator' as AppTab,
+      icon: <Shield className="w-8 h-8 text-fennec-tan" />,
+      title: "Prévoyance & 3e Pilier",
+      tagline: "Épargnez et réduisez vos impôts",
+      desc: "Découvrez les meilleurs rendements et garanties de capital de prévoyance liée 3a et libre 3b en Suisse. Obtenez une projection fiscale gratuite selon votre salaire.",
+      badge: "Avantage Fiscal Max",
+      badgeColor: "bg-blue-100 text-blue-800 border-blue-200",
+      cta: "Calculer mon 3ème pilier",
+      image: "/src/assets/images/feny_mascot_savings_1783245711111.jpg",
+    },
+  ];
+
+  const upcomingProducts = [
+    {
+      icon: <Car className="w-6 h-6 text-fennec-brown" />,
+      title: "Assurance Auto",
+      desc: "Les meilleures couvertures responsabilité civile, casco partielle et casco complète adaptées à votre véhicule.",
+    },
+    {
+      icon: <Home className="w-6 h-6 text-fennec-brown" />,
+      title: "Ménage & RC Privée",
+      desc: "Protégez vos biens mobiliers et prémunissez-vous contre les dommages causés aux tiers au meilleur prix.",
+    },
+    {
+      icon: <Key className="w-6 h-6 text-fennec-brown" />,
+      title: "Hypothèque Suisse",
+      desc: "Trouvez le taux fixe ou Saron le plus bas auprès de nos banques et fonds de pension partenaires.",
+    },
+    {
+      icon: <Scale className="w-6 h-6 text-fennec-brown" />,
+      title: "Protection Juridique",
+      desc: "Bénéficiez d'une assistance légale optimale en matière de litiges privés, professionnels ou de circulation.",
+    },
+  ];
+
+  const handleProductClick = (tab: AppTab) => {
+    onTabChange(tab);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  return (
+    <div className="w-full">
+      <div className="text-center mb-12">
+        <span className="text-[11px] font-bold tracking-widest text-fennec-terracotta uppercase block mb-1">
+          Gamme de Comparaison
+        </span>
+        <h2 className="font-display font-extrabold text-3xl text-fennec-dark">
+          Découvrez tous les comparateurs de Feny
+        </h2>
+        <p className="mt-2 text-base text-fennec-dark/70 max-w-xl mx-auto">
+          Des outils malins conçus pour simplifier la finance et les assurances suisses.
+        </p>
+      </div>
+
+      {/* Active Products Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        {activeProducts.map((p) => (
+          <div 
+            key={p.id}
+            onClick={() => handleProductClick(p.id)}
+            onMouseEnter={(e) => {
+              gsap.to(e.currentTarget, {
+                scale: 1.02,
+                y: -6,
+                boxShadow: "0 20px 25px -5px rgba(184, 115, 51, 0.12), 0 10px 10px -6px rgba(184, 115, 51, 0.12)",
+                borderColor: "#D2B48C",
+                duration: 0.35,
+                ease: "power2.out"
+              });
+            }}
+            onMouseLeave={(e) => {
+              gsap.to(e.currentTarget, {
+                scale: 1,
+                y: 0,
+                boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.05)",
+                borderColor: "#ECE1D4",
+                duration: 0.35,
+                ease: "power2.out"
+              });
+            }}
+            className="bg-white rounded-3xl border border-fennec-cream overflow-hidden shadow-sm flex flex-col justify-between group cursor-pointer"
+          >
+            <div className="p-8">
+              <div className="flex justify-between items-start mb-6">
+                <div>{p.icon}</div>
+                <span className={`text-xs font-bold px-3 py-1 rounded-full border ${p.badgeColor}`}>
+                  {p.badge}
+                </span>
+              </div>
+              <h3 className="font-display font-bold text-2xl text-fennec-dark mb-1 group-hover:text-fennec-terracotta transition-colors">
+                {p.title}
+              </h3>
+              <p className="text-sm font-bold text-fennec-terracotta mb-4">
+                {p.tagline}
+              </p>
+              <p className="text-sm text-fennec-dark/75 leading-relaxed">
+                {p.desc}
+              </p>
+            </div>
+
+            {/* Bottom visual section with CTA */}
+            <div className="px-8 pb-8 pt-0 flex items-center justify-between mt-auto border-t border-fennec-cream/20 bg-fennec-cream/5">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 rounded-full border border-fennec-cream overflow-hidden">
+                  <img src={p.image} alt="Feny Icon" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                </div>
+                <span className="text-xs font-semibold text-fennec-brown">Feny compare pour vous</span>
+              </div>
+              <button 
+                onClick={() => handleProductClick(p.id)}
+                className="inline-flex items-center px-5 py-2.5 bg-fennec-terracotta hover:bg-fennec-dark text-white font-display font-bold text-sm rounded-full transition-all group-hover:shadow-md"
+              >
+                <span>{p.cta}</span>
+                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Upcoming Products Section */}
+      <div className="bg-fennec-cream/10 border border-fennec-cream/30 rounded-3xl p-8">
+        <h4 className="font-display font-bold text-lg text-fennec-dark mb-6 flex items-center">
+          <Sparkles className="w-5 h-5 text-fennec-tan mr-2" />
+          Prochainement disponibles (Courant 2026)
+        </h4>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {upcomingProducts.map((p, idx) => (
+            <div 
+              key={idx}
+              onMouseEnter={(e) => {
+                gsap.to(e.currentTarget, {
+                  scale: 1.03,
+                  y: -4,
+                  boxShadow: "0 12px 20px -5px rgba(0, 0, 0, 0.04)",
+                  borderColor: "#D2B48C",
+                  duration: 0.3,
+                  ease: "power2.out"
+                });
+              }}
+              onMouseLeave={(e) => {
+                gsap.to(e.currentTarget, {
+                  scale: 1,
+                  y: 0,
+                  boxShadow: "none",
+                  borderColor: "rgba(236, 225, 212, 0.4)",
+                  duration: 0.3,
+                  ease: "power2.out"
+                });
+              }}
+              className="bg-white/60 p-5 rounded-2xl border border-fennec-cream/40 flex flex-col justify-between transition-all cursor-default"
+            >
+              <div>
+                <div className="mb-3 block">{p.icon}</div>
+                <h5 className="font-display font-bold text-base text-fennec-dark mb-1">
+                  {p.title}
+                </h5>
+                <p className="text-xs text-fennec-dark/70 leading-relaxed">
+                  {p.desc}
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-fennec-cream/10 flex justify-between items-center">
+                <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider">
+                  Bientôt
+                </span>
+                <span className="w-2 h-2 rounded-full bg-fennec-tan animate-pulse" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}

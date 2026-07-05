@@ -1,0 +1,271 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import React from 'react';
+
+interface CompanyLogoProps {
+  id: string;
+  className?: string;
+}
+
+export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogoProps) {
+  const normId = id.toLowerCase();
+
+  // Render individual SVG shapes matching the corporate visual identity of Swiss companies
+  switch (normId) {
+    // --- CAISSES MALADIE (Health Insurance) ---
+    case 'assura':
+      return (
+        <div className={`${className} bg-[#E2001A] rounded-2xl flex flex-col items-center justify-center p-2 text-white shadow-2xs`}>
+          <svg viewBox="0 0 100 100" className="w-10 h-10" fill="currentColor">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="white" strokeWidth="6" />
+            <path d="M40 65 V45 C40 38 48 35 55 42 V65 M55 52 C48 56 40 56 40 52" stroke="white" strokeWidth="6" fill="none" strokeLinecap="round" />
+          </svg>
+          <span className="text-[9px] font-black tracking-wider leading-none mt-1 font-display">ASSURA</span>
+        </div>
+      );
+
+    case 'css':
+      return (
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-2 shadow-2xs`}>
+          <div className="flex space-x-0.5 items-end justify-center">
+            {/* Orange and Cyan overlapping arcs */}
+            <svg viewBox="0 0 60 40" className="w-10 h-6">
+              <path d="M 10,20 A 12,12 0 1,1 34,20" stroke="#FF5F00" strokeWidth="6" fill="none" />
+              <path d="M 26,20 A 12,12 0 1,1 50,20" stroke="#009EE0" strokeWidth="6" fill="none" />
+            </svg>
+          </div>
+          <span className="text-[10px] font-black text-[#0B2545] leading-none mt-1 font-display">CSS</span>
+        </div>
+      );
+
+    case 'helsana':
+      return (
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-2 shadow-2xs`}>
+          <svg viewBox="0 0 100 60" className="w-12 h-8">
+            <path d="M 15,30 Q 30,10 50,30 T 85,30" stroke="#009639" strokeWidth="8" fill="none" strokeLinecap="round" />
+            <circle cx="50" cy="22" r="7" fill="#E20074" />
+          </svg>
+          <span className="text-[9px] font-bold text-[#009639] tracking-tight leading-none font-sans">Helsana</span>
+        </div>
+      );
+
+    case 'swica':
+      return (
+        <div className={`${className} bg-[#004B87] rounded-2xl flex flex-col items-center justify-center p-2 text-white shadow-2xs`}>
+          <svg viewBox="0 0 100 80" className="w-10 h-8" fill="none">
+            {/* Red and Green cross/leaf symbol */}
+            <rect x="35" y="10" width="16" height="40" rx="3" fill="#E2001A" />
+            <rect x="23" y="22" width="40" height="16" rx="3" fill="#E2001A" />
+            <path d="M 50,25 Q 70,25 75,45 T 50,65" stroke="#78BE20" strokeWidth="7" strokeLinecap="round" />
+          </svg>
+          <span className="text-[9px] font-black tracking-widest leading-none mt-1">SWICA</span>
+        </div>
+      );
+
+    case 'visana':
+      return (
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-2 shadow-2xs`}>
+          <div className="flex items-center space-x-1">
+            <svg viewBox="0 0 40 40" className="w-6 h-6">
+              <path d="M 5,30 L 20,10 L 35,30" stroke="#003366" strokeWidth="5" fill="none" />
+              <circle cx="20" cy="22" r="5" fill="#E2001A" />
+            </svg>
+            <span className="text-xs font-black text-[#003366] font-display">VISANA</span>
+          </div>
+        </div>
+      );
+
+    case 'sanitas':
+      return (
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-2 shadow-2xs`}>
+          <svg viewBox="0 0 100 40" className="w-12 h-5">
+            <rect x="5" y="10" width="16" height="16" rx="2" fill="#E2001A" />
+            <path d="M 13,13 V 23 M 9,18 H 17" stroke="white" strokeWidth="3" />
+            <text x="28" y="24" fill="#002F6C" className="text-[14px] font-black" fontFamily="sans-serif">Sanitas</text>
+          </svg>
+        </div>
+      );
+
+    case 'concordia':
+      return (
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-2 shadow-2xs`}>
+          <svg viewBox="0 0 100 50" className="w-12 h-6" fill="none">
+            <path d="M 20,10 Q 50,15 80,10 L 80,30 Q 50,45 20,30 Z" fill="#0072C6" />
+            <path d="M 35,15 Q 50,18 65,15 L 65,25 Q 50,35 35,25 Z" fill="#78BE20" />
+          </svg>
+          <span className="text-[8px] font-black text-[#0072C6] tracking-tight mt-0.5">CONCORDIA</span>
+        </div>
+      );
+
+    case 'kpt':
+    case 'cpt':
+      return (
+        <div className={`${className} bg-[#00549F] rounded-2xl flex flex-col items-center justify-center p-1 text-white shadow-2xs`}>
+          <div className="flex space-x-1 items-center">
+            <span className="text-sm font-black font-display tracking-tighter">KPT</span>
+            <div className="flex flex-col space-y-0.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FFD100]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-white" />
+            </div>
+          </div>
+        </div>
+      );
+
+    case 'mutuel':
+    case 'groupe mutuel':
+      return (
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-2 shadow-2xs`}>
+          <div className="flex flex-col items-center justify-center">
+            <svg viewBox="0 0 80 35" className="w-12 h-6">
+              <rect x="5" y="5" width="30" height="25" fill="#003865" rx="3" />
+              <rect x="40" y="5" width="30" height="25" fill="#E87722" rx="3" />
+              <text x="12" y="22" fill="white" className="text-[12px] font-bold">G</text>
+              <text x="47" y="22" fill="white" className="text-[12px] font-bold">M</text>
+            </svg>
+            <span className="text-[7px] font-bold text-[#003865] uppercase tracking-wider leading-none mt-1">Groupe Mutuel</span>
+          </div>
+        </div>
+      );
+
+    case 'okk':
+    case 'ökk':
+      return (
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-2 shadow-2xs`}>
+          <div className="flex items-center space-x-1">
+            <div className="w-4 h-4 rounded-full bg-[#F26A36] flex items-center justify-center text-white text-[9px] font-bold">ö</div>
+            <span className="text-xs font-black text-[#4A4A4A] font-display">ÖKK</span>
+          </div>
+        </div>
+      );
+
+    case 'sympany':
+      return (
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-2 shadow-2xs`}>
+          <svg viewBox="0 0 100 45" className="w-12 h-6" fill="none">
+            {/* Orange and grey star icon style */}
+            <path d="M 20,22 L 35,10 L 50,22 L 35,34 Z" fill="#F05A28" />
+            <circle cx="35" cy="22" r="5" fill="#FFFFFF" />
+            <text x="58" y="28" fill="#4A4A4A" className="text-[14px] font-black" fontFamily="sans-serif">S</text>
+          </svg>
+          <span className="text-[8px] font-black text-[#F05A28] leading-none">Sympany</span>
+        </div>
+      );
+
+    case 'atupri':
+      return (
+        <div className={`${className} bg-[#231F20] rounded-2xl flex flex-col items-center justify-center p-2 text-white shadow-2xs`}>
+          <span className="text-[11px] font-black tracking-widest text-[#E30613] font-display">atupri</span>
+          <span className="text-[7px] font-bold tracking-widest text-white uppercase leading-none mt-0.5">Assurance</span>
+        </div>
+      );
+
+    // --- ASSUREURS VIE (Life Insurance) ---
+    case 'swisslife':
+    case 'swiss life':
+      return (
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-1 shadow-2xs`}>
+          <div className="bg-[#E2001A] w-full py-0.5 px-1 rounded-t-lg text-center">
+            <span className="text-[6px] font-black text-white tracking-widest">SWISS</span>
+          </div>
+          <div className="py-1 px-2 text-center">
+            <span className="text-xs font-black text-[#231F20] font-display leading-none">Swiss Life</span>
+          </div>
+        </div>
+      );
+
+    case 'axa':
+    case 'axa prevoyance':
+      return (
+        <div className={`${className} bg-[#00008F] rounded-2xl flex flex-col items-center justify-center p-2 text-white shadow-2xs relative overflow-hidden`}>
+          <div className="absolute top-0 right-0 w-4 h-4 bg-[#E2001A] transform rotate-45 translate-x-2 -translate-y-2" />
+          <span className="text-base font-black tracking-tighter leading-none font-display">AXA</span>
+        </div>
+      );
+
+    case 'zurich':
+    case 'zurich assurance':
+      return (
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-2 shadow-2xs`}>
+          <svg viewBox="0 0 50 50" className="w-8 h-8">
+            <circle cx="25" cy="25" r="20" fill="#003399" />
+            <path d="M 16,16 H 34 L 16,34 H 34" stroke="white" strokeWidth="4" fill="none" strokeLinejoin="miter" />
+          </svg>
+          <span className="text-[8px] font-bold text-[#003399] tracking-tight leading-none mt-1">ZURICH</span>
+        </div>
+      );
+
+    case 'helvetia':
+      return (
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-2 shadow-2xs`}>
+          <svg viewBox="0 0 100 45" className="w-12 h-6" fill="none">
+            {/* Helvetia red triangle symbol */}
+            <polygon points="10,35 30,10 50,35" fill="#E2001A" />
+            <text x="55" y="28" fill="#1C1C1C" className="text-[12px] font-black" fontFamily="sans-serif">helvetia</text>
+          </svg>
+        </div>
+      );
+
+    case 'allianz':
+    case 'allianz suisse':
+      return (
+        <div className={`${className} bg-[#00377C] rounded-2xl flex flex-col items-center justify-center p-2 text-white shadow-2xs`}>
+          <svg viewBox="0 0 40 40" className="w-6 h-6">
+            <circle cx="20" cy="20" r="16" fill="none" stroke="white" strokeWidth="3.5" />
+            <line x1="15" y1="12" x2="15" y2="28" stroke="white" strokeWidth="3" strokeLinecap="round" />
+            <line x1="20" y1="11" x2="20" y2="29" stroke="white" strokeWidth="3.5" strokeLinecap="round" />
+            <line x1="25" y1="12" x2="25" y2="28" stroke="white" strokeWidth="3" strokeLinecap="round" />
+          </svg>
+          <span className="text-[8px] font-black tracking-wider leading-none mt-1">Allianz</span>
+        </div>
+      );
+
+    case 'generali':
+    case 'generali suisse':
+      return (
+        <div className={`${className} bg-[#B81D24] rounded-2xl flex flex-col items-center justify-center p-1 text-white shadow-2xs`}>
+          <span className="text-[8px] font-bold tracking-widest text-center border-b border-white/20 pb-0.5 w-full">GENERALI</span>
+          {/* Stylized Lion outline */}
+          <svg viewBox="0 0 40 20" className="w-8 h-4 mt-0.5" fill="currentColor">
+            <path d="M 5,15 Q 12,8 20,15 T 35,15 L 35,18 H 5 Z" />
+            <circle cx="10" cy="10" r="3" />
+          </svg>
+        </div>
+      );
+
+    case 'mobiliere':
+    case 'la mobiliere':
+    case 'la mobilière':
+      return (
+        <div className={`${className} bg-[#E2001A] rounded-2xl flex flex-col items-center justify-center p-2 text-white shadow-2xs`}>
+          <span className="text-[10px] font-black leading-none uppercase tracking-widest">mobilière</span>
+          <span className="text-[6px] font-bold tracking-wider leading-none mt-0.5 opacity-80">La Garantie</span>
+        </div>
+      );
+
+    case 'baloise':
+    case 'baloise assurances':
+      return (
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-2 shadow-2xs`}>
+          <div className="flex items-center space-x-1">
+            {/* Baloise blue and yellow shapes */}
+            <svg viewBox="0 0 30 30" className="w-6 h-6">
+              <polygon points="5,5 25,5 15,25" fill="#002D62" />
+              <polygon points="12,12 28,12 20,28" fill="#FFC72C" opacity="0.85" />
+            </svg>
+            <span className="text-[10px] font-black text-[#002D62] font-display">Baloise</span>
+          </div>
+        </div>
+      );
+
+    default:
+      // Fallback elegant styled badge
+      return (
+        <div className={`${className} rounded-2xl bg-fennec-cream/15 border border-fennec-cream/60 flex items-center justify-center font-display font-black text-lg text-fennec-dark shadow-2xs shrink-0`}>
+          {id.slice(0, 3).toUpperCase()}
+        </div>
+      );
+  }
+}

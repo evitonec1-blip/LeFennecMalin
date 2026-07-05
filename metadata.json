@@ -1,0 +1,6 @@
+{
+  "name": "Le Fennec Malin",
+  "description": "Comparateur suisse d'assurances (maladie, vie, 3ème pilier) avec Feny le fennec.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
