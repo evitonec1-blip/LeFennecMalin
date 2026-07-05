@@ -13,28 +13,28 @@ export default function HowItWorks() {
       title: "Choisissez",
       desc: "Sélectionnez l'assurance maladie ou la prévoyance 3ème Pilier.",
       icon: <CheckSquare className="w-6 h-6 text-fennec-dark" />,
-      avatar: "/src/assets/images/feny_mascot_avatar_1783245725195.jpg"
+      avatar: "/assets/images/feny_mascot_avatar_1783245725195.jpg"
     },
     {
       num: "2",
       title: "Remplissez",
       desc: "Indiquez votre canton et profil en 30 secondes chrono.",
       icon: <FileText className="w-6 h-6 text-fennec-dark" />,
-      avatar: "/src/assets/images/feny_mascot_avatar_1783245725195.jpg"
+      avatar: "/assets/images/feny_mascot_avatar_1783245725195.jpg"
     },
     {
       num: "3",
       title: "Comparez",
       desc: "Découvrez la liste transparente des offres classées par prix ou avis.",
       icon: <BarChart3 className="w-6 h-6 text-fennec-dark" />,
-      avatar: "/src/assets/images/feny_mascot_compare_1783245694484.jpg"
+      avatar: "/assets/images/feny_mascot_compare_1783245694484.jpg"
     },
     {
       num: "4",
       title: "Économisez",
       desc: "Épargnez jusqu'à CHF 2'400/an sans frais d'intermédiaires !",
       icon: <TrendingDown className="w-6 h-6 text-white" />,
-      avatar: "/src/assets/images/feny_mascot_savings_1783245711111.jpg"
+      avatar: "/assets/images/feny_mascot_savings_1783245711111.jpg"
     }
   ];
 

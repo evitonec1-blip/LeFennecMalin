@@ -634,7 +634,7 @@ export default function HealthComparator() {
               <div className="bg-fennec-cream/20 border border-fennec-cream/70 rounded-2xl p-4 flex items-start space-x-3 text-left animate-in fade-in slide-in-from-bottom-2 duration-200">
                 <div className="w-8 h-8 rounded-full overflow-hidden border border-white shrink-0 bg-white shadow-2xs">
                   <img 
-                    src="/src/assets/images/feny_mascot_avatar_1783245725195.jpg" 
+                    src="/assets/images/feny_mascot_avatar_1783245725195.jpg" 
                     alt="Feny" 
                     className="w-full h-full object-cover"
                   />
@@ -984,7 +984,7 @@ export default function HealthComparator() {
             <div className="bg-fennec-cream/30 p-6 flex items-center space-x-4 border-b border-fennec-cream/40">
               <div className="w-16 h-16 rounded-full border-2 border-white overflow-hidden shadow-sm shrink-0 bg-white">
                 <img 
-                  src="/src/assets/images/feny_mascot_avatar_1783245725195.jpg" 
+                  src="/assets/images/feny_mascot_avatar_1783245725195.jpg" 
                   alt="Feny" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"

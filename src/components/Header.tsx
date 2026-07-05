@@ -40,7 +40,7 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
           >
             <div className="relative w-12 h-12 rounded-full border-2 border-fennec-tan overflow-hidden shadow-sm group-hover:scale-105 transition-transform duration-300">
               <img 
-                src="/src/assets/images/feny_mascot_avatar_1783245725195.jpg" 
+                src="/assets/images/feny_mascot_avatar_1783245725195.jpg" 
                 alt="Feny Avatar" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"

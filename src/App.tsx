@@ -188,7 +188,7 @@ export default function App() {
                     
                     <div className="relative z-10 w-full max-w-sm aspect-square bg-white rounded-3xl p-4 border border-fennec-cream/60 shadow-lg group hover:scale-101 transition-transform">
                       <img 
-                        src="/src/assets/images/feny_mascot_compare_1783245694484.jpg" 
+                        src="/assets/images/feny_mascot_compare_1783245694484.jpg" 
                         alt="Feny le Fennec" 
                         className="w-full h-full object-cover rounded-2xl"
                         referrerPolicy="no-referrer"
@@ -323,7 +323,7 @@ export default function App() {
                     {/* Winking fennec avatar stamp top-right */}
                     <div className="absolute top-4 right-4 w-10 h-10 rounded-full overflow-hidden border border-fennec-cream shadow-2xs">
                       <img 
-                        src="/src/assets/images/feny_mascot_avatar_1783245725195.jpg" 
+                        src="/assets/images/feny_mascot_avatar_1783245725195.jpg" 
                         alt="Feny Avatar" 
                         className="w-full h-full object-cover"
                         referrerPolicy="no-referrer"
@@ -368,7 +368,7 @@ export default function App() {
                 <div className="flex items-center space-x-4">
                   <div className="w-16 h-16 rounded-2xl overflow-hidden shrink-0 border border-white/20">
                     <img 
-                      src="/src/assets/images/feny_mascot_savings_1783245711111.jpg" 
+                      src="/assets/images/feny_mascot_savings_1783245711111.jpg" 
                       alt="Feny" 
                       className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"

@@ -14,7 +14,7 @@ export default function AboutSection() {
       <div className="bg-fennec-cream/20 border border-fennec-cream/50 rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 shadow-sm">
         <div className="w-48 h-48 md:w-56 md:h-56 rounded-full border-4 border-white shadow-lg overflow-hidden shrink-0">
           <img 
-            src="/src/assets/images/feny_mascot_avatar_1783245725195.jpg" 
+            src="/assets/images/feny_mascot_avatar_1783245725195.jpg" 
             alt="Feny le Fennec" 
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
