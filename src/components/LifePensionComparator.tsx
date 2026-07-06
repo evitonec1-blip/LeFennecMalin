@@ -6,6 +6,7 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { ASSUREURS_VIE, getLifeInsuranceEstimate } from '../data';
 import { LifeFilterState, AssureurVie } from '../types';
+import fenyWinking from '../assets/images/feny_winking_1783331270164.jpg';
 import { 
   Shield, 
   PiggyBank, 
@@ -215,6 +216,7 @@ export default function LifePensionComparator() {
     setSelectedAssureur(assureur);
     setFormSubmitted(false);
     setFormError(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleCloseForm = () => {
@@ -222,13 +224,36 @@ export default function LifePensionComparator() {
     setFormError(null);
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
       setFormError("Veuillez remplir tous les champs obligatoires.");
       return;
     }
     setFormError(null);
+    
+    try {
+      await fetch('/api/submit-lead', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'life_pension',
+          lead: formData,
+          details: {
+            monthlyAmount,
+            duration,
+            pillarType: filters.type,
+            currentPillar: "Non spécifié"
+          },
+          assureur: selectedAssureur
+        })
+      });
+    } catch (err) {
+      console.error("[SubmitError]", err);
+    }
+
     setFormSubmitted(true);
   };
 
@@ -325,8 +350,6 @@ export default function LifePensionComparator() {
                     exit={{ opacity: 0, x: -15 }}
                     transition={{ duration: 0.2 }}
                     className="space-y-6"
-                    onMouseEnter={() => setFenyAdvice(LIFE_ADVICE_MAP.type)}
-                    onMouseLeave={() => setFenyAdvice(null)}
                   >
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2 text-fennec-terracotta">
@@ -386,8 +409,6 @@ export default function LifePensionComparator() {
                     exit={{ opacity: 0, x: -15 }}
                     transition={{ duration: 0.2 }}
                     className="space-y-6"
-                    onMouseEnter={() => setFenyAdvice(LIFE_ADVICE_MAP.monthlyAmount)}
-                    onMouseLeave={() => setFenyAdvice(null)}
                   >
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2 text-fennec-terracotta">
@@ -457,8 +478,6 @@ export default function LifePensionComparator() {
                     exit={{ opacity: 0, x: -15 }}
                     transition={{ duration: 0.2 }}
                     className="space-y-6"
-                    onMouseEnter={() => setFenyAdvice(LIFE_ADVICE_MAP.duration)}
-                    onMouseLeave={() => setFenyAdvice(null)}
                   >
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2 text-fennec-terracotta">
@@ -528,8 +547,6 @@ export default function LifePensionComparator() {
                     exit={{ opacity: 0, x: -15 }}
                     transition={{ duration: 0.2 }}
                     className="space-y-6"
-                    onMouseEnter={() => setFenyAdvice(LIFE_ADVICE_MAP.profile)}
-                    onMouseLeave={() => setFenyAdvice(null)}
                   >
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2 text-fennec-terracotta">
@@ -590,8 +607,6 @@ export default function LifePensionComparator() {
                     exit={{ opacity: 0, x: -15 }}
                     transition={{ duration: 0.2 }}
                     className="space-y-6"
-                    onMouseEnter={() => setFenyAdvice(LIFE_ADVICE_MAP.priority)}
-                    onMouseLeave={() => setFenyAdvice(null)}
                   >
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2 text-fennec-terracotta">
@@ -651,7 +666,7 @@ export default function LifePensionComparator() {
               <div className="bg-fennec-cream/20 border border-fennec-cream/70 rounded-2xl p-4 flex items-start space-x-3 text-left animate-in fade-in slide-in-from-bottom-2 duration-200">
                 <div className="w-8 h-8 rounded-full overflow-hidden border border-white shrink-0 bg-white shadow-2xs">
                   <img 
-                    src="/assets/images/feny_mascot_avatar_1783278049191.jpg" 
+                    src={fenyWinking} 
                     alt="Feny" 
                     className="w-full h-full object-cover"
                   />
@@ -990,7 +1005,7 @@ export default function LifePensionComparator() {
       /*      MODAL WINDOW FOR LIFE DEMAND          */
       /* ========================================== */
       {selectedAssureur && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-start justify-center p-4 pt-10 md:pt-20 bg-black/60 backdrop-blur-xs overflow-y-auto">
           <div className="bg-white rounded-3xl max-w-lg w-full max-h-[calc(100vh-2rem)] flex flex-col overflow-hidden shadow-2xl border border-fennec-cream relative animate-in fade-in zoom-in duration-200">
             
             {/* Close button */}
@@ -1005,7 +1020,7 @@ export default function LifePensionComparator() {
             <div className="bg-fennec-cream/30 p-6 flex items-center space-x-4 border-b border-fennec-cream/40">
               <div className="w-16 h-16 rounded-full border-2 border-white overflow-hidden shadow-sm shrink-0 bg-white">
                 <img 
-                  src="/assets/images/feny_mascot_avatar_1783278049191.jpg" 
+                  src={fenyWinking} 
                   alt="Feny" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"

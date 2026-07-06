@@ -7,6 +7,8 @@ import React from 'react';
 import { AppTab } from '../types';
 import { ArrowRight, Sparkles, Activity, Shield, Car, Home, Key, Scale } from 'lucide-react';
 import gsap from 'gsap';
+import fenyAnalyse from '../assets/images/feny_analyse_1783331235825.jpg';
+import fenyResults from '../assets/images/feny_results_1783331258491.jpg';
 
 interface ProductsGridProps {
   onTabChange: (tab: AppTab) => void;
@@ -23,7 +25,7 @@ export default function ProductsGrid({ onTabChange }: ProductsGridProps) {
       badge: "Données officielles 2026",
       badgeColor: "bg-emerald-100 text-emerald-800 border-emerald-200",
       cta: "Comparer les primes",
-      image: "/assets/images/feny_mascot_compare_1783278062615.jpg",
+      image: fenyAnalyse,
     },
     {
       id: 'life-comparator' as AppTab,
@@ -34,7 +36,7 @@ export default function ProductsGrid({ onTabChange }: ProductsGridProps) {
       badge: "Avantage Fiscal Max",
       badgeColor: "bg-blue-100 text-blue-800 border-blue-200",
       cta: "Calculer mon 3ème pilier",
-      image: "/assets/images/feny_mascot_savings_1783278076816.jpg",
+      image: fenyResults,
     },
   ];
 

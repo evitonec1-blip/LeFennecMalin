@@ -5,6 +5,10 @@
 
 import React from 'react';
 import { ArrowRight, FileText, CheckSquare, BarChart3, TrendingDown } from 'lucide-react';
+import fenyThinking from '../assets/images/feny_thinking_1783331247759.jpg';
+import fenyAnalyse from '../assets/images/feny_analyse_1783331235825.jpg';
+import fenyAvatar from '../assets/images/feny_avatar_1783331224698.jpg';
+import fenyResults from '../assets/images/feny_results_1783331258491.jpg';
 
 export default function HowItWorks() {
   const steps = [
@@ -13,28 +17,28 @@ export default function HowItWorks() {
       title: "Choisissez",
       desc: "Sélectionnez l'assurance maladie ou la prévoyance 3ème Pilier.",
       icon: <CheckSquare className="w-6 h-6 text-fennec-dark" />,
-      avatar: "/assets/images/feny_mascot_avatar_1783278049191.jpg"
+      avatar: fenyThinking
     },
     {
       num: "2",
       title: "Remplissez",
       desc: "Indiquez votre canton et profil en 30 secondes chrono.",
       icon: <FileText className="w-6 h-6 text-fennec-dark" />,
-      avatar: "/assets/images/feny_mascot_avatar_1783278049191.jpg"
+      avatar: fenyAnalyse
     },
     {
       num: "3",
       title: "Comparez",
       desc: "Découvrez la liste transparente des offres classées par prix ou avis.",
       icon: <BarChart3 className="w-6 h-6 text-fennec-dark" />,
-      avatar: "/assets/images/feny_mascot_compare_1783278062615.jpg"
+      avatar: fenyAvatar
     },
     {
       num: "4",
       title: "Économisez",
       desc: "Épargnez jusqu'à CHF 2'400/an sans frais d'intermédiaires !",
       icon: <TrendingDown className="w-6 h-6 text-white" />,
-      avatar: "/assets/images/feny_mascot_savings_1783278076816.jpg"
+      avatar: fenyResults
     }
   ];
 

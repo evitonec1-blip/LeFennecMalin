@@ -20,6 +20,10 @@ import Preloader from './components/Preloader';
 import { ArrowRight, ShieldCheck, HelpCircle, ArrowUpRight, Scale, Sparkles, CheckCircle } from 'lucide-react';
 import gsap from 'gsap';
 
+import fenyAnalyse from './assets/images/feny_analyse_1783331235825.jpg';
+import fenyWinking from './assets/images/feny_winking_1783331270164.jpg';
+import fenyResults from './assets/images/feny_results_1783331258491.jpg';
+
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [currentTab, setCurrentTab] = useState<AppTab>('home');
@@ -188,7 +192,7 @@ export default function App() {
                     
                     <div className="relative z-10 w-full max-w-sm aspect-square bg-white rounded-3xl p-4 border border-fennec-cream/60 shadow-lg group hover:scale-101 transition-transform">
                       <img 
-                        src="/assets/images/feny_mascot_compare_1783278062615.jpg" 
+                        src={fenyAnalyse} 
                         alt="Feny le Fennec" 
                         className="w-full h-full object-cover rounded-2xl"
                         referrerPolicy="no-referrer"
@@ -323,7 +327,7 @@ export default function App() {
                     {/* Winking fennec avatar stamp top-right */}
                     <div className="absolute top-4 right-4 w-10 h-10 rounded-full overflow-hidden border border-fennec-cream shadow-2xs">
                       <img 
-                        src="/assets/images/feny_mascot_avatar_1783278049191.jpg" 
+                        src={fenyWinking} 
                         alt="Feny Avatar" 
                         className="w-full h-full object-cover"
                         referrerPolicy="no-referrer"
@@ -368,7 +372,7 @@ export default function App() {
                 <div className="flex items-center space-x-4">
                   <div className="w-16 h-16 rounded-2xl overflow-hidden shrink-0 border border-white/20">
                     <img 
-                      src="/assets/images/feny_mascot_savings_1783278076816.jpg" 
+                      src={fenyResults} 
                       alt="Feny" 
                       className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"

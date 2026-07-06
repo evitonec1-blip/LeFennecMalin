@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import { AppTab } from '../types';
 import { Menu, X, Shield, Award, HelpCircle } from 'lucide-react';
+import fenyWinking from '../assets/images/feny_winking_1783331270164.jpg';
 
 interface HeaderProps {
   currentTab: AppTab;
@@ -40,7 +41,7 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
           >
             <div className="relative w-12 h-12 rounded-full border-2 border-fennec-tan overflow-hidden shadow-sm group-hover:scale-105 transition-transform duration-300">
               <img 
-                src="/assets/images/feny_mascot_avatar_1783278049191.jpg" 
+                src={fenyWinking} 
                 alt="Feny Avatar" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"

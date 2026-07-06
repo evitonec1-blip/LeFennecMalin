@@ -6,6 +6,7 @@
 import React from 'react';
 import { AppTab } from '../types';
 import { Shield, ExternalLink, Heart, Mail, Phone, Info } from 'lucide-react';
+import fenyAvatar from '../assets/images/feny_avatar_1783331224698.jpg';
 
 interface FooterProps {
   onTabChange: (tab: AppTab) => void;
@@ -29,7 +30,7 @@ export default function Footer({ onTabChange }: FooterProps) {
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 rounded-full border border-white/20 overflow-hidden bg-white/10">
                 <img 
-                  src="/assets/images/feny_mascot_avatar_1783278049191.jpg" 
+                  src={fenyAvatar} 
                   alt="Feny" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
