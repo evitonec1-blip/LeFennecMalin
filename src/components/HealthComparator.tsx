@@ -708,7 +708,10 @@ export default function HealthComparator() {
           >
             
             {/* LEFT PROFILE & FILTER TOGGLER PANEL */}
-            <div className="lg:col-span-4 bg-white rounded-3xl border border-fennec-cream p-6 shadow-sm space-y-6 sticky top-4">
+            <div 
+              id="health-filter-adjustment-panel"
+              className="lg:col-span-4 bg-white rounded-3xl border border-fennec-cream p-6 shadow-sm space-y-6 order-2 lg:order-1 lg:sticky lg:top-24 scroll-mt-24"
+            >
               
               <div className="flex justify-between items-center border-b border-fennec-cream/30 pb-4">
                 <div className="flex items-center space-x-2">
@@ -832,7 +835,29 @@ export default function HealthComparator() {
             </div>
 
             {/* RIGHT COLUMN: RESULTS LISTING */}
-            <div className="lg:col-span-8 space-y-6">
+            <div className="lg:col-span-8 space-y-6 order-1 lg:order-2">
+              
+              {/* Mobile Quick Filter Header */}
+              <div className="lg:hidden bg-white border border-fennec-cream rounded-2xl p-4 flex items-center justify-between shadow-xs mb-4">
+                <div className="space-y-0.5 text-left">
+                  <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Votre simulation</span>
+                  <p className="text-xs font-bold text-fennec-dark">
+                    Canton {filters.canton} • {filters.ageCategory === 'adult' ? '26+ ans' : filters.ageCategory === 'young' ? '19-25 ans' : 'Enfant'} • CHF {filters.franchise}.-
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    const target = document.getElementById('health-filter-adjustment-panel');
+                    if (target) {
+                      target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                  className="px-3.5 py-2 bg-fennec-cream text-fennec-dark hover:bg-fennec-sand hover:text-fennec-terracotta rounded-xl text-xs font-bold transition-all flex items-center space-x-1 shrink-0 shadow-3xs"
+                >
+                  <SlidersHorizontal className="w-3.5 h-3.5" />
+                  <span>Ajuster</span>
+                </button>
+              </div>
               
               {/* Savings Highlighter Badge */}
               {bestValueCaisse && (

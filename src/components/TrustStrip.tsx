@@ -83,7 +83,9 @@ export default function TrustStrip() {
           {brandValues.map((val, idx) => (
             <div 
               key={idx} 
-              className="bg-white/80 backdrop-blur-sm hover:bg-white p-4 rounded-xl text-center border border-fennec-cream/40 transition-colors shadow-2xs group flex flex-col items-center"
+              className={`bg-white/80 backdrop-blur-sm hover:bg-white p-4 rounded-xl text-center border border-fennec-cream/40 transition-colors shadow-2xs group flex flex-col items-center ${
+                idx === 4 ? 'col-span-2 md:col-span-1' : ''
+              }`}
             >
               <div className="mb-2 group-hover:scale-110 transition-transform duration-200">
                 {val.icon}
