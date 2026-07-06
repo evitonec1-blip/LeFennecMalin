@@ -52,7 +52,7 @@ export default function HowItWorks() {
           Comment fonctionne Le Fennec Malin ?
         </h2>
         <p className="mt-2 text-base text-fennec-dark/70 max-w-2xl mx-auto">
-          Pas de paperasse complexe ni d'appels intempestifs. Feny s'occupe de trier et de vous afficher les meilleures opportunités en quatre étapes simples.
+          Pas de paperasse complexe ni d'appels intempestifs. Fenny s'occupe de trier et de vous afficher les meilleures opportunités en quatre étapes simples.
         </p>
       </div>
 
@@ -75,7 +75,7 @@ export default function HowItWorks() {
               <div className="w-20 h-20 rounded-2xl border-2 border-fennec-cream overflow-hidden mb-5 bg-fennec-cream/20 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform duration-300">
                 <img 
                   src={step.avatar} 
-                  alt={`Feny step ${step.num}`}
+                  alt={`Fenny step ${step.num}`}
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />

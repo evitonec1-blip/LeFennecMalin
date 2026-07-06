@@ -23,7 +23,7 @@ export default function TrustStrip() {
           <Shield className="w-6 h-6" />
         </div>
       ),
-      value: "Agrée OFSP 2026",
+      value: "Données de l'OFSP 2026",
       description: "Données officielles de l'Office Fédéral de la Santé Publique suisse.",
     },
     {
@@ -38,7 +38,7 @@ export default function TrustStrip() {
   ];
 
   const brandValues = [
-    { name: "Bienveillant", icon: <Heart className="w-6 h-6 text-rose-500" />, desc: "Feny veille sur votre budget avec bienveillance" },
+    { name: "Bienveillant", icon: <Heart className="w-6 h-6 text-rose-500" />, desc: "Fenny veille sur votre budget avec bienveillance" },
     { name: "Curieux & Malin", icon: <Search className="w-6 h-6 text-amber-600" />, desc: "Toujours à la recherche des meilleures offres du marché" },
     { name: "Fiable", icon: <Shield className="w-6 h-6 text-emerald-600" />, desc: "Données certifiées et conformité réglementaire stricte" },
     { name: "Simple", icon: <Star className="w-6 h-6 text-blue-500" />, desc: "Des formulaires clairs, sans jargon inutile" },
@@ -73,7 +73,7 @@ export default function TrustStrip() {
       <div className="bg-fennec-cream/30 border border-fennec-cream/60 rounded-2xl py-6 px-4 md:px-8">
         <div className="text-center mb-6">
           <span className="text-[11px] font-bold tracking-widest text-fennec-terracotta uppercase block mb-1">
-            L'esprit de Feny
+            L'esprit de Fenny
           </span>
           <h4 className="font-display font-bold text-xl text-fennec-dark">
             Les 5 engagements en or de notre fennec malin

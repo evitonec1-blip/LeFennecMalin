@@ -19,7 +19,7 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
   const navItems = [
     { id: 'health-comparator', label: 'Assurance Maladie' },
     { id: 'life-comparator', label: 'Assurance Vie / 3e Pilier' },
-    { id: 'about', label: 'À propos de Feny' },
+    { id: 'about', label: 'À propos de Fenny' },
     { id: 'faq', label: 'FAQ' },
   ] as const;
 
@@ -42,22 +42,25 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
             <div className="relative w-12 h-12 rounded-full border-2 border-fennec-tan overflow-hidden shadow-sm group-hover:scale-105 transition-transform duration-300">
               <img 
                 src={fenyWinking} 
-                alt="Feny Avatar" 
+                alt="Fenny Avatar" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
             </div>
-            <div className="flex flex-col">
-              <div className="flex items-center">
-                <span className="font-display text-2xl font-extrabold tracking-tight text-fennec-dark group-hover:text-fennec-terracotta transition-colors">
-                  FEN<span className="text-fennec-red">Y</span>
+            <div className="flex flex-col text-left justify-center">
+              <span className="font-display text-[9px] font-extrabold tracking-widest text-fennec-brown uppercase leading-none mb-0.5">
+                Le Fennec
+              </span>
+              <div className="flex items-center space-x-1 leading-none">
+                <span className="font-display text-base sm:text-lg font-black tracking-tight text-fennec-dark group-hover:text-fennec-terracotta transition-colors uppercase leading-none">
+                  Malin
                 </span>
-                <span className="ml-1 px-1.5 py-0.5 bg-fennec-red text-[10px] font-bold text-white rounded">
+                <span className="px-1 py-0.5 bg-fennec-red text-[8px] font-bold text-white rounded leading-none">
                   CH
                 </span>
               </div>
-              <span className="text-[9px] font-bold tracking-widest text-fennec-brown uppercase leading-none">
-                Le Fennec Malin
+              <span className="text-[8px] font-bold tracking-wider text-fennec-dark/40 uppercase leading-none mt-0.5">
+                Comparateur Indépendant
               </span>
             </div>
           </div>
@@ -84,10 +87,6 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
 
           {/* Right Action buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <div className="flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">
-              <Shield className="w-3.5 h-3.5 mr-1 text-emerald-600" />
-              OFSP Agrée 2026
-            </div>
             <button
               onClick={() => handleNavClick('health-comparator')}
               className="px-5 py-2.5 bg-fennec-red hover:bg-red-600 text-white font-display font-bold rounded-full text-sm shadow-md shadow-fennec-red/25 transition-all duration-200 hover:-translate-y-0.5"

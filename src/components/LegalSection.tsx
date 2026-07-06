@@ -51,14 +51,14 @@ export default function LegalSection({ mode }: LegalSectionProps) {
           <section className="space-y-2">
             <h3 className="font-display font-bold text-lg text-fennec-dark">3. Propriété intellectuelle</h3>
             <p>
-              La marque <strong>FENY</strong>, le logo Feny, sa charte graphique, les expressions faciales, les poses et l'univers du mascot "Feny le fennec malin" ainsi que l'ensemble des textes originaux rédigés sur le site sont la propriété exclusive de Le Fennec Malin Sàrl. Toute reproduction sans accord écrit préalable est interdite.
+              La marque <strong>FENNY</strong>, le logo Fenny, sa charte graphique, les expressions faciales, les poses et l'univers du mascot "Fenny le fennec malin" ainsi que l'ensemble des textes originaux rédigés sur le site sont la propriété exclusive de Le Fennec Malin Sàrl. Toute reproduction sans accord écrit préalable est interdite.
             </p>
           </section>
 
           <section className="space-y-2">
             <h3 className="font-display font-bold text-lg text-fennec-dark">4. Limitation de responsabilité</h3>
             <p>
-              Les simulations de primes d'assurance maladie sont fournies à titre purement informatif sur la base des données publiques de l'Office Fédéral de la Santé Publique (OFSP) extraites de <em>priminfo.admin.ch</em>. Bien que Feny s'efforce de maintenir ces données à jour avec la plus grande diligence helvétique, de légères divergences peuvent survenir selon les critères de souscription spécifiques des caisses.
+              Les simulations de primes d'assurance maladie sont fournies à titre purement informatif sur la base des données publiques de l'Office Fédéral de la Santé Publique (OFSP) extraites de <em>priminfo.admin.ch</em>. Bien que Fenny s'efforce de maintenir ces données à jour avec la plus grande diligence helvétique, de légères divergences peuvent survenir selon les critères de souscription spécifiques des caisses.
             </p>
             <p>
               Les calculs de prévoyance (3ème pilier) constituent des projections financières basées sur des hypothèses de rendement et ne valent pas garantie de capital à terme. Seul le contrat d'assurance définitif signé avec l'assureur partenaire fait foi.

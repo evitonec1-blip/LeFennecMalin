@@ -133,7 +133,7 @@ export const TESTIMONIALS: Testimonial[] = [
     location: 'Lausanne (VD)',
     rating: 5,
     date: 'Juin 2026',
-    text: 'Grâce aux conseils avisés de Feny, j\'ai ajusté ma franchise à CHF 2\'500 et choisi un modèle médecin de famille chez un assureur partenaire. Économie nette : CHF 180 par mois !',
+    text: 'Grâce aux conseils avisés de Fenny, j\'ai ajusté ma franchise à CHF 2\'500 et choisi un modèle médecin de famille chez un assureur partenaire. Économie nette : CHF 180 par mois !',
     product: 'Assurance Maladie',
   },
   {
@@ -151,7 +151,7 @@ export const TESTIMONIALS: Testimonial[] = [
     location: 'Sierre (VS)',
     rating: 5,
     date: 'Avril 2026',
-    text: 'Malin, gratuit et transparent ! Feny a trié les caisses maladie de mon canton en quelques secondes. Les prestations obligatoires étant identiques, j\'ai pris la moins chère sans aucune hésitation.',
+    text: 'Malin, gratuit et transparent ! Fenny a trié les caisses maladie de mon canton en quelques secondes. Les prestations obligatoires étant identiques, j\'ai pris la moins chère sans aucune hésitation.',
     product: 'Assurance Maladie',
   },
 ];
@@ -171,7 +171,8 @@ export function calculateHealthPremium(
   ageCategory: 'adult' | 'young' | 'child',
   franchise: number,
   model: 'standard' | 'telemed' | 'family' | 'hmo',
-  accidentCoverage: boolean
+  accidentCoverage: boolean,
+  zone: number = 1
 ): number {
   // 1. Canton Multiplier
   let cantonMultiplier = 1.0;
@@ -191,6 +192,13 @@ export function calculateHealthPremium(
 
   let premium = caisse.basePrice * cantonMultiplier;
 
+  // 1b. Zone Multiplier (Region 1 / Region 2 / Region 3 matching Priminfo)
+  if (zone === 2) {
+    premium = premium * 0.88; // 12% lower premium in Region 2
+  } else if (zone === 3) {
+    premium = premium * 0.78; // 22% lower premium in Region 3
+  }
+
   // 2. Age Category Multiplier & Base adjustment
   if (ageCategory === 'young') {
     premium = premium * 0.82; // 18% discount
@@ -199,11 +207,19 @@ export function calculateHealthPremium(
   }
 
   // 3. Franchise Adjustment (relative to reference franchise 2500)
-  // For adults/young adults, franchise 300 costs more. For children, franchises are different but we simplify.
   let franchiseAdjustment = 0;
   if (ageCategory === 'child') {
-    // For children, standard franchise is 0, but if franchise > 0 they get small discount
-    franchiseAdjustment = franchise > 0 ? -15 : 0;
+    // Child franchises: 0, 100, 200, 300, 400, 500, 600
+    // Higher franchises get progressive discount as per Priminfo
+    switch (franchise) {
+      case 100: franchiseAdjustment = -5; break;
+      case 200: franchiseAdjustment = -10; break;
+      case 300: franchiseAdjustment = -15; break;
+      case 400: franchiseAdjustment = -20; break;
+      case 500: franchiseAdjustment = -25; break;
+      case 600: franchiseAdjustment = -30; break;
+      default: franchiseAdjustment = 0;
+    }
   } else {
     // Ref: 2500 is base
     switch (franchise) {

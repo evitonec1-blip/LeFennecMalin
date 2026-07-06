@@ -16,7 +16,7 @@ export default function AboutSection() {
         <div className="w-48 h-48 md:w-56 md:h-56 rounded-full border-4 border-white shadow-lg overflow-hidden shrink-0">
           <img 
             src={fenyThinking} 
-            alt="Feny le Fennec" 
+            alt="Fenny le fennec malin" 
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
@@ -26,7 +26,7 @@ export default function AboutSection() {
             Qui suis-je ?
           </span>
           <h2 className="font-display font-extrabold text-3xl md:text-4xl text-fennec-dark leading-tight">
-            Bonjour ! Je m'appelle Feny, le Fennec Malin
+            Bonjour ! Je m'appelle Fenny, le fennec malin
           </h2>
           <p className="text-base text-fennec-dark/80 leading-relaxed italic">
             "Malin, pour vous. Proche de vous."
@@ -37,7 +37,7 @@ export default function AboutSection() {
         </div>
       </div>
 
-      {/* Why Feny Narrative */}
+      {/* Why Fenny Narrative */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
         <div className="space-y-6">
           <h3 className="font-display font-bold text-2xl text-fennec-dark">

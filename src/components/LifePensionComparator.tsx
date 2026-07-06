@@ -667,13 +667,13 @@ export default function LifePensionComparator() {
                 <div className="w-8 h-8 rounded-full overflow-hidden border border-white shrink-0 bg-white shadow-2xs">
                   <img 
                     src={fenyWinking} 
-                    alt="Feny" 
+                    alt="Fenny" 
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="space-y-0.5">
                   <span className="text-[10px] font-black text-fennec-terracotta uppercase tracking-wider block">
-                    Feny conseille
+                    Fenny conseille
                   </span>
                   <p className="text-xs text-fennec-dark font-medium leading-relaxed">
                     {fenyAdvice}
@@ -1046,7 +1046,7 @@ export default function LifePensionComparator() {
               <div className="w-16 h-16 rounded-full border-2 border-white overflow-hidden shadow-sm shrink-0 bg-white">
                 <img 
                   src={fenyWinking} 
-                  alt="Feny" 
+                  alt="Fenny" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />

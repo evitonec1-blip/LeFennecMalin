@@ -19,7 +19,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
   const wordsRef = useRef<HTMLDivElement>(null);
   const digitsContainerRef = useRef<HTMLDivElement>(null);
 
-  const words = ["Analyser", "Comparer", "Économiser", "Feny 🇨🇭"];
+  const words = ["Analyser", "Comparer", "Économiser", "Malin 🇨🇭"];
 
   // Determine active word index based on percentage
   const targetWordIndex = percentage < 25 ? 0 : percentage < 55 ? 1 : percentage < 80 ? 2 : 3;
@@ -120,7 +120,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
         {/* Header inside preloader */}
         <div ref={logoRef} className="flex justify-between items-center w-full">
           <div className="flex items-center space-x-2">
-            <span className="font-display font-black text-2xl text-white tracking-widest">FENY</span>
+            <span className="font-display font-black text-xl text-white tracking-widest">LE FENNEC MALIN</span>
             <span className="bg-[#E53935] text-white text-[10px] font-black px-1.5 py-0.5 rounded-sm">SUISSE 🇨🇭</span>
           </div>
         </div>
@@ -132,7 +132,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
               ref={wordsRef} 
               className="font-display font-black text-4xl sm:text-6xl md:text-8xl text-white tracking-wider uppercase"
             >
-              {words[activeWordIndex] === "Feny 🇨🇭" ? (
+              {words[activeWordIndex] === "Malin 🇨🇭" ? (
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#EAC89B] via-[#F3E6D6] to-white animate-pulse">
                   {words[activeWordIndex]}
                 </span>

@@ -31,13 +31,13 @@ export default function Footer({ onTabChange }: FooterProps) {
               <div className="w-10 h-10 rounded-full border border-white/20 overflow-hidden bg-white/10">
                 <img 
                   src={fenyAvatar} 
-                  alt="Feny" 
+                  alt="Fenny" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
               </div>
               <span className="font-display text-2xl font-black text-white tracking-tight">
-                FEN<span className="text-fennec-red">Y</span>
+                FENN<span className="text-fennec-red">Y</span>
               </span>
             </div>
             <p className="text-xs text-fennec-cream/70 italic font-medium">
@@ -124,7 +124,7 @@ export default function Footer({ onTabChange }: FooterProps) {
             <ul className="space-y-2.5 text-sm text-fennec-cream/80">
               <li>
                 <button onClick={() => handleNavClick('about')} className="hover:text-white hover:underline transition-colors text-left">
-                  À propos de Feny et ses valeurs
+                  À propos de Fenny et ses valeurs
                 </button>
               </li>
               <li>
@@ -202,7 +202,7 @@ export default function Footer({ onTabChange }: FooterProps) {
 
         {/* Crafted indication as per human, literal design values */}
         <div className="pt-6 text-center text-[10px] text-fennec-cream/30 flex items-center justify-center">
-          <span>Propulsé par Feny — Malin, fiable et proche des Suisses</span>
+          <span>Propulsé par Fenny — Malin, fiable et proche des Suisses</span>
           <Heart className="w-3 h-3 ml-1 text-fennec-red fill-current" />
         </div>
 

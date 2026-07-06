@@ -32,7 +32,7 @@ export default function FAQSection() {
       question: "Comment puis-je économiser sur mes primes d'assurance maladie obligatoire en Suisse ?",
       answer: (
         <div className="space-y-2 text-sm text-fennec-dark/80 leading-relaxed">
-          <p>Il existe quatre leviers principaux validés par Feny :</p>
+          <p>Il existe quatre leviers principaux validés par Fenny :</p>
           <ul className="list-disc pl-5 space-y-1">
             <li><strong>Augmenter la franchise :</strong> Passer de CHF 300 à CHF 2'500 par an réduit vos primes mensuelles d'environ CHF 115.- par mois. Idéal si vous êtes en bonne santé.</li>
             <li><strong>Changer de modèle d'assurance :</strong> Optez pour le modèle <em>Télémédecine (Telmed)</em>, <em>Médecin de Famille</em> ou <em>HMO</em>. Ces modèles offrent entre 10% et 20% de réduction par rapport au modèle standard (choix libre du médecin).</li>
@@ -78,7 +78,7 @@ export default function FAQSection() {
             <li><strong>Pour les personnes indépendantes (non affiliées au 2e pilier / LPP) :</strong> Le plafond est fixé à 20% du revenu net de l'activité lucrative, jusqu'à un maximum de <strong>CHF 36'288.- par an</strong>.</li>
           </ul>
           <p className="text-xs text-fennec-brown font-semibold">
-            Conseil de Feny : Versez régulièrement chaque mois (par exemple, CHF 604.- / mois) pour atteindre facilement le plafond fiscal d'ici décembre sans effort financier soudain.
+            Conseil de Fenny : Versez régulièrement chaque mois (par exemple, CHF 604.- / mois) pour atteindre facilement le plafond fiscal d'ici décembre sans effort financier soudain.
           </p>
         </div>
       ),
@@ -105,7 +105,7 @@ export default function FAQSection() {
           Vos Questions
         </span>
         <h2 className="font-display font-extrabold text-3xl text-fennec-dark">
-          Feny vous répond en toute clarté
+          Fenny vous répond en toute clarté
         </h2>
         <p className="mt-2 text-base text-fennec-dark/70 max-w-xl mx-auto">
           Les questions les plus courantes sur le fonctionnement des assurances suisses décortiquées par notre fennec malin.

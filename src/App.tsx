@@ -74,10 +74,7 @@ export default function App() {
   // Partner logos data
   const dataSources = [
     { name: "priminfo.admin.ch", desc: "Base officielle fédérale" },
-    { name: "OFSP / BAG", desc: "Office Fédéral de la Santé Publique" },
-    { name: "conforme nLPD", desc: "Nouvelle loi sur la protection des données" },
-    { name: "compassurance.ch", desc: "Partenaire technique agréé" },
-    { name: "comparis.ch", desc: "Données de satisfaction client" }
+    { name: "OFSP / BAG", desc: "Office Fédéral de la Santé Publique" }
   ];
 
   const handleCtaClick = (vertical: 'health' | 'life') => {
@@ -128,7 +125,7 @@ export default function App() {
 
                     {/* Subheading */}
                     <p className="hero-animate opacity-0 text-base sm:text-lg text-fennec-dark/80 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                      Données officielles OFSP 2026. Gratuit, 100% indépendant de tout assureur, et conforme à la nLPD suisse. Feny s'occupe de trier pour dénicher les offres les plus adaptées.
+                      Données officielles OFSP 2026. Gratuit, 100% indépendant de tout assureur, et conforme à la nLPD suisse. Fenny s'occupe de trier pour dénicher les offres les plus adaptées.
                     </p>
 
                     {/* Three Inline Stats Strip */}
@@ -193,7 +190,7 @@ export default function App() {
                     <div className="relative z-10 w-full max-w-sm aspect-square bg-white rounded-3xl p-4 border border-fennec-cream/60 shadow-lg group hover:scale-101 transition-transform">
                       <img 
                         src={fenyAnalyse} 
-                        alt="Feny le Fennec" 
+                        alt="Fenny le fennec malin" 
                         className="w-full h-full object-cover rounded-2xl"
                         referrerPolicy="no-referrer"
                       />
@@ -203,7 +200,7 @@ export default function App() {
                         <div className="flex items-start space-x-2">
                           <span className="text-[11px] bg-fennec-terracotta px-1.5 py-0.5 rounded font-bold uppercase tracking-wider text-white">Suisse</span>
                           <p className="text-[11px] font-medium leading-snug">
-                            "Je compare les <strong>37 caisses suisses</strong> pour trouver le modèle idéal chez vous. Simple et neutre !" — <strong>Feny</strong>
+                            "Je compare les <strong>37 caisses suisses</strong> pour trouver le modèle idéal chez vous. Simple et neutre !" — <strong>Fenny</strong>
                           </p>
                         </div>
                       </div>
@@ -294,7 +291,7 @@ export default function App() {
                   Avis de la communauté
                 </span>
                 <h2 className="font-display font-extrabold text-3xl text-fennec-dark">
-                  Ce qu'ils disent de Feny le Fennec
+                  Ce qu'ils disent de Fenny, le fennec malin
                 </h2>
               </div>
 
@@ -328,7 +325,7 @@ export default function App() {
                     <div className="absolute top-4 right-4 w-10 h-10 rounded-full overflow-hidden border border-fennec-cream shadow-2xs">
                       <img 
                         src={fenyWinking} 
-                        alt="Feny Avatar" 
+                        alt="Fenny Avatar" 
                         className="w-full h-full object-cover"
                         referrerPolicy="no-referrer"
                       />
@@ -373,7 +370,7 @@ export default function App() {
                   <div className="w-16 h-16 rounded-2xl overflow-hidden shrink-0 border border-white/20">
                     <img 
                       src={fenyResults} 
-                      alt="Feny" 
+                      alt="Fenny" 
                       className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"
                     />
@@ -415,7 +412,7 @@ export default function App() {
                     Chaque année, l'annonce des primes maladie par l'Office fédéral de la santé publique (OFSP) suscite d'importantes interrogations au sein des foyers romands. Les augmentations constantes pèsent lourdement sur le pouvoir d'achat. C'est ici que <strong>Le Fennec Malin</strong> intervient. Notre plateforme simule en temps réel les barèmes exacts de l'ensemble des 37 compagnies agréées par l'État (LAMal). 
                   </p>
                   <p className="text-sm text-fennec-dark/80 leading-relaxed">
-                    Qu'il s'agisse de comparer les modèles HMO, Telmed ou le médecin de famille traditionnel, ou d'analyser l'incidence de l'augmentation de la franchise de CHF 300 à CHF 2'500, Feny trie les options en toute transparence. Puisque les prestations de base sont réglementées de manière identique, notre comparateur vous aide à repérer l'assureur le moins cher de votre région sans sacrifier la qualité de vos remboursements.
+                    Qu'il s'agisse de comparer les modèles HMO, Telmed ou le médecin de famille traditionnel, ou d'analyser l'incidence de l'augmentation de la franchise de CHF 300 à CHF 2'500, Fenny trie les options en toute transparence. Puisque les prestations de base sont réglementées de manière identique, notre comparateur vous aide à repérer l'assureur le moins cher de votre région sans sacrifier la qualité de vos remboursements.
                   </p>
                 </div>
 
@@ -427,7 +424,7 @@ export default function App() {
                     Préparer sa retraite est essentiel dans le système helvétique des trois piliers. Le premier pilier (AVS) et le deuxième pilier (LPP) ne suffisent souvent qu'à couvrir 60% de votre revenu antérieur. Le 3ème pilier constitue donc la solution indispensable pour maintenir votre confort de vie future tout en réalisant des économies d'impôt considérables dès aujourd'hui.
                   </p>
                   <p className="text-sm text-fennec-dark/80 leading-relaxed">
-                    À travers nos modules, distinguez immédiatement les avantages du <strong>Pilier 3a (prévoyance liée)</strong>, entièrement déductible de votre revenu imposable jusqu'aux plafonds légaux de CHF 7'258 (salariés) ou CHF 36'288 (indépendants), et du <strong>Pilier 3b (prévoyance libre)</strong>, idéal pour une épargne flexible à court terme. Feny vous aide à projeter votre capital selon votre profil et à obtenir une étude d'optimisation fiscale sur-mesure.
+                    À travers nos modules, distinguez immédiatement les avantages du <strong>Pilier 3a (prévoyance liée)</strong>, entièrement déductible de votre revenu imposable jusqu'aux plafonds légaux de CHF 7'258 (salariés) ou CHF 36'288 (indépendants), et du <strong>Pilier 3b (prévoyance libre)</strong>, idéal pour une épargne flexible à court terme. Fenny vous aide à projeter votre capital selon votre profil et à obtenir une étude d'optimisation fiscale sur-mesure.
                   </p>
                 </div>
 

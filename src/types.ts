@@ -37,6 +37,8 @@ export interface AssureurVie {
 
 export interface HealthFilterState {
   canton: string;
+  zipCode: string;
+  zone: number;
   ageCategory: 'adult' | 'young' | 'child';
   franchise: number;
   model: 'standard' | 'telemed' | 'family' | 'hmo';

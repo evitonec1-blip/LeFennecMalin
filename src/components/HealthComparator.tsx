@@ -6,6 +6,7 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { CAISSES_MALADIE, SWISS_CANTONS, FRANCHISES, calculateHealthPremium } from '../data';
 import { HealthFilterState, CaisseMaladie } from '../types';
+import { resolveZipCode } from '../utils/swissZipCodes';
 import fenyWinking from '../assets/images/feny_winking_1783331270164.jpg';
 import { 
   Shield, 
@@ -39,22 +40,77 @@ const HEALTH_ADVICE_MAP: Record<string, string> = {
   franchise: "La franchise maximale (CHF 2'500) réduit fortement vos primes mensuelles d'environ 40%. Idéal si vos frais de santé sont bas !",
   model: "Les modèles alternatifs (Médecin de Famille, Télémédecine, HMO) accordent d'importants rabais allant jusqu'à 15% en coordonnant vos consultations.",
   accidentCoverage: "Si vous travaillez +8h/semaine chez le même employeur, vous êtes déjà couvert contre les accidents par votre entreprise (LAA). Vous pouvez l'exclure pour économiser ~7% !",
-  firstName: "Votre prénom nous permet de personnaliser votre offre gratuite Feny et d'établir un dossier de simulation maladie à votre nom.",
+  firstName: "Votre prénom nous permet de personnaliser votre offre gratuite Fenny et d'établir un dossier de simulation maladie à votre nom.",
   lastName: "Votre nom de famille est requis par les caisses maladie suisses pour valider la légitimité du calcul de prime personnalisé.",
   email: "Votre adresse e-mail nous sert à vous transmettre instantanément votre rapport comparatif complet de primes au format PDF.",
   phone: "Votre téléphone mobile suisse valide permet à un conseiller partenaire de valider la simulation et de vous confirmer la baisse de prime.",
+};
+
+const CANTON_DEFAULT_ZIPS: Record<string, { zip: string; zone: number }> = {
+  GE: { zip: '1201', zone: 1 },
+  VD: { zip: '1000', zone: 1 },
+  VS: { zip: '1950', zone: 1 },
+  NE: { zip: '2000', zone: 1 },
+  FR: { zip: '1700', zone: 1 },
+  JU: { zip: '2800', zone: 1 },
+  BE: { zip: '3000', zone: 1 },
+  ZH: { zip: '8000', zone: 1 },
+  BS: { zip: '4000', zone: 1 },
+  TI: { zip: '6900', zone: 1 }
 };
 
 export default function HealthComparator() {
   // 1. Core State
   const [filters, setFilters] = useState<HealthFilterState>({
     canton: 'GE',
+    zipCode: '1201',
+    zone: 1,
     ageCategory: 'adult',
     franchise: 2500,
     model: 'family',
     accidentCoverage: true,
     sortBy: 'price',
   });
+
+  const [zipInput, setZipInput] = useState<string>('1201');
+  const [resolvedInfo, setResolvedInfo] = useState<{ zip: string; canton: string; zone: number; city: string } | null>(() => resolveZipCode('1201'));
+
+  // Handler for zip code input change
+  const handleZipChange = (val: string) => {
+    const clean = val.replace(/\D/g, '').slice(0, 4);
+    setZipInput(clean);
+
+    if (clean.length === 4) {
+      const info = resolveZipCode(clean);
+      if (info) {
+        setResolvedInfo(info);
+        setFilters(prev => ({
+          ...prev,
+          zipCode: clean,
+          canton: info.canton,
+          zone: info.zone
+        }));
+      } else {
+        setResolvedInfo(null);
+      }
+    } else {
+      setResolvedInfo(null);
+    }
+  };
+
+  // Handler for manual canton button click
+  const handleCantonClick = (cantonCode: string) => {
+    const defaults = CANTON_DEFAULT_ZIPS[cantonCode] || { zip: '1201', zone: 1 };
+    setZipInput(defaults.zip);
+    const info = resolveZipCode(defaults.zip);
+    setResolvedInfo(info);
+    setFilters(prev => ({
+      ...prev,
+      canton: cantonCode,
+      zipCode: defaults.zip,
+      zone: defaults.zone
+    }));
+  };
 
   // GSAP animated progress bar refs
   const progressBarRef = useRef<HTMLDivElement>(null);
@@ -92,7 +148,8 @@ export default function HealthComparator() {
          filters.ageCategory,
          filters.franchise,
          filters.model,
-         filters.accidentCoverage
+         filters.accidentCoverage,
+         filters.zone
       );
       return {
         ...caisse,
@@ -358,7 +415,7 @@ export default function HealthComparator() {
             <div ref={stepContainerRef} className="min-h-[240px] flex flex-col justify-center">
               <AnimatePresence mode="wait">
                 
-                {/* STEP 1: CANTON */}
+                {/* STEP 1: CODE POSTAL & CANTON */}
                 {currentStep === 1 && (
                   <motion.div
                     key="step-1"
@@ -366,46 +423,98 @@ export default function HealthComparator() {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -15 }}
                     transition={{ duration: 0.2 }}
-                    className="space-y-6"
+                    className="space-y-6 text-left"
                   >
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2 text-fennec-terracotta">
                         <MapPin className="w-5 h-5" />
                         <h3 className="font-display font-black text-xl text-fennec-dark">
-                          Quel est votre canton de domicile ?
+                          Quel est votre code postal de domicile ?
                         </h3>
                       </div>
                       <p className="text-xs text-fennec-dark/65">
-                        Les primes d'assurance maladie obligatoire varient considérablement d'un canton suisse à l'autre.
+                        Les primes d'assurance maladie dépendent de votre code postal (détermination automatique de la zone tarifaire 1 ou 2 identique à Priminfo).
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-                      {SWISS_CANTONS.map((c) => {
-                        const isSelected = filters.canton === c.code;
-                        return (
-                          <motion.button
-                            key={c.code}
-                            type="button"
-                            whileHover={{ scale: 1.03 }}
-                            whileTap={{ scale: 0.97 }}
-                            onClick={() => {
-                              handleFilterChange('canton', c.code);
-                              // Auto-advance with slight delay for satisfying click feedback
-                              setTimeout(() => nextStep(), 150);
-                            }}
-                            className={`stagger-item p-3.5 rounded-2xl border text-center transition-all ${
-                              isSelected
-                                ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-md font-extrabold'
-                                : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15 font-semibold'
-                            }`}
-                          >
-                            <span className="text-xs block text-fennec-brown/50 leading-none mb-1 font-bold">CH</span>
-                            <span className="font-display text-base block">{c.code}</span>
-                            <span className="text-[9px] opacity-80 block truncate mt-0.5">{c.name}</span>
-                          </motion.button>
-                        );
-                      })}
+                    {/* CODE POSTAL INPUT PANEL */}
+                    <div className="bg-fennec-cream/20 p-5 rounded-2xl border border-fennec-cream/60 space-y-4">
+                      <label className="text-[11px] font-bold text-fennec-brown uppercase tracking-wider block">
+                        Saisissez votre code postal suisse (NPA) :
+                      </label>
+                      <div className="relative max-w-xs">
+                        <input
+                          type="text"
+                          pattern="\d*"
+                          maxLength={4}
+                          value={zipInput}
+                          onChange={(e) => handleZipChange(e.target.value)}
+                          placeholder="Ex: 1007, 1201, 1950, 3000..."
+                          className="w-full text-lg font-bold font-mono tracking-widest bg-white border-2 border-fennec-cream rounded-xl px-4 py-2.5 text-fennec-dark focus:outline-none focus:border-fennec-terracotta transition-colors"
+                        />
+                        <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                          {resolvedInfo ? (
+                            <CheckCircle2 className="w-5 h-5 text-emerald-500 animate-bounce" />
+                          ) : (
+                            <HelpCircle className="w-5 h-5 text-fennec-brown/40" />
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Resolved Info Badge Display */}
+                      {resolvedInfo ? (
+                        <div className="flex flex-wrap gap-2 pt-1 animate-in fade-in slide-in-from-top-1 duration-150">
+                          <div className="bg-emerald-50 border border-emerald-200 rounded-lg px-2.5 py-1 flex items-center space-x-1.5 text-xs text-emerald-800 font-medium">
+                            <span className="font-bold">Canton :</span>
+                            <span>{SWISS_CANTONS.find(c => c.code === resolvedInfo.canton)?.name || resolvedInfo.canton} ({resolvedInfo.canton})</span>
+                          </div>
+                          <div className="bg-emerald-50 border border-emerald-200 rounded-lg px-2.5 py-1 flex items-center space-x-1.5 text-xs text-emerald-800 font-medium">
+                            <span className="font-bold">Localité :</span>
+                            <span>{resolvedInfo.city}</span>
+                          </div>
+                          <div className="bg-fennec-terracotta/10 border border-fennec-terracotta/20 rounded-lg px-2.5 py-1 flex items-center space-x-1.5 text-xs text-fennec-terracotta font-bold">
+                             <span className="font-bold">Zone de primes :</span>
+                            <span>Région {resolvedInfo.zone}</span>
+                          </div>
+                        </div>
+                      ) : (
+                        <p className="text-[11px] text-fennec-dark/50 italic font-medium">
+                          {zipInput.length === 4 ? "Code postal non identifié. Veuillez choisir votre canton manuellement ci-dessous." : "Saisissez votre code postal à 4 chiffres pour calculer vos primes officielles."}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="space-y-2.5 pt-2">
+                      <span className="text-[11px] font-bold text-fennec-brown uppercase tracking-wider block">
+                        Ou sélectionnez directement un canton :
+                      </span>
+                      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                        {SWISS_CANTONS.map((c) => {
+                          const isSelected = filters.canton === c.code;
+                          return (
+                            <motion.button
+                              key={c.code}
+                              type="button"
+                              whileHover={{ scale: 1.03 }}
+                              whileTap={{ scale: 0.97 }}
+                              onClick={() => {
+                                handleCantonClick(c.code);
+                                // Auto-advance with slight delay
+                                setTimeout(() => nextStep(), 180);
+                              }}
+                              className={`stagger-item p-3.5 rounded-2xl border text-center transition-all ${
+                                isSelected
+                                  ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-md font-extrabold'
+                                  : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15 font-semibold'
+                              }`}
+                            >
+                              <span className="text-xs block text-fennec-brown/50 leading-none mb-1 font-bold">CH</span>
+                              <span className="font-display text-base block">{c.code}</span>
+                              <span className="text-[9px] opacity-80 block truncate mt-0.5">{c.name}</span>
+                            </motion.button>
+                          );
+                        })}
+                      </div>
                     </div>
                   </motion.div>
                 )}
@@ -492,7 +601,7 @@ export default function HealthComparator() {
                     </div>
 
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                      {(filters.ageCategory === 'child' ? [0, 100, 200, 300, 400, 600] : FRANCHISES).map((fran) => {
+                      {(filters.ageCategory === 'child' ? [0, 100, 200, 300, 400, 500, 600] : FRANCHISES).map((fran) => {
                         const isSelected = filters.franchise === fran || (filters.ageCategory === 'child' && fran === 0 && filters.franchise > 600);
                         return (
                           <motion.button
@@ -645,13 +754,13 @@ export default function HealthComparator() {
                 <div className="w-8 h-8 rounded-full overflow-hidden border border-white shrink-0 bg-white shadow-2xs">
                   <img 
                     src={fenyWinking} 
-                    alt="Feny" 
+                    alt="Fenny" 
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="space-y-0.5">
                   <span className="text-[10px] font-black text-fennec-terracotta uppercase tracking-wider block">
-                    Feny conseille
+                    Fenny conseille
                   </span>
                   <p className="text-xs text-fennec-dark font-medium leading-relaxed">
                     {fenyAdvice}
@@ -733,10 +842,18 @@ export default function HealthComparator() {
               </div>
 
               {/* Quick Profile Summary Pills */}
-              <div className="space-y-2 text-xs">
+              <div className="space-y-2 text-xs text-left">
                 <div className="flex justify-between p-2.5 bg-fennec-cream/10 rounded-xl">
                   <span className="text-fennec-brown font-medium">Canton de résidence :</span>
                   <span className="font-bold text-fennec-dark">{selectedCantonName} ({filters.canton})</span>
+                </div>
+                <div className="flex justify-between p-2.5 bg-fennec-cream/10 rounded-xl">
+                  <span className="text-fennec-brown font-medium">Code postal / NPA :</span>
+                  <span className="font-bold text-fennec-dark">{filters.zipCode}</span>
+                </div>
+                <div className="flex justify-between p-2.5 bg-fennec-cream/10 rounded-xl">
+                  <span className="text-fennec-brown font-medium">Zone de primes :</span>
+                  <span className="font-bold text-fennec-dark">Région {filters.zone}</span>
                 </div>
                 <div className="flex justify-between p-2.5 bg-fennec-cream/10 rounded-xl">
                   <span className="text-fennec-brown font-medium">Catégorie d'âge :</span>
@@ -777,17 +894,35 @@ export default function HealthComparator() {
                   animate={{ height: 'auto', opacity: 1 }}
                   className="space-y-4 pt-2 border-t border-fennec-cream/20 overflow-hidden"
                 >
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-fennec-brown block">Canton</label>
-                    <select
-                      value={filters.canton}
-                      onChange={(e) => handleFilterChange('canton', e.target.value)}
-                      className="w-full bg-white border border-fennec-cream/60 rounded-xl px-2.5 py-1.5 text-xs text-fennec-dark focus:outline-none"
-                    >
-                      {SWISS_CANTONS.map((c) => (
-                        <option key={c.code} value={c.code}>{c.name} ({c.code})</option>
-                      ))}
-                    </select>
+                  <div className="space-y-1.5 text-left">
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-fennec-brown block">Code Postal (NPA)</label>
+                    <input
+                      type="text"
+                      maxLength={4}
+                      value={filters.zipCode}
+                      onChange={(e) => {
+                        const clean = e.target.value.replace(/\D/g, '').slice(0, 4);
+                        setZipInput(clean);
+                        setFilters(prev => {
+                          const updated = { ...prev, zipCode: clean };
+                          if (clean.length === 4) {
+                            const info = resolveZipCode(clean);
+                            if (info) {
+                              setResolvedInfo(info);
+                              updated.canton = info.canton;
+                              updated.zone = info.zone;
+                            }
+                          }
+                          return updated;
+                        });
+                      }}
+                      className="w-full bg-white border border-fennec-cream/60 rounded-xl px-2.5 py-1.5 text-xs text-fennec-dark focus:outline-none focus:border-fennec-terracotta font-mono tracking-wider"
+                    />
+                    {/* Real-time details badge */}
+                    <div className="text-[9px] text-fennec-dark/70 font-bold mt-1 flex justify-between items-center bg-fennec-cream/25 px-2 py-1 rounded-md">
+                      <span>Canton: <span className="text-fennec-terracotta">{filters.canton}</span></span>
+                      <span>Région: <span className="text-fennec-terracotta">{filters.zone}</span></span>
+                    </div>
                   </div>
 
                   <div className="space-y-1.5">
@@ -811,7 +946,7 @@ export default function HealthComparator() {
                       onChange={(e) => handleFilterChange('franchise', Number(e.target.value))}
                       className="w-full bg-white border border-fennec-cream/60 rounded-xl px-2.5 py-1.5 text-xs text-fennec-dark focus:outline-none"
                     >
-                      {(filters.ageCategory === 'child' ? [0, 100, 200, 300, 400, 600] : FRANCHISES).map((fran) => (
+                      {(filters.ageCategory === 'child' ? [0, 100, 200, 300, 400, 500, 600] : FRANCHISES).map((fran) => (
                         <option key={fran} value={fran}>CHF {fran}</option>
                       ))}
                     </select>
@@ -842,7 +977,7 @@ export default function HealthComparator() {
                 <div className="space-y-0.5 text-left">
                   <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Votre simulation</span>
                   <p className="text-xs font-bold text-fennec-dark">
-                    Canton {filters.canton} • {filters.ageCategory === 'adult' ? '26+ ans' : filters.ageCategory === 'young' ? '19-25 ans' : 'Enfant'} • CHF {filters.franchise}.-
+                    NPA {filters.zipCode} ({filters.canton} - Région {filters.zone}) • {filters.ageCategory === 'adult' ? '26+ ans' : filters.ageCategory === 'young' ? '19-25 ans' : 'Enfant'} • CHF {filters.franchise}.-
                   </p>
                 </div>
                 <button
@@ -1020,14 +1155,14 @@ export default function HealthComparator() {
               <div className="w-16 h-16 rounded-full border-2 border-white overflow-hidden shadow-sm shrink-0 bg-white">
                 <img 
                   src={fenyWinking} 
-                  alt="Feny" 
+                  alt="Fenny" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
               </div>
               <div>
                 <span className="text-[10px] font-bold text-fennec-terracotta uppercase tracking-wider block">
-                  Offre Gratuite Feny
+                  Offre Gratuite Fenny
                 </span>
                 <h4 className="font-display font-extrabold text-xl text-fennec-dark">
                   Votre offre {selectedCaisse.name}
