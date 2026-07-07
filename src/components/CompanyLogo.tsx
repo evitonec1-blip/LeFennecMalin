@@ -3,15 +3,109 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface CompanyLogoProps {
   id: string;
   className?: string;
 }
 
+const DOMAIN_MAP: Record<string, string> = {
+  // Caisses Maladie
+  assura: 'assura.ch',
+  css: 'css.ch',
+  helsana: 'helsana.ch',
+  swica: 'swica.ch',
+  visana: 'visana.ch',
+  sanitas: 'sanitas.ch',
+  concordia: 'concordia.ch',
+  kpt: 'kpt.ch',
+  cpt: 'kpt.ch',
+  mutuel: 'groupemutuel.ch',
+  'groupe mutuel': 'groupemutuel.ch',
+  okk: 'oekk.ch',
+  'ökk': 'oekk.ch',
+  sympany: 'sympany.ch',
+  atupri: 'atupri.ch',
+
+  // Assureurs Vie
+  swisslife: 'swisslife.ch',
+  'swiss life': 'swisslife.ch',
+  axa: 'axa.ch',
+  'axa prevoyance': 'axa.ch',
+  zurich: 'zurich.ch',
+  'zurich assurance': 'zurich.ch',
+  helvetia: 'helvetia.ch',
+  allianz: 'allianz.ch',
+  'allianz suisse': 'allianz.ch',
+  generali: 'generali.ch',
+  'generali suisse': 'generali.ch',
+  mobiliere: 'mobiliere.ch',
+  'la mobiliere': 'mobiliere.ch',
+  'la mobilière': 'mobiliere.ch',
+  baloise: 'baloise.ch',
+  'baloise assurances': 'baloise.ch',
+};
+
 export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogoProps) {
-  const normId = id.toLowerCase();
+  const normId = id.toLowerCase().trim();
+  const domain = DOMAIN_MAP[normId];
+
+  const [imgSrc, setImgSrc] = useState<string | null>(null);
+  const [retryState, setRetryState] = useState<number>(0); // 0 = initial, 1 = fallback, 2 = fallback svg
+
+  // Reset and load the image when the ID changes
+  useEffect(() => {
+    const specialUrls: Record<string, string> = {
+      sanitas: 'https://upload.wikimedia.org/wikipedia/commons/4/4b/Sanitas_Krankenversicherung_logo.svg',
+      concordia: 'https://upload.wikimedia.org/wikipedia/de/e/ea/Concordia_Logo.svg'
+    };
+
+    if (specialUrls[normId]) {
+      setImgSrc(specialUrls[normId]);
+      setRetryState(0);
+    } else if (domain) {
+      setImgSrc(`https://www.google.com/s2/favicons?sz=128&domain=${domain}`);
+      setRetryState(0);
+    } else {
+      setImgSrc(null);
+      setRetryState(2);
+    }
+  }, [id, normId, domain]);
+
+  const handleImageError = () => {
+    const specialUrls: Record<string, string> = {
+      sanitas: 'https://upload.wikimedia.org/wikipedia/commons/4/4b/Sanitas_Krankenversicherung_logo.svg',
+      concordia: 'https://upload.wikimedia.org/wikipedia/de/e/ea/Concordia_Logo.svg'
+    };
+
+    if (specialUrls[normId]) {
+      // If our special URL fails, fallback to custom inline SVG immediately
+      setRetryState(2);
+    } else if (retryState === 0 && domain) {
+      // Fallback to Clearbit
+      setImgSrc(`https://logo.clearbit.com/${domain}`);
+      setRetryState(1);
+    } else {
+      // Fallback to beautiful custom inline SVG
+      setRetryState(2);
+    }
+  };
+
+  // Render the real company logo if available and hasn't failed
+  if (domain && retryState < 2 && imgSrc) {
+    return (
+      <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex items-center justify-center p-2.5 shadow-2xs overflow-hidden shrink-0`}>
+        <img 
+          src={imgSrc} 
+          alt={`${id} Logo`} 
+          className="max-w-full max-h-full object-contain transition-all duration-300"
+          onError={handleImageError}
+          referrerPolicy="no-referrer"
+        />
+      </div>
+    );
+  }
 
   // Render individual SVG shapes matching the corporate visual identity of Swiss companies
   switch (normId) {

@@ -259,6 +259,99 @@ Total économie fiscale sur le terme: CHF ${totalTaxSavings.toLocaleString()}.-
   }
 });
 
+import fs from "fs";
+import { resolveZipCode } from "./src/utils/swissZipCodes";
+import { 
+  getRegionCode, 
+  getInsurerDisplayName, 
+  getInsurerModelFallbackName, 
+  lookupPremium 
+} from "./src/utils/premiumLookupService";
+
+// Load 2026 premiums database from the public folder
+let premiumsDb: Record<string, { premium: number; modelName: string }> = {};
+
+try {
+  const dbPath = path.join(process.cwd(), "public", "premiums_2026.json");
+  if (fs.existsSync(dbPath)) {
+    console.log("[Server] Loading local official 2026 premiums database...");
+    premiumsDb = JSON.parse(fs.readFileSync(dbPath, "utf-8"));
+    console.log(`[Server] Successfully loaded ${Object.keys(premiumsDb).length} premium records.`);
+  } else {
+    console.warn("[Server] WARNING: Local premiums database not found at:", dbPath);
+  }
+} catch (err) {
+  console.error("[Server] Error loading local premiums database:", err);
+}
+
+// API endpoint for fetching local official premiums
+app.get("/api/priminfo/praemien", async (req, res) => {
+  try {
+    const { zipCode, franchise, ageCategory, accident } = req.query;
+
+    if (!zipCode) {
+      return res.status(400).json({ error: "zipCode is required" });
+    }
+
+    const cleanZip = String(zipCode).trim();
+    const cleanFranchise = franchise ? parseInt(String(franchise), 10) : 2500;
+    const cleanAgeCategory = ageCategory ? String(ageCategory) : "adult";
+    const cleanAccident = accident === "0" ? false : true;
+
+    const zipInfo = resolveZipCode(cleanZip);
+    if (!zipInfo) {
+      return res.status(404).json({ error: "Invalid or unsupported ZIP code" });
+    }
+
+    const canton = zipInfo.canton;
+    const zone = zipInfo.zone;
+    const region = getRegionCode(canton, zone);
+
+    const activeInsurers = [
+      'assura', 'css', 'helsana', 'swica', 'visana', 
+      'sanitas', 'concordia', 'kpt', 'mutuel', 'okk', 
+      'sympany', 'atupri'
+    ];
+
+    const modelTypes: ('standard' | 'family' | 'hmo' | 'telemed')[] = [
+      'standard', 'family', 'hmo', 'telemed'
+    ];
+
+    const results: any[] = [];
+
+    for (const insurerId of activeInsurers) {
+      for (const modelType of modelTypes) {
+        const record = lookupPremium(premiumsDb, {
+          insurerId,
+          canton,
+          region,
+          ageCategory: cleanAgeCategory,
+          deductible: cleanFranchise,
+          model: modelType,
+          accidentCoverage: cleanAccident
+        });
+
+        if (record) {
+          results.push({
+            insurerId,
+            insurerName: getInsurerDisplayName(insurerId),
+            modelName: record.modelName || getInsurerModelFallbackName(insurerId, modelType),
+            modelType,
+            premium: record.premium
+          });
+        }
+      }
+    }
+
+    console.log(`[PremiumLookup] Resolved ${results.length} official records for ZIP ${cleanZip} (${canton}, Region: ${region}, Franchise: ${cleanFranchise}, Category: ${cleanAgeCategory}, Accident: ${cleanAccident})`);
+    res.json({ success: true, count: results.length, data: results });
+
+  } catch (error: any) {
+    console.error("[PremiumLookupError]", error);
+    res.status(500).json({ error: error.message || "An error occurred while resolving premiums." });
+  }
+});
+
 // Serve frontend assets & mount Vite middleware in development
 async function startServer() {
   if (process.env.NODE_ENV !== "production") {

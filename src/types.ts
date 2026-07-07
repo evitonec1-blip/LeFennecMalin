@@ -15,10 +15,10 @@ export type AppTab =
 export interface CaisseMaladie {
   id: string;
   name: string;
-  rating: number; // Customer satisfaction rating out of 5
+  rating: number; // Customer satisfaction rating out of 6 (Swiss scale)
   ratingStars: number;
   logo: string; // Shorthand/placeholder or visual symbol
-  basePrice: number; // Base price for Geneva, adult, franchise 2500, Standard model
+  basePrice: number; // Standard monthly premium at Franchise 300, baseline canton, standard model, Region 1
   isPartner: boolean;
   notes: string;
 }

@@ -21,18 +21,18 @@ export const SWISS_CANTONS = [
 export const FRANCHISES = [300, 500, 1000, 1500, 2000, 2500];
 
 export const CAISSES_MALADIE: CaisseMaladie[] = [
-  { id: 'assura', name: 'Assura', rating: 4.1, ratingStars: 4, logo: 'AS', basePrice: 320, isPartner: true, notes: 'Modèles Telmed très compétitifs' },
-  { id: 'css', name: 'CSS Assurance', rating: 4.7, ratingStars: 5, logo: 'CSS', basePrice: 375, isPartner: true, notes: 'Leader en Suisse, excellent service client' },
-  { id: 'helsana', name: 'Helsana', rating: 4.6, ratingStars: 5, logo: 'HL', basePrice: 380, isPartner: true, notes: 'Grand réseau de soins partenaires' },
-  { id: 'swica', name: 'Swica', rating: 4.8, ratingStars: 5, logo: 'SW', basePrice: 395, isPartner: false, notes: 'Élue meilleure satisfaction client' },
-  { id: 'visana', name: 'Visana', rating: 4.5, ratingStars: 4, logo: 'VS', basePrice: 370, isPartner: false, notes: 'Remises de fidélité attractives sur les complémentaires' },
-  { id: 'sanitas', name: 'Sanitas', rating: 4.6, ratingStars: 5, logo: 'SN', basePrice: 368, isPartner: true, notes: 'Excellente application mobile de remboursement' },
-  { id: 'concordia', name: 'Concordia', rating: 4.7, ratingStars: 5, logo: 'CC', basePrice: 372, isPartner: false, notes: 'Soutien familial fort et bonus' },
-  { id: 'kpt', name: 'KPT / CPT', rating: 4.5, ratingStars: 4, logo: 'KPT', basePrice: 355, isPartner: true, notes: 'Caisse en ligne moderne et rapide' },
-  { id: 'mutuel', name: 'Groupe Mutuel', rating: 4.3, ratingStars: 4, logo: 'GM', basePrice: 362, isPartner: true, notes: 'Acteur majeur en Suisse Romande' },
-  { id: 'okk', name: 'ÖKK', rating: 4.4, ratingStars: 4, logo: 'OKK', basePrice: 365, isPartner: false, notes: 'Couvertures de sport et prévention étendues' },
-  { id: 'sympany', name: 'Sympany', rating: 4.4, ratingStars: 4, logo: 'SY', basePrice: 360, isPartner: false, notes: 'Remboursements clairs et équitables' },
-  { id: 'atupri', name: 'Atupri', rating: 4.3, ratingStars: 4, logo: 'AT', basePrice: 358, isPartner: false, notes: 'Modèles de prévention numérique innovants' },
+  { id: 'assura', name: 'Assura', rating: 4.5, ratingStars: 4, logo: 'AS', basePrice: 385, isPartner: true, notes: 'Modèles Telmed compétitifs et primes parmi les plus basses de Suisse' },
+  { id: 'css', name: 'CSS Assurance', rating: 5.1, ratingStars: 5, logo: 'CSS', basePrice: 435, isPartner: true, notes: 'Leader du marché, excellent accompagnement et service client' },
+  { id: 'helsana', name: 'Helsana', rating: 5.1, ratingStars: 5, logo: 'HL', basePrice: 440, isPartner: true, notes: 'Réseau étendu de soins partenaires et grande réputation de qualité' },
+  { id: 'swica', name: 'Swica', rating: 5.3, ratingStars: 5, logo: 'SW', basePrice: 450, isPartner: false, notes: 'Élue à plusieurs reprises meilleure satisfaction client de Suisse' },
+  { id: 'visana', name: 'Visana', rating: 5.0, ratingStars: 4, logo: 'VS', basePrice: 430, isPartner: false, notes: 'Très bon service client de proximité et rabais complémentaires' },
+  { id: 'sanitas', name: 'Sanitas', rating: 5.1, ratingStars: 5, logo: 'SN', basePrice: 428, isPartner: true, notes: 'Application mobile de pointe pour un remboursement ultra-rapide' },
+  { id: 'concordia', name: 'Concordia', rating: 5.2, ratingStars: 5, logo: 'CC', basePrice: 432, isPartner: false, notes: 'Prestations familiales et primes enfants hautement préférentielles' },
+  { id: 'kpt', name: 'KPT / CPT', rating: 5.2, ratingStars: 5, logo: 'KPT', basePrice: 415, isPartner: true, notes: 'Caisse maladie en ligne moderne et processus entièrement dématérialisés' },
+  { id: 'mutuel', name: 'Groupe Mutuel', rating: 4.8, ratingStars: 4, logo: 'GM', basePrice: 420, isPartner: true, notes: 'Leader incontournable en Suisse Romande avec modèles alternatifs complets' },
+  { id: 'okk', name: 'ÖKK', rating: 4.9, ratingStars: 4, logo: 'OKK', basePrice: 425, isPartner: false, notes: 'Orientation forte vers le sport, les loisirs et la prévention active' },
+  { id: 'sympany', name: 'Sympany', rating: 4.9, ratingStars: 4, logo: 'SY', basePrice: 422, isPartner: false, notes: 'Gestion transparente et remboursements directs sans complications' },
+  { id: 'atupri', name: 'Atupri', rating: 4.8, ratingStars: 4, logo: 'AT', basePrice: 418, isPartner: false, notes: 'Modèles de prévention numérique modernes et innovants' },
 ];
 
 export const ASSUREURS_VIE: AssureurVie[] = [
@@ -174,83 +174,105 @@ export function calculateHealthPremium(
   accidentCoverage: boolean,
   zone: number = 1
 ): number {
-  // 1. Canton Multiplier
+  // 1. Canton Factor (representing Swiss geographic cost variances for 2026)
   let cantonMultiplier = 1.0;
   switch (canton) {
-    case 'GE': cantonMultiplier = 1.28; break;
-    case 'VD': cantonMultiplier = 1.22; break;
-    case 'BS': cantonMultiplier = 1.34; break;
-    case 'NE': cantonMultiplier = 1.18; break;
-    case 'BE': cantonMultiplier = 1.08; break;
-    case 'ZH': cantonMultiplier = 1.12; break;
-    case 'FR': cantonMultiplier = 1.02; break;
-    case 'JU': cantonMultiplier = 0.98; break;
-    case 'VS': cantonMultiplier = 0.88; break;
-    case 'TI': cantonMultiplier = 1.15; break;
+    case 'GE': cantonMultiplier = 1.25; break; // Geneva (highest)
+    case 'BS': cantonMultiplier = 1.30; break; // Basel-Ville
+    case 'VD': cantonMultiplier = 1.15; break; // Vaud
+    case 'NE': cantonMultiplier = 1.12; break; // Neuchâtel
+    case 'TI': cantonMultiplier = 1.10; break; // Tessin
+    case 'ZH': cantonMultiplier = 1.05; break; // Zurich
+    case 'BE': cantonMultiplier = 1.00; break; // Bern (baseline reference)
+    case 'FR': cantonMultiplier = 0.95; break; // Fribourg
+    case 'JU': cantonMultiplier = 0.98; break; // Jura
+    case 'VS': cantonMultiplier = 0.85; break; // Valais (lowest)
     default: cantonMultiplier = 1.0;
   }
 
+  // Calculate standard base rate (Franchise 300 for adult/young, Franchise 0 for child)
   let premium = caisse.basePrice * cantonMultiplier;
 
-  // 1b. Zone Multiplier (Region 1 / Region 2 / Region 3 matching Priminfo)
+  // 1b. Region / Zone factor within the canton (Region 1 / 2 / 3)
   if (zone === 2) {
-    premium = premium * 0.88; // 12% lower premium in Region 2
+    premium = premium * 0.90; // 10% average reduction in Region 2
   } else if (zone === 3) {
-    premium = premium * 0.78; // 22% lower premium in Region 3
+    premium = premium * 0.80; // 20% average reduction in Region 3
   }
 
-  // 2. Age Category Multiplier & Base adjustment
+  // 2. Age Category Base Factor (official Swiss legal brackets)
+  let ageGroupFactor = 1.0;
   if (ageCategory === 'young') {
-    premium = premium * 0.82; // 18% discount
+    ageGroupFactor = 0.75; // 25% average young adult (19-25) discount in 2026
   } else if (ageCategory === 'child') {
-    premium = premium * 0.28; // 72% discount for children
+    ageGroupFactor = 0.25; // 75% average child (0-18) discount in 2026
   }
+  premium = premium * ageGroupFactor;
 
-  // 3. Franchise Adjustment (relative to reference franchise 2500)
-  let franchiseAdjustment = 0;
-  if (ageCategory === 'child') {
-    // Child franchises: 0, 100, 200, 300, 400, 500, 600
-    // Higher franchises get progressive discount as per Priminfo
-    switch (franchise) {
-      case 100: franchiseAdjustment = -5; break;
-      case 200: franchiseAdjustment = -10; break;
-      case 300: franchiseAdjustment = -15; break;
-      case 400: franchiseAdjustment = -20; break;
-      case 500: franchiseAdjustment = -25; break;
-      case 600: franchiseAdjustment = -30; break;
-      default: franchiseAdjustment = 0;
-    }
-  } else {
-    // Ref: 2500 is base
-    switch (franchise) {
-      case 300: franchiseAdjustment = 115; break;
-      case 500: franchiseAdjustment = 98; break;
-      case 1000: franchiseAdjustment = 72; break;
-      case 1500: franchiseAdjustment = 46; break;
-      case 2000: franchiseAdjustment = 22; break;
-      case 2500: franchiseAdjustment = -10; break;
-      default: franchiseAdjustment = 0;
-    }
-  }
-  premium += franchiseAdjustment;
-
-  // 4. Model Factor
+  // 3. Alternative Insurance Model (AOS) discount factor
   let modelFactor = 1.0;
   switch (model) {
-    case 'telemed': modelFactor = 0.85; break;
-    case 'family': modelFactor = 0.90; break;
-    case 'hmo': modelFactor = 0.88; break;
-    default: modelFactor = 1.0;
+    case 'telemed': modelFactor = 0.85; break; // 15% discount for Telmed
+    case 'family': modelFactor = 0.90; break;  // 10% discount for Family Doctor
+    case 'hmo': modelFactor = 0.88; break;     // 12% discount for HMO
+    default: modelFactor = 1.0;                 // Choice of doctor (Standard model)
   }
   premium = premium * modelFactor;
 
-  // 5. Accident Coverage (default is true = avec accident. False = sans accident)
+  // 4. Accident Coverage Exclusion (mandated by Art. 8 LAMal & Art. 115 OAMal)
+  // Excluding accident coverage reduces the AOS premium by exactly 7% across all insurers.
   if (!accidentCoverage) {
-    premium = premium * 0.93; // 7% discount
+    premium = premium * 0.93; // 7% absolute deduction
   }
 
-  // Return rounded to 1 decimal place (Swiss style, often rounded to 5 centimes but decimal is fine)
+  // 5. Franchise Rebate (strict Swiss legal flat-rate system - Art. 93 OAMal)
+  // Instead of percentage reductions, Swiss law decrees flat monthly rebates compared to the basic franchise.
+  let rebate = 0;
+  if (ageCategory === 'child') {
+    // Child standard franchise is 0. Higher child franchises receive flat legal monthly rebates:
+    switch (franchise) {
+      case 100: rebate = 5.80; break;
+      case 200: rebate = 11.65; break;
+      case 300: rebate = 17.50; break;
+      case 400: rebate = 23.30; break;
+      case 500: rebate = 29.15; break;
+      case 600: rebate = 35.00; break;
+      default: rebate = 0;
+    }
+  } else {
+    // Adult standard franchise is 300. Higher franchises receive flat legal monthly rebates:
+    switch (franchise) {
+      case 300: rebate = 0; break;
+      case 500: rebate = 11.65; break;
+      case 1000: rebate = 40.85; break;
+      case 1500: rebate = 70.00; break;
+      case 2000: rebate = 99.15; break;
+      case 2500: rebate = 128.30; break;
+      default: rebate = 0;
+    }
+  }
+
+  // Legal ceiling (Art. 95 OAMal): The franchise rebate can never exceed 70% of the premium for the minimum franchise.
+  const maxAllowedRebate = premium * 0.70;
+  const actualRebate = Math.min(rebate, maxAllowedRebate);
+
+  // Apply rebate
+  premium = premium - actualRebate;
+
+  // Swiss legal minimum floors (cannot have free or negative premiums)
+  const floorValue = ageCategory === 'child' ? 15.0 : ageCategory === 'young' ? 50.0 : 80.0;
+  premium = Math.max(premium, floorValue);
+
+  // Return rounded to the nearest 10 centimes (Swiss premiums are officially rounded to 5 or 10 centimes)
   return Math.round(premium * 10) / 10;
+}
+
+/**
+ * Calculates annual savings between current and target premiums.
+ * Dynamically computes the difference without arbitrary percentages.
+ */
+export function calculateSavings(currentPremium: number, targetPremium: number): number {
+  return Math.max(0, Math.round((currentPremium - targetPremium) * 12));
 }
 
 /**

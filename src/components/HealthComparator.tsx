@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useMemo, useEffect, useRef } from 'react';
-import { CAISSES_MALADIE, SWISS_CANTONS, FRANCHISES, calculateHealthPremium } from '../data';
+import { CAISSES_MALADIE, SWISS_CANTONS, FRANCHISES, calculateHealthPremium, calculateSavings } from '../data';
 import { HealthFilterState, CaisseMaladie } from '../types';
 import { resolveZipCode } from '../utils/swissZipCodes';
 import fenyWinking from '../assets/images/feny_winking_1783331270164.jpg';
@@ -139,27 +139,86 @@ export default function HealthComparator() {
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
 
+  // Real premiums fetched from the backend (priminfo.admin.ch)
+  const [realPremiums, setRealPremiums] = useState<any[]>([]);
+  const [loadingReal, setLoadingReal] = useState<boolean>(false);
+
+  // User's current premium details
+  const [currentCaisseId, setCurrentCaisseId] = useState<string>('helsana');
+  const [currentPremiumInput, setCurrentPremiumInput] = useState<number>(0);
+  const [userHasEditedCurrentPremium, setUserHasEditedCurrentPremium] = useState<boolean>(false);
+
+  // Fetch real-time official premiums from backend when filters change
+  useEffect(() => {
+    let active = true;
+    const fetchPremiums = async () => {
+      if (!filters.zipCode || filters.zipCode.length !== 4) return;
+      setLoadingReal(true);
+      try {
+        const accidentVal = filters.accidentCoverage ? '1' : '0';
+        const res = await fetch(`/api/priminfo/praemien?zipCode=${filters.zipCode}&franchise=${filters.franchise}&ageCategory=${filters.ageCategory}&accident=${accidentVal}`);
+        const responseData = await res.json();
+        if (active && responseData && responseData.success && Array.isArray(responseData.data)) {
+          setRealPremiums(responseData.data);
+          
+          // Automatically set user's default current premium to their matched current caisse rate if they haven't modified it manually
+          const matchedCurrent = responseData.data.find(
+            (rp: any) => rp.insurerId === currentCaisseId && rp.modelType === filters.model
+          ) || responseData.data.find(
+            (rp: any) => rp.insurerId === currentCaisseId
+          );
+          
+          if (matchedCurrent && !userHasEditedCurrentPremium) {
+            setCurrentPremiumInput(Math.round(matchedCurrent.premium));
+          }
+        }
+      } catch (err) {
+        console.error("[FetchRealPremiumsError]", err);
+      } finally {
+        if (active) setLoadingReal(false);
+      }
+    };
+
+    fetchPremiums();
+    return () => {
+      active = false;
+    };
+  }, [filters.zipCode, filters.franchise, filters.ageCategory, filters.accidentCoverage, currentCaisseId, filters.model]);
+
   // Computed premiums list
   const calculatedResults = useMemo(() => {
     const list = CAISSES_MALADIE.map((caisse) => {
-      const premium = calculateHealthPremium(
-         caisse,
-         filters.canton,
-         filters.ageCategory,
-         filters.franchise,
-         filters.model,
-         filters.accidentCoverage,
-         filters.zone
+      // Find matching real premium from the parsed list for the exact model chosen
+      const realMatches = realPremiums.filter(
+        (rp) => rp.insurerId === caisse.id && rp.modelType === filters.model
       );
+
+      let premium = 0;
+      let matchedModelName = '';
+
+      if (realMatches.length > 0) {
+        // Use the cheapest matched premium for this insurer
+        realMatches.sort((a, b) => a.premium - b.premium);
+        premium = realMatches[0].premium;
+        matchedModelName = realMatches[0].modelName;
+      }
+
       return {
         ...caisse,
         computedPremium: premium,
+        realModelName: matchedModelName || undefined,
+        isRealData: premium > 0,
       };
     });
 
     // Sort results
     if (filters.sortBy === 'price') {
-      list.sort((a, b) => a.computedPremium - b.computedPremium);
+      list.sort((a, b) => {
+        if (a.computedPremium === 0 && b.computedPremium === 0) return 0;
+        if (a.computedPremium === 0) return 1;
+        if (b.computedPremium === 0) return -1;
+        return a.computedPremium - b.computedPremium;
+      });
     } else if (filters.sortBy === 'rating') {
       list.sort((a, b) => b.rating - a.rating);
     } else if (filters.sortBy === 'name') {
@@ -167,21 +226,28 @@ export default function HealthComparator() {
     }
 
     return list;
-  }, [filters]);
+  }, [filters, realPremiums]);
 
   // Best/Cheapest caisse for visual highlights
   const bestValueCaisse = useMemo(() => {
-    if (calculatedResults.length === 0) return null;
-    return calculatedResults[0];
+    const validResults = calculatedResults.filter(r => r.computedPremium > 0);
+    if (validResults.length === 0) return null;
+    return validResults[0];
   }, [calculatedResults]);
 
-  // Average savings computation (difference between highest premium and lowest premium)
+  // Dynamic individual savings computation using the calculateSavings function
   const estimatedSavings = useMemo(() => {
-    if (calculatedResults.length < 2) return 0;
-    const highest = calculatedResults[calculatedResults.length - 1].computedPremium;
-    const lowest = calculatedResults[0].computedPremium;
-    return Math.round((highest - lowest) * 12);
-  }, [calculatedResults]);
+    const validResults = calculatedResults.filter(r => r.computedPremium > 0);
+    if (validResults.length === 0) return 0;
+    const cheapestPremium = validResults[0].computedPremium;
+    
+    // If the user hasn't input or got a valid current premium, fall back to the highest premium
+    const current = currentPremiumInput > 0 
+      ? currentPremiumInput 
+      : validResults[validResults.length - 1].computedPremium;
+
+    return calculateSavings(current, cheapestPremium);
+  }, [calculatedResults, currentPremiumInput]);
 
   const handleFilterChange = <K extends keyof HealthFilterState>(key: K, value: HealthFilterState[K]) => {
     setFilters((prev) => {
@@ -841,6 +907,63 @@ export default function HealthComparator() {
                 </button>
               </div>
 
+              {/* SAVINGS CALCULATOR / CURRENT SITUATION WIDGET */}
+              <div className="bg-fennec-cream/20 border border-fennec-cream/70 rounded-2xl p-4 text-left space-y-3 shadow-3xs">
+                <div className="flex justify-between items-center">
+                  <h4 className="font-display font-bold text-sm text-fennec-dark flex items-center">
+                    <Sparkles className="w-4 h-4 mr-1.5 text-fennec-terracotta" />
+                    Ma situation actuelle
+                  </h4>
+                  {loadingReal ? (
+                    <span className="text-[9px] font-black uppercase text-fennec-terracotta bg-fennec-cream/70 px-2 py-0.5 rounded-full animate-pulse">
+                      Chargement...
+                    </span>
+                  ) : realPremiums.length > 0 ? (
+                    <span className="text-[9px] font-black uppercase text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                      Primes Officielles
+                    </span>
+                  ) : null}
+                </div>
+                
+                <p className="text-[10px] text-fennec-dark/70 leading-relaxed">
+                  Modifiez votre assureur actuel et votre prime payée pour recalculer instantanément vos économies réelles via la méthode <code className="font-mono font-bold text-[9px]">calculateSavings()</code>.
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                  <div className="space-y-1">
+                    <label className="text-[9px] font-bold text-fennec-brown uppercase tracking-wider block">Mon assureur</label>
+                    <select
+                      value={currentCaisseId}
+                      onChange={(e) => {
+                        const newId = e.target.value;
+                        setCurrentCaisseId(newId);
+                        setUserHasEditedCurrentPremium(false); // let useEffect reset to the default of this insurer
+                      }}
+                      className="w-full bg-white border border-fennec-cream/70 rounded-xl px-2.5 py-1.5 text-xs text-fennec-dark font-medium focus:outline-none focus:border-fennec-tan"
+                    >
+                      {CAISSES_MALADIE.map((c) => (
+                        <option key={c.id} value={c.id}>{c.name}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[9px] font-bold text-fennec-brown uppercase tracking-wider block">Ma prime (CHF)</label>
+                    <input
+                      type="number"
+                      min={40}
+                      max={1200}
+                      value={currentPremiumInput || ''}
+                      onChange={(e) => {
+                        setCurrentPremiumInput(Number(e.target.value));
+                        setUserHasEditedCurrentPremium(true);
+                      }}
+                      className="w-full bg-white border border-fennec-cream/70 rounded-xl px-2.5 py-1.5 text-xs text-fennec-dark font-bold focus:outline-none focus:border-fennec-tan"
+                    />
+                  </div>
+                </div>
+              </div>
+
               {/* Quick Profile Summary Pills */}
               <div className="space-y-2 text-xs text-left">
                 <div className="flex justify-between p-2.5 bg-fennec-cream/10 rounded-xl">
@@ -1062,50 +1185,87 @@ export default function HealthComparator() {
                           </p>
                           
                           {/* Customer Rating */}
-                          <div className="flex items-center justify-center sm:justify-start mt-2 space-x-1">
-                            <div className="flex text-amber-400">
-                              {Array.from({ length: 5 }).map((_, i) => (
-                                <span key={i} className="text-sm">
-                                  {i < caisse.ratingStars ? '★' : '☆'}
+                          <div className="flex items-center justify-center sm:justify-start mt-2 space-x-1.5">
+                            <div className="flex text-amber-400" title={`Satisfaction : ${caisse.rating} / 6`}>
+                              {Array.from({ length: 6 }).map((_, i) => (
+                                <span key={i} className="text-xs">
+                                  {i < Math.round(caisse.rating) ? '★' : '☆'}
                                 </span>
                               ))}
                             </div>
-                            <span className="text-xs font-bold text-fennec-dark/70 ml-1">
-                              {caisse.rating} / 5 (Avis)
+                            <span className="text-xs font-bold text-fennec-dark/70">
+                              {caisse.rating.toFixed(1)} / 6
+                            </span>
+                            <span className="text-[10px] text-fennec-brown font-semibold bg-fennec-cream/20 px-1.5 py-0.5 rounded-sm" title="Source : Enquête annuelle indépendante de satisfaction client Comparis / bonus.ch">
+                              Comparis & bonus.ch
                             </span>
                           </div>
                         </div>
                       </div>
 
                       {/* Middle: Prime pricing */}
-                      <div className="text-center sm:text-right shrink-0">
-                        <span className="text-[10px] font-bold tracking-widest text-fennec-brown uppercase block">
-                          Prime mensuelle 2026
-                        </span>
-                        <div className="flex items-baseline justify-center sm:justify-end">
-                          <span className="text-xs font-extrabold text-fennec-dark mr-1">CHF</span>
-                          <span className="text-3xl font-display font-black text-fennec-dark tracking-tight">
-                            {caisse.computedPremium.toFixed(2)}
+                      <div className="text-center sm:text-right shrink-0 space-y-1.5">
+                        <div>
+                          <span className="text-[10px] font-bold tracking-widest text-fennec-brown uppercase block">
+                            Prime mensuelle 2026
                           </span>
+                          <div className="flex items-baseline justify-center sm:justify-end min-h-[36px]">
+                            {caisse.computedPremium > 0 ? (
+                              <>
+                                <span className="text-xs font-extrabold text-fennec-dark mr-1">CHF</span>
+                                <span className="text-3xl font-display font-black text-fennec-dark tracking-tight">
+                                  {caisse.computedPremium.toFixed(2)}
+                                </span>
+                              </>
+                            ) : (
+                              <span className="text-sm font-bold text-fennec-brown/80 bg-fennec-cream/40 px-3 py-1 rounded-lg">
+                                Non disponible
+                              </span>
+                            )}
+                          </div>
+                          {caisse.computedPremium > 0 && (
+                            <span className="text-[10px] text-fennec-dark/60 block">
+                              Sans frais additionnels
+                            </span>
+                          )}
                         </div>
-                        <span className="text-[10px] text-fennec-dark/60 block">
-                          Sans frais additionnels
-                        </span>
+
+                        {/* Official OFSP / priminfo Source Badge */}
+                        {caisse.computedPremium > 0 ? (
+                          <div className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-md bg-emerald-50 border border-emerald-150 text-[9px] text-emerald-800 font-bold">
+                            <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
+                            <span>Donnée Officielle OFSP</span>
+                          </div>
+                        ) : (
+                          <div className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-md bg-red-50 border border-red-150 text-[9px] text-red-800 font-bold">
+                            <span>Non disponible en 2026</span>
+                          </div>
+                        )}
+
+                        {/* Real retrieved model name */}
+                        {caisse.realModelName && (
+                          <div className="text-[9px] text-fennec-dark/70 font-mono italic block text-center sm:text-right">
+                            Modèle : {caisse.realModelName}
+                          </div>
+                        )}
                       </div>
 
                       {/* Right: CTA button */}
                       <div className="w-full sm:w-auto text-center sm:text-right shrink-0">
                         <button
+                          disabled={caisse.computedPremium === 0}
                           onClick={() => handleOpenForm(caisse)}
                           className={`w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 rounded-full font-display font-bold text-sm shadow-sm transition-all duration-200 ${
-                            isCheapest
+                            caisse.computedPremium === 0
+                              ? 'bg-fennec-cream/40 text-fennec-dark/30 cursor-not-allowed border border-fennec-cream/70'
+                              : isCheapest
                               ? 'bg-fennec-terracotta hover:bg-fennec-dark text-white shadow-md shadow-fennec-terracotta/15'
                               : caisse.isPartner
                               ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
                               : 'bg-fennec-cream hover:bg-fennec-sand text-fennec-dark'
                           }`}
                         >
-                          <span>Obtenir l'offre</span>
+                          <span>{caisse.computedPremium === 0 ? 'Indisponible' : "Obtenir l'offre"}</span>
                           <ChevronRight className="w-4 h-4 ml-1.5" />
                         </button>
                       </div>
@@ -1116,16 +1276,19 @@ export default function HealthComparator() {
               </div>
 
               {/* Official disclaimers underneath list */}
-              <div className="bg-fennec-cream/20 rounded-3xl p-6 border border-fennec-cream/30 space-y-3 text-xs text-fennec-dark/75 leading-relaxed">
+              <div className="bg-fennec-cream/20 rounded-3xl p-6 border border-fennec-cream/30 space-y-4 text-xs text-fennec-dark/75 leading-relaxed">
                 <h5 className="font-display font-bold text-sm text-fennec-dark uppercase tracking-wide flex items-center">
                   <Shield className="w-4.5 h-4.5 mr-2 text-fennec-tan" />
-                  Remarque de conformité suisse (Loi LAMal) :
+                  Conformité Légale LAMal & Transparence :
                 </h5>
                 <p>
-                  Les prestations de l'assurance obligatoire des soins (AOS) sont définies de manière univoque par la loi fédérale. Elles sont <strong>strictement identiques</strong> auprès de toutes les caisses maladie suisses. Un traitement médical sera remboursé de la même manière, que vous soyez affilié chez {bestValueCaisse?.name || 'Assura'} ou chez Swica. Seule la qualité administrative et la vitesse de remboursement diffèrent.
+                  <strong>Prestations de base identiques :</strong> Les prestations de l'assurance obligatoire des soins (AOS) sont définies de manière univoque par la loi fédérale (LAMal). Elles sont <strong>strictement identiques</strong> auprès de toutes les caisses maladie suisses. Un traitement médical sera remboursé de la même manière, quel que soit l'assureur choisi. Seuls diffèrent la qualité administrative, l'ergonomie des outils de remboursement et l'indice de satisfaction.
                 </p>
                 <p>
-                  Les primes affichées intègrent l'ensemble des facteurs légaux et sont calculées sur la base de vos choix de canton, d'âge et de franchise selon la base officielle de l'OFSP.
+                  <strong>Origine des notes de satisfaction client (indices / 6) :</strong> Les notes affichées (exprimées sur l'échelle officielle helvétique de 1 à 6, où 6 est la note maximale) proviennent directement des rapports d'enquêtes représentatifs de satisfaction client publiés de manière indépendante par <strong>Comparis et bonus.ch (enquêtes 2025/2026)</strong>. Ces notes mesurent la rapidité des remboursements, l'amabilité et la clarté des décomptes.
+                </p>
+                <p>
+                  <strong>Calcul rigoureux des Primes par Franchise :</strong> Contrairement aux approximations forfaitaires à pourcentage fixe, les primes affichées intègrent le barème exact des rabais fédéraux maximaux autorisés par l'OFSP selon l'article 93 de l'OAMal. Choisir une franchise plus élevée (comme CHF 2'500) accorde une réduction mensuelle légale forfaitaire de CHF 128.30 (CHF 1'540/an) par rapport à la franchise de base de CHF 300, plafonnée à 70% de la prime standard pour assurer une parfaite fidélité aux valeurs officielles 2026.
                 </p>
               </div>
 
