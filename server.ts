@@ -21,7 +21,7 @@ app.post("/api/submit-lead", async (req, res) => {
       return res.status(400).json({ error: "Missing required lead contact fields." });
     }
 
-    const recipientEmail = "evitonec1@gmail.com";
+    const recipientEmail = "lefennecmalin@gmail.com";
     let subject = "";
     let textBody = "";
     let htmlBody = "";
