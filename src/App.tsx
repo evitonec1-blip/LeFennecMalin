@@ -16,7 +16,6 @@ import FAQSection from './components/FAQSection';
 import LegalSection from './components/LegalSection';
 import HealthComparator from './components/HealthComparator';
 import LifePensionComparator from './components/LifePensionComparator';
-import Preloader from './components/Preloader';
 import { ArrowRight, ShieldCheck, HelpCircle, ArrowUpRight, Scale, Sparkles, CheckCircle } from 'lucide-react';
 import gsap from 'gsap';
 
@@ -25,41 +24,38 @@ import fenyWinking from './assets/images/feny_winking_1783331270164.jpg';
 import fenyResults from './assets/images/feny_results_1783331258491.jpg';
 
 export default function App() {
-  const [loading, setLoading] = useState(true);
   const [currentTab, setCurrentTab] = useState<AppTab>('home');
   const [activeVertical, setActiveVertical] = useState<'health' | 'life'>('health');
   
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // Stagger reveal of page content after Preloader finishes
+  // Stagger reveal of page content on mount
   useEffect(() => {
-    if (!loading) {
-      const tl = gsap.timeline();
-      
-      // Select header & hero elements
-      gsap.set('.hero-animate', { opacity: 0, y: 35 });
-      gsap.set('header', { yPercent: -100, opacity: 0 });
-      
-      tl.to('header', {
-        yPercent: 0,
-        opacity: 1,
-        duration: 0.8,
-        ease: 'power3.out'
-      });
-      
-      tl.to('.hero-animate', {
-        opacity: 1,
-        y: 0,
-        duration: 0.9,
-        stagger: 0.12,
-        ease: 'power3.out'
-      }, '-=0.45');
-    }
-  }, [loading]);
+    const tl = gsap.timeline();
+    
+    // Select header & hero elements
+    gsap.set('.hero-animate', { opacity: 0, y: 35 });
+    gsap.set('header', { yPercent: -100, opacity: 0 });
+    
+    tl.to('header', {
+      yPercent: 0,
+      opacity: 1,
+      duration: 0.8,
+      ease: 'power3.out'
+    });
+    
+    tl.to('.hero-animate', {
+      opacity: 1,
+      y: 0,
+      duration: 0.9,
+      stagger: 0.12,
+      ease: 'power3.out'
+    }, '-=0.45');
+  }, []);
 
   // Subtle GSAP fade-in transition when switching tabs or active comparator verticals
   useEffect(() => {
-    if (!loading && contentRef.current) {
+    if (contentRef.current) {
       gsap.killTweensOf(contentRef.current);
       gsap.set(contentRef.current, { opacity: 0, y: 12 });
       gsap.to(contentRef.current, {
@@ -69,7 +65,7 @@ export default function App() {
         ease: 'power2.out',
       });
     }
-  }, [currentTab, activeVertical, loading]);
+  }, [currentTab, activeVertical]);
 
   // Partner logos data
   const dataSources = [
@@ -89,9 +85,6 @@ export default function App() {
   return (
     <div className="min-h-screen w-full overflow-x-hidden bg-[#FDFBF9] flex flex-col justify-between font-sans selection:bg-fennec-tan/20">
       
-      {/* GSAP Award-Level Preloader with rolling digits counter */}
-      {loading && <Preloader onComplete={() => setLoading(false)} />}
-
       {/* Header Navigation */}
       <Header currentTab={currentTab} onTabChange={setCurrentTab} />
 

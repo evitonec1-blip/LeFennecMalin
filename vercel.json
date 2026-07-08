@@ -1,0 +1,16 @@
+{
+  "functions": {
+    "api/**/*.js": {
+      "includeFiles": "dist/premiums_2026.json"
+    },
+    "api/**/*.ts": {
+      "includeFiles": "dist/premiums_2026.json"
+    },
+    "dist/server.cjs": {
+      "includeFiles": "dist/premiums_2026.json"
+    },
+    "server.ts": {
+      "includeFiles": "dist/premiums_2026.json"
+    }
+  }
+}
