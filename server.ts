@@ -355,6 +355,8 @@ app.get("/api/priminfo/praemien", async (req, res) => {
   }
 });
 
+export { app };
+
 // Serve frontend assets & mount Vite middleware in development
 async function startServer() {
   if (process.env.NODE_ENV !== "production") {
@@ -378,4 +380,7 @@ async function startServer() {
   });
 }
 
-startServer();
+if (!process.env.VERCEL) {
+  startServer();
+}
+

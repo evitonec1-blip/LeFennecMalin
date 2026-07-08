@@ -1,10 +1,17 @@
 {
   "functions": {
-    "dist/server.cjs": {
-      "includeFiles": "dist/premiums_2026.json"
-    },
-    "server.ts": {
-      "includeFiles": "dist/premiums_2026.json"
+    "api/index.ts": {
+      "includeFiles": "public/premiums_2026.json"
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index.ts"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
