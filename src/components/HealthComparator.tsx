@@ -14,6 +14,11 @@ import {
   lookupPremium 
 } from '../utils/premiumLookupService';
 import fenyWinking from '../assets/images/feny_winking_1783331270164.jpg';
+import fenyThinking from '../assets/images/feny_thinking_1783331247759.jpg';
+import fenyAvatar from '../assets/images/feny_avatar_1783331224698.jpg';
+import fenySavings from '../assets/images/feny_savings_1783249344310.jpg';
+import fenyCompare from '../assets/images/feny_compare_1783249332783.jpg';
+import fenyAnalyse from '../assets/images/feny_analyse_1783331235825.jpg';
 import { 
   Shield, 
   Sparkles, 
@@ -34,7 +39,9 @@ import {
   Loader2,
   RefreshCw,
   SlidersHorizontal,
-  ThumbsUp
+  ThumbsUp,
+  Baby,
+  ArrowLeft
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import gsap from 'gsap';
@@ -68,7 +75,12 @@ const CANTON_DEFAULT_ZIPS: Record<string, { zip: string; zone: number }> = {
   TI: { zip: '6900', zone: 1 }
 };
 
-export default function HealthComparator() {
+interface HealthComparatorProps {
+  isEmbedded?: boolean;
+  onStartQuiz?: () => void;
+}
+
+export default function HealthComparator({ isEmbedded = false, onStartQuiz }: HealthComparatorProps) {
   // 1. Core State
   const [filters, setFilters] = useState<HealthFilterState>({
     canton: 'GE',
@@ -134,7 +146,31 @@ export default function HealthComparator() {
   const [quizMode, setQuizMode] = useState<boolean>(true);
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
+  const [analysisStage, setAnalysisStage] = useState<number>(0);
   const [showFiltersInline, setShowFiltersInline] = useState<boolean>(false);
+
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout;
+    let timeoutId: NodeJS.Timeout;
+
+    if (isAnalyzing) {
+      setAnalysisStage(0);
+      intervalId = setInterval(() => {
+        setAnalysisStage(prev => (prev < 4 ? prev + 1 : prev));
+      }, 1200);
+
+      timeoutId = setTimeout(() => {
+        setIsAnalyzing(false);
+        setQuizMode(false);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 5000);
+    }
+
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [isAnalyzing]);
 
   // Modal contact form state
   const [selectedCaisse, setSelectedCaisse] = useState<CaisseMaladie | null>(null);
@@ -418,10 +454,6 @@ export default function HealthComparator() {
     } else {
       // Trigger smooth final loading simulation
       setIsAnalyzing(true);
-      setTimeout(() => {
-        setIsAnalyzing(false);
-        setQuizMode(false);
-      }, 1300);
     }
   };
 
@@ -531,6 +563,56 @@ export default function HealthComparator() {
     }
   }, [selectedCaisse]);
 
+  if (isEmbedded) {
+    return (
+      <div className="w-full text-center space-y-6 py-4 animate-in fade-in duration-300">
+        <div className="relative w-28 h-28 mx-auto rounded-3xl p-2 bg-white border border-fennec-cream shadow-xs overflow-hidden">
+          <img 
+            src={fenyWinking} 
+            alt="Fenny" 
+            className="w-full h-full object-cover rounded-2xl"
+            referrerPolicy="no-referrer"
+          />
+        </div>
+        
+        <div className="space-y-2 max-w-xl mx-auto">
+          <h3 className="font-display font-extrabold text-2xl text-fennec-dark">
+            Simulez vos primes d'assurance maladie suisse avec Fenny
+          </h3>
+          <p className="text-sm text-fennec-dark/70 leading-relaxed">
+            Répondez à <strong>5 questions simples</strong> en moins de 2 minutes. Notre algorithme indépendant compare l'intégralité des 37 caisses d'assurance maladie suisses agréées OFSP pour identifier le tarif le plus compétitif de votre canton.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-semibold text-fennec-dark/60 max-w-lg mx-auto">
+          <span className="flex items-center text-emerald-700">
+            <CheckCircle2 className="w-4 h-4 mr-1.5 text-emerald-500 shrink-0" />
+            37 caisses agréées comparées (LAMal)
+          </span>
+          <span className="flex items-center text-emerald-700">
+            <CheckCircle2 className="w-4 h-4 mr-1.5 text-emerald-500 shrink-0" />
+            Données officielles OFSP 2026
+          </span>
+          <span className="flex items-center text-emerald-700">
+            <CheckCircle2 className="w-4 h-4 mr-1.5 text-emerald-500 shrink-0" />
+            100% gratuit, anonyme & conforme nLPD
+          </span>
+        </div>
+
+        <div className="pt-4">
+          <button
+            onClick={onStartQuiz}
+            className="px-8 py-4 bg-fennec-red hover:bg-red-600 text-white font-display font-extrabold text-base rounded-full shadow-lg shadow-fennec-red/25 hover:-translate-y-0.5 transition-all flex items-center space-x-2 mx-auto animate-bounce"
+          >
+            <Sparkles className="w-5 h-5 animate-pulse" />
+            <span>Lancer le comparateur maladie</span>
+            <ChevronRight className="w-5 h-5 stroke-[2.5]" />
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full space-y-8 relative">
       
@@ -563,419 +645,553 @@ export default function HealthComparator() {
           /* ========================================== */
           <motion.div
             key="quiz-container"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            className="max-w-2xl mx-auto bg-white rounded-3xl border border-fennec-cream/80 shadow-md p-8 md:p-10 space-y-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-[#FAF8F5] overflow-y-auto flex flex-col justify-between font-sans"
           >
-            {/* Step Progress Tracker */}
-            <div className="space-y-2">
-              <div className="flex justify-between items-center text-xs text-fennec-brown font-bold">
-                <span className="uppercase tracking-wider">Étape {currentStep} sur 5</span>
-                <span>{Math.round((currentStep / 5) * 100)}% complété</span>
-              </div>
-              <div className="h-1.5 w-full bg-fennec-cream/40 rounded-full overflow-hidden relative">
-                <div 
-                  ref={progressBarRef}
-                  className="h-full bg-fennec-terracotta rounded-full origin-left"
-                  style={{ width: '20%' }}
-                />
-              </div>
-            </div>
-
-            {/* Step Contents with Micro-animations */}
-            <div ref={stepContainerRef} className="min-h-[240px] flex flex-col justify-center">
-              <AnimatePresence mode="wait">
-                
-                {/* STEP 1: CODE POSTAL & CANTON */}
-                {currentStep === 1 && (
-                  <motion.div
-                    key="step-1"
-                    initial={{ opacity: 0, x: 15 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -15 }}
-                    transition={{ duration: 0.2 }}
-                    className="space-y-6 text-left"
-                  >
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2 text-fennec-terracotta">
-                        <MapPin className="w-5 h-5" />
-                        <h3 className="font-display font-black text-xl text-fennec-dark">
-                          Quel est votre code postal de domicile ?
-                        </h3>
-                      </div>
-                      <p className="text-xs text-fennec-dark/65">
-                        Les primes d'assurance maladie dépendent de votre code postal (détermination automatique de la zone tarifaire 1 ou 2 identique à Priminfo).
-                      </p>
-                    </div>
-
-                    {/* CODE POSTAL INPUT PANEL */}
-                    <div className="bg-fennec-cream/20 p-5 rounded-2xl border border-fennec-cream/60 space-y-4">
-                      <label className="text-[11px] font-bold text-fennec-brown uppercase tracking-wider block">
-                        Saisissez votre code postal suisse (NPA) :
-                      </label>
-                      <div className="relative max-w-xs">
-                        <input
-                          type="text"
-                          pattern="\d*"
-                          maxLength={4}
-                          value={zipInput}
-                          onChange={(e) => handleZipChange(e.target.value)}
-                          placeholder="Ex: 1007, 1201, 1950, 3000..."
-                          className="w-full text-lg font-bold font-mono tracking-widest bg-white border-2 border-fennec-cream rounded-xl px-4 py-2.5 text-fennec-dark focus:outline-none focus:border-fennec-terracotta transition-colors"
-                        />
-                        <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                          {resolvedInfo ? (
-                            <CheckCircle2 className="w-5 h-5 text-emerald-500 animate-bounce" />
-                          ) : (
-                            <HelpCircle className="w-5 h-5 text-fennec-brown/40" />
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Resolved Info Badge Display */}
-                      {resolvedInfo ? (
-                        <div className="flex flex-wrap gap-2 pt-1 animate-in fade-in slide-in-from-top-1 duration-150">
-                          <div className="bg-emerald-50 border border-emerald-200 rounded-lg px-2.5 py-1 flex items-center space-x-1.5 text-xs text-emerald-800 font-medium">
-                            <span className="font-bold">Canton :</span>
-                            <span>{SWISS_CANTONS.find(c => c.code === resolvedInfo.canton)?.name || resolvedInfo.canton} ({resolvedInfo.canton})</span>
-                          </div>
-                          <div className="bg-emerald-50 border border-emerald-200 rounded-lg px-2.5 py-1 flex items-center space-x-1.5 text-xs text-emerald-800 font-medium">
-                            <span className="font-bold">Localité :</span>
-                            <span>{resolvedInfo.city}</span>
-                          </div>
-                          <div className="bg-fennec-terracotta/10 border border-fennec-terracotta/20 rounded-lg px-2.5 py-1 flex items-center space-x-1.5 text-xs text-fennec-terracotta font-bold">
-                             <span className="font-bold">Zone de primes :</span>
-                            <span>Région {resolvedInfo.zone}</span>
-                          </div>
-                        </div>
-                      ) : (
-                        <p className="text-[11px] text-fennec-dark/50 italic font-medium">
-                          {zipInput.length === 4 ? "Code postal non identifié. Veuillez choisir votre canton manuellement ci-dessous." : "Saisissez votre code postal à 4 chiffres pour calculer vos primes officielles."}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="space-y-2.5 pt-2">
-                      <span className="text-[11px] font-bold text-fennec-brown uppercase tracking-wider block">
-                        Ou sélectionnez directement un canton :
-                      </span>
-                      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-                        {SWISS_CANTONS.map((c) => {
-                          const isSelected = filters.canton === c.code;
-                          return (
-                            <motion.button
-                              key={c.code}
-                              type="button"
-                              whileHover={{ scale: 1.03 }}
-                              whileTap={{ scale: 0.97 }}
-                              onClick={() => {
-                                handleCantonClick(c.code);
-                                // Auto-advance with slight delay
-                                setTimeout(() => nextStep(), 180);
-                              }}
-                              className={`stagger-item p-3.5 rounded-2xl border text-center transition-all ${
-                                isSelected
-                                  ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-md font-extrabold'
-                                  : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15 font-semibold'
-                              }`}
-                            >
-                              <span className="text-xs block text-fennec-brown/50 leading-none mb-1 font-bold">CH</span>
-                              <span className="font-display text-base block">{c.code}</span>
-                              <span className="text-[9px] opacity-80 block truncate mt-0.5">{c.name}</span>
-                            </motion.button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* STEP 2: AGE CATEGORY */}
-                {currentStep === 2 && (
-                  <motion.div
-                    key="step-2"
-                    initial={{ opacity: 0, x: 15 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -15 }}
-                    transition={{ duration: 0.2 }}
-                    className="space-y-6"
-                  >
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2 text-fennec-terracotta">
-                        <User className="w-5 h-5" />
-                        <h3 className="font-display font-black text-xl text-fennec-dark">
-                          Quelle est la tranche d'âge de l'assuré ?
-                        </h3>
-                      </div>
-                      <p className="text-xs text-fennec-dark/65">
-                        L'Office Fédéral de la Santé Publique applique des barèmes distincts selon ces trois catégories d'âge légat.
-                      </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                      {[
-                        { id: 'adult', label: 'Adulte', desc: 'Dès 26 ans révolus', details: 'Tarif standard complet' },
-                        { id: 'young', label: 'Jeune Adulte', desc: 'De 19 à 25 ans', details: 'Primes réduites d\'environ 20%' },
-                        { id: 'child', label: 'Enfant', desc: 'De 0 à 18 ans', details: 'Primes très basses (sans franchise obligatoire)' },
-                      ].map((age) => {
-                        const isSelected = filters.ageCategory === age.id;
-                        return (
-                          <motion.button
-                            key={age.id}
-                            type="button"
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            onClick={() => {
-                              handleFilterChange('ageCategory', age.id as any);
-                              setTimeout(() => nextStep(), 150);
-                            }}
-                            className={`stagger-item p-5 rounded-2xl border text-left flex flex-col justify-between transition-all min-h-[120px] ${
-                              isSelected
-                                ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-md'
-                                : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15'
-                            }`}
-                          >
-                            <div>
-                              <span className="font-display font-black text-base block">{age.label}</span>
-                              <span className="text-xs opacity-90 font-medium block mt-1">{age.desc}</span>
-                            </div>
-                            <span className={`text-[10px] block mt-4 font-semibold ${isSelected ? 'text-white/80' : 'text-fennec-brown'}`}>
-                              {age.details}
-                            </span>
-                          </motion.button>
-                        );
-                      })}
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* STEP 3: FRANCHISE */}
-                {currentStep === 3 && (
-                  <motion.div
-                    key="step-3"
-                    initial={{ opacity: 0, x: 15 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -15 }}
-                    transition={{ duration: 0.2 }}
-                    className="space-y-6"
-                  >
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2 text-fennec-terracotta">
-                        <Percent className="w-5 h-5" />
-                        <h3 className="font-display font-black text-xl text-fennec-dark">
-                          Choisissez votre franchise annuelle :
-                        </h3>
-                      </div>
-                      <p className="text-xs text-fennec-dark/65">
-                        La franchise est le montant annuel restant à votre charge avant que l'assurance ne commence à rembourser. Plus elle est élevée, plus votre prime mensuelle baisse !
-                      </p>
-                    </div>
-
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                      {(filters.ageCategory === 'child' ? [0, 100, 200, 300, 400, 500, 600] : FRANCHISES).map((fran) => {
-                        const isSelected = filters.franchise === fran || (filters.ageCategory === 'child' && fran === 0 && filters.franchise > 600);
-                        return (
-                          <motion.button
-                            key={fran}
-                            type="button"
-                            whileHover={{ scale: 1.03 }}
-                            whileTap={{ scale: 0.97 }}
-                            onClick={() => {
-                              handleFilterChange('franchise', fran);
-                              setTimeout(() => nextStep(), 150);
-                            }}
-                            className={`stagger-item p-4 rounded-2xl border text-center transition-all ${
-                              isSelected
-                                ? 'bg-fennec-tan text-white border-fennec-tan shadow-md font-extrabold'
-                                : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15 font-semibold'
-                            }`}
-                          >
-                            <span className="text-[10px] block opacity-60 uppercase tracking-wider font-bold">Franchise</span>
-                            <span className="font-display text-base block mt-0.5">CHF {fran}</span>
-                            <span className="text-[9px] text-fennec-brown block mt-1">
-                              {fran === 2500 || (filters.ageCategory === 'child' && fran === 600) ? 'Économie maximale' : fran === 300 || (filters.ageCategory === 'child' && fran === 0) ? 'Sécurité maximale' : 'Modéré'}
-                            </span>
-                          </motion.button>
-                        );
-                      })}
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* STEP 4: INSURANCE MODEL */}
-                {currentStep === 4 && (
-                  <motion.div
-                    key="step-4"
-                    initial={{ opacity: 0, x: 15 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -15 }}
-                    transition={{ duration: 0.2 }}
-                    className="space-y-6"
-                  >
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2 text-fennec-terracotta">
-                        <Activity className="w-5 h-5" />
-                        <h3 className="font-display font-black text-xl text-fennec-dark">
-                          Quel modèle d'assurance préférez-vous ?
-                        </h3>
-                      </div>
-                      <p className="text-xs text-fennec-dark/65">
-                        Les assureurs accordent des réductions si vous acceptez de consulter d'abord un canal partenaire (télémédecine ou médecin de famille) plutôt que de consulter un spécialiste d'emblée.
-                      </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 gap-3">
-                      {[
-                        { id: 'family', title: 'Médecin de Famille (Recommandé)', discount: 'Réduction ~10%', desc: 'Vous consultez toujours votre médecin généraliste attitré en premier recours.' },
-                        { id: 'telemed', title: 'Télémédecine (Telmed)', discount: 'Réduction ~15%', desc: 'Vous téléphonez à une hotline médicale gratuite de l\'assureur avant toute consultation physique.' },
-                        { id: 'hmo', title: 'Réseau de santé HMO', discount: 'Réduction ~12%', desc: 'Vous vous rendez directement dans un centre médical partenaire (HMO) agréé.' },
-                        { id: 'standard', title: 'Standard (Libre choix complet)', discount: 'Pas de réduction', desc: 'Vous consultez n\'importe quel médecin en Suisse sans aucune contrainte.' },
-                      ].map((model) => {
-                        const isSelected = filters.model === model.id;
-                        return (
-                          <motion.button
-                            key={model.id}
-                            type="button"
-                            whileHover={{ scale: 1.01 }}
-                            whileTap={{ scale: 0.99 }}
-                            onClick={() => {
-                              handleFilterChange('model', model.id as any);
-                              setTimeout(() => nextStep(), 150);
-                            }}
-                            className={`stagger-item p-4 rounded-2xl border text-left flex flex-col sm:flex-row justify-between items-start sm:items-center transition-all ${
-                              isSelected
-                                ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-md'
-                                : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15'
-                            }`}
-                          >
-                            <div className="space-y-1">
-                              <span className="font-display font-bold text-base block">{model.title}</span>
-                              <span className="text-xs opacity-80 block max-w-md">{model.desc}</span>
-                            </div>
-                            <span className={`text-xs font-bold px-2.5 py-1 rounded-full uppercase shrink-0 mt-3 sm:mt-0 ${
-                              isSelected ? 'bg-white/20 text-white' : 'bg-fennec-cream text-fennec-brown'
-                            }`}>
-                              {model.discount}
-                            </span>
-                          </motion.button>
-                        );
-                      })}
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* STEP 5: ACCIDENT COVERAGE */}
-                {currentStep === 5 && (
-                  <motion.div
-                    key="step-5"
-                    initial={{ opacity: 0, x: 15 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -15 }}
-                    transition={{ duration: 0.2 }}
-                    className="space-y-6"
-                  >
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2 text-fennec-terracotta">
-                        <Shield className="w-5 h-5" />
-                        <h3 className="font-display font-black text-xl text-fennec-dark">
-                          Souhaitez-vous inclure la couverture accident ?
-                        </h3>
-                      </div>
-                      <p className="text-xs text-fennec-dark/65">
-                        Si vous travaillez plus de 8 heures par semaine chez le même employeur, vous êtes légalement couvert contre les accidents professionnels et non-professionnels par votre entreprise (LAA).
-                      </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {[
-                        { value: true, label: 'Oui, inclure l\'accident', desc: 'Recommandé pour les enfants, personnes sans emploi, ménages à plein temps ou indépendants.' },
-                        { value: false, label: 'Non, exclure l\'accident', desc: 'Économisez environ 7%. Réservé aux personnes salariées effectuant plus de 8 heures/semaine.' },
-                      ].map((option) => {
-                        const isSelected = filters.accidentCoverage === option.value;
-                        return (
-                          <motion.button
-                            key={option.value.toString()}
-                            type="button"
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            onClick={() => {
-                              handleFilterChange('accidentCoverage', option.value);
-                            }}
-                            className={`stagger-item p-5 rounded-2xl border text-left flex flex-col justify-between transition-all min-h-[120px] ${
-                              isSelected
-                                ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-md'
-                                : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15'
-                            }`}
-                          >
-                            <span className="font-display font-black text-base block">{option.label}</span>
-                            <p className="text-xs opacity-90 block mt-2 font-medium leading-relaxed">{option.desc}</p>
-                          </motion.button>
-                        );
-                      })}
-                    </div>
-                  </motion.div>
-                )}
-
-              </AnimatePresence>
-            </div>
-
-            {/* Inline Feny Advice Box - Beautiful, non-blocking, responsive */}
-            {fenyAdvice && (
-              <div className="bg-fennec-cream/20 border border-fennec-cream/70 rounded-2xl p-4 flex items-start space-x-3 text-left animate-in fade-in slide-in-from-bottom-2 duration-200">
-                <div className="w-8 h-8 rounded-full overflow-hidden border border-white shrink-0 bg-white shadow-2xs">
-                  <img 
-                    src={fenyWinking} 
-                    alt="Fenny" 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="space-y-0.5">
-                  <span className="text-[10px] font-black text-fennec-terracotta uppercase tracking-wider block">
-                    Fenny conseille
-                  </span>
-                  <p className="text-xs text-fennec-dark font-medium leading-relaxed">
-                    {fenyAdvice}
-                  </p>
-                </div>
-              </div>
-            )}
-
-            {/* Bottom Actions Row */}
-            <div className="flex justify-between items-center pt-6 border-t border-fennec-cream/40">
+            {/* 1. TOP PROGRESS NAVIGATION BAR */}
+            <header className="w-full bg-white border-b border-fennec-cream/40 px-6 py-4 flex items-center justify-between sticky top-0 z-30 shadow-3xs">
               <button
                 type="button"
                 onClick={prevStep}
-                disabled={currentStep === 1}
-                className={`flex items-center text-xs font-bold font-display px-4 py-2.5 rounded-full border transition-all ${
-                  currentStep === 1
-                    ? 'opacity-35 cursor-not-allowed border-transparent text-fennec-dark/30'
-                    : 'border-fennec-cream text-fennec-dark hover:bg-fennec-cream/15'
+                disabled={currentStep === 1 || isAnalyzing}
+                className={`flex items-center text-xs font-bold font-display px-3 py-2 rounded-full border transition-all ${
+                  currentStep === 1 || isAnalyzing
+                    ? 'opacity-20 cursor-not-allowed border-transparent text-fennec-dark/30'
+                    : 'border-fennec-cream/60 text-fennec-dark hover:bg-fennec-cream/15'
                 }`}
               >
-                <ChevronLeft className="w-4 h-4 mr-1.5" />
+                <ChevronLeft className="w-4 h-4 mr-1" />
                 <span>Retour</span>
               </button>
 
+              <div className="flex-1 max-w-md mx-6 text-center space-y-1.5">
+                <div className="flex justify-between items-center text-[10px] text-fennec-brown font-black uppercase tracking-widest">
+                  <span>Question {currentStep} sur 5</span>
+                  <span>{Math.round((currentStep / 5) * 100)}% complété</span>
+                </div>
+                <div className="h-1.5 w-full bg-fennec-cream/40 rounded-full overflow-hidden relative">
+                  <div 
+                    ref={progressBarRef}
+                    className="h-full bg-fennec-terracotta rounded-full origin-left"
+                    style={{ width: `${(currentStep / 5) * 100}%` }}
+                  />
+                </div>
+              </div>
+
               <button
                 type="button"
-                onClick={nextStep}
+                onClick={() => setQuizMode(false)}
                 disabled={isAnalyzing}
-                className="flex items-center text-xs font-bold font-display px-6 py-2.5 rounded-full bg-fennec-dark hover:bg-fennec-terracotta text-white transition-all shadow-sm"
+                className="flex items-center text-xs font-bold font-display px-3.5 py-2 rounded-full border border-fennec-cream/60 text-fennec-dark hover:bg-fennec-cream/15 transition-all disabled:opacity-50"
               >
-                {isAnalyzing ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    <span>Analyse...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>{currentStep === 5 ? 'Voir les résultats' : 'Suivant'}</span>
-                    <ChevronRight className="w-4 h-4 ml-1.5" />
-                  </>
-                )}
+                <X className="w-4 h-4 mr-1" />
+                <span className="hidden sm:inline">Quitter</span>
               </button>
+            </header>
+
+            {/* 2. MAIN IMMERSIVE CONTAINER (aligned higher up for improved UI/UX) */}
+            <div className="flex-grow flex items-start justify-center p-4 md:p-8 pt-2 sm:pt-4 md:pt-6 overflow-y-auto">
+              {isAnalyzing ? (
+                /* SMOOTH FINAL LOADING/ANALYSIS FLOW WITH REAL ANALYSING & LOGO CAROUSEL */
+                <div className="max-w-2xl mx-auto p-6 text-center space-y-6 animate-in fade-in duration-300">
+                  {/* Inline CSS animation for smooth logo scrolling */}
+                  <style>{`
+                    @keyframes scroll-left {
+                      0% { transform: translateX(0); }
+                      100% { transform: translateX(-50%); }
+                    }
+                    .animate-scroll-left {
+                      animation: scroll-left 15s linear infinite;
+                    }
+                  `}</style>
+
+                  <div className="relative w-32 h-32 mx-auto rounded-3xl p-2.5 bg-white border border-fennec-cream shadow-md overflow-hidden">
+                    <img 
+                      src={fenyAnalyse || fenyWinking} 
+                      alt="Fenny analyse" 
+                      className="w-full h-full object-cover rounded-2xl animate-pulse"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <h3 className="font-display font-black text-2xl text-fennec-dark flex items-center justify-center">
+                      <Loader2 className="w-6 h-6 mr-2.5 animate-spin text-fennec-terracotta" />
+                      Analyse comparative en cours...
+                    </h3>
+                    <p className="text-sm text-fennec-dark/70 leading-relaxed max-w-lg mx-auto">
+                      Fenny interroge les bases de données officielles de l'<strong>OFSP (OFAS) 2026</strong> et compare en temps réel <strong>37 caisses maladie</strong> pour la région de <strong>{filters.zipCode}</strong>.
+                    </p>
+                  </div>
+
+                  {/* Infinite Auto-Scrolling Logo Carousel */}
+                  <div className="space-y-2 max-w-xl mx-auto pt-4">
+                    <p className="text-[11px] font-black uppercase tracking-wider text-fennec-brown/60 text-center">
+                      Compagnies en cours de comparaison :
+                    </p>
+                    <div className="relative w-full overflow-hidden py-3 border-y border-fennec-cream/30 bg-white/30 rounded-2xl">
+                      {/* Left and right fade gradients */}
+                      <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[#FAF8F5] to-transparent z-10 pointer-events-none" />
+                      <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[#FAF8F5] to-transparent z-10 pointer-events-none" />
+                      
+                      {/* Scrolling wrapper */}
+                      <div className="flex space-x-6 animate-scroll-left w-max">
+                        {['assura', 'css', 'helsana', 'swica', 'visana', 'sanitas', 'concordia', 'kpt', 'mutuel', 'okk', 'sympany', 'atupri'].map((logo, idx) => (
+                          <div key={`${logo}-${idx}`} className="shrink-0">
+                            <CompanyLogo id={logo} className="w-20 h-11 bg-white" />
+                          </div>
+                        ))}
+                        {['assura', 'css', 'helsana', 'swica', 'visana', 'sanitas', 'concordia', 'kpt', 'mutuel', 'okk', 'sympany', 'atupri'].map((logo, idx) => (
+                          <div key={`${logo}-dup-${idx}`} className="shrink-0">
+                            <CompanyLogo id={logo} className="w-20 h-11 bg-white" />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              ) : (
+                /* MAIN QUESTION + MASCOT GRID */
+                <div className="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start py-6">
+                  
+                  {/* Mascot Left Panel */}
+                  <div className="lg:col-span-5 flex flex-col items-center lg:items-end space-y-4">
+                    
+                    {/* Floating Speech Bubble */}
+                    {fenyAdvice && (
+                      <div className="relative bg-white border border-fennec-cream shadow-sm p-4 rounded-3xl max-w-sm text-left animate-in fade-in slide-in-from-bottom-2 duration-200">
+                        <div className="space-y-1">
+                          <span className="text-[9px] font-black text-fennec-terracotta uppercase tracking-wider block">
+                            Fenny conseille
+                          </span>
+                          <p className="text-xs text-fennec-dark font-medium leading-relaxed">
+                            {fenyAdvice}
+                          </p>
+                        </div>
+                        {/* Triangle Pointer for Speech Bubble (hidden on mobile, pointing right on desktop) */}
+                        <div className="hidden lg:block absolute right-[-8px] top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-r border-b border-fennec-cream rotate-[-45deg] z-10" />
+                      </div>
+                    )}
+
+                    {/* Mascot Image */}
+                    <div className="relative w-36 h-36 md:w-44 md:h-44 rounded-3xl p-3 bg-white border border-fennec-cream shadow-xs overflow-hidden">
+                      <img 
+                        src={
+                          currentStep === 1 ? fenyThinking :
+                          currentStep === 2 ? fenyAvatar :
+                          currentStep === 3 ? fenySavings :
+                          currentStep === 4 ? fenyCompare :
+                          fenyWinking
+                        } 
+                        alt="Feny" 
+                        className="w-full h-full object-cover rounded-2xl"
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Question Right Panel */}
+                  <div className="lg:col-span-7 bg-white rounded-3xl border border-fennec-cream/80 shadow-md p-6 md:p-10 w-full min-h-[380px] flex flex-col justify-between">
+                    <div ref={stepContainerRef} className="flex-grow flex flex-col justify-center">
+                      <AnimatePresence mode="wait">
+                        
+                        {/* STEP 1: NPA (Code Postal) */}
+                        {currentStep === 1 && (
+                          <motion.div
+                            key="step-1"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="space-y-6 text-left w-full"
+                          >
+                            <div className="space-y-2">
+                              <div className="flex items-center space-x-2 text-fennec-terracotta">
+                                <MapPin className="w-5 h-5 shrink-0" />
+                                <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
+                                  Quel est votre code postal de domicile ?
+                                </h3>
+                              </div>
+                              <p className="text-xs text-fennec-dark/65 leading-relaxed">
+                                Les primes d'assurance maladie dépendent de votre code postal (détermination automatique de la zone de primes 1 ou 2, identique à Priminfo).
+                              </p>
+                            </div>
+
+                            {/* NPA INPUT CONTAINER */}
+                            <div className="bg-fennec-cream/20 p-5 rounded-2xl border border-fennec-cream/60 space-y-4">
+                              <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">
+                                Saisissez votre code postal suisse (NPA) :
+                              </label>
+                              <div className="relative max-w-xs">
+                                <input
+                                  type="text"
+                                  pattern="\d*"
+                                  maxLength={4}
+                                  value={zipInput}
+                                  onChange={(e) => handleZipChange(e.target.value)}
+                                  placeholder="Ex: 1007, 1201, 1950..."
+                                  className="w-full text-2xl font-bold font-mono tracking-widest bg-white border-2 border-fennec-cream rounded-xl px-4 py-3 text-fennec-dark focus:outline-none focus:border-fennec-terracotta transition-colors"
+                                />
+                                <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                                  {resolvedInfo ? (
+                                    <CheckCircle2 className="w-6 h-6 text-emerald-500 animate-bounce" />
+                                  ) : (
+                                    <HelpCircle className="w-5 h-5 text-fennec-brown/40" />
+                                  )}
+                                </div>
+                              </div>
+
+                              {resolvedInfo ? (
+                                <div className="flex flex-wrap gap-2 pt-1 animate-in fade-in duration-150">
+                                  <div className="bg-emerald-50 border border-emerald-200 rounded-lg px-2.5 py-1 flex items-center space-x-1.5 text-xs text-emerald-800 font-medium">
+                                    <span className="font-bold">Canton :</span>
+                                    <span>{SWISS_CANTONS.find(c => c.code === resolvedInfo.canton)?.name || resolvedInfo.canton} ({resolvedInfo.canton})</span>
+                                  </div>
+                                  <div className="bg-emerald-50 border border-emerald-200 rounded-lg px-2.5 py-1 flex items-center space-x-1.5 text-xs text-emerald-800 font-medium">
+                                    <span className="font-bold">Localité :</span>
+                                    <span>{resolvedInfo.city}</span>
+                                  </div>
+                                  <div className="bg-fennec-terracotta/10 border border-fennec-terracotta/20 rounded-lg px-2.5 py-1 flex items-center space-x-1.5 text-xs text-fennec-terracotta font-bold">
+                                    <span className="font-bold">Zone de primes :</span>
+                                    <span>Région {resolvedInfo.zone}</span>
+                                  </div>
+                                </div>
+                              ) : (
+                                <p className="text-[11px] text-fennec-dark/50 italic font-medium">
+                                  {zipInput.length === 4 ? "Code postal non identifié. Veuillez choisir votre canton manuellement ci-dessous." : "Saisissez votre code postal à 4 chiffres."}
+                                </p>
+                              )}
+                            </div>
+
+                            {/* CANTON ALTERNATIVES */}
+                            <div className="space-y-2 pt-2">
+                              <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">
+                                Ou sélectionnez directement un canton :
+                              </span>
+                              <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                                {SWISS_CANTONS.map((c) => {
+                                  const isSelected = filters.canton === c.code;
+                                  return (
+                                    <motion.button
+                                      key={c.code}
+                                      type="button"
+                                      whileHover={{ scale: 1.03 }}
+                                      whileTap={{ scale: 0.97 }}
+                                      onClick={() => {
+                                        handleCantonClick(c.code);
+                                        setTimeout(() => nextStep(), 180);
+                                      }}
+                                      className={`stagger-item p-2.5 rounded-xl border text-center transition-all ${
+                                        isSelected
+                                          ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-sm font-bold'
+                                          : 'border-fennec-cream/80 text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15'
+                                      }`}
+                                    >
+                                      <span className="font-display text-sm block font-black">{c.code}</span>
+                                      <span className="text-[8px] opacity-75 block truncate leading-none mt-0.5">{c.name}</span>
+                                    </motion.button>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+
+                        {/* STEP 2: AGE CATEGORY (Single choice, few options -> Cards) */}
+                        {currentStep === 2 && (
+                          <motion.div
+                            key="step-2"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="space-y-6 w-full text-left"
+                          >
+                            <div className="space-y-2">
+                              <div className="flex items-center space-x-2 text-fennec-terracotta">
+                                <User className="w-5 h-5 shrink-0" />
+                                <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
+                                  Quelle est la tranche d'âge de l'assuré ?
+                                </h3>
+                              </div>
+                              <p className="text-xs text-fennec-dark/65 leading-relaxed">
+                                L'Office Fédéral de la Santé Publique applique des tarifs distincts selon ces trois catégories d'âge légal.
+                              </p>
+                            </div>
+
+                            {/* CARDS LIST */}
+                            <div className="grid grid-cols-1 gap-4">
+                              {[
+                                { id: 'adult', label: 'Adulte', desc: 'Dès 26 ans révolus', details: 'Tarif standard complet', icon: User },
+                                { id: 'young', label: 'Jeune Adulte', desc: 'De 19 à 25 ans', details: 'Primes réduites d\'environ 20%', icon: Sparkles },
+                                { id: 'child', label: 'Enfant', desc: 'De 0 à 18 ans', details: 'Primes très basses (sans franchise obligatoire)', icon: Baby },
+                              ].map((age) => {
+                                const isSelected = filters.ageCategory === age.id;
+                                const IconComponent = age.icon;
+                                return (
+                                  <motion.button
+                                    key={age.id}
+                                    type="button"
+                                    whileHover={{ scale: 1.01 }}
+                                    whileTap={{ scale: 0.99 }}
+                                    onClick={() => {
+                                      handleFilterChange('ageCategory', age.id as any);
+                                      setTimeout(() => nextStep(), 220);
+                                    }}
+                                    className={`stagger-item p-4.5 rounded-2xl border text-left flex items-start space-x-4 transition-all ${
+                                      isSelected
+                                        ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-md font-bold'
+                                        : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15 font-semibold'
+                                    }`}
+                                  >
+                                    <div className={`p-3 rounded-xl ${isSelected ? 'bg-white/20 text-white' : 'bg-fennec-cream text-fennec-terracotta'} shrink-0`}>
+                                      <IconComponent className="w-5 h-5" />
+                                    </div>
+                                    <div className="space-y-1">
+                                      <div className="flex items-baseline space-x-2">
+                                        <span className="font-display font-black text-base">{age.label}</span>
+                                        <span className="text-xs opacity-80 font-medium">({age.desc})</span>
+                                      </div>
+                                      <span className="text-xs opacity-90 block leading-relaxed">{age.details}</span>
+                                    </div>
+                                  </motion.button>
+                                );
+                              })}
+                            </div>
+                          </motion.div>
+                        )}
+
+                        {/* STEP 3: FRANCHISE (Single choice, 5+ options -> grid/list of buttons) */}
+                        {currentStep === 3 && (
+                          <motion.div
+                            key="step-3"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="space-y-6 w-full text-left"
+                          >
+                            <div className="space-y-2">
+                              <div className="flex items-center space-x-2 text-fennec-terracotta">
+                                <Percent className="w-5 h-5 shrink-0" />
+                                <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
+                                  Choisissez votre franchise annuelle :
+                                </h3>
+                              </div>
+                              <p className="text-xs text-fennec-dark/65 leading-relaxed">
+                                La franchise est le montant annuel restant à votre charge avant que l'assurance ne rembourse. Plus elle est élevée, plus votre prime mensuelle baisse !
+                              </p>
+                            </div>
+
+                            {/* GRID OF BUTTONS */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                              {(filters.ageCategory === 'child' ? [0, 100, 200, 300, 400, 500, 600] : FRANCHISES).map((fran) => {
+                                const isSelected = filters.franchise === fran || (filters.ageCategory === 'child' && fran === 0 && filters.franchise > 600);
+                                return (
+                                  <motion.button
+                                    key={fran}
+                                    type="button"
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                    onClick={() => {
+                                      handleFilterChange('franchise', fran);
+                                      setTimeout(() => nextStep(), 220);
+                                    }}
+                                    className={`stagger-item p-4.5 rounded-xl border text-left flex justify-between items-center transition-all ${
+                                      isSelected
+                                        ? 'bg-fennec-tan text-white border-fennec-tan shadow-md font-bold'
+                                        : 'border-fennec-cream/80 text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15 font-semibold'
+                                    }`}
+                                  >
+                                    <div>
+                                      <span className="text-[9px] block opacity-75 uppercase tracking-wider font-extrabold">Franchise</span>
+                                      <span className="font-display text-base block font-black mt-0.5">CHF {fran}</span>
+                                    </div>
+                                    <span className={`text-[10px] font-black uppercase px-2.5 py-1 rounded-full ${isSelected ? 'bg-white/20 text-white' : 'bg-fennec-cream/60 text-fennec-brown'}`}>
+                                      {fran === 2500 || (filters.ageCategory === 'child' && fran === 600) ? 'Éco Max' : fran === 300 || (filters.ageCategory === 'child' && fran === 0) ? 'Sécu Max' : 'Standard'}
+                                    </span>
+                                  </motion.button>
+                                );
+                              })}
+                            </div>
+                          </motion.div>
+                        )}
+
+                        {/* STEP 4: INSURANCE MODEL (Single choice, few options -> Cards) */}
+                        {currentStep === 4 && (
+                          <motion.div
+                            key="step-4"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="space-y-6 w-full text-left"
+                          >
+                            <div className="space-y-2">
+                              <div className="flex items-center space-x-2 text-fennec-terracotta">
+                                <Activity className="w-5 h-5 shrink-0" />
+                                <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
+                                  Quel modèle d'assurance préférez-vous ?
+                                </h3>
+                              </div>
+                              <p className="text-xs text-fennec-dark/65 leading-relaxed">
+                                Les assureurs accordent des rabais importants si vous acceptez de consulter d'abord un médecin traitant ou d'appeler une hotline (télémédecine) avant tout spécialiste.
+                              </p>
+                            </div>
+
+                            {/* CARDS LIST */}
+                            <div className="grid grid-cols-1 gap-3.5">
+                              {[
+                                { id: 'family', title: 'Médecin de Famille (Recommandé)', discount: 'Rabais ~10%', desc: 'Vous consultez toujours votre médecin généraliste attitré en premier recours.', icon: User },
+                                { id: 'telemed', title: 'Télémédecine (Telmed)', discount: 'Rabais ~15%', desc: 'Vous téléphonez à une hotline médicale gratuite de l\'assureur avant toute consultation.', icon: PhoneCall },
+                                { id: 'hmo', title: 'Réseau de santé HMO', discount: 'Rabais ~12%', desc: 'Vous vous rendez directement dans un centre médical partenaire (HMO) agréé.', icon: Activity },
+                                { id: 'standard', title: 'Standard (Libre choix complet)', discount: 'Pas de réduction', desc: 'Vous consultez n\'importe quel médecin en Suisse sans aucune contrainte.', icon: SlidersHorizontal },
+                              ].map((model) => {
+                                const isSelected = filters.model === model.id;
+                                const IconComponent = model.icon;
+                                return (
+                                  <motion.button
+                                    key={model.id}
+                                    type="button"
+                                    whileHover={{ scale: 1.01 }}
+                                    whileTap={{ scale: 0.99 }}
+                                    onClick={() => {
+                                      handleFilterChange('model', model.id as any);
+                                      setTimeout(() => nextStep(), 220);
+                                    }}
+                                    className={`stagger-item p-4.5 rounded-2xl border text-left flex items-start space-x-4 transition-all ${
+                                      isSelected
+                                        ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-md font-bold'
+                                        : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15 font-semibold'
+                                    }`}
+                                  >
+                                    <div className={`p-3 rounded-xl ${isSelected ? 'bg-white/20 text-white' : 'bg-fennec-cream text-fennec-terracotta'} shrink-0`}>
+                                      <IconComponent className="w-5 h-5" />
+                                    </div>
+                                    <div className="space-y-1 flex-1">
+                                      <div className="flex justify-between items-baseline">
+                                        <span className="font-display font-black text-base">{model.title}</span>
+                                        <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${isSelected ? 'bg-white/20 text-white' : 'bg-emerald-50 text-emerald-800'}`}>
+                                          {model.discount}
+                                        </span>
+                                      </div>
+                                      <p className="text-xs opacity-90 leading-relaxed">{model.desc}</p>
+                                    </div>
+                                  </motion.button>
+                                );
+                              })}
+                            </div>
+                          </motion.div>
+                        )}
+
+                        {/* STEP 5: ACCIDENT COVERAGE (Yes/No Question -> Two large side-by-side buttons) */}
+                        {currentStep === 5 && (
+                          <motion.div
+                            key="step-5"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="space-y-6 w-full text-left"
+                          >
+                            <div className="space-y-2">
+                              <div className="flex items-center space-x-2 text-fennec-terracotta">
+                                <Shield className="w-5 h-5 shrink-0" />
+                                <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
+                                  Souhaitez-vous inclure la couverture accident ?
+                                </h3>
+                              </div>
+                              <p className="text-xs text-fennec-dark/65 leading-relaxed">
+                                Si vous travaillez plus de 8 heures par semaine chez le même employeur, vous êtes légalement couvert contre les accidents professionnels et non-professionnels par votre entreprise (LAA).
+                              </p>
+                            </div>
+
+                            {/* YES/NO LARGE SIDE-BY-SIDE BUTTONS */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                              {[
+                                { value: true, label: 'Oui, inclure l\'accident', desc: 'Recommandé pour les enfants, indépendants, personnes sans emploi ou ménages.' },
+                                { value: false, label: 'Non, exclure l\'accident', desc: 'Économisez environ 7%. Réservé aux personnes salariées effectuant +8h/semaine.' },
+                              ].map((option) => {
+                                const isSelected = filters.accidentCoverage === option.value;
+                                return (
+                                  <motion.button
+                                    key={option.value.toString()}
+                                    type="button"
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                    onClick={() => {
+                                      handleFilterChange('accidentCoverage', option.value);
+                                      setTimeout(() => nextStep(), 220);
+                                    }}
+                                    className={`stagger-item p-6 rounded-2xl border text-left flex flex-col justify-between min-h-[140px] transition-all ${
+                                      isSelected
+                                        ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-md font-bold'
+                                        : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15 font-semibold'
+                                    }`}
+                                  >
+                                    <div className="space-y-1">
+                                      <span className="font-display font-black text-lg block">{option.label}</span>
+                                      <p className="text-xs opacity-90 leading-relaxed mt-1 font-medium">{option.desc}</p>
+                                    </div>
+                                    <span className={`text-[10px] font-black uppercase self-end mt-4 ${isSelected ? 'text-white' : 'text-fennec-brown'}`}>
+                                      {isSelected ? 'Sélectionné' : 'Choisir'}
+                                    </span>
+                                  </motion.button>
+                                );
+                              })}
+                            </div>
+                          </motion.div>
+                        )}
+
+                      </AnimatePresence>
+                    </div>
+
+                    {/* Step Action Buttons */}
+                    <div className="flex justify-between items-center pt-6 border-t border-fennec-cream/40 mt-6 shrink-0">
+                      <button
+                        type="button"
+                        onClick={prevStep}
+                        disabled={currentStep === 1}
+                        className={`flex items-center text-xs font-bold font-display px-4 py-2.5 rounded-full border transition-all ${
+                          currentStep === 1
+                            ? 'opacity-35 cursor-not-allowed border-transparent text-fennec-dark/30'
+                            : 'border-fennec-cream text-fennec-dark hover:bg-fennec-cream/15'
+                        }`}
+                      >
+                        <ChevronLeft className="w-4 h-4 mr-1.5" />
+                        <span>Retour</span>
+                      </button>
+
+                      {/* Display explicit "Next" button only for questions requiring non-click confirmation */}
+                      {currentStep === 1 && (
+                        <button
+                          type="button"
+                          onClick={nextStep}
+                          disabled={!resolvedInfo}
+                          className={`flex items-center text-xs font-bold font-display px-6 py-2.5 rounded-full transition-all shadow-sm ${
+                            !resolvedInfo
+                              ? 'bg-fennec-cream text-fennec-brown/40 cursor-not-allowed shadow-none'
+                              : 'bg-fennec-dark hover:bg-fennec-terracotta text-white'
+                          }`}
+                        >
+                          <span>Continuer</span>
+                          <ChevronRight className="w-4 h-4 ml-1.5" />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                </div>
+              )}
             </div>
+
+            {/* 3. PERSISTENT MINI LEGAL FOOTER IN QUIZ */}
+            <footer className="w-full text-center py-4 bg-white/50 border-t border-fennec-cream/20 text-[10px] text-fennec-dark/40 font-medium shrink-0">
+              Fenny s'engage : 100% anonyme, conforme à la nLPD suisse, aucune revente de données.
+            </footer>
           </motion.div>
         ) : (
           /* ========================================== */

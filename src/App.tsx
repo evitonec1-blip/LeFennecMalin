@@ -75,11 +75,12 @@ export default function App() {
 
   const handleCtaClick = (vertical: 'health' | 'life') => {
     setActiveVertical(vertical);
-    setCurrentTab('home');
-    const targetElement = document.getElementById('comparator-section');
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: 'smooth' });
+    if (vertical === 'health') {
+      setCurrentTab('health-comparator');
+    } else {
+      setCurrentTab('life-comparator');
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -240,9 +241,9 @@ export default function App() {
 
                 {/* Show appropriate component */}
                 {activeVertical === 'health' ? (
-                  <HealthComparator />
+                  <HealthComparator isEmbedded={true} onStartQuiz={() => handleCtaClick('health')} />
                 ) : (
-                  <LifePensionComparator />
+                  <LifePensionComparator isEmbedded={true} onStartQuiz={() => handleCtaClick('life')} />
                 )}
 
               </div>

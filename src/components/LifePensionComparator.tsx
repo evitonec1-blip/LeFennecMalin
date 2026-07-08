@@ -7,6 +7,11 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { ASSUREURS_VIE, getLifeInsuranceEstimate } from '../data';
 import { LifeFilterState, AssureurVie } from '../types';
 import fenyWinking from '../assets/images/feny_winking_1783331270164.jpg';
+import fenyThinking from '../assets/images/feny_thinking_1783331247759.jpg';
+import fenyAvatar from '../assets/images/feny_avatar_1783331224698.jpg';
+import fenySavings from '../assets/images/feny_savings_1783249344310.jpg';
+import fenyCompare from '../assets/images/feny_compare_1783249332783.jpg';
+import fenyAnalyse from '../assets/images/feny_analyse_1783331235825.jpg';
 import { 
   Shield, 
   PiggyBank, 
@@ -14,6 +19,7 @@ import {
   Filter, 
   ChevronRight, 
   ChevronLeft,
+  User,
   Calculator, 
   FileCheck, 
   Check, 
@@ -24,7 +30,8 @@ import {
   Loader2,
   RefreshCw,
   TrendingUp,
-  Award
+  Award,
+  ArrowLeft
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import gsap from 'gsap';
@@ -42,7 +49,12 @@ const LIFE_ADVICE_MAP: Record<string, string> = {
   phone: "Votre mobile suisse valide permet à notre conseiller d'ajuster la simulation avec vos données communales réelles.",
 };
 
-export default function LifePensionComparator() {
+interface LifePensionComparatorProps {
+  isEmbedded?: boolean;
+  onStartQuiz?: () => void;
+}
+
+export default function LifePensionComparator({ isEmbedded = false, onStartQuiz }: LifePensionComparatorProps) {
   // 1. Core State
   const [filters, setFilters] = useState<LifeFilterState>({
     type: '3a',
@@ -66,7 +78,31 @@ export default function LifePensionComparator() {
   const [quizMode, setQuizMode] = useState<boolean>(true);
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
+  const [analysisStage, setAnalysisStage] = useState<number>(0);
   const [showFiltersInline, setShowFiltersInline] = useState<boolean>(false);
+
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout;
+    let timeoutId: NodeJS.Timeout;
+
+    if (isAnalyzing) {
+      setAnalysisStage(0);
+      intervalId = setInterval(() => {
+        setAnalysisStage(prev => (prev < 4 ? prev + 1 : prev));
+      }, 1200);
+
+      timeoutId = setTimeout(() => {
+        setIsAnalyzing(false);
+        setQuizMode(false);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 5000);
+    }
+
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [isAnalyzing]);
 
   // Modal contact form state
   const [selectedAssureur, setSelectedAssureur] = useState<AssureurVie | null>(null);
@@ -271,10 +307,6 @@ export default function LifePensionComparator() {
     } else {
       // Trigger smooth final loading simulation
       setIsAnalyzing(true);
-      setTimeout(() => {
-        setIsAnalyzing(false);
-        setQuizMode(false);
-      }, 1300);
     }
   };
 
@@ -284,6 +316,56 @@ export default function LifePensionComparator() {
       setCurrentStep(prev => prev - 1);
     }
   };
+
+  if (isEmbedded) {
+    return (
+      <div className="w-full text-center space-y-6 py-4 animate-in fade-in duration-300">
+        <div className="relative w-28 h-28 mx-auto rounded-3xl p-2 bg-white border border-fennec-cream shadow-xs overflow-hidden">
+          <img 
+            src={fenyWinking} 
+            alt="Fenny" 
+            className="w-full h-full object-cover rounded-2xl"
+            referrerPolicy="no-referrer"
+          />
+        </div>
+        
+        <div className="space-y-2 max-w-xl mx-auto">
+          <h3 className="font-display font-extrabold text-2xl text-fennec-dark">
+            Simulez votre gain fiscal du 3ème Pilier avec Fenny
+          </h3>
+          <p className="text-sm text-fennec-dark/70 leading-relaxed">
+            Épargnez pour votre retraite tout en réduisant vos impôts suisses dès cette année. Comparez instantanément les offres de Pilier 3a / 3b des plus grands assureurs du pays (AXA, Zurich, Swiss Life, Helvetia, Allianz, etc.) et projetez votre capital futur.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-semibold text-fennec-dark/60 max-w-lg mx-auto">
+          <span className="flex items-center text-emerald-700">
+            <PiggyBank className="w-4 h-4 mr-1.5 text-emerald-500 shrink-0" />
+            Jusqu'à CHF 2'000 d'économie fiscale par an
+          </span>
+          <span className="flex items-center text-emerald-700">
+            <Calculator className="w-4 h-4 mr-1.5 text-emerald-500 shrink-0" />
+            Simulation personnalisée de capital à terme
+          </span>
+          <span className="flex items-center text-emerald-700">
+            <Shield className="w-4 h-4 mr-1.5 text-emerald-500 shrink-0" />
+            Neutre, indépendant & conforme nLPD
+          </span>
+        </div>
+
+        <div className="pt-4">
+          <button
+            onClick={onStartQuiz}
+            className="px-8 py-4 bg-fennec-dark hover:bg-fennec-terracotta text-white font-display font-extrabold text-base rounded-full shadow-lg shadow-fennec-dark/25 hover:-translate-y-0.5 transition-all flex items-center space-x-2 mx-auto animate-bounce"
+          >
+            <Sparkles className="w-5 h-5 text-fennec-terracotta animate-pulse" />
+            <span>Lancer la simulation 3ème Pilier</span>
+            <ChevronRight className="w-5 h-5 stroke-[2.5]" />
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full space-y-8 relative">
@@ -312,413 +394,552 @@ export default function LifePensionComparator() {
 
       <AnimatePresence mode="wait">
         {quizMode ? (
-          /* ========================================== */
-          /*         PROGRESSIVE QUESTIONNAIRE FLOW     */
-          /* ========================================== */
           <motion.div
-            key="pension-quiz"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            className="max-w-2xl mx-auto bg-white rounded-3xl border border-fennec-cream/80 shadow-md p-8 md:p-10 space-y-8"
+            key="quiz-container"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-[#FAF8F5] overflow-y-auto flex flex-col justify-between font-sans"
           >
-            {/* Step Progress Tracker */}
-            <div className="space-y-2">
-              <div className="flex justify-between items-center text-xs text-fennec-brown font-bold">
-                <span className="uppercase tracking-wider">Étape {currentStep} sur 5</span>
-                <span>{Math.round((currentStep / 5) * 100)}% complété</span>
-              </div>
-              <div className="h-1.5 w-full bg-fennec-cream/40 rounded-full overflow-hidden relative">
-                <div 
-                  ref={progressBarRef}
-                  className="h-full bg-fennec-terracotta rounded-full origin-left"
-                  style={{ width: '20%' }}
-                />
-              </div>
-            </div>
-
-            {/* Step Contents */}
-            <div ref={stepContainerRef} className="min-h-[240px] flex flex-col justify-center">
-              <AnimatePresence mode="wait">
-                
-                {/* STEP 1: TYPE OF PILLAR */}
-                {currentStep === 1 && (
-                  <motion.div
-                    key="p-step-1"
-                    initial={{ opacity: 0, x: 15 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -15 }}
-                    transition={{ duration: 0.2 }}
-                    className="space-y-6"
-                  >
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2 text-fennec-terracotta">
-                        <Shield className="w-5 h-5" />
-                        <h3 className="font-display font-black text-xl text-fennec-dark">
-                          Quel type de 3e Pilier souhaitez-vous simuler ?
-                        </h3>
-                      </div>
-                      <p className="text-xs text-fennec-dark/65">
-                        Le système de prévoyance suisse sépare le 3ème pilier en deux solutions fiscales et d'épargne.
-                      </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                      {[
-                        { id: '3a', label: 'Pilier 3a (Lié)', desc: 'Idéal salariés & indépendants', details: 'Déductible à 100% des impôts suisses' },
-                        { id: '3b', label: 'Pilier 3b (Libre)', desc: 'Idéal épargne sans plafond', details: 'Retrait flexible à tout moment' },
-                        { id: 'all', label: 'Mixte / Les Deux', desc: 'Découvrir toutes les options', details: 'Prévoyance globale sur-mesure' },
-                      ].map((t) => {
-                        const isSelected = filters.type === t.id;
-                        return (
-                          <motion.button
-                            key={t.id}
-                            type="button"
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            onClick={() => {
-                              handleFilterChange('type', t.id as any);
-                              setTimeout(() => nextStep(), 150);
-                            }}
-                            className={`stagger-item p-5 rounded-2xl border text-left flex flex-col justify-between transition-all min-h-[120px] ${
-                              isSelected
-                                ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-md'
-                                : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15'
-                            }`}
-                          >
-                            <div>
-                              <span className="font-display font-black text-base block">{t.label}</span>
-                              <span className="text-xs opacity-90 font-medium block mt-1">{t.desc}</span>
-                            </div>
-                            <span className={`text-[10px] block mt-4 font-semibold ${isSelected ? 'text-white/80' : 'text-fennec-brown'}`}>
-                              {t.details}
-                            </span>
-                          </motion.button>
-                        );
-                      })}
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* STEP 2: MONTHLY AMOUNT */}
-                {currentStep === 2 && (
-                  <motion.div
-                    key="p-step-2"
-                    initial={{ opacity: 0, x: 15 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -15 }}
-                    transition={{ duration: 0.2 }}
-                    className="space-y-6"
-                  >
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2 text-fennec-terracotta">
-                        <PiggyBank className="w-5 h-5" />
-                        <h3 className="font-display font-black text-xl text-fennec-dark">
-                          Combien souhaitez-vous épargner par mois ?
-                        </h3>
-                      </div>
-                      <p className="text-xs text-fennec-dark/65">
-                        Déterminez votre montant cible d'épargne. Vous pouvez l'ajuster à tout moment par la suite.
-                      </p>
-                    </div>
-
-                    <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-                      {[100, 200, 300, 500, 604].map((amount) => {
-                        const isSelected = monthlyAmount === amount;
-                        return (
-                          <motion.button
-                            key={amount}
-                            type="button"
-                            whileHover={{ scale: 1.03 }}
-                            whileTap={{ scale: 0.97 }}
-                            onClick={() => {
-                              setMonthlyAmount(amount);
-                              setTimeout(() => nextStep(), 150);
-                            }}
-                            className={`stagger-item p-4 rounded-2xl border text-center transition-all ${
-                              isSelected
-                                ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-md font-extrabold'
-                                : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15'
-                            }`}
-                          >
-                            <span className="text-[9px] block opacity-60 uppercase font-bold">Mensuel</span>
-                            <span className="font-display text-sm block mt-0.5">CHF {amount}</span>
-                            <span className="text-[8px] text-fennec-brown block mt-1">
-                              {amount === 604 ? 'Plafond Salarié' : amount >= 500 ? 'Épargne Forte' : 'Idéal débutant'}
-                            </span>
-                          </motion.button>
-                        );
-                      })}
-                    </div>
-
-                    <div className="space-y-2 pt-2">
-                      <div className="flex justify-between items-center text-xs font-bold text-fennec-brown">
-                        <span>Ajustement libre</span>
-                        <span className="text-fennec-terracotta font-black text-sm">CHF {monthlyAmount}.- / mois</span>
-                      </div>
-                      <input 
-                        type="range"
-                        min="50"
-                        max="1000"
-                        step="50"
-                        value={monthlyAmount}
-                        onChange={(e) => setMonthlyAmount(Number(e.target.value))}
-                        className="w-full accent-fennec-terracotta cursor-pointer"
-                      />
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* STEP 3: DURATION */}
-                {currentStep === 3 && (
-                  <motion.div
-                    key="p-step-3"
-                    initial={{ opacity: 0, x: 15 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -15 }}
-                    transition={{ duration: 0.2 }}
-                    className="space-y-6"
-                  >
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2 text-fennec-terracotta">
-                        <TrendingUp className="w-5 h-5" />
-                        <h3 className="font-display font-black text-xl text-fennec-dark">
-                          Sur combien d'années souhaitez-vous épargner ?
-                        </h3>
-                      </div>
-                      <p className="text-xs text-fennec-dark/65">
-                        La durée recommandée correspond généralement aux années restantes jusqu'à l'âge légal de votre retraite.
-                      </p>
-                    </div>
-
-                    <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-                      {[10, 15, 20, 25, 30].map((years) => {
-                        const isSelected = duration === years;
-                        return (
-                          <motion.button
-                            key={years}
-                            type="button"
-                            whileHover={{ scale: 1.03 }}
-                            whileTap={{ scale: 0.97 }}
-                            onClick={() => {
-                              setDuration(years);
-                              setTimeout(() => nextStep(), 150);
-                            }}
-                            className={`stagger-item p-4 rounded-2xl border text-center transition-all ${
-                              isSelected
-                                ? 'bg-fennec-tan text-white border-fennec-tan shadow-md font-extrabold'
-                                : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15 font-semibold'
-                            }`}
-                          >
-                            <span className="text-[9px] block opacity-60 uppercase font-bold">Durée</span>
-                            <span className="font-display text-sm block mt-0.5">{years} Ans</span>
-                            <span className="text-[8px] text-fennec-brown block mt-1">
-                              {years >= 25 ? 'Meilleurs intérêts' : 'Horizon moyen'}
-                            </span>
-                          </motion.button>
-                        );
-                      })}
-                    </div>
-
-                    <div className="space-y-2 pt-2">
-                      <div className="flex justify-between items-center text-xs font-bold text-fennec-brown">
-                        <span>Ajustement libre</span>
-                        <span className="text-fennec-terracotta font-black text-sm">{duration} ans</span>
-                      </div>
-                      <input 
-                        type="range"
-                        min="5"
-                        max="45"
-                        step="1"
-                        value={duration}
-                        onChange={(e) => setDuration(Number(e.target.value))}
-                        className="w-full accent-fennec-terracotta cursor-pointer"
-                      />
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* STEP 4: PREVOYANCE PROFILE */}
-                {currentStep === 4 && (
-                  <motion.div
-                    key="p-step-4"
-                    initial={{ opacity: 0, x: 15 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -15 }}
-                    transition={{ duration: 0.2 }}
-                    className="space-y-6"
-                  >
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2 text-fennec-terracotta">
-                        <Info className="w-5 h-5" />
-                        <h3 className="font-display font-black text-xl text-fennec-dark">
-                          Quel est votre profil d'épargnant en Suisse ?
-                        </h3>
-                      </div>
-                      <p className="text-xs text-fennec-dark/65">
-                        Afin d'optimiser le rendement ou de prévoir des couvertures décès/invalidité adaptées, indiquez votre situation.
-                      </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {[
-                        { id: 'young', label: 'Jeune actif', desc: 'Entrée dans la vie professionnelle', focus: 'Rendement & Fiscalité' },
-                        { id: 'family', label: 'Famille', desc: 'Besoin de protection conjointe/enfants', focus: 'Sécurité & Couverture Décès' },
-                        { id: 'independent', label: 'Indépendant(e)', desc: 'Sans caisse de pension LPP obligatoire', focus: 'Épargne forte & Déduction max' },
-                        { id: 'senior', label: 'Sénior', desc: 'Proche de la retraite légale', focus: 'Sécurisation intégrale du capital' },
-                      ].map((profile) => {
-                        const isSelected = filters.profile === profile.id;
-                        return (
-                          <motion.button
-                            key={profile.id}
-                            type="button"
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            onClick={() => {
-                              handleFilterChange('profile', profile.id as any);
-                              setTimeout(() => nextStep(), 150);
-                            }}
-                            className={`stagger-item p-4 rounded-2xl border text-left flex flex-col justify-between transition-all min-h-[90px] ${
-                              isSelected
-                                ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-md'
-                                : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15'
-                            }`}
-                          >
-                            <div>
-                              <span className="font-display font-bold text-base block">{profile.label}</span>
-                              <span className="text-xs opacity-90 block mt-0.5">{profile.desc}</span>
-                            </div>
-                            <span className="text-[10px] block font-semibold uppercase mt-3 tracking-wider opacity-75">
-                              Axe principal : {profile.focus}
-                            </span>
-                          </motion.button>
-                        );
-                      })}
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* STEP 5: PRIORITY */}
-                {currentStep === 5 && (
-                  <motion.div
-                    key="p-step-5"
-                    initial={{ opacity: 0, x: 15 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -15 }}
-                    transition={{ duration: 0.2 }}
-                    className="space-y-6"
-                  >
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2 text-fennec-terracotta">
-                        <Award className="w-5 h-5" />
-                        <h3 className="font-display font-black text-xl text-fennec-dark">
-                          Quelle est votre priorité majeure ?
-                        </h3>
-                      </div>
-                      <p className="text-xs text-fennec-dark/65">
-                        Sélectionnez la finalité absolue pour votre 3e pilier afin d'orienter le comparatif de fonds d'investissement.
-                      </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 gap-3">
-                      {[
-                        { id: 'tax-saving', label: 'Baisse d\'impôt immédiate maximale', desc: 'Vous ciblez l\'avantage fiscal annuel de la Confédération en priorité.' },
-                        { id: 'high-yield', label: 'Rendement de placement élevé (Fonds/Actions)', desc: 'Vous acceptez une volatilité modérée en échange de gains d\'intérêts supérieurs.' },
-                        { id: 'guaranteed', label: 'Sécurité maximale (Capital garanti à 100%)', desc: 'Vous exigez une certitude contractuelle absolue sur le montant final sans aucun risque.' },
-                      ].map((priority) => {
-                        const isSelected = filters.priority === priority.id;
-                        return (
-                          <motion.button
-                            key={priority.id}
-                            type="button"
-                            whileHover={{ scale: 1.01 }}
-                            whileTap={{ scale: 0.99 }}
-                            onClick={() => {
-                              handleFilterChange('priority', priority.id as any);
-                            }}
-                            className={`stagger-item p-4 rounded-2xl border text-left flex flex-col sm:flex-row justify-between sm:items-center transition-all ${
-                              isSelected
-                                ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-md'
-                                : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15'
-                            }`}
-                          >
-                            <div className="space-y-0.5">
-                              <span className="font-display font-bold text-base block">{priority.label}</span>
-                              <span className="text-xs opacity-80 block max-w-lg">{priority.desc}</span>
-                            </div>
-                            {isSelected && (
-                              <span className="text-xs font-black bg-white/20 px-2.5 py-1 rounded-full uppercase mt-2 sm:mt-0">
-                                Sélectionné
-                              </span>
-                            )}
-                          </motion.button>
-                        );
-                      })}
-                    </div>
-                  </motion.div>
-                )}
-
-              </AnimatePresence>
-            </div>
-
-            {/* Inline Feny Advice Box - Beautiful, non-blocking, responsive */}
-            {fenyAdvice && (
-              <div className="bg-fennec-cream/20 border border-fennec-cream/70 rounded-2xl p-4 flex items-start space-x-3 text-left animate-in fade-in slide-in-from-bottom-2 duration-200">
-                <div className="w-8 h-8 rounded-full overflow-hidden border border-white shrink-0 bg-white shadow-2xs">
-                  <img 
-                    src={fenyWinking} 
-                    alt="Fenny" 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="space-y-0.5">
-                  <span className="text-[10px] font-black text-fennec-terracotta uppercase tracking-wider block">
-                    Fenny conseille
-                  </span>
-                  <p className="text-xs text-fennec-dark font-medium leading-relaxed">
-                    {fenyAdvice}
-                  </p>
-                </div>
-              </div>
-            )}
-
-            {/* Bottom Actions Row */}
-            <div className="flex justify-between items-center pt-6 border-t border-fennec-cream/40">
+            {/* 1. TOP PROGRESS NAVIGATION BAR */}
+            <header className="w-full bg-white border-b border-fennec-cream/40 px-6 py-4 flex items-center justify-between sticky top-0 z-30 shadow-3xs">
               <button
                 type="button"
                 onClick={prevStep}
-                disabled={currentStep === 1}
-                className={`flex items-center text-xs font-bold font-display px-4 py-2.5 rounded-full border transition-all ${
-                  currentStep === 1
-                    ? 'opacity-35 cursor-not-allowed border-transparent text-fennec-dark/30'
-                    : 'border-fennec-cream text-fennec-dark hover:bg-fennec-cream/15'
+                disabled={currentStep === 1 || isAnalyzing}
+                className={`flex items-center text-xs font-bold font-display px-3 py-2 rounded-full border transition-all ${
+                  currentStep === 1 || isAnalyzing
+                    ? 'opacity-20 cursor-not-allowed border-transparent text-fennec-dark/30'
+                    : 'border-fennec-cream/60 text-fennec-dark hover:bg-fennec-cream/15'
                 }`}
               >
-                <ChevronLeft className="w-4 h-4 mr-1.5" />
+                <ChevronLeft className="w-4 h-4 mr-1" />
                 <span>Retour</span>
               </button>
 
+              <div className="flex-1 max-w-md mx-6 text-center space-y-1.5">
+                <div className="flex justify-between items-center text-[10px] text-fennec-brown font-black uppercase tracking-widest">
+                  <span>Question {currentStep} sur 5</span>
+                  <span>{Math.round((currentStep / 5) * 100)}% complété</span>
+                </div>
+                <div className="h-1.5 w-full bg-fennec-cream/40 rounded-full overflow-hidden relative">
+                  <div 
+                    ref={progressBarRef}
+                    className="h-full bg-fennec-terracotta rounded-full origin-left"
+                    style={{ width: `${(currentStep / 5) * 100}%` }}
+                  />
+                </div>
+              </div>
+
               <button
                 type="button"
-                onClick={nextStep}
+                onClick={() => setQuizMode(false)}
                 disabled={isAnalyzing}
-                className="flex items-center text-xs font-bold font-display px-6 py-2.5 rounded-full bg-fennec-dark hover:bg-fennec-terracotta text-white transition-all shadow-sm"
+                className="flex items-center text-xs font-bold font-display px-3.5 py-2 rounded-full border border-fennec-cream/60 text-fennec-dark hover:bg-fennec-cream/15 transition-all disabled:opacity-50"
               >
-                {isAnalyzing ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    <span>Analyse...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>{currentStep === 5 ? 'Voir les résultats' : 'Suivant'}</span>
-                    <ChevronRight className="w-4 h-4 ml-1.5" />
-                  </>
-                )}
+                <X className="w-4 h-4 mr-1" />
+                <span className="hidden sm:inline">Quitter</span>
               </button>
+            </header>
+
+            {/* 2. MAIN IMMERSIVE CONTAINER (aligned higher up for improved UI/UX) */}
+            <div className="flex-grow flex items-start justify-center p-4 md:p-8 pt-2 sm:pt-4 md:pt-6 overflow-y-auto">
+              {isAnalyzing ? (
+                /* SMOOTH FINAL LOADING/ANALYSIS FLOW WITH REAL ANALYSING & LOGO CAROUSEL */
+                <div className="max-w-2xl mx-auto p-6 text-center space-y-6 animate-in fade-in duration-300">
+                  {/* Inline CSS animation for smooth logo scrolling */}
+                  <style>{`
+                    @keyframes scroll-left {
+                      0% { transform: translateX(0); }
+                      100% { transform: translateX(-50%); }
+                    }
+                    .animate-scroll-left {
+                      animation: scroll-left 15s linear infinite;
+                    }
+                  `}</style>
+
+                  <div className="relative w-32 h-32 mx-auto rounded-3xl p-2.5 bg-white border border-fennec-cream shadow-md overflow-hidden">
+                    <img 
+                      src={fenyAnalyse || fenyWinking} 
+                      alt="Fenny analyse" 
+                      className="w-full h-full object-cover rounded-2xl animate-pulse"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <h3 className="font-display font-black text-2xl text-fennec-dark flex items-center justify-center">
+                      <Loader2 className="w-6 h-6 mr-2.5 animate-spin text-fennec-terracotta" />
+                      Analyse fiscale & prévoyance...
+                    </h3>
+                    <p className="text-sm text-fennec-dark/70 leading-relaxed max-w-lg mx-auto">
+                      Fenny évalue votre profil de prévoyance et calcule votre gain fiscal potentiel en comparant les offres de <strong>Pilier 3a / 3b</strong> des principaux assureurs suisses.
+                    </p>
+                  </div>
+
+                  {/* Infinite Auto-Scrolling Logo Carousel */}
+                  <div className="space-y-2 max-w-xl mx-auto pt-4">
+                    <p className="text-[11px] font-black uppercase tracking-wider text-fennec-brown/60 text-center">
+                      Compagnies d'assurance analysées :
+                    </p>
+                    <div className="relative w-full overflow-hidden py-3 border-y border-fennec-cream/30 bg-white/30 rounded-2xl">
+                      {/* Left and right fade gradients */}
+                      <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[#FAF8F5] to-transparent z-10 pointer-events-none" />
+                      <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[#FAF8F5] to-transparent z-10 pointer-events-none" />
+                      
+                      {/* Scrolling wrapper */}
+                      <div className="flex space-x-6 animate-scroll-left w-max">
+                        {['swisslife', 'axa', 'zurich', 'helvetia', 'allianz', 'generali', 'mobiliere', 'baloise'].map((logo, idx) => (
+                          <div key={`${logo}-${idx}`} className="shrink-0">
+                            <CompanyLogo id={logo} className="w-20 h-11 bg-white" />
+                          </div>
+                        ))}
+                        {['swisslife', 'axa', 'zurich', 'helvetia', 'allianz', 'generali', 'mobiliere', 'baloise'].map((logo, idx) => (
+                          <div key={`${logo}-dup-${idx}`} className="shrink-0">
+                            <CompanyLogo id={logo} className="w-20 h-11 bg-white" />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              ) : (
+                /* MAIN QUESTION + MASCOT GRID */
+                <div className="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start py-6">
+                  
+                  {/* Mascot Left Panel */}
+                  <div className="lg:col-span-5 flex flex-col items-center lg:items-end space-y-4">
+                    
+                    {/* Floating Speech Bubble */}
+                    {fenyAdvice && (
+                      <div className="relative bg-white border border-fennec-cream shadow-sm p-4 rounded-3xl max-w-sm text-left animate-in fade-in slide-in-from-bottom-2 duration-200">
+                        <div className="space-y-1">
+                          <span className="text-[9px] font-black text-fennec-terracotta uppercase tracking-wider block">
+                            Fenny conseille
+                          </span>
+                          <p className="text-xs text-fennec-dark font-medium leading-relaxed">
+                            {fenyAdvice}
+                          </p>
+                        </div>
+                        {/* Triangle Pointer for Speech Bubble (hidden on mobile, pointing right on desktop) */}
+                        <div className="hidden lg:block absolute right-[-8px] top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-r border-b border-fennec-cream rotate-[-45deg] z-10" />
+                      </div>
+                    )}
+
+                    {/* Mascot Image */}
+                    <div className="relative w-36 h-36 md:w-44 md:h-44 rounded-3xl p-3 bg-white border border-fennec-cream shadow-xs overflow-hidden">
+                      <img 
+                        src={
+                          currentStep === 1 ? fenyThinking :
+                          currentStep === 2 ? fenySavings :
+                          currentStep === 3 ? fenyAvatar :
+                          currentStep === 4 ? fenyCompare :
+                          fenyWinking
+                        } 
+                        alt="Feny" 
+                        className="w-full h-full object-cover rounded-2xl"
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Question Right Panel */}
+                  <div className="lg:col-span-7 bg-white rounded-3xl border border-fennec-cream/80 shadow-md p-6 md:p-10 w-full min-h-[380px] flex flex-col justify-between">
+                    <div ref={stepContainerRef} className="flex-grow flex flex-col justify-center">
+                      <AnimatePresence mode="wait">
+                        
+                        {/* STEP 1: TYPE OF PILLAR (Single choice, few options -> Cards) */}
+                        {currentStep === 1 && (
+                          <motion.div
+                            key="p-step-1"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="space-y-6 text-left w-full"
+                          >
+                            <div className="space-y-2">
+                              <div className="flex items-center space-x-2 text-fennec-terracotta">
+                                <Shield className="w-5 h-5 shrink-0" />
+                                <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
+                                  Quel type de 3e Pilier recherchez-vous ?
+                                </h3>
+                              </div>
+                              <p className="text-xs text-fennec-dark/65 leading-relaxed">
+                                Le 3ème pilier vous permet de vous constituer un capital de retraite tout en économisant d'importants impôts chaque année.
+                              </p>
+                            </div>
+
+                            {/* PILIER OPTIONS */}
+                            <div className="grid grid-cols-1 gap-4">
+                              {[
+                                { id: '3a', label: 'Pilier 3a (Lié)', desc: 'Déduction fiscale maximale', details: 'Bloqué jusqu\'à la retraite. Idéal pour économiser d\'importants impôts annuels.', icon: PiggyBank },
+                                { id: '3b', label: 'Pilier 3b (Libre)', desc: 'Flexibilité totale des retraits', details: 'Pas de déduction fiscale directe, mais capital disponible à tout moment.', icon: Shield },
+                                { id: 'all', label: 'Mixte (Pilier 3a + 3b)', desc: 'Le compromis parfait', details: 'Permet de maximiser le gain fiscal tout en gardant une poche disponible.', icon: Sparkles },
+                              ].map((t) => {
+                                const isSelected = filters.type === t.id;
+                                const IconComponent = t.icon;
+                                return (
+                                  <motion.button
+                                    key={t.id}
+                                    type="button"
+                                    whileHover={{ scale: 1.01 }}
+                                    whileTap={{ scale: 0.99 }}
+                                    onClick={() => {
+                                      handleFilterChange('type', t.id as any);
+                                      setTimeout(() => nextStep(), 220);
+                                    }}
+                                    className={`stagger-item p-4.5 rounded-2xl border text-left flex items-start space-x-4 transition-all ${
+                                      isSelected
+                                        ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-md font-bold'
+                                        : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15 font-semibold'
+                                    }`}
+                                  >
+                                    <div className={`p-3 rounded-xl ${isSelected ? 'bg-white/20 text-white' : 'bg-fennec-cream text-fennec-terracotta'} shrink-0`}>
+                                      <IconComponent className="w-5 h-5" />
+                                    </div>
+                                    <div className="space-y-1">
+                                      <div className="flex items-baseline space-x-2">
+                                        <span className="font-display font-black text-base">{t.label}</span>
+                                        <span className="text-xs opacity-80 font-medium">({t.desc})</span>
+                                      </div>
+                                      <span className="text-xs opacity-90 block leading-relaxed">{t.details}</span>
+                                    </div>
+                                  </motion.button>
+                                );
+                              })}
+                            </div>
+                          </motion.div>
+                        )}
+
+                        {/* STEP 2: MONTHLY AMOUNT (Numeric Answer -> Slider + styled live value + quick select buttons) */}
+                        {currentStep === 2 && (
+                          <motion.div
+                            key="p-step-2"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="space-y-6 text-left w-full"
+                          >
+                            <div className="space-y-2">
+                              <div className="flex items-center space-x-2 text-fennec-terracotta">
+                                <PiggyBank className="w-5 h-5 shrink-0" />
+                                <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
+                                  Combien souhaitez-vous épargner par mois ?
+                                </h3>
+                              </div>
+                              <p className="text-xs text-fennec-dark/65 leading-relaxed">
+                                Chaque franc épargné réduit directement votre revenu imposable suisse. Le plafond 2026 est de CHF 7'258.- par an (CHF 604.- / mois).
+                              </p>
+                            </div>
+
+                            {/* Styled Live Value Indicator */}
+                            <div className="bg-fennec-cream/10 border-2 border-fennec-cream/60 rounded-2xl p-6 text-center space-y-1">
+                              <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Votre versement mensuel</span>
+                              <span className="font-display text-4xl font-black text-fennec-terracotta block">
+                                CHF {monthlyAmount}.- <span className="text-base font-bold text-fennec-dark/60">/ mois</span>
+                              </span>
+                              <span className="text-xs text-emerald-700 font-bold block bg-emerald-50 max-w-max mx-auto px-2.5 py-0.5 rounded-full mt-1">
+                                Gain fiscal estimé : ~CHF {Math.round(monthlyAmount * 12 * 0.22)}.- / an
+                              </span>
+                            </div>
+
+                            {/* SLIDER */}
+                            <div className="space-y-2">
+                              <input 
+                                type="range"
+                                min="50"
+                                max="1000"
+                                step="50"
+                                value={monthlyAmount}
+                                onChange={(e) => setMonthlyAmount(Number(e.target.value))}
+                                className="w-full accent-fennec-terracotta cursor-pointer"
+                              />
+                              <div className="flex justify-between text-[10px] font-mono text-fennec-brown/60">
+                                <span>CHF 50.-</span>
+                                <span>CHF 500.-</span>
+                                <span>CHF 1'000.- / mois</span>
+                              </div>
+                            </div>
+
+                            {/* QUICK SELECT BUTTONS */}
+                            <div className="space-y-2">
+                              <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Montants rapides :</span>
+                              <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+                                {[100, 200, 300, 500, 604].map((amount) => {
+                                  const isSelected = monthlyAmount === amount;
+                                  return (
+                                    <button
+                                      key={amount}
+                                      type="button"
+                                      onClick={() => setMonthlyAmount(amount)}
+                                      className={`p-3 rounded-xl border text-center transition-all ${
+                                        isSelected
+                                          ? 'bg-fennec-terracotta text-white border-fennec-terracotta font-bold'
+                                          : 'border-fennec-cream/80 text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15 font-semibold'
+                                      }`}
+                                    >
+                                      <span className="text-[9px] block opacity-75 uppercase">Mensuel</span>
+                                      <span className="font-display text-sm block font-black mt-0.5">CHF {amount}</span>
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+
+                        {/* STEP 3: DURATION (Numeric Answer -> Slider + live value + quick select buttons) */}
+                        {currentStep === 3 && (
+                          <motion.div
+                            key="p-step-3"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="space-y-6 text-left w-full"
+                          >
+                            <div className="space-y-2">
+                              <div className="flex items-center space-x-2 text-fennec-terracotta">
+                                <TrendingUp className="w-5 h-5 shrink-0" />
+                                <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
+                                  Sur combien d'années souhaitez-vous épargner ?
+                                </h3>
+                              </div>
+                              <p className="text-xs text-fennec-dark/65 leading-relaxed">
+                                La durée recommandée correspond aux années restantes jusqu'à votre retraite légale pour maximiser les intérêts composés.
+                              </p>
+                            </div>
+
+                            {/* Styled Live Value Indicator */}
+                            <div className="bg-fennec-cream/10 border-2 border-fennec-cream/60 rounded-2xl p-6 text-center space-y-1">
+                              <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Horizon de placement</span>
+                              <span className="font-display text-4xl font-black text-fennec-dark block">
+                                {duration} <span className="text-2xl font-bold text-fennec-dark/60">ans</span>
+                              </span>
+                              <span className="text-xs text-fennec-brown font-bold block">
+                                Échéance de versement estimée : <strong>En {2026 + duration}</strong>
+                              </span>
+                            </div>
+
+                            {/* SLIDER */}
+                            <div className="space-y-2">
+                              <input 
+                                type="range"
+                                min="5"
+                                max="45"
+                                step="1"
+                                value={duration}
+                                onChange={(e) => setDuration(Number(e.target.value))}
+                                className="w-full accent-fennec-terracotta cursor-pointer"
+                              />
+                              <div className="flex justify-between text-[10px] font-mono text-fennec-brown/60">
+                                <span>5 ans (Court terme)</span>
+                                <span>25 ans</span>
+                                <span>45 ans (Retraite lointaine)</span>
+                              </div>
+                            </div>
+
+                            {/* QUICK SELECT BUTTONS */}
+                            <div className="space-y-2">
+                              <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Durées d'épargne rapides :</span>
+                              <div className="grid grid-cols-5 gap-2">
+                                {[10, 15, 20, 25, 30].map((years) => {
+                                  const isSelected = duration === years;
+                                  return (
+                                    <button
+                                      key={years}
+                                      type="button"
+                                      onClick={() => setDuration(years)}
+                                      className={`p-3 rounded-xl border text-center transition-all ${
+                                        isSelected
+                                          ? 'bg-fennec-tan text-white border-fennec-tan font-bold'
+                                          : 'border-fennec-cream/80 text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15 font-semibold'
+                                      }`}
+                                    >
+                                      <span className="font-display text-sm block font-black">{years}</span>
+                                      <span className="text-[8px] block opacity-75 uppercase">ans</span>
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+
+                        {/* STEP 4: PREVOYANCE PROFILE (Single choice, few options -> Cards) */}
+                        {currentStep === 4 && (
+                          <motion.div
+                            key="p-step-4"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="space-y-6 text-left w-full"
+                          >
+                            <div className="space-y-2">
+                              <div className="flex items-center space-x-2 text-fennec-terracotta">
+                                <User className="w-5 h-5 shrink-0" />
+                                <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
+                                  Quel est votre profil de prévoyance ?
+                                </h3>
+                              </div>
+                              <p className="text-xs text-fennec-dark/65 leading-relaxed">
+                                Votre profil permet de configurer d'éventuelles assurances décès ou invalidité intégrées adaptées à votre situation.
+                              </p>
+                            </div>
+
+                            {/* PROFILE CARDS */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                              {[
+                                { id: 'young', title: 'Jeune actif / Célibataire', desc: 'Priorité au rendement et à la capitalisation sur le long terme (fonds/actions).', label: '18 - 35 ans', icon: Sparkles },
+                                { id: 'family', title: 'Soutien de Famille', desc: 'Sécurité et intégration de clauses de protection décès et invalidité.', label: 'Protéger son foyer', icon: Shield },
+                                { id: 'independent', title: 'Indépendant (Sans LPP)', desc: 'Le 3e pilier devient votre principal levier d\'épargne-retraite légal.', label: 'Max fiscale autorisée', icon: PiggyBank },
+                                { id: 'senior', title: 'Sénior / Retraite proche', desc: 'Sécurisation progressive du capital à l\'approche de l\'âge légal.', label: 'Dès 50 ans', icon: Award },
+                              ].map((profile) => {
+                                const isSelected = filters.profile === profile.id;
+                                const IconComponent = profile.icon;
+                                return (
+                                  <motion.button
+                                    key={profile.id}
+                                    type="button"
+                                    whileHover={{ scale: 1.01 }}
+                                    whileTap={{ scale: 0.99 }}
+                                    onClick={() => {
+                                      handleFilterChange('profile', profile.id as any);
+                                      setTimeout(() => nextStep(), 220);
+                                    }}
+                                    className={`stagger-item p-4.5 rounded-2xl border text-left flex flex-col justify-between min-h-[130px] transition-all ${
+                                      isSelected
+                                        ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-md'
+                                        : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15'
+                                    }`}
+                                  >
+                                    <div className="flex justify-between items-start w-full">
+                                      <div className={`p-2 rounded-lg ${isSelected ? 'bg-white/20 text-white' : 'bg-fennec-cream text-fennec-terracotta'}`}>
+                                        <IconComponent className="w-4 h-4" />
+                                      </div>
+                                      <span className={`text-[8px] font-black uppercase px-2 py-0.5 rounded ${isSelected ? 'bg-white/20 text-white' : 'bg-fennec-cream/60 text-fennec-brown'}`}>
+                                        {profile.label}
+                                      </span>
+                                    </div>
+                                    <div className="space-y-0.5 mt-4">
+                                      <span className="font-display font-black text-sm block">{profile.title}</span>
+                                      <span className="text-xs opacity-80 block leading-tight">{profile.desc}</span>
+                                    </div>
+                                  </motion.button>
+                                );
+                              })}
+                            </div>
+                          </motion.div>
+                        )}
+
+                        {/* STEP 5: PRIORITY (Single choice, few options -> Cards) */}
+                        {currentStep === 5 && (
+                          <motion.div
+                            key="p-step-5"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="space-y-6 text-left w-full"
+                          >
+                            <div className="space-y-2">
+                              <div className="flex items-center space-x-2 text-fennec-terracotta">
+                                <Award className="w-5 h-5 shrink-0" />
+                                <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
+                                  Quelle est votre priorité d'épargne ?
+                                </h3>
+                              </div>
+                              <p className="text-xs text-fennec-dark/65 leading-relaxed">
+                                Détermine l'orientation de placement de votre capital (fonds de placement à dividendes, actions, ou compte d'intérêt garanti).
+                              </p>
+                            </div>
+
+                            {/* PRIORITY CARDS */}
+                            <div className="grid grid-cols-1 gap-3.5">
+                              {[
+                                { id: 'tax-saving', label: 'Baisse d\'impôt immédiate maximale', desc: 'Vous ciblez l\'avantage fiscal annuel de la Confédération en priorité pour réduire vos impôts directs.' },
+                                { id: 'high-yield', label: 'Rendement de placement élevé (Fonds & Actions)', desc: 'Vous acceptez une volatilité modérée sur les marchés boursiers pour obtenir un gain d\'intérêts historique supérieur.' },
+                                { id: 'guaranteed', label: 'Sécurité maximale (Capital garanti à 100%)', desc: 'Vous exigez une certitude contractuelle absolue sur le capital d\'épargne final sans aucun risque boursier.' },
+                              ].map((priority) => {
+                                const isSelected = filters.priority === priority.id;
+                                return (
+                                  <motion.button
+                                    key={priority.id}
+                                    type="button"
+                                    whileHover={{ scale: 1.01 }}
+                                    whileTap={{ scale: 0.99 }}
+                                    onClick={() => {
+                                      handleFilterChange('priority', priority.id as any);
+                                      setTimeout(() => nextStep(), 220);
+                                    }}
+                                    className={`stagger-item p-4.5 rounded-2xl border text-left flex items-start space-x-4 transition-all ${
+                                      isSelected
+                                        ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-md font-bold'
+                                        : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15 font-semibold'
+                                    }`}
+                                  >
+                                    <div className={`p-2 rounded-xl shrink-0 mt-0.5 ${isSelected ? 'bg-white/20 text-white' : 'bg-fennec-cream text-fennec-terracotta'}`}>
+                                      <Check className="w-4 h-4" />
+                                    </div>
+                                    <div className="space-y-0.5 flex-1">
+                                      <span className="font-display font-black text-base block">{priority.label}</span>
+                                      <p className="text-xs opacity-90 leading-relaxed mt-0.5 font-medium">{priority.desc}</p>
+                                    </div>
+                                  </motion.button>
+                                );
+                              })}
+                            </div>
+                          </motion.div>
+                        )}
+
+                      </AnimatePresence>
+                    </div>
+
+                    {/* Step Action Buttons */}
+                    <div className="flex justify-between items-center pt-6 border-t border-fennec-cream/40 mt-6 shrink-0">
+                      <button
+                        type="button"
+                        onClick={prevStep}
+                        disabled={currentStep === 1}
+                        className={`flex items-center text-xs font-bold font-display px-4 py-2.5 rounded-full border transition-all ${
+                          currentStep === 1
+                            ? 'opacity-35 cursor-not-allowed border-transparent text-fennec-dark/30'
+                            : 'border-fennec-cream text-fennec-dark hover:bg-fennec-cream/15'
+                        }`}
+                      >
+                        <ChevronLeft className="w-4 h-4 mr-1.5" />
+                        <span>Retour</span>
+                      </button>
+
+                      {/* Display explicit "Next" button only for questions requiring non-click confirmation */}
+                      {(currentStep === 2 || currentStep === 3) && (
+                        <button
+                          type="button"
+                          onClick={nextStep}
+                          className="flex items-center text-xs font-bold font-display px-6 py-2.5 rounded-full bg-fennec-dark hover:bg-fennec-terracotta text-white transition-all shadow-sm"
+                        >
+                          <span>Continuer</span>
+                          <ChevronRight className="w-4 h-4 ml-1.5" />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                </div>
+              )}
             </div>
+
+            {/* 3. PERSISTENT MINI LEGAL FOOTER IN QUIZ */}
+            <footer className="w-full text-center py-4 bg-white/50 border-t border-fennec-cream/20 text-[10px] text-fennec-dark/40 font-medium shrink-0">
+              Fenny s'engage : 100% anonyme, conforme à la nLPD suisse, aucune revente de données.
+            </footer>
           </motion.div>
         ) : (
+
           /* ========================================== */
           /*         COMPARATIVE RESULTS DASHBOARD      */
           /* ========================================== */
