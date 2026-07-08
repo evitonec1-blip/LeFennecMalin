@@ -87,7 +87,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDFBF9] flex flex-col justify-between font-sans selection:bg-fennec-tan/20">
+    <div className="min-h-screen w-full overflow-x-hidden bg-[#FDFBF9] flex flex-col justify-between font-sans selection:bg-fennec-tan/20">
       
       {/* GSAP Award-Level Preloader with rolling digits counter */}
       {loading && <Preloader onComplete={() => setLoading(false)} />}
@@ -219,7 +219,7 @@ export default function App() {
 
             {/* 3. CORE INTERACTIVE COMPARATOR MODULE */}
             <section id="comparator-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
-              <div className="bg-[#FAF7F3] rounded-[40px] p-6 sm:p-10 border border-fennec-cream/60 shadow-xs relative">
+              <div className="bg-[#FAF7F3] rounded-[40px] p-6 sm:p-10 border border-fennec-cream/60 shadow-xs relative overflow-hidden">
                 
                 {/* Module switcher heading tabs */}
                 <div className="flex justify-center mb-8 border-b border-fennec-cream pb-6 gap-2">

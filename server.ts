@@ -268,17 +268,20 @@ import {
   lookupPremium 
 } from "./src/utils/premiumLookupService";
 
-// Load 2026 premiums database from the public folder
+// Load 2026 premiums database from the public or dist folder
 let premiumsDb: Record<string, { premium: number; modelName: string }> = {};
 
 try {
-  const dbPath = path.join(process.cwd(), "public", "premiums_2026.json");
+  let dbPath = path.join(process.cwd(), "public", "premiums_2026.json");
+  if (!fs.existsSync(dbPath)) {
+    dbPath = path.join(process.cwd(), "dist", "premiums_2026.json");
+  }
   if (fs.existsSync(dbPath)) {
-    console.log("[Server] Loading local official 2026 premiums database...");
+    console.log(`[Server] Loading local official 2026 premiums database from ${dbPath}...`);
     premiumsDb = JSON.parse(fs.readFileSync(dbPath, "utf-8"));
     console.log(`[Server] Successfully loaded ${Object.keys(premiumsDb).length} premium records.`);
   } else {
-    console.warn("[Server] WARNING: Local premiums database not found at:", dbPath);
+    console.warn("[Server] WARNING: Local premiums database not found in public or dist:", dbPath);
   }
 } catch (err) {
   console.error("[Server] Error loading local premiums database:", err);

@@ -16,6 +16,12 @@
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+}
+
 /* Base custom styles to guarantee nice contrast and typography */
 body {
   font-family: var(--font-sans);
