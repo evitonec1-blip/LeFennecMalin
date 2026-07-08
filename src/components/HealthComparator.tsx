@@ -285,19 +285,35 @@ export default function HealthComparator() {
 
       let premium = 0;
       let matchedModelName = '';
+      let isRealData = false;
 
       if (realMatches.length > 0) {
         // Use the cheapest matched premium for this insurer
         realMatches.sort((a, b) => a.premium - b.premium);
         premium = realMatches[0].premium;
         matchedModelName = realMatches[0].modelName;
+        isRealData = true;
+      }
+
+      // Safe, highly accurate mathematical fallback using our Swiss-rule formulaic calculator
+      // if no premium was fetched from the backend API or the local JSON file.
+      if (premium === 0) {
+        premium = calculateHealthPremium(
+          caisse,
+          filters.canton,
+          filters.ageCategory as any,
+          filters.franchise,
+          filters.model as any,
+          filters.accidentCoverage,
+          filters.zone
+        );
       }
 
       return {
         ...caisse,
         computedPremium: premium,
         realModelName: matchedModelName || undefined,
-        isRealData: premium > 0,
+        isRealData: isRealData,
       };
     });
 
@@ -1321,14 +1337,15 @@ export default function HealthComparator() {
                         </div>
 
                         {/* Official OFSP / priminfo Source Badge */}
-                        {caisse.computedPremium > 0 ? (
+                        {caisse.isRealData ? (
                           <div className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-md bg-emerald-50 border border-emerald-150 text-[9px] text-emerald-800 font-bold">
                             <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
                             <span>Donnée Officielle OFSP</span>
                           </div>
                         ) : (
-                          <div className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-md bg-red-50 border border-red-150 text-[9px] text-red-800 font-bold">
-                            <span>Non disponible en 2026</span>
+                          <div className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-md bg-amber-50 border border-amber-150 text-[9px] text-amber-800 font-bold">
+                            <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                            <span>Donnée Estimée 2026</span>
                           </div>
                         )}
 
