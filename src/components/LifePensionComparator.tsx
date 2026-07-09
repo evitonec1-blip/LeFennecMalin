@@ -39,10 +39,14 @@ import CompanyLogo from './CompanyLogo';
 
 const LIFE_ADVICE_MAP: Record<string, string> = {
   type: "Le Pilier 3a (Lié) offre d'excellentes déductions d'impôts directes mais reste bloqué. Le Pilier 3b (Libre) est totalement flexible pour des retraits libres à tout moment.",
-  monthlyAmount: "Chaque franc épargné réduit votre revenu imposable suisse. Le plafond de versement pour salariés est fixé à CHF 7'258.- par an.",
-  duration: "Une durée d'épargne longue maximise le rendement grâce aux intérêts composés et lisse l'effet des fluctuations des marchés boursiers.",
-  profile: "Votre profil permet d'ajuster les clauses de protection décès/invalidité pour votre foyer avec vos objectifs de capital de retraite.",
-  priority: "Votre priorité configure l'orientation de placement: capital garanti pour une sécurité totale, ou actions pour un rendement maximal historique.",
+  personal: "Vos informations de naissance, canton et revenus déterminent directement le gain fiscal potentiel de votre 3ème pilier.",
+  product: "Choisissez entre un compte d'épargne bancaire classique ou des fonds en titres (actions/ETF) pour booster votre rendement historique.",
+  coverage: "Une assurance-vie combinée peut protéger vos proches en cas de décès et exonérer vos primes d'épargne si vous êtes invalide.",
+  savings: "Indiquez votre capacité d'épargne. Chaque franc épargné réduit votre revenu imposable (jusqu'à CHF 7'258/an pour salarié LPP).",
+  risk: "Votre profil de risque détermine la part boursière investie. Sur le long terme, les fonds en actions surperforment largement.",
+  withdrawal: "Un projet de logement principal, de travail indépendant ou de départ de Suisse permet un retrait anticipé du Pilier 3a.",
+  existing: "Si vous possédez déjà un 3ème pilier, analyser ses performances et ses frais actuels permet souvent d'envisager un transfert avantageux.",
+  priority: "Définissez ce qui compte le plus : réduire vos coûts, booster le rendement, garder de la flexibilité ou garantir la sécurité.",
   firstName: "Votre prénom est nécessaire pour personnaliser votre dossier gratuit et votre projection fiscale.",
   lastName: "Votre nom de famille est requis par les compagnies d'assurance suisses pour générer une simulation officielle et nominative.",
   email: "Votre adresse e-mail nous permet de vous transmettre instantanément votre comparatif de rendement et gain fiscal en PDF.",
@@ -55,15 +59,59 @@ interface LifePensionComparatorProps {
 }
 
 export default function LifePensionComparator({ isEmbedded = false, onStartQuiz }: LifePensionComparatorProps) {
-  // 1. Core State
+  // 1. Core State with comprehensive Swiss 3rd pillar questions
   const [filters, setFilters] = useState<LifeFilterState>({
     type: '3a',
     profile: 'young',
     priority: 'tax-saving',
+    birthDate: '1995-07-09',
+    gender: 'M',
+    canton: 'GE',
+    employmentStatus: 'salaried',
+    annualIncome: 85000,
+    hasSecondPillar: true,
+    productType: 'equity-savings',
+    equityPart: '50%',
+    deathCoverageNeeded: false,
+    deathCoverageAmount: 50000,
+    disabilityCoverageNeeded: 'none',
+    premiumExemptionNeeded: true,
+    hasDependents: false,
+    savingAmount: 300,
+    savingFrequency: 'monthly',
+    commitmentPreference: 'flexible',
+    investmentHorizon: 25,
+    riskTolerance: 'balanced',
+    reactionToDrop: 'hold',
+    prefersEsg: true,
+    earlyWithdrawalReason: 'none',
+    earlyWithdrawalHorizon: 'none',
+    hasExistingThirdPillar: false,
+    existingInsurer: '',
+    existingAmount: 0,
+    transferType: 'new',
+    priorityRank1: 'yield',
+    priorityRank2: 'fees',
   });
 
   const [monthlyAmount, setMonthlyAmount] = useState<number>(300);
   const [duration, setDuration] = useState<number>(25);
+
+  // Synchronize savingAmount and monthlyAmount when they change in quiz
+  useEffect(() => {
+    if (filters.savingAmount) {
+      const equiv = filters.savingFrequency === 'yearly' 
+        ? Math.round(filters.savingAmount / 12) 
+        : filters.savingAmount;
+      setMonthlyAmount(equiv);
+    }
+  }, [filters.savingAmount, filters.savingFrequency]);
+
+  useEffect(() => {
+    if (filters.investmentHorizon) {
+      setDuration(filters.investmentHorizon);
+    }
+  }, [filters.investmentHorizon]);
 
   // GSAP animated progress bar refs
   const progressBarRef = useRef<HTMLDivElement>(null);
@@ -116,13 +164,21 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
 
+  // Synchronize lead status profession with quiz answers
+  useEffect(() => {
+    setFormData(prev => ({
+      ...prev,
+      profession: filters.employmentStatus === 'independent' ? 'independent' : 'salaried'
+    }));
+  }, [filters.employmentStatus]);
+
   // Pillar 3a maximum limits reference
   const currentCeilingSalaried = 7258;
   const currentCeilingIndependent = 36288;
 
   // 1. GSAP-driven Progress Bar Animation for Wizard & Global
   useEffect(() => {
-    const percentage = quizMode ? (currentStep / 5) * 100 : 100;
+    const percentage = quizMode ? (currentStep / 9) * 100 : 100;
     if (progressBarRef.current) {
       gsap.to(progressBarRef.current, {
         width: `${percentage}%`,
@@ -164,14 +220,31 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
   useEffect(() => {
     if (quizMode) {
       if (currentStep === 1) setFenyAdvice(LIFE_ADVICE_MAP.type);
-      else if (currentStep === 2) setFenyAdvice(LIFE_ADVICE_MAP.monthlyAmount);
-      else if (currentStep === 3) setFenyAdvice(LIFE_ADVICE_MAP.duration);
-      else if (currentStep === 4) setFenyAdvice(LIFE_ADVICE_MAP.profile);
-      else if (currentStep === 5) setFenyAdvice(LIFE_ADVICE_MAP.priority);
+      else if (currentStep === 2) setFenyAdvice(LIFE_ADVICE_MAP.personal);
+      else if (currentStep === 3) setFenyAdvice(LIFE_ADVICE_MAP.product);
+      else if (currentStep === 4) setFenyAdvice(LIFE_ADVICE_MAP.coverage);
+      else if (currentStep === 5) setFenyAdvice(LIFE_ADVICE_MAP.savings);
+      else if (currentStep === 6) setFenyAdvice(LIFE_ADVICE_MAP.risk);
+      else if (currentStep === 7) setFenyAdvice(LIFE_ADVICE_MAP.withdrawal);
+      else if (currentStep === 8) setFenyAdvice(LIFE_ADVICE_MAP.existing);
+      else if (currentStep === 9) setFenyAdvice(LIFE_ADVICE_MAP.priority);
     } else {
       setFenyAdvice(null);
     }
   }, [currentStep, quizMode]);
+
+  // Scroll to top when analysis starts so user can see the analyzing animation
+  useEffect(() => {
+    if (isAnalyzing) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
+      document.body.scrollTo({ top: 0, behavior: 'smooth' });
+      const scrollContainers = document.querySelectorAll('.overflow-y-auto');
+      scrollContainers.forEach(container => {
+        container.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  }, [isAnalyzing]);
 
   // 4. GSAP-driven Staggered Reveal for step inputs/options
   const stepContainerRef = useRef<HTMLDivElement>(null);
@@ -302,7 +375,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
 
   // Next step handler in wizard
   const nextStep = () => {
-    if (currentStep < 5) {
+    if (currentStep < 9) {
       setCurrentStep(prev => prev + 1);
     } else {
       // Trigger smooth final loading simulation
@@ -419,14 +492,14 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
 
               <div className="flex-1 max-w-md mx-6 text-center space-y-1.5">
                 <div className="flex justify-between items-center text-[10px] text-fennec-brown font-black uppercase tracking-widest">
-                  <span>Question {currentStep} sur 5</span>
-                  <span>{Math.round((currentStep / 5) * 100)}% complété</span>
+                  <span>Question {currentStep} sur 9</span>
+                  <span>{Math.round((currentStep / 9) * 100)}% complété</span>
                 </div>
                 <div className="h-1.5 w-full bg-fennec-cream/40 rounded-full overflow-hidden relative">
                   <div 
                     ref={progressBarRef}
                     className="h-full bg-fennec-terracotta rounded-full origin-left"
-                    style={{ width: `${(currentStep / 5) * 100}%` }}
+                    style={{ width: `${(currentStep / 9) * 100}%` }}
                   />
                 </div>
               </div>
@@ -549,7 +622,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                     <div ref={stepContainerRef} className="flex-grow flex flex-col justify-center">
                       <AnimatePresence mode="wait">
                         
-                        {/* STEP 1: TYPE OF PILLAR (Single choice, few options -> Cards) */}
+                        {/* STEP 1: TYPE OF PILLAR (Single choice -> Cards) */}
                         {currentStep === 1 && (
                           <motion.div
                             key="p-step-1"
@@ -557,13 +630,13 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.25 }}
-                            className="space-y-6 text-left w-full"
+                            className="space-y-6 text-left w-full animate-in fade-in duration-300"
                           >
                             <div className="space-y-2">
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
                                 <Shield className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  Quel type de 3e Pilier recherchez-vous ?
+                                  1. Quel type de 3e Pilier recherchez-vous ?
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
@@ -571,12 +644,11 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                               </p>
                             </div>
 
-                            {/* PILIER OPTIONS */}
                             <div className="grid grid-cols-1 gap-4">
                               {[
-                                { id: '3a', label: 'Pilier 3a (Lié)', desc: 'Déduction fiscale maximale', details: 'Bloqué jusqu\'à la retraite. Idéal pour économiser d\'importants impôts annuels.', icon: PiggyBank },
-                                { id: '3b', label: 'Pilier 3b (Libre)', desc: 'Flexibilité totale des retraits', details: 'Pas de déduction fiscale directe, mais capital disponible à tout moment.', icon: Shield },
-                                { id: 'all', label: 'Mixte (Pilier 3a + 3b)', desc: 'Le compromis parfait', details: 'Permet de maximiser le gain fiscal tout en gardant une poche disponible.', icon: Sparkles },
+                                { id: '3a', label: 'Pilier 3a (Lié)', desc: 'Déduction fiscale maximale', details: 'Bloqué légalement jusqu\'à la retraite. Idéal pour économiser d\'importants impôts fédéraux et cantonaux.', icon: PiggyBank },
+                                { id: '3b', label: 'Pilier 3b (Libre)', desc: 'Flexibilité totale des retraits', details: 'Pas de déduction fiscale de base (sauf GE/FR), mais capital disponible à tout moment sans conditions.', icon: Shield },
+                                { id: 'all', label: 'Je ne sais pas encore', desc: 'Aide-moi à choisir !', details: 'Permet d\'étudier les deux solutions pour composer l\'offre la plus adaptée.', icon: Sparkles },
                               ].map((t) => {
                                 const isSelected = filters.type === t.id;
                                 const IconComponent = t.icon;
@@ -590,7 +662,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                                       handleFilterChange('type', t.id as any);
                                       setTimeout(() => nextStep(), 220);
                                     }}
-                                    className={`stagger-item p-4.5 rounded-2xl border text-left flex items-start space-x-4 transition-all ${
+                                    className={`p-4 rounded-2xl border text-left flex items-start space-x-4 transition-all ${
                                       isSelected
                                         ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-md font-bold'
                                         : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15 font-semibold'
@@ -613,7 +685,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                           </motion.div>
                         )}
 
-                        {/* STEP 2: MONTHLY AMOUNT (Numeric Answer -> Slider + styled live value + quick select buttons) */}
+                        {/* STEP 2: PERSONAL PROFILE (Detailed profile) */}
                         {currentStep === 2 && (
                           <motion.div
                             key="p-step-2"
@@ -621,77 +693,132 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.25 }}
-                            className="space-y-6 text-left w-full"
+                            className="space-y-6 text-left w-full animate-in fade-in duration-300"
                           >
                             <div className="space-y-2">
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
-                                <PiggyBank className="w-5 h-5 shrink-0" />
+                                <User className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  Combien souhaitez-vous épargner par mois ?
+                                  2. Votre profil personnel (obligatoire)
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                Chaque franc épargné réduit directement votre revenu imposable suisse. Le plafond 2026 est de CHF 7'258.- par an (CHF 604.- / mois).
+                                L'âge, le canton et les revenus influencent fortement le calcul des primes de base et l'économie d'impôt maximale réelle.
                               </p>
                             </div>
 
-                            {/* Styled Live Value Indicator */}
-                            <div className="bg-fennec-cream/10 border-2 border-fennec-cream/60 rounded-2xl p-6 text-center space-y-1">
-                              <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Votre versement mensuel</span>
-                              <span className="font-display text-4xl font-black text-fennec-terracotta block">
-                                CHF {monthlyAmount}.- <span className="text-base font-bold text-fennec-dark/60">/ mois</span>
-                              </span>
-                              <span className="text-xs text-emerald-700 font-bold block bg-emerald-50 max-w-max mx-auto px-2.5 py-0.5 rounded-full mt-1">
-                                Gain fiscal estimé : ~CHF {Math.round(monthlyAmount * 12 * 0.22)}.- / an
-                              </span>
-                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              {/* Birth Date & Gender */}
+                              <div className="space-y-4">
+                                <div className="space-y-1">
+                                  <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Date de naissance</label>
+                                  <input 
+                                    type="date"
+                                    value={filters.birthDate || '1995-07-09'}
+                                    onChange={(e) => handleFilterChange('birthDate', e.target.value)}
+                                    className="w-full px-4 py-2.5 rounded-xl border border-fennec-cream/80 bg-fennec-cream/5 text-fennec-dark focus:outline-none focus:border-fennec-terracotta font-medium text-sm"
+                                  />
+                                </div>
 
-                            {/* SLIDER */}
-                            <div className="space-y-2">
-                              <input 
-                                type="range"
-                                min="50"
-                                max="1000"
-                                step="50"
-                                value={monthlyAmount}
-                                onChange={(e) => setMonthlyAmount(Number(e.target.value))}
-                                className="w-full accent-fennec-terracotta cursor-pointer"
-                              />
-                              <div className="flex justify-between text-[10px] font-mono text-fennec-brown/60">
-                                <span>CHF 50.-</span>
-                                <span>CHF 500.-</span>
-                                <span>CHF 1'000.- / mois</span>
+                                <div className="space-y-1">
+                                  <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Sexe légal</label>
+                                  <div className="grid grid-cols-2 gap-2">
+                                    {['M', 'F'].map((g) => (
+                                      <button
+                                        key={g}
+                                        type="button"
+                                        onClick={() => handleFilterChange('gender', g as any)}
+                                        className={`py-2 rounded-xl border font-bold text-sm text-center transition-all ${
+                                          filters.gender === g
+                                            ? 'bg-fennec-terracotta text-white border-fennec-terracotta'
+                                            : 'border-fennec-cream/80 text-fennec-dark bg-white hover:bg-fennec-cream/10'
+                                        }`}
+                                      >
+                                        {g === 'M' ? 'Homme' : 'Femme'}
+                                      </button>
+                                    ))}
+                                  </div>
+                                </div>
+
+                                <div className="space-y-1">
+                                  <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Canton de résidence</label>
+                                  <select
+                                    value={filters.canton || 'GE'}
+                                    onChange={(e) => handleFilterChange('canton', e.target.value)}
+                                    className="w-full px-4 py-2.5 rounded-xl border border-fennec-cream/80 bg-white text-fennec-dark focus:outline-none focus:border-fennec-terracotta font-medium text-sm"
+                                  >
+                                    <option value="ZH">Zurich (ZH)</option>
+                                    <option value="GE">Genève (GE)</option>
+                                    <option value="VD">Vaud (VD)</option>
+                                    <option value="BE">Berne (BE)</option>
+                                    <option value="FR">Fribourg (FR)</option>
+                                    <option value="NE">Neuchâtel (NE)</option>
+                                    <option value="VS">Valais (VS)</option>
+                                    <option value="JU">Jura (JU)</option>
+                                    <option value="AG">Argovie (AG)</option>
+                                    <option value="BS">Bâle-Ville (BS)</option>
+                                    <option value="BL">Bâle-Campagne (BL)</option>
+                                    <option value="SG">Saint-Gall (SG)</option>
+                                    <option value="TI">Tessin (TI)</option>
+                                    <option value="LU">Lucerne (LU)</option>
+                                  </select>
+                                </div>
                               </div>
-                            </div>
 
-                            {/* QUICK SELECT BUTTONS */}
-                            <div className="space-y-2">
-                              <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Montants rapides :</span>
-                              <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
-                                {[100, 200, 300, 500, 604].map((amount) => {
-                                  const isSelected = monthlyAmount === amount;
-                                  return (
-                                    <button
-                                      key={amount}
-                                      type="button"
-                                      onClick={() => setMonthlyAmount(amount)}
-                                      className={`p-3 rounded-xl border text-center transition-all ${
-                                        isSelected
-                                          ? 'bg-fennec-terracotta text-white border-fennec-terracotta font-bold'
-                                          : 'border-fennec-cream/80 text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15 font-semibold'
-                                      }`}
-                                    >
-                                      <span className="text-[9px] block opacity-75 uppercase">Mensuel</span>
-                                      <span className="font-display text-sm block font-black mt-0.5">CHF {amount}</span>
-                                    </button>
-                                  );
-                                })}
+                              {/* Profession, Income & 2nd Pillar */}
+                              <div className="space-y-4">
+                                <div className="space-y-1">
+                                  <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Statut professionnel</label>
+                                  <select
+                                    value={filters.employmentStatus || 'salaried'}
+                                    onChange={(e) => handleFilterChange('employmentStatus', e.target.value as any)}
+                                    className="w-full px-4 py-2.5 rounded-xl border border-fennec-cream/80 bg-white text-fennec-dark focus:outline-none focus:border-fennec-terracotta font-medium text-sm"
+                                  >
+                                    <option value="salaried">Salarié (avec caisse de pension LPP)</option>
+                                    <option value="independent">Indépendant (sans caisse de pension)</option>
+                                    <option value="unemployed">Sans activité lucrative / Autre</option>
+                                  </select>
+                                </div>
+
+                                <div className="space-y-1">
+                                  <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Revenu annuel brut (CHF)</label>
+                                  <div className="relative">
+                                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-xs font-bold text-fennec-brown/50">CHF</span>
+                                    <input 
+                                      type="number"
+                                      value={filters.annualIncome || ''}
+                                      onChange={(e) => handleFilterChange('annualIncome', Number(e.target.value))}
+                                      placeholder="Ex: 85'000"
+                                      className="w-full pl-12 pr-4 py-2.5 rounded-xl border border-fennec-cream/80 bg-fennec-cream/5 text-fennec-dark focus:outline-none focus:border-fennec-terracotta font-mono font-bold text-sm"
+                                    />
+                                  </div>
+                                </div>
+
+                                <div className="space-y-1">
+                                  <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Déjà affilié à un 2ème pilier (LPP) ?</label>
+                                  <div className="grid grid-cols-2 gap-2">
+                                    {[true, false].map((val) => (
+                                      <button
+                                        key={String(val)}
+                                        type="button"
+                                        onClick={() => handleFilterChange('hasSecondPillar', val)}
+                                        className={`py-2 rounded-xl border font-bold text-sm text-center transition-all ${
+                                          filters.hasSecondPillar === val
+                                            ? 'bg-fennec-tan text-white border-fennec-tan'
+                                            : 'border-fennec-cream/80 text-fennec-dark bg-white hover:bg-fennec-cream/10'
+                                        }`}
+                                      >
+                                        {val ? 'Oui' : 'Non'}
+                                      </button>
+                                    ))}
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </motion.div>
                         )}
 
-                        {/* STEP 3: DURATION (Numeric Answer -> Slider + live value + quick select buttons) */}
+                        {/* STEP 3: PRODUCT TYPE (Savings pure, equities, life-insurance, mixed) */}
                         {currentStep === 3 && (
                           <motion.div
                             key="p-step-3"
@@ -699,77 +826,82 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.25 }}
-                            className="space-y-6 text-left w-full"
+                            className="space-y-6 text-left w-full animate-in fade-in duration-300"
                           >
                             <div className="space-y-2">
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
                                 <TrendingUp className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  Sur combien d'années souhaitez-vous épargner ?
+                                  3. Quel type de produit souhaitez-vous ?
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                La durée recommandée correspond aux années restantes jusqu'à votre retraite légale pour maximiser les intérêts composés.
+                                Les solutions bancaires privilégient la flexibilité pure, tandis que les assurances combinent couverture décès-invalidité et épargne forcée.
                               </p>
                             </div>
 
-                            {/* Styled Live Value Indicator */}
-                            <div className="bg-fennec-cream/10 border-2 border-fennec-cream/60 rounded-2xl p-6 text-center space-y-1">
-                              <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Horizon de placement</span>
-                              <span className="font-display text-4xl font-black text-fennec-dark block">
-                                {duration} <span className="text-2xl font-bold text-fennec-dark/60">ans</span>
-                              </span>
-                              <span className="text-xs text-fennec-brown font-bold block">
-                                Échéance de versement estimée : <strong>En {2026 + duration}</strong>
-                              </span>
+                            <div className="grid grid-cols-1 gap-3">
+                              {[
+                                { id: 'pure-savings', label: 'Épargne pure (Banque)', desc: 'Pas de risque boursier, capital garanti mais rendement historique très bas.', icon: PiggyBank },
+                                { id: 'equity-savings', label: 'Épargne en titres (Fonds / ETF)', desc: 'Placement boursier pour dynamiser le rendement sur le long terme.', icon: TrendingUp },
+                                { id: 'life-insurance', label: 'Assurance-vie liée (3a)', desc: 'Épargne combinée à une protection décès/invalidité pour votre foyer.', icon: Shield },
+                                { id: 'mixed', label: 'Formule Mixte (Fonds + Assurance)', desc: 'Combinaison flexible d\'un capital garanti et d\'un investissement actions.', icon: Sparkles },
+                              ].map((p) => {
+                                const isSelected = filters.productType === p.id;
+                                const IconComponent = p.icon;
+                                return (
+                                  <button
+                                    key={p.id}
+                                    type="button"
+                                    onClick={() => handleFilterChange('productType', p.id as any)}
+                                    className={`p-3.5 rounded-2xl border text-left flex items-start space-x-3 transition-all ${
+                                      isSelected
+                                        ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-xs font-bold'
+                                        : 'border-fennec-cream/80 text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15'
+                                    }`}
+                                  >
+                                    <div className={`p-2 rounded-xl ${isSelected ? 'bg-white/20 text-white' : 'bg-fennec-cream text-fennec-terracotta'} shrink-0`}>
+                                      <IconComponent className="w-4 h-4" />
+                                    </div>
+                                    <div className="space-y-0.5">
+                                      <span className="font-display font-black text-sm block">{p.label}</span>
+                                      <span className="text-xs opacity-90 block leading-normal">{p.desc}</span>
+                                    </div>
+                                  </button>
+                                );
+                              })}
                             </div>
 
-                            {/* SLIDER */}
-                            <div className="space-y-2">
-                              <input 
-                                type="range"
-                                min="5"
-                                max="45"
-                                step="1"
-                                value={duration}
-                                onChange={(e) => setDuration(Number(e.target.value))}
-                                className="w-full accent-fennec-terracotta cursor-pointer"
-                              />
-                              <div className="flex justify-between text-[10px] font-mono text-fennec-brown/60">
-                                <span>5 ans (Court terme)</span>
-                                <span>25 ans</span>
-                                <span>45 ans (Retraite lointaine)</span>
-                              </div>
-                            </div>
-
-                            {/* QUICK SELECT BUTTONS */}
-                            <div className="space-y-2">
-                              <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Durées d'épargne rapides :</span>
-                              <div className="grid grid-cols-5 gap-2">
-                                {[10, 15, 20, 25, 30].map((years) => {
-                                  const isSelected = duration === years;
-                                  return (
+                            {/* Sub-question for Equities/Mixed */}
+                            {(filters.productType === 'equity-savings' || filters.productType === 'mixed') && (
+                              <motion.div 
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="p-4 bg-fennec-cream/25 border border-fennec-cream rounded-2xl space-y-3"
+                              >
+                                <span className="text-xs font-bold text-fennec-dark block">Quelle part d'actions visez-vous ?</span>
+                                <div className="grid grid-cols-4 gap-2">
+                                  {['25%', '50%', '75%', '100%'].map((part) => (
                                     <button
-                                      key={years}
+                                      key={part}
                                       type="button"
-                                      onClick={() => setDuration(years)}
-                                      className={`p-3 rounded-xl border text-center transition-all ${
-                                        isSelected
-                                          ? 'bg-fennec-tan text-white border-fennec-tan font-bold'
-                                          : 'border-fennec-cream/80 text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15 font-semibold'
+                                      onClick={() => handleFilterChange('equityPart', part as any)}
+                                      className={`py-2 rounded-xl border text-center text-xs font-black transition-all ${
+                                        filters.equityPart === part
+                                          ? 'bg-fennec-dark text-white border-fennec-dark'
+                                          : 'bg-white text-fennec-dark border-fennec-cream/80 hover:bg-fennec-cream/15'
                                       }`}
                                     >
-                                      <span className="font-display text-sm block font-black">{years}</span>
-                                      <span className="text-[8px] block opacity-75 uppercase">ans</span>
+                                      {part}
                                     </button>
-                                  );
-                                })}
-                              </div>
-                            </div>
+                                  ))}
+                                </div>
+                              </motion.div>
+                            )}
                           </motion.div>
                         )}
 
-                        {/* STEP 4: PREVOYANCE PROFILE (Single choice, few options -> Cards) */}
+                        {/* STEP 4: COVERAGES & PREVOYANCE NEEDS */}
                         {currentStep === 4 && (
                           <motion.div
                             key="p-step-4"
@@ -777,66 +909,129 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.25 }}
-                            className="space-y-6 text-left w-full"
+                            className="space-y-6 text-left w-full animate-in fade-in duration-300"
                           >
                             <div className="space-y-2">
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
-                                <User className="w-5 h-5 shrink-0" />
+                                <Shield className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  Quel est votre profil de prévoyance ?
+                                  4. Prévoyance & Besoins de couverture
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                Votre profil permet de configurer d'éventuelles assurances décès ou invalidité intégrées adaptées à votre situation.
+                                Déterminez les garanties complémentaires indispensables pour protéger vos bénéficiaires en cas de coup dur.
                               </p>
                             </div>
 
-                            {/* PROFILE CARDS */}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                              {[
-                                { id: 'young', title: 'Jeune actif / Célibataire', desc: 'Priorité au rendement et à la capitalisation sur le long terme (fonds/actions).', label: '18 - 35 ans', icon: Sparkles },
-                                { id: 'family', title: 'Soutien de Famille', desc: 'Sécurité et intégration de clauses de protection décès et invalidité.', label: 'Protéger son foyer', icon: Shield },
-                                { id: 'independent', title: 'Indépendant (Sans LPP)', desc: 'Le 3e pilier devient votre principal levier d\'épargne-retraite légal.', label: 'Max fiscale autorisée', icon: PiggyBank },
-                                { id: 'senior', title: 'Sénior / Retraite proche', desc: 'Sécurisation progressive du capital à l\'approche de l\'âge légal.', label: 'Dès 50 ans', icon: Award },
-                              ].map((profile) => {
-                                const isSelected = filters.profile === profile.id;
-                                const IconComponent = profile.icon;
-                                return (
-                                  <motion.button
-                                    key={profile.id}
-                                    type="button"
-                                    whileHover={{ scale: 1.01 }}
-                                    whileTap={{ scale: 0.99 }}
-                                    onClick={() => {
-                                      handleFilterChange('profile', profile.id as any);
-                                      setTimeout(() => nextStep(), 220);
-                                    }}
-                                    className={`stagger-item p-4.5 rounded-2xl border text-left flex flex-col justify-between min-h-[130px] transition-all ${
-                                      isSelected
-                                        ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-md'
-                                        : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15'
-                                    }`}
+                            <div className="space-y-4">
+                              {/* Death Coverage */}
+                              <div className="p-4 border border-fennec-cream/60 rounded-2xl space-y-3 bg-fennec-cream/5">
+                                <div className="flex justify-between items-center">
+                                  <div className="space-y-0.5">
+                                    <span className="text-sm font-bold text-fennec-dark block">Couverture décès complémentaire</span>
+                                    <span className="text-xs text-fennec-dark/60 block">Versement d'un capital garanti à vos proches en cas de décès.</span>
+                                  </div>
+                                  <div className="flex space-x-1 shrink-0">
+                                    {[true, false].map((val) => (
+                                      <button
+                                        key={String(val)}
+                                        type="button"
+                                        onClick={() => handleFilterChange('deathCoverageNeeded', val)}
+                                        className={`px-3 py-1.5 rounded-lg border text-xs font-black transition-all ${
+                                          filters.deathCoverageNeeded === val
+                                            ? 'bg-fennec-terracotta text-white border-fennec-terracotta'
+                                            : 'bg-white text-fennec-dark border-fennec-cream'
+                                        }`}
+                                      >
+                                        {val ? 'Oui' : 'Non'}
+                                      </button>
+                                    ))}
+                                  </div>
+                                </div>
+
+                                {filters.deathCoverageNeeded && (
+                                  <motion.div 
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: 'auto' }}
+                                    className="pt-2 border-t border-fennec-cream/40"
                                   >
-                                    <div className="flex justify-between items-start w-full">
-                                      <div className={`p-2 rounded-lg ${isSelected ? 'bg-white/20 text-white' : 'bg-fennec-cream text-fennec-terracotta'}`}>
-                                        <IconComponent className="w-4 h-4" />
-                                      </div>
-                                      <span className={`text-[8px] font-black uppercase px-2 py-0.5 rounded ${isSelected ? 'bg-white/20 text-white' : 'bg-fennec-cream/60 text-fennec-brown'}`}>
-                                        {profile.label}
-                                      </span>
+                                    <label className="text-[10px] font-black uppercase text-fennec-brown block mb-1">Capital décès souhaité (CHF)</label>
+                                    <input 
+                                      type="range"
+                                      min="20000"
+                                      max="250000"
+                                      step="10000"
+                                      value={filters.deathCoverageAmount || 50000}
+                                      onChange={(e) => handleFilterChange('deathCoverageAmount', Number(e.target.value))}
+                                      className="w-full accent-fennec-terracotta cursor-pointer"
+                                    />
+                                    <div className="flex justify-between text-[10px] font-mono text-fennec-brown/60">
+                                      <span>CHF 20'000.-</span>
+                                      <span className="font-bold text-fennec-terracotta">CHF {filters.deathCoverageAmount?.toLocaleString() || "50'000"}.-</span>
+                                      <span>CHF 250'000.-</span>
                                     </div>
-                                    <div className="space-y-0.5 mt-4">
-                                      <span className="font-display font-black text-sm block">{profile.title}</span>
-                                      <span className="text-xs opacity-80 block leading-tight">{profile.desc}</span>
-                                    </div>
-                                  </motion.button>
-                                );
-                              })}
+                                  </motion.div>
+                                )}
+                              </div>
+
+                              {/* Disability Coverage */}
+                              <div className="p-4 border border-fennec-cream/60 rounded-2xl space-y-2 bg-fennec-cream/5">
+                                <span className="text-sm font-bold text-fennec-dark block">Couverture en cas d'incapacité de gain / invalidité</span>
+                                <div className="grid grid-cols-3 gap-2">
+                                  {[
+                                    { id: 'monthly-pension', label: 'Rente mensuelle' },
+                                    { id: 'lump-sum', label: 'Capital unique' },
+                                    { id: 'none', label: 'Aucune' },
+                                  ].map((opt) => (
+                                    <button
+                                      key={opt.id}
+                                      type="button"
+                                      onClick={() => handleFilterChange('disabilityCoverageNeeded', opt.id as any)}
+                                      className={`py-2 rounded-xl border text-xs font-bold text-center transition-all ${
+                                        filters.disabilityCoverageNeeded === opt.id
+                                          ? 'bg-fennec-dark text-white border-fennec-dark'
+                                          : 'bg-white text-fennec-dark border-fennec-cream'
+                                      }`}
+                                    >
+                                      {opt.label}
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Exemption and Dependents */}
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div className="p-3 border border-fennec-cream/60 rounded-xl flex justify-between items-center">
+                                  <div className="space-y-0.5">
+                                    <span className="text-xs font-bold text-fennec-dark block">Libération des primes</span>
+                                    <span className="text-[10px] text-fennec-dark/60 block">L'assureur paie à votre place en cas d'invalidité.</span>
+                                  </div>
+                                  <input 
+                                    type="checkbox"
+                                    checked={filters.premiumExemptionNeeded}
+                                    onChange={(e) => handleFilterChange('premiumExemptionNeeded', e.target.checked)}
+                                    className="w-4 h-4 accent-fennec-terracotta shrink-0"
+                                  />
+                                </div>
+
+                                <div className="p-3 border border-fennec-cream/60 rounded-xl flex justify-between items-center">
+                                  <div className="space-y-0.5">
+                                    <span className="text-xs font-bold text-fennec-dark block">Personnes à charge</span>
+                                    <span className="text-[10px] text-fennec-dark/60 block">Conjoint ou enfants à charge légale.</span>
+                                  </div>
+                                  <input 
+                                    type="checkbox"
+                                    checked={filters.hasDependents}
+                                    onChange={(e) => handleFilterChange('hasDependents', e.target.checked)}
+                                    className="w-4 h-4 accent-fennec-terracotta shrink-0"
+                                  />
+                                </div>
+                              </div>
                             </div>
                           </motion.div>
                         )}
 
-                        {/* STEP 5: PRIORITY (Single choice, few options -> Cards) */}
+                        {/* STEP 5: SAVINGS CAPACITY & HORIZON */}
                         {currentStep === 5 && (
                           <motion.div
                             key="p-step-5"
@@ -844,52 +1039,509 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.25 }}
-                            className="space-y-6 text-left w-full"
+                            className="space-y-6 text-left w-full animate-in fade-in duration-300"
+                          >
+                            <div className="space-y-2">
+                              <div className="flex items-center space-x-2 text-fennec-terracotta">
+                                <PiggyBank className="w-5 h-5 shrink-0" />
+                                <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
+                                  5. Déterminez votre capacité d'épargne
+                                </h3>
+                              </div>
+                              <p className="text-xs text-fennec-dark/65 leading-relaxed">
+                                Définissez la fréquence, le montant à épargner et la durée souhaitée. Vous pouvez modifier ces valeurs à tout moment.
+                              </p>
+                            </div>
+
+                            <div className="space-y-4">
+                              {/* Frequency selector */}
+                              <div className="flex items-center justify-between">
+                                <span className="text-xs font-black uppercase text-fennec-brown tracking-wider">Fréquence de versement</span>
+                                <div className="flex bg-fennec-cream/45 p-1 rounded-xl">
+                                  {[
+                                    { id: 'monthly', label: 'Mensuel' },
+                                    { id: 'yearly', label: 'Annuel' },
+                                  ].map((f) => (
+                                    <button
+                                      key={f.id}
+                                      type="button"
+                                      onClick={() => {
+                                        const newAmount = f.id === 'yearly' 
+                                          ? (filters.savingAmount || 300) * 12 
+                                          : Math.round((filters.savingAmount || 3600) / 12);
+                                        setFilters(prev => ({
+                                          ...prev,
+                                          savingFrequency: f.id as any,
+                                          savingAmount: newAmount
+                                        }));
+                                      }}
+                                      className={`px-4 py-1.5 rounded-lg text-xs font-black transition-all ${
+                                        filters.savingFrequency === f.id
+                                          ? 'bg-fennec-terracotta text-white shadow-3xs'
+                                          : 'text-fennec-dark hover:bg-fennec-cream/20'
+                                      }`}
+                                    >
+                                      {f.label}
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Amount display */}
+                              <div className="bg-fennec-cream/10 border-2 border-fennec-cream/60 rounded-2xl p-5 text-center">
+                                <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Versement estimé</span>
+                                <span className="font-display text-3xl font-black text-fennec-terracotta block">
+                                  CHF {(filters.savingAmount || 300).toLocaleString()}.- <span className="text-sm font-bold text-fennec-dark/60">/ {filters.savingFrequency === 'yearly' ? 'an' : 'mois'}</span>
+                                </span>
+                                <span className="text-xs text-emerald-700 font-bold block bg-emerald-50 max-w-max mx-auto px-2.5 py-0.5 rounded-full mt-1.5">
+                                  Gain fiscal estimé : ~CHF {Math.round((filters.savingFrequency === 'yearly' ? (filters.savingAmount || 3600) : (filters.savingAmount || 300) * 12) * 0.22).toLocaleString()}.- / an
+                                </span>
+                              </div>
+
+                              {/* Amount slider */}
+                              <div className="space-y-1">
+                                <input 
+                                  type="range"
+                                  min={filters.savingFrequency === 'yearly' ? 500 : 50}
+                                  max={filters.savingFrequency === 'yearly' ? 12000 : 1000}
+                                  step={filters.savingFrequency === 'yearly' ? 500 : 50}
+                                  value={filters.savingAmount || 300}
+                                  onChange={(e) => handleFilterChange('savingAmount', Number(e.target.value))}
+                                  className="w-full accent-fennec-terracotta cursor-pointer"
+                                />
+                                <div className="flex justify-between text-[10px] font-mono text-fennec-brown/60">
+                                  <span>{filters.savingFrequency === 'yearly' ? 'CHF 500.-' : 'CHF 50.-'}</span>
+                                  <span>{filters.savingFrequency === 'yearly' ? 'CHF 6\'000.-' : 'CHF 500.-'}</span>
+                                  <span>{filters.savingFrequency === 'yearly' ? 'CHF 12\'000.- / an' : 'CHF 1\'000.- / mois'}</span>
+                                </div>
+                              </div>
+
+                              {/* Commitment preference */}
+                              <div className="space-y-1.5">
+                                <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Niveau d'engagement contractuel</label>
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                  {[
+                                    { id: 'flexible', label: '100% Flexible', desc: 'Versement libre (Banque)' },
+                                    { id: 'fixed', label: 'Fixe régulier', desc: 'Prévoyance assurée' },
+                                    { id: 'both', label: 'Les deux', desc: 'Solution hybride' },
+                                  ].map((c) => (
+                                    <button
+                                      key={c.id}
+                                      type="button"
+                                      onClick={() => handleFilterChange('commitmentPreference', c.id as any)}
+                                      className={`p-2.5 rounded-xl border text-center transition-all ${
+                                        filters.commitmentPreference === c.id
+                                          ? 'bg-fennec-dark text-white border-fennec-dark font-bold'
+                                          : 'border-fennec-cream/80 text-fennec-dark bg-white hover:bg-fennec-cream/15'
+                                      }`}
+                                    >
+                                      <span className="text-xs block font-bold">{c.label}</span>
+                                      <span className="text-[9px] block opacity-70 mt-0.5">{c.desc}</span>
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Investment Horizon */}
+                              <div className="space-y-1">
+                                <div className="flex justify-between items-baseline">
+                                  <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Horizon de placement</label>
+                                  <span className="text-xs font-black text-fennec-terracotta">{filters.investmentHorizon || 25} ans (retraite estimée en {2026 + (filters.investmentHorizon || 25)})</span>
+                                </div>
+                                <input 
+                                  type="range"
+                                  min="5"
+                                  max="45"
+                                  step="1"
+                                  value={filters.investmentHorizon || 25}
+                                  onChange={(e) => handleFilterChange('investmentHorizon', Number(e.target.value))}
+                                  className="w-full accent-fennec-terracotta cursor-pointer"
+                                />
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+
+                        {/* STEP 6: RISK PROFILE */}
+                        {currentStep === 6 && (
+                          <motion.div
+                            key="p-step-6"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="space-y-6 text-left w-full animate-in fade-in duration-300"
                           >
                             <div className="space-y-2">
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
                                 <Award className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  Quelle est votre priorité d'épargne ?
+                                  6. Déterminez votre profil de risque boursier
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                Détermine l'orientation de placement de votre capital (fonds de placement à dividendes, actions, ou compte d'intérêt garanti).
+                                Si vous choisissez d'allouer une part d'actions (solutions titres), votre tolérance détermine la volatilité maximale acceptable.
                               </p>
                             </div>
 
-                            {/* PRIORITY CARDS */}
-                            <div className="grid grid-cols-1 gap-3.5">
+                            <div className="space-y-4">
+                              {/* Risk tolerance select */}
+                              <div className="space-y-1.5">
+                                <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Votre tempérament face aux fluctuations</span>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                  {[
+                                    { id: 'prudent', label: 'Prudent (0-25% actions)', desc: 'Recherche de sécurité, gains modestes.' },
+                                    { id: 'balanced', label: 'Équilibré (25-50% actions)', desc: 'Compromis parfait entre croissance et stabilité.' },
+                                    { id: 'dynamic', label: 'Dynamique (50-75% actions)', desc: 'Prêt à accepter des hausses et baisses modérées.' },
+                                    { id: 'offensive', label: 'Offensif (100% actions)', desc: 'Volatilité maximale acceptée pour un rendement ultime.' },
+                                  ].map((r) => (
+                                    <button
+                                      key={r.id}
+                                      type="button"
+                                      onClick={() => handleFilterChange('riskTolerance', r.id as any)}
+                                      className={`p-3 rounded-xl border text-left transition-all ${
+                                        filters.riskTolerance === r.id
+                                          ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-2xs font-bold'
+                                          : 'border-fennec-cream text-fennec-dark bg-white hover:bg-fennec-cream/15'
+                                      }`}
+                                    >
+                                      <span className="text-xs block font-black">{r.label}</span>
+                                      <span className="text-[10px] block opacity-80 mt-0.5 leading-tight">{r.desc}</span>
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Reaction to drop */}
+                              <div className="p-4 border border-fennec-cream rounded-2xl space-y-2 bg-fennec-cream/5">
+                                <span className="text-xs font-bold text-fennec-dark block">Si les marchés chutent de 20% en quelques mois :</span>
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                  {[
+                                    { id: 'sell', label: 'Je vends tout par peur' },
+                                    { id: 'hold', label: 'Je patiente sagement' },
+                                    { id: 'buy', label: 'J\'en profite pour réinvestir' },
+                                  ].map((opt) => (
+                                    <button
+                                      key={opt.id}
+                                      type="button"
+                                      onClick={() => handleFilterChange('reactionToDrop', opt.id as any)}
+                                      className={`py-2 px-1 rounded-xl border text-[10px] font-black text-center transition-all ${
+                                        filters.reactionToDrop === opt.id
+                                          ? 'bg-fennec-dark text-white border-fennec-dark'
+                                          : 'bg-white text-fennec-dark border-fennec-cream'
+                                      }`}
+                                    >
+                                      {opt.label}
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* ESG selection */}
+                              <div className="p-3 border border-fennec-cream/60 rounded-xl flex justify-between items-center">
+                                <div className="space-y-0.5">
+                                  <span className="text-xs font-bold text-fennec-dark block">Fonds durables / Critères ESG uniquement</span>
+                                  <span className="text-[10px] text-fennec-dark/65 block">Exclure l'armement, le charbon, etc. et privilégier l'éco-responsable.</span>
+                                </div>
+                                <div className="flex space-x-1 shrink-0">
+                                  {[true, false].map((val) => (
+                                    <button
+                                      key={String(val)}
+                                      type="button"
+                                      onClick={() => handleFilterChange('prefersEsg', val)}
+                                      className={`px-3 py-1 rounded-lg border text-xs font-black transition-all ${
+                                        filters.prefersEsg === val
+                                          ? 'bg-emerald-700 text-white border-emerald-700'
+                                          : 'bg-white text-fennec-dark border-fennec-cream'
+                                      }`}
+                                    >
+                                      {val ? 'Oui' : 'Non'}
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+
+                        {/* STEP 7: EARLY WITHDRAWAL PROJECTS */}
+                        {currentStep === 7 && (
+                          <motion.div
+                            key="p-step-7"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="space-y-6 text-left w-full animate-in fade-in duration-300"
+                          >
+                            <div className="space-y-2">
+                              <div className="flex items-center space-x-2 text-fennec-terracotta">
+                                <TrendingUp className="w-5 h-5 shrink-0" />
+                                <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
+                                  7. Envisagez-vous un retrait anticipé du capital ?
+                                </h3>
+                              </div>
+                              <p className="text-xs text-fennec-dark/65 leading-relaxed">
+                                En Suisse, la loi autorise le retrait anticipé du Pilier 3a dans des cas bien précis. L'indiquer permet de calibrer la durée d'engagement optimale.
+                              </p>
+                            </div>
+
+                            <div className="space-y-4">
+                              <div className="grid grid-cols-1 gap-2">
+                                {[
+                                  { id: 'residence', label: 'Oui, pour l\'achat de ma résidence principale', desc: 'Acquisition immobilière ou amortissement hypothécaire.' },
+                                  { id: 'independent', label: 'Oui, pour me lancer comme indépendant (LPP)', desc: 'Création d\'entreprise individuelle ou début d\'activité commerciale.' },
+                                  { id: 'abroad', label: 'Oui, car je prévois de quitter la Suisse', desc: 'Départ définitif de la Confédération suisse.' },
+                                  { id: 'none', label: 'Non, aucun projet de retrait avant la retraite', desc: 'Laisser fructifier mon épargne jusqu\'à l\'âge légal.' },
+                                ].map((opt) => {
+                                  const isSelected = filters.earlyWithdrawalReason === opt.id;
+                                  return (
+                                    <button
+                                      key={opt.id}
+                                      type="button"
+                                      onClick={() => {
+                                        handleFilterChange('earlyWithdrawalReason', opt.id as any);
+                                        if (opt.id === 'none') {
+                                          handleFilterChange('earlyWithdrawalHorizon', 'none');
+                                          setTimeout(() => nextStep(), 220);
+                                        }
+                                      }}
+                                      className={`p-3 rounded-xl border text-left transition-all ${
+                                        isSelected
+                                          ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-2xs font-bold'
+                                          : 'border-fennec-cream text-fennec-dark bg-white hover:bg-fennec-cream/15'
+                                      }`}
+                                    >
+                                      <span className="text-xs block font-black">{opt.label}</span>
+                                      <span className="text-[10px] block opacity-80 mt-0.5 leading-snug">{opt.desc}</span>
+                                    </button>
+                                  );
+                                })}
+                              </div>
+
+                              {filters.earlyWithdrawalReason !== 'none' && (
+                                <motion.div 
+                                  initial={{ opacity: 0, height: 0 }}
+                                  animate={{ opacity: 1, height: 'auto' }}
+                                  className="p-4 bg-fennec-cream/25 border border-fennec-cream rounded-2xl space-y-2"
+                                >
+                                  <span className="text-xs font-bold text-fennec-dark block">Sous quel horizon estimez-vous ce retrait ?</span>
+                                  <div className="grid grid-cols-3 gap-2">
+                                    {[
+                                      { id: 'short', label: 'Moins de 5 ans' },
+                                      { id: 'medium', label: '5 à 10 ans' },
+                                      { id: 'long', label: 'Plus de 10 ans' },
+                                    ].map((h) => (
+                                      <button
+                                        key={h.id}
+                                        type="button"
+                                        onClick={() => {
+                                          handleFilterChange('earlyWithdrawalHorizon', h.id as any);
+                                          setTimeout(() => nextStep(), 220);
+                                        }}
+                                        className={`py-2 rounded-xl border text-xs font-black text-center transition-all ${
+                                          filters.earlyWithdrawalHorizon === h.id
+                                            ? 'bg-fennec-dark text-white border-fennec-dark'
+                                            : 'bg-white text-fennec-dark border-fennec-cream'
+                                        }`}
+                                      >
+                                        {h.label}
+                                      </button>
+                                    ))}
+                                  </div>
+                                </motion.div>
+                              )}
+                            </div>
+                          </motion.div>
+                        )}
+
+                        {/* STEP 8: EXISTING SITUATION */}
+                        {currentStep === 8 && (
+                          <motion.div
+                            key="p-step-8"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="space-y-6 text-left w-full animate-in fade-in duration-300"
+                          >
+                            <div className="space-y-2">
+                              <div className="flex items-center space-x-2 text-fennec-terracotta">
+                                <Shield className="w-5 h-5 shrink-0" />
+                                <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
+                                  8. Possédez-vous déjà un 3ème Pilier ?
+                                </h3>
+                              </div>
+                              <p className="text-xs text-fennec-dark/65 leading-relaxed">
+                                Si vous possédez déjà un 3e pilier bancaire ou d'assurance, nous pouvons analyser s'il est plus judicieux de le racheter ou de le compléter.
+                              </p>
+                            </div>
+
+                            <div className="space-y-4">
+                              <div className="flex justify-between items-center p-4 border border-fennec-cream/60 rounded-2xl bg-fennec-cream/5">
+                                <div className="space-y-0.5">
+                                  <span className="text-sm font-bold text-fennec-dark block">Détenez-vous un 3ème pilier actuellement ?</span>
+                                  <span className="text-xs text-fennec-dark/60 block">Qu'il s'agisse d'un compte bancaire ou d'une police d'assurance active.</span>
+                                </div>
+                                <div className="flex space-x-1 shrink-0">
+                                  {[true, false].map((val) => (
+                                    <button
+                                      key={String(val)}
+                                      type="button"
+                                      onClick={() => handleFilterChange('hasExistingThirdPillar', val)}
+                                      className={`px-3 py-1.5 rounded-lg border text-xs font-black transition-all ${
+                                        filters.hasExistingThirdPillar === val
+                                          ? 'bg-fennec-terracotta text-white border-fennec-terracotta'
+                                          : 'bg-white text-fennec-dark border-fennec-cream'
+                                      }`}
+                                    >
+                                      {val ? 'Oui' : 'Non'}
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {filters.hasExistingThirdPillar && (
+                                <motion.div 
+                                  initial={{ opacity: 0, height: 0 }}
+                                  animate={{ opacity: 1, height: 'auto' }}
+                                  className="p-4 border border-fennec-cream/60 rounded-2xl space-y-3 bg-white"
+                                >
+                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <div className="space-y-1">
+                                      <label className="text-[10px] font-black uppercase text-fennec-brown block">Nom de l'assureur/banque actuel</label>
+                                      <input 
+                                        type="text"
+                                        placeholder="Ex: Swiss Life, AXA, etc."
+                                        value={filters.existingInsurer || ''}
+                                        onChange={(e) => handleFilterChange('existingInsurer', e.target.value)}
+                                        className="w-full px-3 py-2 rounded-lg border border-fennec-cream text-sm focus:outline-none focus:border-fennec-terracotta font-medium"
+                                      />
+                                    </div>
+                                    <div className="space-y-1">
+                                      <label className="text-[10px] font-black uppercase text-fennec-brown block">Montant déjà accumulé (CHF)</label>
+                                      <input 
+                                        type="number"
+                                        placeholder="Ex: 15'000"
+                                        value={filters.existingAmount || ''}
+                                        onChange={(e) => handleFilterChange('existingAmount', Number(e.target.value))}
+                                        className="w-full px-3 py-2 rounded-lg border border-fennec-cream text-sm font-mono font-bold focus:outline-none focus:border-fennec-terracotta"
+                                      />
+                                    </div>
+                                  </div>
+
+                                  <div className="space-y-1.5 pt-2 border-t border-fennec-cream/40">
+                                    <span className="text-xs font-bold text-fennec-dark block">Quel est votre objectif de démarche ?</span>
+                                    <div className="grid grid-cols-2 gap-2">
+                                      {[
+                                        { id: 'new', label: 'Un nouveau contrat complémentaire' },
+                                        { id: 'transfer', label: 'Transfert / Rachat de mon contrat actuel' },
+                                      ].map((opt) => (
+                                        <button
+                                          key={opt.id}
+                                          type="button"
+                                          onClick={() => handleFilterChange('transferType', opt.id as any)}
+                                          className={`p-2 rounded-xl border text-xs font-bold text-center transition-all ${
+                                            filters.transferType === opt.id
+                                              ? 'bg-fennec-dark text-white border-fennec-dark'
+                                              : 'bg-white text-fennec-dark border-fennec-cream'
+                                          }`}
+                                        >
+                                          {opt.label}
+                                        </button>
+                                      ))}
+                                    </div>
+                                  </div>
+                                </motion.div>
+                              )}
+                            </div>
+                          </motion.div>
+                        )}
+
+                        {/* STEP 9: COMPARISON PRIORITIES */}
+                        {currentStep === 9 && (
+                          <motion.div
+                            key="p-step-9"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="space-y-6 text-left w-full animate-in fade-in duration-300"
+                          >
+                            <div className="space-y-2">
+                              <div className="flex items-center space-x-2 text-fennec-terracotta">
+                                <Award className="w-5 h-5 shrink-0" />
+                                <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
+                                  9. Quelles sont vos priorités de comparaison ?
+                                </h3>
+                              </div>
+                              <p className="text-xs text-fennec-dark/65 leading-relaxed">
+                                Cliquez sur les options pour attribuer la priorité n°1 et la priorité n°2 de votre recherche de rendement et de couverture.
+                              </p>
+                            </div>
+
+                            <div className="space-y-3">
                               {[
-                                { id: 'tax-saving', label: 'Baisse d\'impôt immédiate maximale', desc: 'Vous ciblez l\'avantage fiscal annuel de la Confédération en priorité pour réduire vos impôts directs.' },
-                                { id: 'high-yield', label: 'Rendement de placement élevé (Fonds & Actions)', desc: 'Vous acceptez une volatilité modérée sur les marchés boursiers pour obtenir un gain d\'intérêts historique supérieur.' },
-                                { id: 'guaranteed', label: 'Sécurité maximale (Capital garanti à 100%)', desc: 'Vous exigez une certitude contractuelle absolue sur le capital d\'épargne final sans aucun risque boursier.' },
-                              ].map((priority) => {
-                                const isSelected = filters.priority === priority.id;
+                                { id: 'yield', label: 'Rendement potentiel le plus élevé', desc: 'Allocation boursière ou titres performants visée.' },
+                                { id: 'fees', label: 'Frais d\'entrée et coûts de gestion les plus bas', desc: 'Minimiser l\'impact des frais administratifs.' },
+                                { id: 'flexibility', label: 'Flexibilité totale des versements libres', desc: 'Pouvoir verser ce que vous voulez, quand vous voulez.' },
+                                { id: 'security', label: 'Sécurité et capital garanti contractuellement', desc: 'Aucun risque boursier sur l\'épargne accumulée.' },
+                                { id: 'coverage', label: 'Prévoyance complète (Assurances Décès/Invalidité)', desc: 'Protéger son conjoint et ses enfants de façon optimale.' },
+                              ].map((item) => {
+                                const isRank1 = filters.priorityRank1 === item.id;
+                                const isRank2 = filters.priorityRank2 === item.id;
+                                
+                                let badgeText = "";
+                                let badgeStyle = "";
+                                if (isRank1) {
+                                  badgeText = "Priorité 1";
+                                  badgeStyle = "bg-fennec-terracotta text-white";
+                                } else if (isRank2) {
+                                  badgeText = "Priorité 2";
+                                  badgeStyle = "bg-fennec-dark text-white";
+                                }
+
                                 return (
-                                  <motion.button
-                                    key={priority.id}
+                                  <button
+                                    key={item.id}
                                     type="button"
-                                    whileHover={{ scale: 1.01 }}
-                                    whileTap={{ scale: 0.99 }}
                                     onClick={() => {
-                                      handleFilterChange('priority', priority.id as any);
-                                      setTimeout(() => nextStep(), 220);
+                                      if (isRank1) {
+                                        // deselect rank 1
+                                        handleFilterChange('priorityRank1', undefined as any);
+                                      } else if (isRank2) {
+                                        // deselect rank 2
+                                        handleFilterChange('priorityRank2', undefined as any);
+                                      } else {
+                                        // select rank 1 first if free, else rank 2
+                                        if (!filters.priorityRank1) {
+                                          handleFilterChange('priorityRank1', item.id as any);
+                                        } else {
+                                          handleFilterChange('priorityRank2', item.id as any);
+                                        }
+                                      }
                                     }}
-                                    className={`stagger-item p-4.5 rounded-2xl border text-left flex items-start space-x-4 transition-all ${
-                                      isSelected
-                                        ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-md font-bold'
-                                        : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15 font-semibold'
+                                    className={`w-full p-3.5 rounded-2xl border text-left flex items-start justify-between transition-all ${
+                                      isRank1 || isRank2
+                                        ? 'border-fennec-terracotta/50 bg-fennec-cream/20 shadow-3xs'
+                                        : 'border-fennec-cream/80 bg-white hover:bg-fennec-cream/15'
                                     }`}
                                   >
-                                    <div className={`p-2 rounded-xl shrink-0 mt-0.5 ${isSelected ? 'bg-white/20 text-white' : 'bg-fennec-cream text-fennec-terracotta'}`}>
-                                      <Check className="w-4 h-4" />
+                                    <div className="space-y-0.5 flex-1 pr-4">
+                                      <span className="font-display font-black text-sm text-fennec-dark block">{item.label}</span>
+                                      <span className="text-xs text-fennec-dark/65 block leading-relaxed">{item.desc}</span>
                                     </div>
-                                    <div className="space-y-0.5 flex-1">
-                                      <span className="font-display font-black text-base block">{priority.label}</span>
-                                      <p className="text-xs opacity-90 leading-relaxed mt-0.5 font-medium">{priority.desc}</p>
-                                    </div>
-                                  </motion.button>
+                                    
+                                    {badgeText ? (
+                                      <span className={`text-[9px] font-black uppercase px-2.5 py-1 rounded-full shrink-0 ${badgeStyle}`}>
+                                        {badgeText}
+                                      </span>
+                                    ) : (
+                                      <span className="text-[9px] font-bold text-fennec-brown/40 border border-fennec-cream px-2 py-1 rounded-full shrink-0">
+                                        Sélectionner
+                                      </span>
+                                    )}
+                                  </button>
                                 );
                               })}
                             </div>
@@ -915,20 +1567,16 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                         <span>Retour</span>
                       </button>
 
-                      {/* Display explicit "Next" button only for questions requiring non-click confirmation */}
-                      {(currentStep === 2 || currentStep === 3) && (
-                        <button
-                          type="button"
-                          onClick={nextStep}
-                          className="flex items-center text-xs font-bold font-display px-6 py-2.5 rounded-full bg-fennec-dark hover:bg-fennec-terracotta text-white transition-all shadow-sm"
-                        >
-                          <span>Continuer</span>
-                          <ChevronRight className="w-4 h-4 ml-1.5" />
-                        </button>
-                      )}
+                      <button
+                        type="button"
+                        onClick={nextStep}
+                        className="flex items-center text-xs font-bold font-display px-6 py-2.5 rounded-full bg-fennec-dark hover:bg-fennec-terracotta text-white transition-all shadow-sm"
+                      >
+                        <span>{currentStep === 9 ? "Lancer l'analyse" : "Continuer"}</span>
+                        <ChevronRight className="w-4 h-4 ml-1.5" />
+                      </button>
                     </div>
                   </div>
-
                 </div>
               )}
             </div>

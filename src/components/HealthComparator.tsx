@@ -52,10 +52,12 @@ let cachedClientDb: Record<string, { premium: number; modelName: string }> | nul
 
 const HEALTH_ADVICE_MAP: Record<string, string> = {
   canton: "Le canton de résidence est le critère numéro 1 de calcul de la prime LAMal. L'OFSP ajuste les prix selon le coût des infrastructures hospitalières de votre région.",
-  ageCategory: "L'OFSP distingue trois tranches légales de primes: Enfants (0-18 ans), Jeunes (19-25 ans) et Adultes (26 ans et plus). Vos primes s'adaptent selon votre âge exact.",
-  franchise: "La franchise maximale (CHF 2'500) réduit fortement vos primes mensuelles d'environ 40%. Idéal si vos frais de santé sont bas !",
-  model: "Les modèles alternatifs (Médecin de Famille, Télémédecine, HMO) accordent d'importants rabais allant jusqu'à 15% en coordonnant vos consultations.",
-  accidentCoverage: "Si vous travaillez +8h/semaine chez le même employeur, vous êtes déjà couvert contre les accidents par votre entreprise (LAA). Vous pouvez l'exclure pour économiser ~7% !",
+  personalInfo: "L'âge, le genre et la nationalité influencent le calcul de l'assurance complémentaire (LCA). Pour l'assurance obligatoire (LAMal), la prime dépend uniquement de l'âge et de votre région.",
+  currentSituation: "Indiquer votre assureur et prime actuels permet de calculer précisément vos économies potentielles et d'identifier si un changement de modèle est judicieux.",
+  lamal: "La franchise et le modèle alternatif (Médecin de famille, Telmed, HMO) sont vos leviers principaux pour économiser jusqu'à 50% sur l'assurance de base obligatoire.",
+  lcaBesoins: "Les complémentaires remboursent les soins hors LAMal (ostéopathie, dentaire, lunettes, chambre privée). Contrairement à la LAMal, l'assureur a le droit de poser des réserves.",
+  healthDeclaration: "Un questionnaire de santé est requis uniquement pour les assurances complémentaires (LCA). Répondez honnêtement pour éviter une annulation ultérieure de couverture.",
+  preferences: "Personnaliser vos préférences (budget, gestion en ligne, priorités) nous permet de trier et de vous suggérer les assureurs suisses offrant le meilleur rapport qualité-prix.",
   firstName: "Votre prénom nous permet de personnaliser votre offre gratuite Fenny et d'établir un dossier de simulation maladie à votre nom.",
   lastName: "Votre nom de famille est requis par les caisses maladie suisses pour valider la légitimité du calcul de prime personnalisé.",
   email: "Votre adresse e-mail nous sert à vous transmettre instantanément votre rapport comparatif complet de primes au format PDF.",
@@ -91,6 +93,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
     model: 'family',
     accidentCoverage: true,
     sortBy: 'price',
+    supplementaryType: 'none',
   });
 
   const [zipInput, setZipInput] = useState<string>('1201');
@@ -131,6 +134,24 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
       zipCode: defaults.zip,
       zone: defaults.zone
     }));
+  };
+
+  // Helper to handle birth date changes and auto-calculate legal age category
+  const handleBirthDateChange = (dateVal: string) => {
+    handleFilterChange('birthDate', dateVal);
+    if (dateVal) {
+      const birthYear = new Date(dateVal).getFullYear();
+      const currentYear = new Date().getFullYear();
+      const age = currentYear - birthYear;
+      let category: 'adult' | 'young' | 'child' = 'adult';
+      if (age <= 18) {
+        category = 'child';
+        handleFilterChange('franchise', 0);
+      } else if (age <= 25) {
+        category = 'young';
+      }
+      handleFilterChange('ageCategory', category);
+    }
   };
 
   // GSAP animated progress bar refs
@@ -449,7 +470,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
 
   // Next step handler in wizard
   const nextStep = () => {
-    if (currentStep < 5) {
+    if (currentStep < 7) {
       setCurrentStep(prev => prev + 1);
     } else {
       // Trigger smooth final loading simulation
@@ -471,7 +492,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
 
   // 1. GSAP-driven Progress Bar Animation for Wizard & Global
   useEffect(() => {
-    const percentage = quizMode ? (currentStep / 5) * 100 : 100;
+    const percentage = quizMode ? (currentStep / 7) * 100 : 100;
     if (progressBarRef.current) {
       gsap.to(progressBarRef.current, {
         width: `${percentage}%`,
@@ -492,10 +513,12 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
   useEffect(() => {
     if (quizMode) {
       if (currentStep === 1) setFenyAdvice(HEALTH_ADVICE_MAP.canton);
-      else if (currentStep === 2) setFenyAdvice(HEALTH_ADVICE_MAP.ageCategory);
-      else if (currentStep === 3) setFenyAdvice(HEALTH_ADVICE_MAP.franchise);
-      else if (currentStep === 4) setFenyAdvice(HEALTH_ADVICE_MAP.model);
-      else if (currentStep === 5) setFenyAdvice(HEALTH_ADVICE_MAP.accidentCoverage);
+      else if (currentStep === 2) setFenyAdvice(HEALTH_ADVICE_MAP.personalInfo);
+      else if (currentStep === 3) setFenyAdvice(HEALTH_ADVICE_MAP.currentSituation);
+      else if (currentStep === 4) setFenyAdvice(HEALTH_ADVICE_MAP.lamal);
+      else if (currentStep === 5) setFenyAdvice(HEALTH_ADVICE_MAP.lcaBesoins);
+      else if (currentStep === 6) setFenyAdvice(HEALTH_ADVICE_MAP.healthDeclaration);
+      else if (currentStep === 7) setFenyAdvice(HEALTH_ADVICE_MAP.preferences);
     } else {
       setFenyAdvice(null);
     }
@@ -521,6 +544,19 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
       });
     }
   }, [completedFieldsCount, selectedCaisse]);
+
+  // Scroll to top when analysis starts so user can see the analyzing animation
+  useEffect(() => {
+    if (isAnalyzing) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
+      document.body.scrollTo({ top: 0, behavior: 'smooth' });
+      const scrollContainers = document.querySelectorAll('.overflow-y-auto');
+      scrollContainers.forEach(container => {
+        container.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  }, [isAnalyzing]);
 
   // 4. GSAP-driven Staggered Reveal for step inputs/options
   const stepContainerRef = useRef<HTMLDivElement>(null);
@@ -562,6 +598,18 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
       return () => clearTimeout(timer);
     }
   }, [selectedCaisse]);
+
+  const isNextDisabled = useMemo(() => {
+    if (currentStep === 1) return !resolvedInfo;
+    if (currentStep === 2) return !filters.birthDate || !filters.gender || !filters.nationality;
+    if (currentStep === 3) return filters.hasCurrentInsurer === undefined;
+    if (currentStep === 6) {
+      return filters.hasChronicConditions === undefined || 
+             filters.hasActiveTreatments === undefined || 
+             filters.hasMedicalHistory === undefined;
+    }
+    return false;
+  }, [currentStep, resolvedInfo, filters]);
 
   if (isEmbedded) {
     return (
@@ -668,14 +716,14 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
 
               <div className="flex-1 max-w-md mx-6 text-center space-y-1.5">
                 <div className="flex justify-between items-center text-[10px] text-fennec-brown font-black uppercase tracking-widest">
-                  <span>Question {currentStep} sur 5</span>
-                  <span>{Math.round((currentStep / 5) * 100)}% complété</span>
+                  <span>Question {currentStep} sur 7</span>
+                  <span>{Math.round((currentStep / 7) * 100)}% complété</span>
                 </div>
                 <div className="h-1.5 w-full bg-fennec-cream/40 rounded-full overflow-hidden relative">
                   <div 
                     ref={progressBarRef}
                     className="h-full bg-fennec-terracotta rounded-full origin-left"
-                    style={{ width: `${(currentStep / 5) * 100}%` }}
+                    style={{ width: `${(currentStep / 7) * 100}%` }}
                   />
                 </div>
               </div>
@@ -900,7 +948,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                           </motion.div>
                         )}
 
-                        {/* STEP 2: AGE CATEGORY (Single choice, few options -> Cards) */}
+                        {/* STEP 2: Informations Personnelles */}
                         {currentStep === 2 && (
                           <motion.div
                             key="step-2"
@@ -914,57 +962,107 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
                                 <User className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  Quelle est la tranche d'âge de l'assuré ?
+                                  Informations personnelles
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                L'Office Fédéral de la Santé Publique applique des tarifs distincts selon ces trois catégories d'âge légal.
+                                Ces données réglementaires permettent d'appliquer les barèmes légaux précis de l'OFSP et d'estimer vos risques pour les complémentaires.
                               </p>
                             </div>
 
-                            {/* CARDS LIST */}
-                            <div className="grid grid-cols-1 gap-4">
-                              {[
-                                { id: 'adult', label: 'Adulte', desc: 'Dès 26 ans révolus', details: 'Tarif standard complet', icon: User },
-                                { id: 'young', label: 'Jeune Adulte', desc: 'De 19 à 25 ans', details: 'Primes réduites d\'environ 20%', icon: Sparkles },
-                                { id: 'child', label: 'Enfant', desc: 'De 0 à 18 ans', details: 'Primes très basses (sans franchise obligatoire)', icon: Baby },
-                              ].map((age) => {
-                                const isSelected = filters.ageCategory === age.id;
-                                const IconComponent = age.icon;
-                                return (
-                                  <motion.button
-                                    key={age.id}
-                                    type="button"
-                                    whileHover={{ scale: 1.01 }}
-                                    whileTap={{ scale: 0.99 }}
-                                    onClick={() => {
-                                      handleFilterChange('ageCategory', age.id as any);
-                                      setTimeout(() => nextStep(), 220);
-                                    }}
-                                    className={`stagger-item p-4.5 rounded-2xl border text-left flex items-start space-x-4 transition-all ${
-                                      isSelected
-                                        ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-md font-bold'
-                                        : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15 font-semibold'
-                                    }`}
-                                  >
-                                    <div className={`p-3 rounded-xl ${isSelected ? 'bg-white/20 text-white' : 'bg-fennec-cream text-fennec-terracotta'} shrink-0`}>
-                                      <IconComponent className="w-5 h-5" />
-                                    </div>
-                                    <div className="space-y-1">
-                                      <div className="flex items-baseline space-x-2">
-                                        <span className="font-display font-black text-base">{age.label}</span>
-                                        <span className="text-xs opacity-80 font-medium">({age.desc})</span>
-                                      </div>
-                                      <span className="text-xs opacity-90 block leading-relaxed">{age.details}</span>
-                                    </div>
-                                  </motion.button>
-                                );
-                              })}
+                            <div className="space-y-4">
+                              {/* Date de Naissance */}
+                              <div className="space-y-1.5">
+                                <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
+                                  Date de naissance de l'assuré *
+                                </label>
+                                <input
+                                  type="date"
+                                  value={filters.birthDate || ''}
+                                  onChange={(e) => handleBirthDateChange(e.target.value)}
+                                  className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3.5 py-2.5 text-xs text-fennec-dark focus:outline-none focus:ring-1 focus:ring-fennec-terracotta transition-all font-medium"
+                                  required
+                                />
+                              </div>
+
+                              {/* Sexe */}
+                              <div className="space-y-1.5">
+                                <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
+                                  Sexe légal *
+                                </label>
+                                <div className="grid grid-cols-2 gap-3">
+                                  {[
+                                    { id: 'M', label: 'Homme' },
+                                    { id: 'F', label: 'Femme' }
+                                  ].map((genderOption) => {
+                                    const isSelected = filters.gender === genderOption.id;
+                                    return (
+                                      <button
+                                        key={genderOption.id}
+                                        type="button"
+                                        onClick={() => handleFilterChange('gender', genderOption.id as any)}
+                                        className={`p-3 rounded-xl border text-xs font-bold transition-all text-center ${
+                                          isSelected
+                                            ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-sm'
+                                            : 'border-fennec-cream/80 text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15'
+                                        }`}
+                                      >
+                                        {genderOption.label}
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+
+                              {/* Nationalité */}
+                              <div className="space-y-1.5">
+                                <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
+                                  Nationalité / Permis de séjour *
+                                </label>
+                                <div className="grid grid-cols-2 gap-2.5">
+                                  {[
+                                    { id: 'swiss', label: 'Suisse' },
+                                    { id: 'permis-c', label: 'Permis C (Établissement)' },
+                                    { id: 'permis-b', label: 'Permis B (Résident)' },
+                                    { id: 'other', label: 'Autre / Frontalier' },
+                                  ].map((nat) => {
+                                    const isSelected = filters.nationality === nat.id;
+                                    return (
+                                      <button
+                                        key={nat.id}
+                                        type="button"
+                                        onClick={() => handleFilterChange('nationality', nat.id as any)}
+                                        className={`p-2.5 rounded-xl border text-[11px] font-bold text-center transition-all truncate ${
+                                          isSelected
+                                            ? 'bg-fennec-tan text-white border-fennec-tan shadow-sm'
+                                            : 'border-fennec-cream/80 text-fennec-dark bg-white hover:bg-fennec-cream/15'
+                                        }`}
+                                      >
+                                        {nat.label}
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+
+                              {/* Age Category Feedack */}
+                              {filters.birthDate && (
+                                <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-3 text-center text-xs text-emerald-800 font-bold animate-pulse">
+                                  Catégorie d'âge reconnue :{' '}
+                                  <span className="uppercase text-fennec-dark">
+                                    {filters.ageCategory === 'child'
+                                      ? 'Enfant (0-18 ans)'
+                                      : filters.ageCategory === 'young'
+                                      ? 'Jeune Adulte (19-25 ans)'
+                                      : 'Adulte (26 ans+)'}
+                                  </span>
+                                </div>
+                              )}
                             </div>
                           </motion.div>
                         )}
 
-                        {/* STEP 3: FRANCHISE (Single choice, 5+ options -> grid/list of buttons) */}
+                        {/* STEP 3: Situation Actuelle */}
                         {currentStep === 3 && (
                           <motion.div
                             key="step-3"
@@ -976,51 +1074,153 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                           >
                             <div className="space-y-2">
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
-                                <Percent className="w-5 h-5 shrink-0" />
+                                <Activity className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  Choisissez votre franchise annuelle :
+                                  Votre situation actuelle
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                La franchise est le montant annuel restant à votre charge avant que l'assurance ne rembourse. Plus elle est élevée, plus votre prime mensuelle baisse !
+                                Renseigner votre contrat actuel nous permet de calculer à l'exact centime près les économies réelles dont vous bénéficierez.
                               </p>
                             </div>
 
-                            {/* GRID OF BUTTONS */}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                              {(filters.ageCategory === 'child' ? [0, 100, 200, 300, 400, 500, 600] : FRANCHISES).map((fran) => {
-                                const isSelected = filters.franchise === fran || (filters.ageCategory === 'child' && fran === 0 && filters.franchise > 600);
-                                return (
-                                  <motion.button
-                                    key={fran}
-                                    type="button"
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    onClick={() => {
-                                      handleFilterChange('franchise', fran);
-                                      setTimeout(() => nextStep(), 220);
-                                    }}
-                                    className={`stagger-item p-4.5 rounded-xl border text-left flex justify-between items-center transition-all ${
-                                      isSelected
-                                        ? 'bg-fennec-tan text-white border-fennec-tan shadow-md font-bold'
-                                        : 'border-fennec-cream/80 text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15 font-semibold'
-                                    }`}
-                                  >
-                                    <div>
-                                      <span className="text-[9px] block opacity-75 uppercase tracking-wider font-extrabold">Franchise</span>
-                                      <span className="font-display text-base block font-black mt-0.5">CHF {fran}</span>
+                            <div className="space-y-5">
+                              {/* Has Insurer */}
+                              <div className="space-y-1.5">
+                                <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
+                                  Avez-vous déjà une assurance maladie en Suisse ? *
+                                </label>
+                                <div className="grid grid-cols-2 gap-3">
+                                  {[
+                                    { value: true, label: 'Oui, déjà assuré' },
+                                    { value: false, label: 'Non, nouveau résident / autre' }
+                                  ].map((option) => {
+                                    const isSelected = filters.hasCurrentInsurer === option.value;
+                                    return (
+                                      <button
+                                        key={option.value.toString()}
+                                        type="button"
+                                        onClick={() => {
+                                          handleFilterChange('hasCurrentInsurer', option.value);
+                                          if (!option.value) {
+                                            // Reset current values if none
+                                            handleFilterChange('currentPremium', 0);
+                                            setCurrentPremiumInput(0);
+                                          }
+                                        }}
+                                        className={`p-3 rounded-xl border text-xs font-bold text-center transition-all ${
+                                          isSelected
+                                            ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-sm'
+                                            : 'border-fennec-cream/80 text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15'
+                                        }`}
+                                      >
+                                        {option.label}
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+
+                              {/* Conditional Form Fields */}
+                              {filters.hasCurrentInsurer && (
+                                <div className="space-y-4 p-4.5 bg-fennec-cream/15 rounded-2xl border border-fennec-cream/50 animate-in fade-in slide-in-from-top-2 duration-250">
+                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    {/* Insurer list */}
+                                    <div className="space-y-1.5">
+                                      <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">
+                                        Assureur actuel
+                                      </label>
+                                      <select
+                                        value={filters.currentInsurerId || 'helsana'}
+                                        onChange={(e) => {
+                                          handleFilterChange('currentInsurerId', e.target.value);
+                                          setCurrentCaisseId(e.target.value);
+                                        }}
+                                        className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3 py-2 text-xs text-fennec-dark focus:outline-none focus:ring-1 focus:ring-fennec-terracotta"
+                                      >
+                                        {CAISSES_MALADIE.map((caisse) => (
+                                          <option key={caisse.id} value={caisse.id}>
+                                            {caisse.name}
+                                          </option>
+                                        ))}
+                                      </select>
                                     </div>
-                                    <span className={`text-[10px] font-black uppercase px-2.5 py-1 rounded-full ${isSelected ? 'bg-white/20 text-white' : 'bg-fennec-cream/60 text-fennec-brown'}`}>
-                                      {fran === 2500 || (filters.ageCategory === 'child' && fran === 600) ? 'Éco Max' : fran === 300 || (filters.ageCategory === 'child' && fran === 0) ? 'Sécu Max' : 'Standard'}
-                                    </span>
-                                  </motion.button>
-                                );
-                              })}
+
+                                    {/* Monthly premium */}
+                                    <div className="space-y-1.5">
+                                      <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">
+                                        Prime mensuelle totale (CHF)
+                                      </label>
+                                      <input
+                                        type="number"
+                                        min={0}
+                                        value={filters.currentPremium || ''}
+                                        placeholder="Ex: 380"
+                                        onChange={(e) => {
+                                          const val = Number(e.target.value);
+                                          handleFilterChange('currentPremium', val);
+                                          setCurrentPremiumInput(val);
+                                          setUserHasEditedCurrentPremium(true);
+                                        }}
+                                        className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3 py-2 text-xs text-fennec-dark focus:outline-none focus:ring-1 focus:ring-fennec-terracotta font-mono font-bold"
+                                      />
+                                    </div>
+                                  </div>
+
+                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    {/* Years with insurer */}
+                                    <div className="space-y-1.5">
+                                      <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">
+                                        Ancienneté chez cet assureur
+                                      </label>
+                                      <div className="grid grid-cols-3 gap-1.5">
+                                        {[
+                                          { val: 1, label: '- de 2 ans' },
+                                          { val: 3, label: '2 à 5 ans' },
+                                          { val: 5, label: '+ de 5 ans' }
+                                        ].map((yearsOpt) => {
+                                          const isSelected = filters.yearsWithCurrent === yearsOpt.val;
+                                          return (
+                                            <button
+                                              key={yearsOpt.val}
+                                              type="button"
+                                              onClick={() => handleFilterChange('yearsWithCurrent', yearsOpt.val)}
+                                              className={`py-1.5 px-0.5 rounded-lg border text-[10px] font-bold text-center transition-all ${
+                                                isSelected
+                                                  ? 'bg-fennec-tan text-white border-fennec-tan'
+                                                  : 'border-fennec-cream/80 bg-white text-fennec-dark hover:bg-fennec-cream/15'
+                                              }`}
+                                            >
+                                              {yearsOpt.label}
+                                            </button>
+                                          );
+                                        })}
+                                      </div>
+                                    </div>
+
+                                    {/* Termination option */}
+                                    <div className="space-y-1.5">
+                                      <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">
+                                        Prochaine résiliation possible
+                                      </label>
+                                      <select
+                                        value={filters.terminationOption || 'december'}
+                                        onChange={(e) => handleFilterChange('terminationOption', e.target.value as any)}
+                                        className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3 py-2 text-xs text-fennec-dark focus:outline-none focus:ring-1 focus:ring-fennec-terracotta"
+                                      >
+                                        <option value="december">30 Novembre (Fin d'année standard)</option>
+                                        <option value="june">30 Juin (Franchise 300 & standard uniquement)</option>
+                                        <option value="unknown">Je ne sais pas</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
                             </div>
                           </motion.div>
                         )}
 
-                        {/* STEP 4: INSURANCE MODEL (Single choice, few options -> Cards) */}
+                        {/* STEP 4: Assurance de Base (LAMal) */}
                         {currentStep === 4 && (
                           <motion.div
                             key="step-4"
@@ -1032,62 +1232,134 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                           >
                             <div className="space-y-2">
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
-                                <Activity className="w-5 h-5 shrink-0" />
+                                <Percent className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  Quel modèle d'assurance préférez-vous ?
+                                  Votre assurance de base (LAMal)
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                Les assureurs accordent des rabais importants si vous acceptez de consulter d'abord un médecin traitant ou d'appeler une hotline (télémédecine) avant tout spécialiste.
+                                L'assurance obligatoire de base (LAMal) offre des garanties identiques chez tous les assureurs. Seuls la franchise et le modèle influencent son prix.
                               </p>
                             </div>
 
-                            {/* CARDS LIST */}
-                            <div className="grid grid-cols-1 gap-3.5">
-                              {[
-                                { id: 'family', title: 'Médecin de Famille (Recommandé)', discount: 'Rabais ~10%', desc: 'Vous consultez toujours votre médecin généraliste attitré en premier recours.', icon: User },
-                                { id: 'telemed', title: 'Télémédecine (Telmed)', discount: 'Rabais ~15%', desc: 'Vous téléphonez à une hotline médicale gratuite de l\'assureur avant toute consultation.', icon: PhoneCall },
-                                { id: 'hmo', title: 'Réseau de santé HMO', discount: 'Rabais ~12%', desc: 'Vous vous rendez directement dans un centre médical partenaire (HMO) agréé.', icon: Activity },
-                                { id: 'standard', title: 'Standard (Libre choix complet)', discount: 'Pas de réduction', desc: 'Vous consultez n\'importe quel médecin en Suisse sans aucune contrainte.', icon: SlidersHorizontal },
-                              ].map((model) => {
-                                const isSelected = filters.model === model.id;
-                                const IconComponent = model.icon;
-                                return (
-                                  <motion.button
-                                    key={model.id}
-                                    type="button"
-                                    whileHover={{ scale: 1.01 }}
-                                    whileTap={{ scale: 0.99 }}
-                                    onClick={() => {
-                                      handleFilterChange('model', model.id as any);
-                                      setTimeout(() => nextStep(), 220);
-                                    }}
-                                    className={`stagger-item p-4.5 rounded-2xl border text-left flex items-start space-x-4 transition-all ${
-                                      isSelected
-                                        ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-md font-bold'
-                                        : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15 font-semibold'
-                                    }`}
+                            <div className="space-y-4">
+                              {/* Household size */}
+                              <div className="space-y-1.5">
+                                <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
+                                  Nombre de personnes à assurer
+                                </label>
+                                <div className="grid grid-cols-3 gap-2.5">
+                                  {[
+                                    { id: 'single', label: 'Seul' },
+                                    { id: 'couple', label: 'En Couple' },
+                                    { id: 'family', label: 'Famille / Enfants' },
+                                  ].map((sizeOpt) => {
+                                    const isSelected = filters.householdSize === sizeOpt.id;
+                                    return (
+                                      <button
+                                        key={sizeOpt.id}
+                                        type="button"
+                                        onClick={() => handleFilterChange('householdSize', sizeOpt.id as any)}
+                                        className={`p-2.5 rounded-xl border text-xs font-bold text-center transition-all ${
+                                          isSelected
+                                            ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-xs'
+                                            : 'border-fennec-cream/80 text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15'
+                                        }`}
+                                      >
+                                        {sizeOpt.label}
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                {/* Franchise */}
+                                <div className="space-y-1.5">
+                                  <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
+                                    Franchise annuelle souhaitée
+                                  </label>
+                                  <select
+                                    value={filters.franchise}
+                                    onChange={(e) => handleFilterChange('franchise', Number(e.target.value))}
+                                    className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3 py-2.5 text-xs text-fennec-dark focus:outline-none focus:ring-1 focus:ring-fennec-terracotta font-mono font-bold"
                                   >
-                                    <div className={`p-3 rounded-xl ${isSelected ? 'bg-white/20 text-white' : 'bg-fennec-cream text-fennec-terracotta'} shrink-0`}>
-                                      <IconComponent className="w-5 h-5" />
-                                    </div>
-                                    <div className="space-y-1 flex-1">
-                                      <div className="flex justify-between items-baseline">
-                                        <span className="font-display font-black text-base">{model.title}</span>
-                                        <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${isSelected ? 'bg-white/20 text-white' : 'bg-emerald-50 text-emerald-800'}`}>
-                                          {model.discount}
+                                    {(filters.ageCategory === 'child' ? [0, 100, 200, 300, 400, 500, 600] : FRANCHISES).map((franValue) => (
+                                      <option key={franValue} value={franValue}>
+                                        CHF {franValue} ({franValue === 2500 || (filters.ageCategory === 'child' && franValue === 600) ? 'Éco Max' : franValue === 300 || (filters.ageCategory === 'child' && franValue === 0) ? 'Sécu Max' : 'Standard'})
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+
+                                {/* Accident coverage */}
+                                <div className="space-y-1.5">
+                                  <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
+                                    Couverture accident
+                                  </label>
+                                  <div className="grid grid-cols-2 gap-2">
+                                    {[
+                                      { value: true, label: 'Oui, inclure' },
+                                      { value: false, label: 'Non, exclure' }
+                                    ].map((accOpt) => {
+                                      const isSelected = filters.accidentCoverage === accOpt.value;
+                                      return (
+                                        <button
+                                          key={accOpt.value.toString()}
+                                          type="button"
+                                          onClick={() => handleFilterChange('accidentCoverage', accOpt.value)}
+                                          className={`py-2.5 px-2 rounded-xl border text-[11px] font-bold text-center transition-all ${
+                                            isSelected
+                                              ? 'bg-fennec-tan text-white border-fennec-tan shadow-xs'
+                                              : 'border-fennec-cream/80 text-fennec-dark bg-white hover:bg-fennec-cream/15'
+                                          }`}
+                                        >
+                                          {accOpt.label}
+                                        </button>
+                                      );
+                                    })}
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Models selection */}
+                              <div className="space-y-1.5">
+                                <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
+                                  Modèle de coordination des soins (LAMal)
+                                </label>
+                                <div className="grid grid-cols-2 gap-2">
+                                  {[
+                                    { id: 'family', label: 'Médecin de Famille', desc: 'Consultation du généraliste d\'abord' },
+                                    { id: 'telemed', label: 'Télémédecine (Telmed)', desc: 'Appel d\'une hotline médicale d\'abord' },
+                                    { id: 'hmo', label: 'Réseau HMO', desc: 'Consultation dans un centre agréé' },
+                                    { id: 'standard', label: 'Standard (Libre choix)', desc: 'Aucun filtre, accès spécialiste direct' },
+                                  ].map((modelOpt) => {
+                                    const isSelected = filters.model === modelOpt.id;
+                                    return (
+                                      <button
+                                        key={modelOpt.id}
+                                        type="button"
+                                        onClick={() => handleFilterChange('model', modelOpt.id as any)}
+                                        className={`p-3 rounded-xl border text-left flex flex-col justify-between transition-all ${
+                                          isSelected
+                                            ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-xs'
+                                            : 'border-fennec-cream/80 text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15'
+                                        }`}
+                                      >
+                                        <span className="font-bold text-xs leading-none">{modelOpt.label}</span>
+                                        <span className="text-[9px] opacity-80 mt-1 leading-tight font-medium">
+                                          {modelOpt.desc}
                                         </span>
-                                      </div>
-                                      <p className="text-xs opacity-90 leading-relaxed">{model.desc}</p>
-                                    </div>
-                                  </motion.button>
-                                );
-                              })}
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                              </div>
                             </div>
                           </motion.div>
                         )}
 
-                        {/* STEP 5: ACCIDENT COVERAGE (Yes/No Question -> Two large side-by-side buttons) */}
+                        {/* STEP 5: Assurances Complémentaires (LCA) */}
                         {currentStep === 5 && (
                           <motion.div
                             key="step-5"
@@ -1099,49 +1371,326 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                           >
                             <div className="space-y-2">
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
-                                <Shield className="w-5 h-5 shrink-0" />
+                                <Sparkles className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  Souhaitez-vous inclure la couverture accident ?
+                                  Vos besoins complémentaires (LCA)
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                Si vous travaillez plus de 8 heures par semaine chez le même employeur, vous êtes légalement couvert contre les accidents professionnels et non-professionnels par votre entreprise (LAA).
+                                Les complémentaires remboursent les soins que la LAMal n'indemnise pas (dentaire, médecines douces, confort hospitalier, etc.).
                               </p>
                             </div>
 
-                            {/* YES/NO LARGE SIDE-BY-SIDE BUTTONS */}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                              {[
-                                { value: true, label: 'Oui, inclure l\'accident', desc: 'Recommandé pour les enfants, indépendants, personnes sans emploi ou ménages.' },
-                                { value: false, label: 'Non, exclure l\'accident', desc: 'Économisez environ 7%. Réservé aux personnes salariées effectuant +8h/semaine.' },
-                              ].map((option) => {
-                                const isSelected = filters.accidentCoverage === option.value;
-                                return (
-                                  <motion.button
-                                    key={option.value.toString()}
-                                    type="button"
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    onClick={() => {
-                                      handleFilterChange('accidentCoverage', option.value);
-                                      setTimeout(() => nextStep(), 220);
-                                    }}
-                                    className={`stagger-item p-6 rounded-2xl border text-left flex flex-col justify-between min-h-[140px] transition-all ${
-                                      isSelected
-                                        ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-md font-bold'
-                                        : 'border-fennec-cream text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15 font-semibold'
-                                    }`}
-                                  >
-                                    <div className="space-y-1">
-                                      <span className="font-display font-black text-lg block">{option.label}</span>
-                                      <p className="text-xs opacity-90 leading-relaxed mt-1 font-medium">{option.desc}</p>
+                            <div className="space-y-4">
+                              {/* Supplementary type level */}
+                              <div className="space-y-1.5">
+                                <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
+                                  Niveau de couverture souhaité
+                                </label>
+                                <div className="grid grid-cols-4 gap-1.5">
+                                  {[
+                                    { id: 'none', label: 'AUCUNE LCA' },
+                                    { id: 'essential', label: 'ESSENTIELLE' },
+                                    { id: 'confort', label: 'CONFORT' },
+                                    { id: 'premium', label: 'PREMIUM' }
+                                  ].map((levelOpt) => {
+                                    const isSelected = filters.supplementaryType === levelOpt.id;
+                                    return (
+                                      <button
+                                        key={levelOpt.id}
+                                        type="button"
+                                        onClick={() => handleFilterChange('supplementaryType', levelOpt.id as any)}
+                                        className={`py-2.5 px-0.5 rounded-xl border text-[10px] font-black text-center transition-all ${
+                                          isSelected
+                                            ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-xs'
+                                            : 'border-fennec-cream/80 text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15'
+                                        }`}
+                                      >
+                                        {levelOpt.label}
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+
+                              {/* Conditional section if supplementary level is chosen */}
+                              {filters.supplementaryType !== 'none' && (
+                                <div className="space-y-4.5 p-4 bg-fennec-cream/15 rounded-2xl border border-fennec-cream/50 animate-in fade-in slide-in-from-top-2 duration-250">
+                                  {/* Hospital division */}
+                                  <div className="space-y-1.5">
+                                    <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">
+                                      Division d'hospitalisation souhaitée
+                                    </label>
+                                    <div className="grid grid-cols-4 gap-1.5">
+                                      {[
+                                        { id: 'none', label: 'Division Commune' },
+                                        { id: 'commune', label: 'Toute la Suisse' },
+                                        { id: 'semi-private', label: 'Demi-Privée (2 lits)' },
+                                        { id: 'private', label: 'Privée (1 lit)' },
+                                      ].map((divOpt) => {
+                                        const isSelected = filters.hospitalDivision === divOpt.id;
+                                        return (
+                                          <button
+                                            key={divOpt.id}
+                                            type="button"
+                                            onClick={() => handleFilterChange('hospitalDivision', divOpt.id as any)}
+                                            className={`py-2 px-0.5 rounded-lg border text-[9px] font-black text-center transition-all ${
+                                              isSelected
+                                                ? 'bg-fennec-tan text-white border-fennec-tan'
+                                                : 'border-fennec-cream/80 bg-white text-fennec-dark hover:bg-fennec-cream/15'
+                                            }`}
+                                          >
+                                            {divOpt.label}
+                                          </button>
+                                        );
+                                      })}
                                     </div>
-                                    <span className={`text-[10px] font-black uppercase self-end mt-4 ${isSelected ? 'text-white' : 'text-fennec-brown'}`}>
-                                      {isSelected ? 'Sélectionné' : 'Choisir'}
-                                    </span>
-                                  </motion.button>
-                                );
-                              })}
+                                  </div>
+
+                                  {/* Specific Needs Toggles */}
+                                  <div className="space-y-1.5">
+                                    <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">
+                                      Cochez vos besoins ambulatoires spécifiques :
+                                    </label>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                      {[
+                                        { id: 'hasAlternativeMedicine', label: 'Médecines douces', desc: 'Ostéopathie, acupuncture...' },
+                                        { id: 'hasDental', label: 'Soins dentaires', desc: 'Détartrages, orthodontie...' },
+                                        { id: 'hasRiskySports', label: 'Sports à risque', desc: 'Ski, sports aériens, plongée...' },
+                                        { id: 'hasFrequentTravel', label: 'Voyages réguliers', desc: 'Urgences à l\'étranger...' },
+                                        { id: 'isExpecting', label: 'Maternité / Grossesse', desc: 'Désir d\'enfant ou en cours' }
+                                      ].map((needOpt) => {
+                                        const isChecked = !!(filters as any)[needOpt.id];
+                                        return (
+                                          <button
+                                            key={needOpt.id}
+                                            type="button"
+                                            onClick={() => handleFilterChange(needOpt.id as any, !isChecked)}
+                                            className={`p-2 rounded-xl border text-left flex items-start space-x-2.5 transition-all bg-white ${
+                                              isChecked
+                                                ? 'border-fennec-terracotta ring-1 ring-fennec-terracotta shadow-3xs'
+                                                : 'border-fennec-cream/80 hover:bg-fennec-cream/5'
+                                            }`}
+                                          >
+                                            <div className={`w-4 h-4 rounded border mt-0.5 shrink-0 flex items-center justify-center transition-all ${
+                                              isChecked
+                                                ? 'bg-fennec-terracotta border-fennec-terracotta text-white'
+                                                : 'border-fennec-cream bg-white'
+                                            }`}>
+                                              {isChecked && <Check className="w-3 h-3 stroke-[2.5]" />}
+                                            </div>
+                                            <div className="leading-tight">
+                                              <span className="text-[11px] font-bold text-fennec-dark block">
+                                                {needOpt.label}
+                                              </span>
+                                              <span className="text-[9px] text-fennec-brown font-medium">
+                                                {needOpt.desc}
+                                              </span>
+                                            </div>
+                                          </button>
+                                        );
+                                      })}
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          </motion.div>
+                        )}
+
+                        {/* STEP 6: État de Santé (uniquement pour les complémentaires) */}
+                        {currentStep === 6 && (
+                          <motion.div
+                            key="step-6"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="space-y-6 w-full text-left"
+                          >
+                            <div className="space-y-2">
+                              <div className="flex items-center space-x-2 text-fennec-terracotta">
+                                <Shield className="w-5 h-5 shrink-0" />
+                                <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
+                                  Votre état de santé actuel
+                                </h3>
+                              </div>
+                              <p className="text-xs text-fennec-dark/65 leading-relaxed">
+                                Un questionnaire médical simplifié est requis pour souscrire à une complémentaire (LCA). Ces déclarations sont purement indicatives.
+                              </p>
+                            </div>
+
+                            <div className="space-y-4">
+                              <div className="bg-amber-50 border border-amber-200/60 p-4 rounded-2xl flex items-start space-x-3">
+                                <Shield className="w-5 h-5 text-amber-600 shrink-0 mt-0.5 animate-pulse" />
+                                <p className="text-[11px] text-amber-900 leading-relaxed font-medium">
+                                  <strong>Rappel constitutionnel :</strong> L'assurance de base obligatoire (LAMal) <strong>ne peut jamais refuser</strong> un assuré pour son état de santé. Ces questions n'impactent que l'estimation des complémentaires LCA.
+                                </p>
+                              </div>
+
+                              <div className="space-y-3">
+                                {[
+                                  { id: 'hasChronicConditions', label: 'Maladies chroniques ou affections de longue durée ?', desc: 'Diabète, cardiopathies, asthme sévère, dépression...' },
+                                  { id: 'hasActiveTreatments', label: 'Traitements médicaux, thérapies ou médicaments en cours ?', desc: 'Suivi régulier de spécialistes, traitements prescrits...' },
+                                  { id: 'hasMedicalHistory', label: 'Antécédents majeurs (hospitalisations, chirurgies) sous 5 ans ?', desc: 'Opérations chirurgicales ou longs séjours hospitaliers...' }
+                                ].map((healthOpt) => {
+                                  const isYesValue = (filters as any)[healthOpt.id];
+                                  return (
+                                    <div key={healthOpt.id} className="p-3.5 bg-fennec-cream/10 rounded-2xl border border-fennec-cream/30 flex flex-col sm:flex-row justify-between sm:items-center gap-3">
+                                      <div>
+                                        <h4 className="text-xs font-bold text-fennec-dark leading-snug">
+                                          {healthOpt.label}
+                                        </h4>
+                                        <p className="text-[10px] text-fennec-brown font-medium mt-0.5">
+                                          {healthOpt.desc}
+                                        </p>
+                                      </div>
+                                      <div className="flex space-x-2 shrink-0 self-end sm:self-center">
+                                        {[
+                                          { value: true, label: 'Oui' },
+                                          { value: false, label: 'Non' }
+                                        ].map((btnOpt) => {
+                                          const isActive = isYesValue === btnOpt.value;
+                                          return (
+                                            <button
+                                              key={btnOpt.value.toString()}
+                                              type="button"
+                                              onClick={() => handleFilterChange(healthOpt.id as any, btnOpt.value)}
+                                              className={`px-3.5 py-1.5 rounded-lg border text-[10px] font-extrabold uppercase tracking-wider transition-all ${
+                                                isActive
+                                                  ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-xs'
+                                                  : 'border-fennec-cream bg-white text-fennec-dark hover:bg-fennec-cream/10'
+                                              }`}
+                                            >
+                                              {btnOpt.label}
+                                            </button>
+                                          );
+                                        })}
+                                      </div>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+
+                        {/* STEP 7: Vos Préférences, Budget & Priorités */}
+                        {currentStep === 7 && (
+                          <motion.div
+                            key="step-7"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="space-y-6 w-full text-left"
+                          >
+                            <div className="space-y-2">
+                              <div className="flex items-center space-x-2 text-fennec-terracotta">
+                                <SlidersHorizontal className="w-5 h-5 shrink-0" />
+                                <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
+                                  Vos préférences & budget
+                                </h3>
+                              </div>
+                              <p className="text-xs text-fennec-dark/65 leading-relaxed">
+                                Dernière étape ! Ajustez votre budget mensuel et vos exigences pour que Fenny classe et optimise vos propositions.
+                              </p>
+                            </div>
+
+                            <div className="space-y-4">
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                {/* Service preference */}
+                                <div className="space-y-1.5">
+                                  <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
+                                    Type de gestion de contrat
+                                  </label>
+                                  <select
+                                    value={filters.servicePreference || 'hybrid'}
+                                    onChange={(e) => handleFilterChange('servicePreference', e.target.value as any)}
+                                    className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3 py-2.5 text-xs text-fennec-dark focus:outline-none focus:ring-1 focus:ring-fennec-terracotta"
+                                  >
+                                    <option value="online">100% En ligne (Application, documents PDF)</option>
+                                    <option value="human">Traditionnel (Réseau d'agences physiques)</option>
+                                    <option value="hybrid">Hybride (Gestion App + conseiller dédié)</option>
+                                  </select>
+                                </div>
+
+                                {/* Client service importance */}
+                                <div className="space-y-1.5">
+                                  <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
+                                    Priorité au service client
+                                  </label>
+                                  <select
+                                    value={filters.clientServiceImportance || 'medium'}
+                                    onChange={(e) => handleFilterChange('clientServiceImportance', e.target.value as any)}
+                                    className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3 py-2.5 text-xs text-fennec-dark focus:outline-none focus:ring-1 focus:ring-fennec-terracotta"
+                                  >
+                                    <option value="low">Standard (Tous canaux numériques)</option>
+                                    <option value="medium">Élevé (Meilleurs retours satisfaction client)</option>
+                                    <option value="high">Absolue (Remboursements rapides & assistance locale)</option>
+                                  </select>
+                                </div>
+                              </div>
+
+                              {/* Monthly budget slider */}
+                              <div className="space-y-1.5 bg-fennec-cream/10 p-4 rounded-2xl border border-fennec-cream/30">
+                                <div className="flex justify-between items-baseline">
+                                  <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
+                                    Budget mensuel maximum visé
+                                  </label>
+                                  <span className="text-sm font-mono font-black text-fennec-terracotta">
+                                    CHF {filters.maxMonthlyBudget || 450} / mois
+                                  </span>
+                                </div>
+                                <input
+                                  type="range"
+                                  min={100}
+                                  max={900}
+                                  step={10}
+                                  value={filters.maxMonthlyBudget || 450}
+                                  onChange={(e) => handleFilterChange('maxMonthlyBudget', Number(e.target.value))}
+                                  className="w-full accent-fennec-terracotta h-1.5 bg-fennec-cream/60 rounded-lg cursor-pointer"
+                                />
+                                <div className="flex justify-between text-[9px] text-fennec-brown font-extrabold font-mono">
+                                  <span>CHF 100 (Eco)</span>
+                                  <span>CHF 500</span>
+                                  <span>CHF 900+ (Premium)</span>
+                                </div>
+                              </div>
+
+                              {/* Comparison priority */}
+                              <div className="space-y-1.5">
+                                <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
+                                  Votre objectif prioritaire
+                                </label>
+                                <div className="grid grid-cols-2 gap-2">
+                                  {[
+                                    { id: 'price', label: 'Économie maximale', desc: 'Priorité au tarif brut' },
+                                    { id: 'coverage', label: 'Couverture maximale', desc: 'Remboursements LCA au top' },
+                                    { id: 'reputation', label: 'Satisfaction & Service', desc: 'Assureur le mieux noté' },
+                                    { id: 'flexibility', label: 'Flexibilité médicale', desc: 'Accès sans contrainte standard' },
+                                  ].map((prioOpt) => {
+                                    const isSelected = filters.comparisonPriority === prioOpt.id;
+                                    return (
+                                      <button
+                                        key={prioOpt.id}
+                                        type="button"
+                                        onClick={() => handleFilterChange('comparisonPriority', prioOpt.id as any)}
+                                        className={`p-2.5 rounded-xl border text-left flex flex-col justify-between transition-all ${
+                                          isSelected
+                                            ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-xs font-bold'
+                                            : 'border-fennec-cream/80 text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15 font-semibold'
+                                        }`}
+                                      >
+                                        <span className="text-[11px] block leading-none">{prioOpt.label}</span>
+                                        <span className="text-[8px] opacity-80 mt-1 font-medium leading-none">
+                                          {prioOpt.desc}
+                                        </span>
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                              </div>
                             </div>
                           </motion.div>
                         )}
@@ -1165,22 +1714,20 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                         <span>Retour</span>
                       </button>
 
-                      {/* Display explicit "Next" button only for questions requiring non-click confirmation */}
-                      {currentStep === 1 && (
-                        <button
-                          type="button"
-                          onClick={nextStep}
-                          disabled={!resolvedInfo}
-                          className={`flex items-center text-xs font-bold font-display px-6 py-2.5 rounded-full transition-all shadow-sm ${
-                            !resolvedInfo
-                              ? 'bg-fennec-cream text-fennec-brown/40 cursor-not-allowed shadow-none'
-                              : 'bg-fennec-dark hover:bg-fennec-terracotta text-white'
-                          }`}
-                        >
-                          <span>Continuer</span>
-                          <ChevronRight className="w-4 h-4 ml-1.5" />
-                        </button>
-                      )}
+                      {/* Display explicit "Next" button for all questions */}
+                      <button
+                        type="button"
+                        onClick={nextStep}
+                        disabled={isNextDisabled}
+                        className={`flex items-center text-xs font-bold font-display px-6 py-2.5 rounded-full transition-all shadow-sm ${
+                          isNextDisabled
+                            ? 'bg-fennec-cream text-fennec-brown/40 cursor-not-allowed shadow-none'
+                            : 'bg-fennec-dark hover:bg-fennec-terracotta text-white'
+                        }`}
+                      >
+                        <span>{currentStep === 7 ? "Lancer l'analyse" : "Continuer"}</span>
+                        <ChevronRight className="w-4 h-4 ml-1.5" />
+                      </button>
                     </div>
                   </div>
 
@@ -1320,6 +1867,16 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                   <span className="text-fennec-brown font-medium">Couverture Accident :</span>
                   <span className="font-bold text-fennec-dark">{filters.accidentCoverage ? 'Oui, incluse' : 'Non, exclue'}</span>
                 </div>
+                <div className="flex justify-between p-2.5 bg-fennec-cream/10 rounded-xl">
+                  <span className="text-fennec-brown font-medium">Complémentaires :</span>
+                  <span className="font-bold text-fennec-dark">
+                    {!filters.supplementaryType || filters.supplementaryType === 'none'
+                      ? "Assurance de base uniquement"
+                      : filters.supplementaryType === 'essential' ? 'ESSENTIELLE'
+                      : filters.supplementaryType === 'confort' ? 'CONFORT'
+                      : 'PREMIUM'}
+                  </span>
+                </div>
               </div>
 
               {/* Toggle to fine-tune filters directly */}
@@ -1394,6 +1951,20 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                       {(filters.ageCategory === 'child' ? [0, 100, 200, 300, 400, 500, 600] : FRANCHISES).map((fran) => (
                         <option key={fran} value={fran}>CHF {fran}</option>
                       ))}
+                    </select>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-fennec-brown block">Assurances complémentaires</label>
+                    <select
+                      value={filters.supplementaryType || 'none'}
+                      onChange={(e) => handleFilterChange('supplementaryType', e.target.value as any)}
+                      className="w-full bg-white border border-fennec-cream/60 rounded-xl px-2.5 py-1.5 text-xs text-fennec-dark focus:outline-none"
+                    >
+                      <option value="none">Aucune (uniquement base LAMal)</option>
+                      <option value="essential">ESSENTIELLE</option>
+                      <option value="confort">CONFORT</option>
+                      <option value="premium">PREMIUM</option>
                     </select>
                   </div>
 
