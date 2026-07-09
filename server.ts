@@ -2,7 +2,6 @@ import express from "express";
 import path from "path";
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
-import { createServer as createViteServer } from "vite";
 
 // Load environment variables
 dotenv.config();
@@ -361,6 +360,7 @@ export { app };
 async function startServer() {
   if (process.env.NODE_ENV !== "production") {
     console.log("[Server] Running in DEVELOPMENT mode. Mounting Vite Dev Server...");
+    const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa"

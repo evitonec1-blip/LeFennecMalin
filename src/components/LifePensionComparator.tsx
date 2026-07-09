@@ -98,6 +98,73 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
   const [monthlyAmount, setMonthlyAmount] = useState<number>(300);
   const [duration, setDuration] = useState<number>(25);
 
+  // Local state for formatted typing birthday input (JJ.MM.AAAA)
+  const [typedBirthDate, setTypedBirthDate] = useState<string>(() => {
+    const bd = filters.birthDate || '1995-07-09';
+    const parts = bd.split('-');
+    if (parts.length === 3) {
+      return `${parts[2]}.${parts[1]}.${parts[0]}`;
+    }
+    return '09.07.1995';
+  });
+
+  const parseSwissToIso = (swissDate: string): string | null => {
+    const parts = swissDate.split('.');
+    if (parts.length === 3) {
+      const day = parts[0];
+      const month = parts[1];
+      const year = parts[2];
+      if (day.length === 2 && month.length === 2 && year.length === 4) {
+        const d = parseInt(day, 10);
+        const m = parseInt(month, 10);
+        const y = parseInt(year, 10);
+        if (d >= 1 && d <= 31 && m >= 1 && m <= 12 && y >= 1900 && y <= 2026) {
+          return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+        }
+      }
+    }
+    return null;
+  };
+
+  const handleBirthDateTypedChange = (val: string) => {
+    // Only keep numbers
+    const digits = val.replace(/\D/g, '').slice(0, 8);
+    
+    // Auto-format as DD.MM.YYYY
+    let formatted = '';
+    if (digits.length > 0) {
+      formatted += digits.substring(0, 2);
+    }
+    if (digits.length > 2) {
+      formatted += '.' + digits.substring(2, 4);
+    }
+    if (digits.length > 4) {
+      formatted += '.' + digits.substring(4, 8);
+    }
+    
+    setTypedBirthDate(formatted);
+    
+    if (digits.length === 8) {
+      const iso = parseSwissToIso(formatted);
+      if (iso) {
+        setFilters(prev => ({ ...prev, birthDate: iso }));
+      } else {
+        setFilters(prev => ({ ...prev, birthDate: undefined }));
+      }
+    } else {
+      setFilters(prev => ({ ...prev, birthDate: undefined }));
+    }
+  };
+
+  const parsedBirthDateInfo = useMemo(() => {
+    if (!filters.birthDate) return null;
+    const parts = filters.birthDate.split('-');
+    if (parts.length !== 3) return null;
+    const year = parseInt(parts[0], 10);
+    const age = new Date().getFullYear() - year;
+    return { age };
+  }, [filters.birthDate]);
+
   // Synchronize savingAmount and monthlyAmount when they change in quiz
   useEffect(() => {
     if (filters.savingAmount) {
@@ -737,13 +804,31 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                               {/* Birth Date & Gender */}
                               <div className="space-y-4">
                                 <div className="space-y-1">
-                                  <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Date de naissance</label>
+                                  <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Date de naissance (JJ.MM.AAAA)</label>
                                   <input 
-                                    type="date"
-                                    value={filters.birthDate || '1995-07-09'}
-                                    onChange={(e) => handleFilterChange('birthDate', e.target.value)}
-                                    className="w-full px-4 py-2.5 rounded-xl border border-fennec-cream/80 bg-fennec-cream/5 text-fennec-dark focus:outline-none focus:border-fennec-terracotta font-medium text-sm"
+                                    type="text"
+                                    inputMode="numeric"
+                                    placeholder="Ex: 09.07.1995"
+                                    value={typedBirthDate}
+                                    onChange={(e) => handleBirthDateTypedChange(e.target.value)}
+                                    className="w-full px-4 py-2.5 rounded-xl border border-fennec-cream/80 bg-white text-fennec-dark focus:outline-none focus:border-fennec-terracotta font-mono font-bold text-sm"
+                                    required
                                   />
+                                  {typedBirthDate.replace(/\D/g, '').length === 8 && !filters.birthDate && (
+                                    <p className="text-[10px] font-semibold text-red-500 mt-1">
+                                      ⚠️ Date invalide ou impossible
+                                    </p>
+                                  )}
+                                  {filters.birthDate && parsedBirthDateInfo && (
+                                    <p className="text-[10px] font-bold text-green-600 mt-1">
+                                      ✓ Âge calculé : {parsedBirthDateInfo.age} ans
+                                    </p>
+                                  )}
+                                  {typedBirthDate.replace(/\D/g, '').length < 8 && (
+                                    <p className="text-[10px] text-fennec-dark/45 mt-1">
+                                      Saisissez les 8 chiffres de votre date de naissance. Très rapide sur mobile.
+                                    </p>
+                                  )}
                                 </div>
 
                                 <div className="space-y-1">

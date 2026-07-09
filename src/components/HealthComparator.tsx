@@ -137,6 +137,79 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
     }));
   };
 
+  // Local state for formatted typing birthday input (JJ.MM.AAAA)
+  const [typedBirthDate, setTypedBirthDate] = useState<string>(() => {
+    if (filters.birthDate) {
+      const parts = filters.birthDate.split('-');
+      if (parts.length === 3) {
+        return `${parts[2]}.${parts[1]}.${parts[0]}`;
+      }
+    }
+    return '';
+  });
+
+  const parseSwissToIso = (swissDate: string): string | null => {
+    const parts = swissDate.split('.');
+    if (parts.length === 3) {
+      const day = parts[0];
+      const month = parts[1];
+      const year = parts[2];
+      if (day.length === 2 && month.length === 2 && year.length === 4) {
+        const d = parseInt(day, 10);
+        const m = parseInt(month, 10);
+        const y = parseInt(year, 10);
+        if (d >= 1 && d <= 31 && m >= 1 && m <= 12 && y >= 1900 && y <= 2026) {
+          return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+        }
+      }
+    }
+    return null;
+  };
+
+  const handleBirthDateTypedChange = (val: string) => {
+    // Only keep numbers
+    const digits = val.replace(/\D/g, '').slice(0, 8);
+    
+    // Auto-format as DD.MM.YYYY
+    let formatted = '';
+    if (digits.length > 0) {
+      formatted += digits.substring(0, 2);
+    }
+    if (digits.length > 2) {
+      formatted += '.' + digits.substring(2, 4);
+    }
+    if (digits.length > 4) {
+      formatted += '.' + digits.substring(4, 8);
+    }
+    
+    setTypedBirthDate(formatted);
+    
+    if (digits.length === 8) {
+      const iso = parseSwissToIso(formatted);
+      if (iso) {
+        handleBirthDateChange(iso);
+      } else {
+        // Clear birthDate if invalid to prevent progression
+        handleFilterChange('birthDate', undefined);
+      }
+    } else {
+      // Clear birthDate if incomplete
+      handleFilterChange('birthDate', undefined);
+    }
+  };
+
+  const parsedBirthDateInfo = useMemo(() => {
+    if (!filters.birthDate) return null;
+    const parts = filters.birthDate.split('-');
+    if (parts.length !== 3) return null;
+    const year = parseInt(parts[0], 10);
+    const age = new Date().getFullYear() - year;
+    let label = 'Adulte (26+)';
+    if (age <= 18) label = 'Enfant (0-18)';
+    else if (age <= 25) label = 'Jeune (19-25)';
+    return { age, label };
+  }, [filters.birthDate]);
+
   // Helper to handle birth date changes and auto-calculate legal age category
   const handleBirthDateChange = (dateVal: string) => {
     handleFilterChange('birthDate', dateVal);
@@ -899,15 +972,32 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               {/* Date de Naissance */}
                               <div className="space-y-1.5">
                                 <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
-                                  Date de naissance de l'assuré *
+                                  Date de naissance de l'assuré (JJ.MM.AAAA) *
                                 </label>
                                 <input
-                                  type="date"
-                                  value={filters.birthDate || ''}
-                                  onChange={(e) => handleBirthDateChange(e.target.value)}
-                                  className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3.5 py-2.5 text-xs text-fennec-dark focus:outline-none focus:ring-1 focus:ring-fennec-terracotta transition-all font-medium"
+                                  type="text"
+                                  inputMode="numeric"
+                                  placeholder="Ex: 28.05.1990"
+                                  value={typedBirthDate}
+                                  onChange={(e) => handleBirthDateTypedChange(e.target.value)}
+                                  className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3.5 py-2.5 text-xs text-fennec-dark focus:outline-none focus:ring-1 focus:ring-fennec-terracotta transition-all font-mono font-bold"
                                   required
                                 />
+                                {typedBirthDate.replace(/\D/g, '').length === 8 && !filters.birthDate && (
+                                  <p className="text-[10px] font-semibold text-red-500 mt-1">
+                                    ⚠️ Date invalide ou impossible
+                                  </p>
+                                )}
+                                {filters.birthDate && parsedBirthDateInfo && (
+                                  <p className="text-[10px] font-bold text-green-600 mt-1">
+                                    ✓ Catégorie d'âge : {parsedBirthDateInfo.label} (Âge : {parsedBirthDateInfo.age} ans)
+                                  </p>
+                                )}
+                                {typedBirthDate.replace(/\D/g, '').length < 8 && (
+                                  <p className="text-[10px] text-fennec-dark/45 mt-1">
+                                    Saisissez les 8 chiffres de votre date de naissance. Très rapide sur mobile.
+                                  </p>
+                                )}
                               </div>
 
                               {/* Sexe */}
