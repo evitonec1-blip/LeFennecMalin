@@ -154,7 +154,7 @@ export default function App() {
                     <div className="hero-animate opacity-0 pt-4 space-y-3 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row justify-center lg:justify-start">
                       <button
                         onClick={() => handleCtaClick('health')}
-                        className={`px-8 py-4 rounded-2xl font-display font-extrabold text-base transition-all duration-300 flex items-center justify-center space-x-2.5 ${
+                        className={`w-full sm:w-auto px-8 py-4 rounded-2xl font-display font-extrabold text-base transition-all duration-300 flex items-center justify-center space-x-2.5 ${
                           activeVertical === 'health'
                             ? 'bg-fennec-terracotta text-white shadow-lg shadow-fennec-terracotta/20 scale-102 border-b-4 border-amber-900/10'
                             : 'bg-white hover:bg-fennec-cream/25 border border-fennec-cream/70 text-fennec-dark hover:text-fennec-terracotta'
@@ -165,7 +165,7 @@ export default function App() {
                       
                       <button
                         onClick={() => handleCtaClick('life')}
-                        className={`px-8 py-4 rounded-2xl font-display font-extrabold text-base transition-all duration-300 flex items-center justify-center space-x-2.5 ${
+                        className={`w-full sm:w-auto px-8 py-4 rounded-2xl font-display font-extrabold text-base transition-all duration-300 flex items-center justify-center space-x-2.5 ${
                           activeVertical === 'life'
                             ? 'bg-fennec-terracotta text-white shadow-lg shadow-fennec-terracotta/20 scale-102 border-b-4 border-amber-900/10'
                             : 'bg-white hover:bg-fennec-cream/25 border border-fennec-cream/70 text-fennec-dark hover:text-fennec-terracotta'
@@ -219,7 +219,7 @@ export default function App() {
                 <div className="flex justify-center mb-8 border-b border-fennec-cream pb-6 gap-2">
                   <button
                     onClick={() => setActiveVertical('health')}
-                    className={`px-5 py-2.5 rounded-full font-display font-extrabold text-sm transition-all ${
+                    className={`w-1/2 sm:w-auto text-center px-5 py-2.5 rounded-full font-display font-extrabold text-sm transition-all ${
                       activeVertical === 'health'
                         ? 'bg-fennec-dark text-white shadow-xs'
                         : 'text-fennec-dark/70 hover:bg-fennec-cream/30'
@@ -229,7 +229,7 @@ export default function App() {
                   </button>
                   <button
                     onClick={() => setActiveVertical('life')}
-                    className={`px-5 py-2.5 rounded-full font-display font-extrabold text-sm transition-all ${
+                    className={`w-1/2 sm:w-auto text-center px-5 py-2.5 rounded-full font-display font-extrabold text-sm transition-all ${
                       activeVertical === 'life'
                         ? 'bg-fennec-dark text-white shadow-xs'
                         : 'text-fennec-dark/70 hover:bg-fennec-cream/30'
@@ -480,7 +480,7 @@ export default function App() {
               setCurrentTab('health-comparator');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="flex-1 py-3 px-3.5 bg-fennec-red hover:bg-red-600 text-white font-display font-extrabold text-[11px] rounded-xl flex items-center justify-center space-x-1 shadow-md shadow-fennec-red/20 transition-all active:scale-95"
+            className="flex-1 w-1/2 py-3 px-2 bg-fennec-red hover:bg-red-600 text-white font-display font-extrabold text-[11px] rounded-xl flex items-center justify-center space-x-1 shadow-md shadow-fennec-red/20 transition-all active:scale-95"
           >
             <Sparkles className="w-3.5 h-3.5" />
             <span>Assurance Maladie</span>
@@ -490,7 +490,7 @@ export default function App() {
               setCurrentTab('life-comparator');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="flex-1 py-3 px-3.5 bg-fennec-dark hover:bg-fennec-terracotta text-white font-display font-extrabold text-[11px] rounded-xl flex items-center justify-center space-x-1 shadow-md shadow-fennec-dark/20 transition-all active:scale-95"
+            className="flex-1 w-1/2 py-3 px-2 bg-fennec-dark hover:bg-fennec-terracotta text-white font-display font-extrabold text-[11px] rounded-xl flex items-center justify-center space-x-1 shadow-md shadow-fennec-dark/20 transition-all active:scale-95"
           >
             <ArrowUpRight className="w-3.5 h-3.5" />
             <span>Vie / 3e Pilier</span>
