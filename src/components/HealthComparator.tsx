@@ -13,6 +13,7 @@ import {
   getInsurerModelFallbackName, 
   lookupPremium 
 } from '../utils/premiumLookupService';
+import { fetchOfficialPremiums } from '../services/priminfoService';
 import fenyWinking from '../assets/images/feny_winking_1783331270164.jpg';
 import fenyThinking from '../assets/images/feny_thinking_1783331247759.jpg';
 import fenyAvatar from '../assets/images/feny_avatar_1783331224698.jpg';
@@ -221,106 +222,30 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
       if (!filters.zipCode || filters.zipCode.length !== 4) return;
       setLoadingReal(true);
       try {
-        const accidentVal = filters.accidentCoverage ? '1' : '0';
-        const res = await fetch(`/api/priminfo/praemien?zipCode=${filters.zipCode}&franchise=${filters.franchise}&ageCategory=${filters.ageCategory}&accident=${accidentVal}`);
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        const responseData = await res.json();
-        if (active && responseData && responseData.success && Array.isArray(responseData.data)) {
-          setRealPremiums(responseData.data);
-          
+        const results = await fetchOfficialPremiums({
+          zipCode: filters.zipCode,
+          franchise: filters.franchise,
+          ageCategory: filters.ageCategory,
+          accidentCoverage: filters.accidentCoverage,
+          model: filters.model
+        });
+
+        if (active) {
+          setRealPremiums(results);
+
           // Automatically set user's default current premium to their matched current caisse rate if they haven't modified it manually
-          const matchedCurrent = responseData.data.find(
+          const matchedCurrent = results.find(
             (rp: any) => rp.insurerId === currentCaisseId && rp.modelType === filters.model
-          ) || responseData.data.find(
+          ) || results.find(
             (rp: any) => rp.insurerId === currentCaisseId
           );
-          
+
           if (matchedCurrent && !userHasEditedCurrentPremium) {
             setCurrentPremiumInput(Math.round(matchedCurrent.premium));
           }
-        } else {
-          throw new Error("Invalid response format");
         }
       } catch (err) {
-        console.warn("[FetchRealPremiums] Backend API is unavailable, falling back to local client-side JSON database lookup...", err);
-        
-        try {
-          if (!cachedClientDb) {
-            const dbRes = await fetch('/premiums_2026.json');
-            if (dbRes.ok) {
-              cachedClientDb = await dbRes.json();
-            } else {
-              throw new Error(`Failed to load static premiums JSON file (status ${dbRes.status})`);
-            }
-          }
-
-          if (cachedClientDb && active) {
-            const cleanZip = String(filters.zipCode).trim();
-            const cleanFranchise = filters.franchise;
-            const cleanAgeCategory = filters.ageCategory;
-            const cleanAccident = filters.accidentCoverage;
-
-            const zipInfo = resolveZipCode(cleanZip);
-            if (zipInfo) {
-              const canton = zipInfo.canton;
-              const zone = zipInfo.zone;
-              const region = getRegionCode(canton, zone);
-
-              const activeInsurers = [
-                'assura', 'css', 'helsana', 'swica', 'visana', 
-                'sanitas', 'concordia', 'kpt', 'mutuel', 'okk', 
-                'sympany', 'atupri'
-              ];
-
-              const modelTypes: ('standard' | 'family' | 'hmo' | 'telemed')[] = [
-                'standard', 'family', 'hmo', 'telemed'
-              ];
-
-              const results: any[] = [];
-
-              for (const insurerId of activeInsurers) {
-                for (const modelType of modelTypes) {
-                  const record = lookupPremium(cachedClientDb, {
-                    insurerId,
-                    canton,
-                    region,
-                    ageCategory: cleanAgeCategory,
-                    deductible: cleanFranchise,
-                    model: modelType,
-                    accidentCoverage: cleanAccident
-                  });
-
-                  if (record) {
-                    results.push({
-                      insurerId,
-                      insurerName: getInsurerDisplayName(insurerId),
-                      modelName: record.modelName || getInsurerModelFallbackName(insurerId, modelType),
-                      modelType,
-                      premium: record.premium
-                    });
-                  }
-                }
-              }
-
-              setRealPremiums(results);
-
-              // Automatically set user's default current premium to their matched current caisse rate if they haven't modified it manually
-              const matchedCurrent = results.find(
-                (rp: any) => rp.insurerId === currentCaisseId && rp.modelType === filters.model
-              ) || results.find(
-                (rp: any) => rp.insurerId === currentCaisseId
-              );
-              
-              if (matchedCurrent && !userHasEditedCurrentPremium) {
-                setCurrentPremiumInput(Math.round(matchedCurrent.premium));
-              }
-            }
-          }
-        } catch (fallbackErr) {
-          console.error("[FetchRealPremiumsFallbackError]", fallbackErr);
-        }
+        console.error("[HealthComparator] Failed to fetch premiums:", err);
       } finally {
         if (active) setLoadingReal(false);
       }
