@@ -507,7 +507,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
         <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-semibold text-fennec-dark/60 max-w-lg mx-auto">
           <span className="flex items-center text-emerald-700">
             <PiggyBank className="w-4 h-4 mr-1.5 text-emerald-500 shrink-0" />
-            Jusqu'à CHF 2'000 d'économie fiscale par an
+            Jusqu'à CHF 3'000 d'économie fiscale par an pour les salariés
           </span>
           <span className="flex items-center text-emerald-700">
             <Calculator className="w-4 h-4 mr-1.5 text-emerald-500 shrink-0" />

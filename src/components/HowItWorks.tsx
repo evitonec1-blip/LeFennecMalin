@@ -22,7 +22,7 @@ export default function HowItWorks() {
     {
       num: "2",
       title: "Remplissez",
-      desc: "Indiquez votre canton et profil en 30 secondes chrono.",
+      desc: "Indiquez votre canton et profil en deux minutes.",
       icon: <FileText className="w-6 h-6 text-fennec-dark" />,
       avatar: fenyAnalyse
     },
@@ -36,7 +36,7 @@ export default function HowItWorks() {
     {
       num: "4",
       title: "Économisez",
-      desc: "Épargnez jusqu'à CHF 2'400/an sans frais d'intermédiaires !",
+      desc: "Épargnez jusqu'à CHF 3'000.- par an sans frais d'intermédiaires !",
       icon: <TrendingDown className="w-6 h-6 text-white" />,
       avatar: fenyResults
     }

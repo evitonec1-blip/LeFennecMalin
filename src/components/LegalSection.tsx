@@ -31,27 +31,27 @@ export default function LegalSection({ mode }: LegalSectionProps) {
         <div className="space-y-6 text-sm text-fennec-dark/80 leading-relaxed">
           <section className="space-y-2">
             <h3 className="font-display font-bold text-lg text-fennec-dark">1. Éditeur du site</h3>
-            <p>
-              Le site internet <strong>lefennecmalin.ch</strong> est édité par la société fictive de démonstration et développement <strong>Le Fennec Malin Sàrl</strong>, dont le siège social est situé à Lausanne, Suisse.
+            <p className="text-justify">
+              Le site internet <strong>lefennecmalin.ch</strong> est édité par la société <strong>SAITHAMA Sàrl</strong> dont le siège social est situé à Cheseaux-sur-Lausanne, Suisse.
             </p>
             <p className="font-mono text-xs text-fennec-brown">
-              Registre du commerce du canton de Vaud : CHE-458.120.588 MWST / IDE<br />
-              Email : contact@lefennecmalin.ch<br />
-              Téléphone : +41 (0) 21 588 05 20
+              Registre du commerce du canton de Vaud : CHE-272.095.360<br />
+              Email : contact@leadsempire.ch<br />
+              Téléphone : +41 76 699 58 58
             </p>
           </section>
 
           <section className="space-y-2">
             <h3 className="font-display font-bold text-lg text-fennec-dark">2. Hébergement</h3>
-            <p>
-              Le site est hébergé en Suisse/Europe sur des infrastructures sécurisées Cloud Run de démonstration. L'ensemble des données transitant par le biais de nos formulaires de comparaison est chiffré de bout en bout (SSL/TLS).
+            <p className="text-justify">
+              Le site internet est hébergé sur des serveurs hautement sécurisés situés en Europe (Google Cloud Platform, région Europe, conformes à la nLPD suisse et au RGPD européen), assurant ainsi que vos données restent stockées de manière souveraine sur le continent européen.
             </p>
           </section>
 
           <section className="space-y-2">
             <h3 className="font-display font-bold text-lg text-fennec-dark">3. Propriété intellectuelle</h3>
-            <p>
-              La marque <strong>FENNY</strong>, le logo Fenny, sa charte graphique, les expressions faciales, les poses et l'univers du mascot "Fenny le fennec malin" ainsi que l'ensemble des textes originaux rédigés sur le site sont la propriété exclusive de Le Fennec Malin Sàrl. Toute reproduction sans accord écrit préalable est interdite.
+            <p className="text-justify">
+              La marque <strong>FENNY</strong>, le logo Fenny, sa charte graphique, les expressions faciales, les poses et l'univers de la mascotte "Fenny le fennec malin" ainsi que l'ensemble des textes originaux rédigés sur le site sont la propriété exclusive de <strong>SAITHAMA Sàrl</strong>. Toute reproduction sans accord écrit préalable est interdite.
             </p>
           </section>
 

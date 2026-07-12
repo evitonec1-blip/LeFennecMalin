@@ -31,7 +31,7 @@ export default function AboutSection() {
           <p className="text-base text-fennec-dark/80 leading-relaxed italic">
             "Malin, pour vous. Proche de vous."
           </p>
-          <p className="text-base text-fennec-dark/80 leading-relaxed">
+          <p className="text-base text-fennec-dark/80 leading-relaxed text-justify">
             Je suis le porte-parole et la mascotte officielle de <strong>Le Fennec Malin</strong>, votre comparateur suisse en assurances et finance de référence. Mon but ? Simplifier la vie des ménages suisses et les aider à économiser sans sacrifier leur protection.
           </p>
         </div>
@@ -43,7 +43,7 @@ export default function AboutSection() {
           <h3 className="font-display font-bold text-2xl text-fennec-dark">
             Pourquoi avoir choisi un Fennec ?
           </h3>
-          <p className="text-sm text-fennec-dark/85 leading-relaxed">
+          <p className="text-sm text-fennec-dark/85 leading-relaxed text-justify">
             Le fennec, ou renard des sables, est un animal fascinant doté de caractéristiques exceptionnelles qui correspondent trait pour trait à un excellent comparateur d'assurances :
           </p>
           
@@ -107,7 +107,7 @@ export default function AboutSection() {
               </div>
               <div>
                 <h5 className="font-display font-bold text-sm text-fennec-dark">Fiabilité helvétique</h5>
-                <p className="text-xs text-fennec-dark/70">Calculs précis basés sur les barèmes de l'OFSP suisse.</p>
+                <p className="text-xs text-fennec-dark/70 text-justify">Calculs précis basés sur les barèmes de l'OFSP & Priminfo suisses.</p>
               </div>
             </div>
 
@@ -131,8 +131,8 @@ export default function AboutSection() {
           <h4 className="font-display font-extrabold text-2xl md:text-3xl text-white">
             Un comparateur gratuit, comment est-ce possible ?
           </h4>
-          <p className="text-sm md:text-base text-fennec-cream/90 leading-relaxed">
-            Pour maintenir ce comparateur entièrement indépendant et gratuit, nous collaborons avec des assureurs partenaires. Si vous décidez de souscrire à une offre par notre intermédiaire, nous percevons une commission de leur part. 
+          <p className="text-sm md:text-base text-fennec-cream/90 leading-relaxed text-justify">
+            Pour maintenir ce comparateur entièrement indépendant et gratuit, nous collaborons avec des assureurs partenaires. Si vous décidez de souscrire à une offre par notre intermédiaire, nous pouvons percevoir une rémunération d’apporteur d’adresses de la part de nos assureurs partenaires. 
           </p>
           <p className="text-sm text-fennec-sand font-semibold flex items-start">
             <AlertCircle className="w-4 h-4 mr-2 shrink-0 mt-0.5" />

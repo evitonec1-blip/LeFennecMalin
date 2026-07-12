@@ -160,7 +160,7 @@ export default function Footer({ onTabChange }: FooterProps) {
                 Conformément à la loi fédérale sur l'assurance-maladie (LAMal), les prestations de base de l'assurance obligatoire sont strictement identiques d'un assureur à l'autre. Seules les primes mensuelles et le service de remboursement diffèrent.
               </p>
               <p className="mt-2 text-[10px]">
-                *Divulgation de transparence : Afin de vous garantir un service entièrement gratuit et dénué de publicité intrusive, nous pouvons percevoir une commission de la part de nos assureurs partenaires lors de l'établissement d'une offre. Cela n'impacte en aucun cas le tarif de votre prime (neutralité tarifaire garantie).
+                *Divulgation de transparence : Afin de vous garantir un service entièrement gratuit et dénué de publicité intrusive, nous pouvons percevoir une rémunération d’apporteur d’adresses de la part de nos assureurs partenaires lors de l'établissement d'une offre. Cela n'impacte en aucun cas le tarif de votre prime (neutralité tarifaire garantie).
               </p>
             </div>
           </div>
@@ -202,7 +202,7 @@ export default function Footer({ onTabChange }: FooterProps) {
 
         {/* Crafted indication as per human, literal design values */}
         <div className="pt-6 text-center text-[10px] text-fennec-cream/30 flex items-center justify-center">
-          <span>Propulsé par Fenny — Malin, fiable et proche des Suisses</span>
+          <span>Propulsé par Fenny — Malin, fiable et proche de vous</span>
           <Heart className="w-3 h-3 ml-1 text-fennec-red fill-current" />
         </div>
 

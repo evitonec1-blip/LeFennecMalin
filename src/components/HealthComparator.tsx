@@ -637,7 +637,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
           </span>
           <span className="flex items-center text-emerald-700">
             <CheckCircle2 className="w-4 h-4 mr-1.5 text-emerald-500 shrink-0" />
-            Données officielles OFSP 2026
+            Données officielles OFSP & Priminfo 2026
           </span>
           <span className="flex items-center text-emerald-700">
             <CheckCircle2 className="w-4 h-4 mr-1.5 text-emerald-500 shrink-0" />

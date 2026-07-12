@@ -1,0 +1,86 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import React, { useState, useEffect } from 'react';
+import { Shield, Check, X, Info } from 'lucide-react';
+
+export default function CookieConsent() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    // Check if user already responded
+    const consent = localStorage.getItem('fennec_cookie_consent');
+    if (!consent) {
+      // Show with a slight delay for better experience
+      const timer = setTimeout(() => {
+        setVisible(true);
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  const handleAcceptAll = () => {
+    localStorage.setItem('fennec_cookie_consent', 'accepted_all');
+    setVisible(false);
+  };
+
+  const handleDeclineAll = () => {
+    localStorage.setItem('fennec_cookie_consent', 'declined_all');
+    setVisible(false);
+  };
+
+  if (!visible) return null;
+
+  return (
+    <div className="fixed bottom-6 right-6 left-6 md:left-auto md:max-w-md z-50 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="bg-white/95 backdrop-blur-md rounded-2xl border-2 border-fennec-cream/80 shadow-2xl p-6 text-left flex flex-col space-y-4">
+        
+        {/* Header Block */}
+        <div className="flex items-start space-x-3">
+          <div className="p-2.5 bg-fennec-cream/60 rounded-xl text-fennec-terracotta shrink-0">
+            <Shield className="w-5 h-5" />
+          </div>
+          <div className="space-y-1">
+            <h4 className="font-display font-bold text-sm text-fennec-dark">
+              Respect de votre vie privée
+            </h4>
+            <p className="text-xs text-fennec-dark/40 uppercase tracking-wider font-extrabold">
+              Conformité nLPD & RGPD
+            </p>
+          </div>
+        </div>
+
+        {/* Core Message */}
+        <p className="text-xs text-fennec-dark/80 leading-relaxed text-justify">
+          Le Fennec Malin utilise des cookies essentiels au bon fonctionnement technique de nos comparateurs d'assurances suisses, ainsi que des mesures d'audience anonymes pour améliorer votre expérience. Aucune donnée n'est revendue à des tiers.
+        </p>
+
+        {/* Buttons Action Lockup */}
+        <div className="flex flex-col sm:flex-row gap-2 pt-2">
+          <button
+            id="cookie-decline-btn"
+            onClick={handleDeclineAll}
+            className="flex-1 px-4 py-2 bg-fennec-cream/20 hover:bg-fennec-cream/50 text-fennec-dark/80 font-display font-semibold text-xs rounded-xl transition-all border border-fennec-cream/40"
+          >
+            Refuser
+          </button>
+          <button
+            id="cookie-accept-btn"
+            onClick={handleAcceptAll}
+            className="flex-1 px-4 py-2 bg-fennec-terracotta hover:bg-fennec-dark text-white font-display font-bold text-xs rounded-xl transition-all shadow-xs"
+          >
+            Tout Accepter
+          </button>
+        </div>
+
+        <div className="text-[10px] text-fennec-dark/50 text-center flex items-center justify-center space-x-1">
+          <Info className="w-3 h-3 text-fennec-brown" />
+          <span>Garanti 100% anonyme & sécurisé</span>
+        </div>
+
+      </div>
+    </div>
+  );
+}

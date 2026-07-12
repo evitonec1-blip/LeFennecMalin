@@ -97,9 +97,6 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-2">
-            <div className="flex items-center text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100 mr-1">
-              2026
-            </div>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-lg text-fennec-dark hover:bg-fennec-cream/30 hover:text-fennec-terracotta focus:outline-none"
@@ -135,7 +132,7 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
             <div className="pt-4 border-t border-fennec-cream/30 flex flex-col space-y-3">
               <div className="flex items-center justify-center text-xs font-semibold text-emerald-700 bg-emerald-50 py-2 rounded-lg border border-emerald-100">
                 <Shield className="w-4 h-4 mr-1.5 text-emerald-600" />
-                Données officielles OFSP 2026
+                Données officielles OFSP / Priminfo 2026
               </div>
               <button
                 onClick={() => handleNavClick('health-comparator')}

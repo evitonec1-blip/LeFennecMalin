@@ -20,9 +20,9 @@ export default function ProductsGrid({ onTabChange }: ProductsGridProps) {
       id: 'health-comparator' as AppTab,
       icon: <Activity className="w-8 h-8 text-fennec-terracotta" />,
       title: "Assurance Maladie (LAMal)",
-      tagline: "Économisez jusqu'à CHF 2'400.- par an",
-      desc: "Comparez les primes 2026 de l'ensemble des caisses-maladie agréées par l'OFSP. Choisissez le modèle médecin de famille, HMO ou Telmed le plus avantageux pour votre canton.",
-      badge: "Données officielles 2026",
+      tagline: "",
+      desc: "Comparez les primes 2026 de l'ensemble des caisses-maladie agréées par l'OFSP & Priminfo. Choisissez le modèle médecin de famille, HMO ou Telmed le plus avantageux pour votre canton.",
+      badge: "Données officielles OFSP & Priminfo 2026",
       badgeColor: "bg-emerald-100 text-emerald-800 border-emerald-200",
       cta: "Comparer les primes",
       image: fenyAnalyse,
@@ -120,9 +120,11 @@ export default function ProductsGrid({ onTabChange }: ProductsGridProps) {
               <h3 className="font-display font-bold text-2xl text-fennec-dark mb-1 group-hover:text-fennec-terracotta transition-colors">
                 {p.title}
               </h3>
-              <p className="text-sm font-bold text-fennec-terracotta mb-4">
-                {p.tagline}
-              </p>
+              {p.tagline && (
+                <p className="text-sm font-bold text-fennec-terracotta mb-4">
+                  {p.tagline}
+                </p>
+              )}
               <p className="text-sm text-fennec-dark/75 leading-relaxed">
                 {p.desc}
               </p>

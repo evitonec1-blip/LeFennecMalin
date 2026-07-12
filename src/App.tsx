@@ -16,7 +16,8 @@ import FAQSection from './components/FAQSection';
 import LegalSection from './components/LegalSection';
 import HealthComparator from './components/HealthComparator';
 import LifePensionComparator from './components/LifePensionComparator';
-import { ArrowRight, ShieldCheck, HelpCircle, ArrowUpRight, Scale, Sparkles, CheckCircle } from 'lucide-react';
+import CookieConsent from './components/CookieConsent';
+import { ArrowRight, ShieldCheck, HelpCircle, ArrowUpRight, Scale, Sparkles, CheckCircle, Calendar } from 'lucide-react';
 import gsap from 'gsap';
 
 import fenyAnalyse from './assets/images/feny_analyse_1783331235825.jpg';
@@ -105,8 +106,9 @@ export default function App() {
                     
                     {/* Badge */}
                     <div className="hero-animate opacity-0 inline-flex items-center space-x-2 bg-fennec-cream/50 border border-fennec-cream px-3.5 py-1.5 rounded-full text-xs font-bold text-fennec-dark shadow-3xs">
-                      <span className="w-2 h-2 rounded-full bg-fennec-red animate-pulse" />
-                      <span>Comparatifs validés et mis à jour le 5 Juillet 2026</span>
+                      <Calendar className="w-3.5 h-3.5 text-emerald-600" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      <span>Mise à jour quotidienne • Comparatifs validés (OFSP & Priminfo 2026)</span>
                     </div>
 
                     {/* Headline */}
@@ -118,8 +120,8 @@ export default function App() {
                     </h1>
 
                     {/* Subheading */}
-                    <p className="hero-animate opacity-0 text-base sm:text-lg text-fennec-dark/80 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                      Données officielles OFSP 2026. Gratuit, 100% indépendant de tout assureur, et conforme à la nLPD suisse. Fenny s'occupe de trier pour dénicher les offres les plus adaptées.
+                    <p className="hero-animate opacity-0 text-base sm:text-lg text-fennec-dark/80 max-w-2xl mx-auto lg:mx-0 leading-relaxed text-justify">
+                      Données officielles OFSP & Priminfo 2026. Gratuit, 100% indépendant de tout assureur, et conforme à la nLPD suisse. Fenny s'occupe de trier pour dénicher les offres les plus adaptées.
                     </p>
 
                     {/* Three Inline Stats Strip */}
@@ -140,12 +142,15 @@ export default function App() {
                           Assureurs Vie
                         </span>
                       </div>
-                      <div className="bg-white p-3.5 rounded-2xl border border-fennec-cream/40 shadow-2xs text-center">
-                        <span className="font-display font-black text-xl md:text-2xl text-fennec-red block">
-                          2'400.-
+                      <div className="bg-white p-3.5 rounded-2xl border border-fennec-cream/40 shadow-2xs text-center flex flex-col justify-center items-center">
+                        <span className="font-display font-black text-xs md:text-sm text-fennec-red block uppercase tracking-wide leading-none">
+                          Jusqu'à
                         </span>
-                        <span className="text-[10px] text-fennec-dark/60 font-semibold uppercase tracking-wider block mt-0.5">
-                          Économies max / an
+                        <span className="font-display font-black text-sm md:text-base text-fennec-red block uppercase tracking-tight py-0.5">
+                          CHF 3'000.-
+                        </span>
+                        <span className="text-[9px] text-fennec-dark/60 font-bold uppercase tracking-wider block">
+                          par an
                         </span>
                       </div>
                     </div>
@@ -371,10 +376,10 @@ export default function App() {
                   </div>
                   <div>
                     <h4 className="font-display font-extrabold text-lg text-white">
-                      Vous économisez ? C'est notre plus grande réussite !
+                      Vous économisez et êtes bien assuré ? C’est notre plus grande réussite !
                     </h4>
                     <p className="text-xs text-fennec-cream/80 max-w-xl">
-                      Rejoignez les dizaines de familles suisses qui ont revu leur budget prévoyance et maladie cette année grâce à nos simulateurs.
+                      Rejoignez les centaines de familles qui ont revu leur budget prévoyance et maladie cette année grâce à nos simulateurs.
                     </p>
                   </div>
                 </div>
@@ -400,12 +405,12 @@ export default function App() {
                 
                 <div className="space-y-4">
                   <h3 className="font-display font-extrabold text-2xl text-fennec-dark">
-                    Un comparateur d'assurance maladie rapide, efficace et transparent en Suisse
+                    Un comparateur d'assurance maladie rapide, efficace et transparent
                   </h3>
-                  <p className="text-sm text-fennec-dark/80 leading-relaxed">
-                    Chaque année, l'annonce des primes maladie par l'Office fédéral de la santé publique (OFSP) suscite d'importantes interrogations au sein des foyers romands. Les augmentations constantes pèsent lourdement sur le pouvoir d'achat. C'est ici que <strong>Le Fennec Malin</strong> intervient. Notre plateforme simule en temps réel les barèmes exacts de l'ensemble des 37 compagnies agréées par l'État (LAMal). 
+                  <p className="text-sm text-fennec-dark/80 leading-relaxed text-justify">
+                    Chaque année, l'annonce des primes maladie par l'Office fédéral de la santé publique (OFSP) suscite d'importantes interrogations au sein des foyers. Les augmentations constantes pèsent lourdement sur le pouvoir d'achat. C'est ici que <strong>Le Fennec Malin</strong> intervient. Notre plateforme simule en temps réel les barèmes exacts de l'ensemble des 37 compagnies agréées par l'État (LAMal). 
                   </p>
-                  <p className="text-sm text-fennec-dark/80 leading-relaxed">
+                  <p className="text-sm text-fennec-dark/80 leading-relaxed text-justify">
                     Qu'il s'agisse de comparer les modèles HMO, Telmed ou le médecin de famille traditionnel, ou d'analyser l'incidence de l'augmentation de la franchise de CHF 300 à CHF 2'500, Fenny trie les options en toute transparence. Puisque les prestations de base sont réglementées de manière identique, notre comparateur vous aide à repérer l'assureur le moins cher de votre région sans sacrifier la qualité de vos remboursements.
                   </p>
                 </div>
@@ -414,10 +419,10 @@ export default function App() {
                   <h3 className="font-display font-extrabold text-2xl text-fennec-dark">
                     3ème Pilier suisse : Le guide de référence pour votre prévoyance privée
                   </h3>
-                  <p className="text-sm text-fennec-dark/80 leading-relaxed">
+                  <p className="text-sm text-fennec-dark/80 leading-relaxed text-justify">
                     Préparer sa retraite est essentiel dans le système helvétique des trois piliers. Le premier pilier (AVS) et le deuxième pilier (LPP) ne suffisent souvent qu'à couvrir 60% de votre revenu antérieur. Le 3ème pilier constitue donc la solution indispensable pour maintenir votre confort de vie future tout en réalisant des économies d'impôt considérables dès aujourd'hui.
                   </p>
-                  <p className="text-sm text-fennec-dark/80 leading-relaxed">
+                  <p className="text-sm text-fennec-dark/80 leading-relaxed text-justify">
                     À travers nos modules, distinguez immédiatement les avantages du <strong>Pilier 3a (prévoyance liée)</strong>, entièrement déductible de votre revenu imposable jusqu'aux plafonds légaux de CHF 7'258 (salariés) ou CHF 36'288 (indépendants), et du <strong>Pilier 3b (prévoyance libre)</strong>, idéal pour une épargne flexible à court terme. Fenny vous aide à projeter votre capital selon votre profil et à obtenir une étude d'optimisation fiscale sur-mesure.
                   </p>
                 </div>
@@ -497,6 +502,9 @@ export default function App() {
           </button>
         </div>
       )}
+
+      {/* Cookie consent notice */}
+      <CookieConsent />
 
     </div>
   );

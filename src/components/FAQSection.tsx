@@ -18,12 +18,12 @@ export default function FAQSection() {
     {
       question: "Quelle est la différence entre l'assurance maladie obligatoire (LAMal) et complémentaire (LCA) ?",
       answer: (
-        <div className="space-y-2 text-sm text-fennec-dark/80 leading-relaxed">
+        <div className="space-y-2 text-sm text-fennec-dark/80 leading-relaxed text-justify">
           <p>
-            L'<strong>assurance obligatoire des soins (AOS / LAMal)</strong> est obligatoire pour toute personne résidant en Suisse. Ses prestations sont strictement identiques chez toutes les caisses maladie (définies par la loi fédérale). Seul le montant des primes varie selon l'assureur, la franchise et votre lieu de résidence.
+            L'<strong>assurance obligatoire des soins (AOS / LAMal)</strong> est obligatoire pour toute personne résidant ou travaillant en Suisse. Ses prestations sont strictement identiques chez toutes les caisses maladie (définies par la loi fédérale). Seul le montant des primes varie selon l'assureur, la franchise et votre lieu de résidence.
           </p>
           <p>
-            Les <strong>assurances complémentaires (LCA)</strong> sont facultatives. Elles couvrent des prestations non incluses dans la LAMal (médecines douces, lunettes, soins dentaires, chambre privée à l'hôpital, fitness). Les assureurs ont le droit de refuser votre affiliation sur la base d'un questionnaire de santé.
+            Les <strong>assurances complémentaires (LCA)</strong> sont facultatives. Elles couvrent et complètent des prestations non incluses dans la LAMal (médecines douces, lunettes, soins dentaires, chambre privée à l'hôpital, fitness). Les assureurs se réservent le droit d'accepter votre affiliation sur la base d'un questionnaire de santé.
           </p>
         </div>
       ),
@@ -91,7 +91,7 @@ export default function FAQSection() {
             <strong>Oui, absolument !</strong> L'utilisation du site, la simulation des primes maladie de votre canton et les comparatifs de rendement pour le 3ème pilier sont entièrement gratuits pour tous nos visiteurs.
           </p>
           <p>
-            Nous ne majorons jamais les prix des primes. Nous fonctionnons de manière transparente par le biais de commissions d'apport d'affaires que nous versent les assureurs partenaires en cas de signature. C'est ce modèle qui nous permet de rester indépendants de toute compagnie d'assurance et d'offrir nos services d'analyse et de comparaison à tous les Suisses.
+            Nous ne majorons jamais les prix des primes. Nous fonctionnons de manière transparente par le biais d’une rémunération d’apporteur d’adresses que nous versent les assureurs partenaires en cas de signature. C'est ce modèle qui nous permet de rester indépendants de toute compagnie d'assurance et d'offrir nos services d'analyse et de comparaison à tous les Suisses.
           </p>
         </div>
       ),
