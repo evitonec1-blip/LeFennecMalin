@@ -350,27 +350,16 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
         isRealData = true;
       }
 
-      // Safe, highly accurate mathematical fallback using our Swiss-rule formulaic calculator
-      // if no premium was fetched from the backend API or the local JSON file.
-      if (premium === 0) {
-        premium = calculateHealthPremium(
-          caisse,
-          filters.canton,
-          filters.ageCategory as any,
-          filters.franchise,
-          filters.model as any,
-          filters.accidentCoverage,
-          filters.zone
-        );
-      }
-
+      // We strictly ONLY return real official data. Fake calculations are illegal.
+      // If there is no real data found for this caisse, we skip it or return 0.
+      
       return {
         ...caisse,
         computedPremium: premium,
         realModelName: matchedModelName || undefined,
         isRealData: isRealData,
       };
-    });
+    }).filter(caisse => caisse.computedPremium > 0); // Filter out insurers with no real data
 
     // Sort results
     if (filters.sortBy === 'price') {
