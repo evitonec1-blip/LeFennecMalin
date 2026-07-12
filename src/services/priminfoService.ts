@@ -79,69 +79,8 @@ export async function fetchOfficialPremiums(query: PriminfoQuery): Promise<Premi
     );
 
     // Fallback: load and query the raw FOPH 2026 premiums database directly on the client.
-    try {
-      if (!clientPremiumsDbCache) {
-        const dbRes = await fetch('/premiums_2026.json');
-        if (!dbRes.ok) {
-          throw new Error(`Failed to load client-side FOPH premiums database (status ${dbRes.status})`);
-        }
-        clientPremiumsDbCache = await dbRes.json();
-      }
+    // Fallback disabled: we rely on the robust backend API.
 
-      if (clientPremiumsDbCache) {
-        const cleanZip = zipCode.trim();
-        const zipInfo = resolveZipCode(cleanZip);
-        if (!zipInfo) {
-          throw new Error(`ZIP code ${cleanZip} is invalid or unsupported under Swiss regulation`);
-        }
-
-        const canton = zipInfo.canton;
-        const zone = zipInfo.zone;
-        const region = getRegionCode(canton, zone);
-
-        const activeInsurers = [
-          'assura', 'css', 'helsana', 'swica', 'visana', 
-          'sanitas', 'concordia', 'kpt', 'mutuel', 'okk', 
-          'sympany', 'atupri'
-        ];
-
-        const modelTypes: ('standard' | 'family' | 'hmo' | 'telemed')[] = [
-          'standard', 'family', 'hmo', 'telemed'
-        ];
-
-        const results: PremiumOffer[] = [];
-
-        for (const insurerId of activeInsurers) {
-          for (const modelType of modelTypes) {
-            const record = lookupPremium(clientPremiumsDbCache, {
-              insurerId,
-              canton,
-              region,
-              ageCategory,
-              deductible: franchise,
-              model: modelType,
-              accidentCoverage
-            });
-
-            if (record) {
-              results.push({
-                insurerId,
-                insurerName: getInsurerDisplayName(insurerId),
-                modelName: record.modelName || getInsurerModelFallbackName(insurerId, modelType),
-                modelType,
-                premium: record.premium,
-                isRealData: true
-              });
-            }
-          }
-        }
-
-        return results;
-      }
-    } catch (fallbackErr) {
-      console.error("[PriminfoService] Critical failure in client fallback lookup:", fallbackErr);
-    }
-    
     // If all else fails, return an empty array (which will trigger formulaic calculators in components)
     return [];
   }

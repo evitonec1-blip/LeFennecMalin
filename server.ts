@@ -284,31 +284,37 @@ import {
 // Load 2026 premiums database from the public or dist folder
 let premiumsDb: Record<string, { premium: number; modelName: string }> = {};
 
-function loadPremiums() {
+// Use dynamic import for JSON to avoid CJS/ESM issues with require
+ 
+
+async function loadPremiums() {
   if (Object.keys(premiumsDb).length > 0) return premiumsDb;
-
   try {
-    const pathsToTry = [
-      path.join(process.cwd(), "public", "premiums_2026.json"),
-      path.join(process.cwd(), "dist", "premiums_2026.json"),
-                      ];
-
+    console.log("[Server] Loading local official 2026 premiums database...");
+    
+    // In Vercel serverless, the file is available at process.cwd() / public
+    const fs = await import('fs');
+    const path = await import('path');
+    const cwd = process.cwd();
+    const paths = [
+      path.join(cwd, "public", "premiums_2026.json"),
+      path.join(cwd, "dist", "premiums_2026.json"),
+      path.join(cwd, "..", "public", "premiums_2026.json")
+    ];
+    
     let loaded = false;
-    for (const dbPath of pathsToTry) {
-      if (fs.existsSync(dbPath)) {
-        console.log(`[Server] Loading local official 2026 premiums database from ${dbPath}...`);
-        const fileContent = fs.readFileSync(dbPath, "utf-8");
-        if (fileContent && fileContent.length > 0) {
-           premiumsDb = JSON.parse(fileContent);
-           console.log(`[Server] Successfully loaded ${Object.keys(premiumsDb).length} premium records.`);
-           loaded = true;
-           break;
-        }
-      }
+    for (const p of paths) {
+       if (fs.existsSync(p)) {
+          premiumsDb = JSON.parse(fs.readFileSync(p, 'utf-8'));
+          loaded = true;
+          break;
+       }
     }
     
     if (!loaded) {
-      console.warn("[Server] WARNING: Local premiums database not found in any of the expected locations.");
+       // Fallback for Vercel: fetch it from our own static host if req is provided,
+       // but since loadPremiums might be called without req, we just log warning.
+       console.warn("[Server] WARNING: Local premiums database not found on disk!");
     }
   } catch (err) {
     console.error("[Server] Error loading local premiums database:", err);
@@ -323,16 +329,33 @@ loadPremiums();
 // API endpoint for fetching local official premiums
 app.get("/api/priminfo/praemien", async (req, res) => {
   try {
-    
     // Ensure DB is loaded (crucial for Vercel cold starts)
     if (Object.keys(premiumsDb).length === 0) {
-      loadPremiums();
+      await loadPremiums();
     }
+    // Vercel static asset fallback
+    if (Object.keys(premiumsDb).length === 0) {
+       console.log("[Server] Falling back to Vercel static CDN fetch...");
+       const proto = req.headers['x-forwarded-proto'] || 'http';
+       const host = req.headers['x-forwarded-host'] || req.headers.host;
+       if (host) {
+          try {
+             const fallbackRes = await fetch(`${proto}://${host}/premiums_2026.json`);
+             if (fallbackRes.ok) {
+                premiumsDb = await fallbackRes.json();
+             }
+          } catch(e) {
+             console.error("Vercel CDN fallback fetch failed:", e);
+          }
+       }
+    }
+
     if (Object.keys(premiumsDb).length === 0) {
        return res.status(500).json({ error: "Internal Server Error: Could not load the premiums database." });
     }
 
     const { zipCode, franchise, ageCategory, accident } = req.query;
+    console.log("[Priminfo API] Processing proxy request for Swiss open data...");
 
     if (!zipCode) {
       return res.status(400).json({ error: "zipCode is required" });
