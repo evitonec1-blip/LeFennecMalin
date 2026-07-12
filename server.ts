@@ -9,7 +9,20 @@ dotenv.config();
 const app = express();
 const PORT = 3000;
 
+
 app.use(express.json());
+
+// Enable CORS for all routes (important for Vercel Serverless)
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+  next();
+});
+
 
 // API endpoint for form lead submission
 app.post("/api/submit-lead", async (req, res) => {
@@ -267,28 +280,58 @@ import {
   lookupPremium 
 } from "./src/utils/premiumLookupService";
 
+
 // Load 2026 premiums database from the public or dist folder
 let premiumsDb: Record<string, { premium: number; modelName: string }> = {};
 
-try {
-  let dbPath = path.join(process.cwd(), "public", "premiums_2026.json");
-  if (!fs.existsSync(dbPath)) {
-    dbPath = path.join(process.cwd(), "dist", "premiums_2026.json");
+function loadPremiums() {
+  if (Object.keys(premiumsDb).length > 0) return premiumsDb;
+
+  try {
+    const pathsToTry = [
+      path.join(process.cwd(), "public", "premiums_2026.json"),
+      path.join(process.cwd(), "dist", "premiums_2026.json"),
+                      ];
+
+    let loaded = false;
+    for (const dbPath of pathsToTry) {
+      if (fs.existsSync(dbPath)) {
+        console.log(`[Server] Loading local official 2026 premiums database from ${dbPath}...`);
+        const fileContent = fs.readFileSync(dbPath, "utf-8");
+        if (fileContent && fileContent.length > 0) {
+           premiumsDb = JSON.parse(fileContent);
+           console.log(`[Server] Successfully loaded ${Object.keys(premiumsDb).length} premium records.`);
+           loaded = true;
+           break;
+        }
+      }
+    }
+    
+    if (!loaded) {
+      console.warn("[Server] WARNING: Local premiums database not found in any of the expected locations.");
+    }
+  } catch (err) {
+    console.error("[Server] Error loading local premiums database:", err);
   }
-  if (fs.existsSync(dbPath)) {
-    console.log(`[Server] Loading local official 2026 premiums database from ${dbPath}...`);
-    premiumsDb = JSON.parse(fs.readFileSync(dbPath, "utf-8"));
-    console.log(`[Server] Successfully loaded ${Object.keys(premiumsDb).length} premium records.`);
-  } else {
-    console.warn("[Server] WARNING: Local premiums database not found in public or dist:", dbPath);
-  }
-} catch (err) {
-  console.error("[Server] Error loading local premiums database:", err);
+  return premiumsDb;
 }
+
+// Ensure it's loaded at startup if possible
+loadPremiums();
+
 
 // API endpoint for fetching local official premiums
 app.get("/api/priminfo/praemien", async (req, res) => {
   try {
+    
+    // Ensure DB is loaded (crucial for Vercel cold starts)
+    if (Object.keys(premiumsDb).length === 0) {
+      loadPremiums();
+    }
+    if (Object.keys(premiumsDb).length === 0) {
+       return res.status(500).json({ error: "Internal Server Error: Could not load the premiums database." });
+    }
+
     const { zipCode, franchise, ageCategory, accident } = req.query;
 
     if (!zipCode) {
