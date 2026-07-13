@@ -1,11 +1,11 @@
-import { checkApiHealth } from "./src/utils/checkApiHealth";
+import { checkApiHealth } from "./src/utils/checkApiHealth.js";
 import express from "express";
 import path from "path";
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
 import fs from "fs";
-import { resolveZipCode } from "./src/utils/swissZipCodes";
-import { getRegionCode, getInsurerDisplayName, getInsurerModelFallbackName, lookupPremium } from "./src/utils/premiumLookupService";
+import { resolveZipCode } from "./src/utils/swissZipCodes.js";
+import { getRegionCode, getInsurerDisplayName, getInsurerModelFallbackName, lookupPremium } from "./src/utils/premiumLookupService.js";
 
 // Load environment variables
 dotenv.config();
