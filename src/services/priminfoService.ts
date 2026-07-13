@@ -36,6 +36,91 @@ export interface PremiumOffer {
 // Client-side in-memory cache of the official 2026 premiums database
 let clientPremiumsDbCache: Record<string, { premium: number; modelName: string }> | null = null;
 
+// Circuit breaker state variables
+let consecutiveFailures = 0;
+let circuitBreakerLockedUntil = 0; // Timestamp (Date.now())
+const FAILURE_THRESHOLD = 3;
+const COOLDOWN_DURATION_MS = 5 * 60 * 1000; // 5 minutes
+
+/**
+ * Fetches and caches the local 2026 premiums database on the client-side.
+ */
+async function getClientPremiumsDb(): Promise<Record<string, { premium: number; modelName: string }>> {
+  if (clientPremiumsDbCache) {
+    return clientPremiumsDbCache;
+  }
+  try {
+    const res = await fetch("/premiums_2026.json");
+    if (!res.ok) {
+      throw new Error(`Failed to load premiums_2026.json (status ${res.status})`);
+    }
+    const data = await res.json();
+    clientPremiumsDbCache = data;
+    return data;
+  } catch (err) {
+    console.error("[PriminfoService] Error loading local client-side JSON cache:", err);
+    throw err;
+  }
+}
+
+/**
+ * Queries the local high-fidelity client-side JSON database.
+ */
+async function queryLocalCache(query: PriminfoQuery): Promise<PremiumOffer[]> {
+  const { zipCode, franchise, ageCategory, accidentCoverage } = query;
+  const zipInfo = resolveZipCode(zipCode);
+  if (!zipInfo) {
+    return [];
+  }
+  const canton = zipInfo.canton;
+  const zone = zipInfo.zone;
+  const region = getRegionCode(canton, zone);
+
+  const activeInsurers = [
+    'assura', 'css', 'helsana', 'swica', 'visana', 
+    'sanitas', 'concordia', 'kpt', 'mutuel', 'okk', 
+    'sympany', 'atupri'
+  ];
+
+  const modelTypes: ('standard' | 'family' | 'hmo' | 'telemed')[] = [
+    'standard', 'family', 'hmo', 'telemed'
+  ];
+
+  try {
+    const db = await getClientPremiumsDb();
+    const results: PremiumOffer[] = [];
+
+    for (const insurerId of activeInsurers) {
+      for (const modelType of modelTypes) {
+        const record = lookupPremium(db, {
+          insurerId,
+          canton,
+          region,
+          ageCategory,
+          deductible: franchise,
+          model: modelType,
+          accidentCoverage
+        });
+
+        if (record) {
+          results.push({
+            insurerId,
+            insurerName: getInsurerDisplayName(insurerId),
+            modelName: record.modelName || getInsurerModelFallbackName(insurerId, modelType),
+            modelType,
+            premium: record.premium,
+            isRealData: true
+          });
+        }
+      }
+    }
+    return results;
+  } catch (err) {
+    console.error("[PriminfoService] Local cache query failed:", err);
+    return [];
+  }
+}
+
 /**
  * Fetches real-time premiums from the official-emulated backend API.
  * Falls back to direct local JSON fetch of the official 2026 premiums list if backend is down.
@@ -80,10 +165,22 @@ async function fetchWithBackoff(url: string, retries = 3, delay = 500): Promise<
 }
 
 export async function fetchOfficialPremiums(query: PriminfoQuery): Promise<PremiumOffer[]> {
-  const { zipCode, franchise, ageCategory, accidentCoverage, model } = query;
+  const { zipCode, franchise, ageCategory, accidentCoverage } = query;
   
   if (!zipCode || zipCode.length !== 4) {
     return [];
+  }
+
+  // Check if circuit breaker is locked
+  const now = Date.now();
+  if (now < circuitBreakerLockedUntil) {
+    const remainingSeconds = Math.ceil((circuitBreakerLockedUntil - now) / 1000);
+    console.warn(
+      `[PriminfoService] Circuit breaker is ACTIVE (locked due to consistent 500 errors). ` +
+      `Bypassing network request. Remaining lock: ${remainingSeconds}s. ` +
+      `Immediately falling back to local high-fidelity JSON cache...`
+    );
+    return queryLocalCache(query);
   }
 
   const accidentVal = accidentCoverage ? '1' : '0';
@@ -96,6 +193,8 @@ export async function fetchOfficialPremiums(query: PriminfoQuery): Promise<Premi
     }
     const responseData = await res.json();
     if (responseData && responseData.success && Array.isArray(responseData.data)) {
+      // Success! Reset consecutive failure counter
+      consecutiveFailures = 0;
       return responseData.data.map((rp: any) => ({
         insurerId: rp.insurerId,
         insurerName: rp.insurerName,
@@ -107,17 +206,22 @@ export async function fetchOfficialPremiums(query: PriminfoQuery): Promise<Premi
     } else {
       throw new Error("Invalid response format from backend API");
     }
-  } catch (err) {
+  } catch (err: any) {
+    consecutiveFailures++;
     console.warn(
-      `[PriminfoService] Backend API /api/priminfo/praemien is unavailable. ` +
-      `Resolving with high-fidelity client-side local cache of official 2026 premiums...`,
-      err
+      `[PriminfoService] Backend API call failed (Consecutive failures: ${consecutiveFailures}/${FAILURE_THRESHOLD}). Error:`,
+      err.message || err
     );
 
-    // Fallback: load and query the raw FOPH 2026 premiums database directly on the client.
-    // Fallback disabled: we rely on the robust backend API.
+    if (consecutiveFailures >= FAILURE_THRESHOLD) {
+      circuitBreakerLockedUntil = Date.now() + COOLDOWN_DURATION_MS;
+      console.error(
+        `[PriminfoService] Circuit breaker TRIPPED! 3 consecutive failures reached. ` +
+        `Locking network API calls for 5 minutes (until ${new Date(circuitBreakerLockedUntil).toLocaleTimeString()}).`
+      );
+    }
 
-    // If all else fails, return an empty array (which will trigger formulaic calculators in components)
-    return [];
+    console.warn(`[PriminfoService] Falling back to high-fidelity client-side local JSON cache of 2026 premiums...`);
+    return queryLocalCache(query);
   }
 }

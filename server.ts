@@ -10,6 +10,11 @@ import { getRegionCode, getInsurerDisplayName, getInsurerModelFallbackName, look
 // Load environment variables
 dotenv.config();
 
+console.log(`[Startup Check] Environment status:
+- PRIMINFO_API_KEY is ${process.env.PRIMINFO_API_KEY ? "DEFINED" : "MISSING"}
+- SWISS_API_KEY is ${process.env.SWISS_API_KEY ? "DEFINED" : "MISSING"}
+- VERCEL environment is ${process.env.VERCEL ? "TRUE" : "FALSE"}`);
+
 const app = express();
 
 const PORT = 3000;
@@ -438,6 +443,21 @@ app.get("/api/debug-priminfo", async (req, res) => {
 
   }
 
+});
+
+app.get("/api/debug-config", (req, res) => {
+  const priminfoApiKeyPresent = typeof process.env.PRIMINFO_API_KEY === "string" && process.env.PRIMINFO_API_KEY.length > 0;
+  const swissApiKeyPresent = typeof process.env.SWISS_API_KEY === "string" && process.env.SWISS_API_KEY.length > 0;
+  
+  res.json({
+    success: true,
+    env: {
+      PRIMINFO_API_KEY: priminfoApiKeyPresent,
+      SWISS_API_KEY: swissApiKeyPresent,
+      NODE_ENV: process.env.NODE_ENV || "not-set",
+      VERCEL: !!process.env.VERCEL
+    }
+  });
 });
 
 export { app };
