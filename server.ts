@@ -1,7 +1,11 @@
+import { checkApiHealth } from "./src/utils/checkApiHealth";
 import express from "express";
 import path from "path";
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
+import fs from "fs";
+import { resolveZipCode } from "./src/utils/swissZipCodes";
+import { getRegionCode, getInsurerDisplayName, getInsurerModelFallbackName, lookupPremium } from "./src/utils/premiumLookupService";
 
 // Load environment variables
 dotenv.config();
@@ -264,21 +268,11 @@ Total économie fiscale sur le terme: CHF ${totalTaxSavings.toLocaleString()}.-
         info: "Lead logged to server console. To receive actual emails, configure your SMTP environment variables in your workspace settings."
       });
     }
-
   } catch (error: any) {
     console.error("[SubmitLeadError]", error);
     res.status(500).json({ error: error.message || "An error occurred while saving the lead." });
   }
 });
-
-import fs from "fs";
-import { resolveZipCode } from "./src/utils/swissZipCodes";
-import { 
-  getRegionCode, 
-  getInsurerDisplayName, 
-  getInsurerModelFallbackName, 
-  lookupPremium 
-} from "./src/utils/premiumLookupService";
 
 
 // Load 2026 premiums database from the public or dist folder.
@@ -290,7 +284,6 @@ let premiumsLoadError: string | null = null;
 async function loadPremiums() {
   if (Object.keys(premiumsDb).length > 0) return premiumsDb;
 
-  const path = await import('path');
   const cwd = process.cwd();
   const candidatePaths = [
     path.join(cwd, "public", "premiums_2026.json"),
@@ -411,6 +404,23 @@ app.get("/api/priminfo/praemien", async (req, res) => {
     console.error("[PremiumLookupError]", error);
     res.status(500).json({ error: error.message || "An error occurred while resolving premiums." });
   }
+});
+
+
+app.get("/api/health/priminfo", async (req, res) => {
+
+  try {
+
+    const result = await checkApiHealth();
+
+    res.json({ success: true, ...result });
+
+  } catch (error: any) {
+
+    res.status(500).json({ success: false, error: error.message });
+
+  }
+
 });
 
 export { app };
