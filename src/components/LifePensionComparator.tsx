@@ -2092,14 +2092,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                   
                   // Compute the top badge for this specific card
                   let badgeContent = null;
-                  if (offersTab === 'yield' && index === 0) {
-                    badgeContent = (
-                      <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-100 text-[10px] font-bold rounded-md flex items-center gap-1 shadow-3xs">
-                        <TrendingUp className="w-3 h-3 text-emerald-600" />
-                        Meilleur rendement projeté
-                      </span>
-                    );
-                  } else if (offersTab === 'guaranteed' && index === 0) {
+                  if (offersTab === 'guaranteed' && index === 0) {
                     badgeContent = (
                       <span className="px-2 py-0.5 bg-blue-50 text-blue-700 border border-blue-100 text-[10px] font-bold rounded-md flex items-center gap-1 shadow-3xs">
                         <Shield className="w-3 h-3 text-blue-600" />
@@ -2155,7 +2148,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                         </div>
 
                         {/* Middle: Projections metrics (Responsive Grid) */}
-                        <div className="grid grid-cols-2 gap-4 sm:gap-6 text-center lg:text-right w-full lg:w-auto border-y lg:border-y-0 lg:border-x border-fennec-cream/20 py-4 lg:py-0 lg:px-6">
+                        <div className="text-center lg:text-right w-full lg:w-auto border-y lg:border-y-0 lg:border-x border-fennec-cream/20 py-4 lg:py-0 lg:px-6">
                           <div>
                             <span className="text-[10px] font-bold text-fennec-brown uppercase block tracking-wider">
                               Capital Garanti
@@ -2167,30 +2160,10 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                               Taux technique légal
                             </span>
                           </div>
-
-                          <div>
-                            <span className="text-[10px] font-bold text-emerald-700 uppercase block tracking-wider">
-                              Capital Projeté (Fonds)
-                            </span>
-                            <span className="text-base sm:text-lg font-display font-black text-emerald-600 block">
-                              CHF {company.expectedSum.toLocaleString()}.-
-                            </span>
-                            <span className="text-[9px] text-fennec-dark/50 block">
-                              Intérêts composés inclus
-                            </span>
-                          </div>
                         </div>
 
                         {/* Right: CTA & Expand toggles */}
                         <div className="w-full lg:w-auto shrink-0 flex flex-col sm:flex-row lg:flex-col gap-2.5 items-stretch justify-center">
-                          <button
-                            onClick={() => handleOpenForm(company)}
-                            className="px-5 py-3 bg-fennec-dark hover:bg-fennec-terracotta text-white font-display font-bold text-xs rounded-full shadow-xs transition-colors inline-flex items-center justify-center min-h-[44px]"
-                          >
-                            <span>Simuler mon 3e pilier</span>
-                            <ChevronRight className="w-4 h-4 ml-1" />
-                          </button>
-                          
                           <button
                             onClick={() => setExpandedCompany(isExpanded ? null : company.id)}
                             className="px-4 py-2 border border-fennec-cream text-fennec-dark hover:bg-fennec-cream/20 font-display font-bold text-[10px] uppercase tracking-wider rounded-full transition-all inline-flex items-center justify-center min-h-[40px]"
