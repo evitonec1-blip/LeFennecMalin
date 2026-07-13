@@ -281,44 +281,48 @@ import {
 } from "./src/utils/premiumLookupService";
 
 
-// Load 2026 premiums database from the public or dist folder
+// Load 2026 premiums database from the public or dist folder.
+// This runs once at cold start; if it fails, premiumsLoadError explains why
+// instead of the route silently returning a generic, undiagnosable 500.
 let premiumsDb: Record<string, { premium: number; modelName: string }> = {};
-
-// Use dynamic import for JSON to avoid CJS/ESM issues with require
- 
+let premiumsLoadError: string | null = null;
 
 async function loadPremiums() {
   if (Object.keys(premiumsDb).length > 0) return premiumsDb;
-  try {
-    console.log("[Server] Loading local official 2026 premiums database...");
-    
-    // In Vercel serverless, the file is available at process.cwd() / public
-    const fs = await import('fs');
-    const path = await import('path');
-    const cwd = process.cwd();
-    const paths = [
-      path.join(cwd, "public", "premiums_2026.json"),
-      path.join(cwd, "dist", "premiums_2026.json"),
-      path.join(cwd, "..", "public", "premiums_2026.json")
-    ];
-    
-    let loaded = false;
-    for (const p of paths) {
-       if (fs.existsSync(p)) {
-          premiumsDb = JSON.parse(fs.readFileSync(p, 'utf-8'));
-          loaded = true;
-          break;
-       }
-    }
-    
-    if (!loaded) {
-       // Fallback for Vercel: fetch it from our own static host if req is provided,
-       // but since loadPremiums might be called without req, we just log warning.
-       console.warn("[Server] WARNING: Local premiums database not found on disk!");
-    }
-  } catch (err) {
-    console.error("[Server] Error loading local premiums database:", err);
+
+  const path = await import('path');
+  const cwd = process.cwd();
+  const candidatePaths = [
+    path.join(cwd, "public", "premiums_2026.json"),
+    path.join(cwd, "dist", "premiums_2026.json"),
+  ];
+  if (typeof __dirname !== "undefined") {
+    candidatePaths.push(path.join(__dirname, "public", "premiums_2026.json"));
+    candidatePaths.push(path.join(__dirname, "..", "public", "premiums_2026.json"));
   }
+
+  const existingPath = candidatePaths.find(p => fs.existsSync(p));
+
+  if (!existingPath) {
+    premiumsLoadError = `premiums_2026.json not found. Looked in: ${candidatePaths.join(", ")}`;
+    console.error(`[Server] ${premiumsLoadError}`);
+    return premiumsDb;
+  }
+
+  console.log(`[Server] Loading local official 2026 premiums database from ${existingPath}...`);
+  const raw = fs.readFileSync(existingPath, "utf-8");
+
+  try {
+    premiumsDb = JSON.parse(raw);
+    premiumsLoadError = null;
+    console.log(`[Server] Successfully loaded ${Object.keys(premiumsDb).length} premium records.`);
+  } catch (parseErr: any) {
+    // A corrupt/truncated file is a very different problem from a missing file -
+    // log the exact length and error so it's obvious in Vercel logs what happened.
+    premiumsLoadError = `premiums_2026.json at ${existingPath} is not valid JSON (file length: ${raw.length} chars): ${parseErr.message}`;
+    console.error(`[Server] ${premiumsLoadError}`);
+  }
+
   return premiumsDb;
 }
 
@@ -333,25 +337,14 @@ app.get("/api/priminfo/praemien", async (req, res) => {
     if (Object.keys(premiumsDb).length === 0) {
       await loadPremiums();
     }
-    // Vercel static asset fallback
-    if (Object.keys(premiumsDb).length === 0) {
-       console.log("[Server] Falling back to Vercel static CDN fetch...");
-       const proto = req.headers['x-forwarded-proto'] || 'http';
-       const host = req.headers['x-forwarded-host'] || req.headers.host;
-       if (host) {
-          try {
-             const fallbackRes = await fetch(`${proto}://${host}/premiums_2026.json`);
-             if (fallbackRes.ok) {
-                premiumsDb = await fallbackRes.json();
-             }
-          } catch(e) {
-             console.error("Vercel CDN fallback fetch failed:", e);
-          }
-       }
-    }
 
     if (Object.keys(premiumsDb).length === 0) {
-       return res.status(500).json({ error: "Internal Server Error: Could not load the premiums database." });
+       // Return the real reason instead of a generic message - this is what was
+       // missing before and made the 500 impossible to diagnose from the client.
+       return res.status(500).json({
+         error: "Could not load the premiums database.",
+         reason: premiumsLoadError || "Unknown error while loading premiums_2026.json"
+       });
     }
 
     const { zipCode, franchise, ageCategory, accident } = req.query;
@@ -449,4 +442,3 @@ async function startServer() {
 if (!process.env.VERCEL) {
   startServer();
 }
-
