@@ -11,6 +11,7 @@ import { getRegionCode, getInsurerDisplayName, getInsurerModelFallbackName, look
 dotenv.config();
 
 const app = express();
+
 const PORT = 3000;
 
 
@@ -408,6 +409,22 @@ app.get("/api/priminfo/praemien", async (req, res) => {
 
 
 app.get("/api/health/priminfo", async (req, res) => {
+
+  try {
+
+    const result = await checkApiHealth();
+
+    res.json({ success: true, ...result });
+
+  } catch (error: any) {
+
+    res.status(500).json({ success: false, error: error.message });
+
+  }
+
+});
+
+app.get("/api/debug-priminfo", async (req, res) => {
 
   try {
 

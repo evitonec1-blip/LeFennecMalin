@@ -43,6 +43,42 @@ let clientPremiumsDbCache: Record<string, { premium: number; modelName: string }
  * @param query Filters to query the official database
  * @returns Array of PremiumOffer
  */
+async function fetchWithBackoff(url: string, retries = 3, delay = 500): Promise<Response> {
+
+  try {
+
+    const res = await fetch(url);
+
+    if (!res.ok && res.status >= 500 && retries > 0) {
+
+      console.warn(`[PriminfoService] Server error ${res.status}. Retrying in ${delay}ms...`);
+
+      await new Promise(r => setTimeout(r, delay));
+
+      return fetchWithBackoff(url, retries - 1, delay * 2);
+
+    }
+
+    return res;
+
+  } catch (err) {
+
+    if (retries > 0) {
+
+      console.warn(`[PriminfoService] Network error. Retrying in ${delay}ms...`, err);
+
+      await new Promise(r => setTimeout(r, delay));
+
+      return fetchWithBackoff(url, retries - 1, delay * 2);
+
+    }
+
+    throw err;
+
+  }
+
+}
+
 export async function fetchOfficialPremiums(query: PriminfoQuery): Promise<PremiumOffer[]> {
   const { zipCode, franchise, ageCategory, accidentCoverage, model } = query;
   
@@ -54,7 +90,7 @@ export async function fetchOfficialPremiums(query: PriminfoQuery): Promise<Premi
   const url = `/api/priminfo/praemien?zipCode=${zipCode}&franchise=${franchise}&ageCategory=${ageCategory}&accident=${accidentVal}`;
 
   try {
-    const res = await fetch(url);
+    const res = await fetchWithBackoff(url);
     if (!res.ok) {
       throw new Error(`Backend response error (status ${res.status})`);
     }
