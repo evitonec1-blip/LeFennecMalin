@@ -54,6 +54,56 @@ const LIFE_ADVICE_MAP: Record<string, string> = {
   phone: "Votre mobile suisse valide permet à notre conseiller d'ajuster la simulation avec vos données communales réelles.",
 };
 
+function FormTooltip({ content }: { content: React.ReactNode }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const tooltipRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (tooltipRef.current && !tooltipRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
+
+  return (
+    <span ref={tooltipRef} className="relative inline-block ml-1.5 align-middle">
+      <button
+        type="button"
+        onMouseEnter={() => setIsOpen(true)}
+        onMouseLeave={() => setIsOpen(false)}
+        onClick={() => setIsOpen(!isOpen)}
+        className="text-fennec-brown/60 hover:text-fennec-terracotta transition-colors focus:outline-none p-0.5 rounded-full hover:bg-fennec-cream/20 cursor-help flex items-center justify-center"
+        aria-label="Plus d'informations"
+      >
+        <Info className="w-3.5 h-3.5" />
+      </button>
+      
+      <AnimatePresence>
+        {isOpen && (
+          <motion.span
+            initial={{ opacity: 0, y: 5, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 5, scale: 0.95 }}
+            transition={{ duration: 0.15 }}
+            className="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2 w-72 p-3 bg-fennec-dark text-white rounded-xl shadow-lg border border-fennec-cream/10 text-left text-xs leading-normal pointer-events-none font-sans font-normal normal-case block"
+          >
+            {content}
+            {/* Tooltip Arrow */}
+            <span className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-fennec-dark block" />
+          </motion.span>
+        )}
+      </AnimatePresence>
+    </span>
+  );
+}
+
 interface LifePensionComparatorProps {
   isEmbedded?: boolean;
   onStartQuiz?: () => void;
@@ -185,6 +235,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
   const progressBarRef = useRef<HTMLDivElement>(null);
   const globalProgressBarRef = useRef<HTMLDivElement>(null);
   const modalProgressRef = useRef<HTMLDivElement>(null);
+  const resultsContainerRef = useRef<HTMLDivElement>(null);
 
   // Feny advice tooltip state
   const [fenyAdvice, setFenyAdvice] = useState<string | null>(null);
@@ -197,6 +248,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
   const [analysisStage, setAnalysisStage] = useState<number>(0);
   const [showFiltersInline, setShowFiltersInline] = useState<boolean>(false);
   const [expandedCompany, setExpandedCompany] = useState<string | null>(null);
+  const [offersTab, setOffersTab] = useState<'all' | 'yield' | 'guaranteed' | 'partner'>('all');
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
@@ -368,7 +420,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
     });
 
     // Score and enrich each company with projections
-    return list.map((company) => {
+    const enriched = list.map((company) => {
       const estimate = getLifeInsuranceEstimate(
         company,
         filters.type,
@@ -405,7 +457,41 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
         taxSavingsPerYear: taxAndPayout.yearlyTaxSavings, // for backwards-compatibility
       };
     });
-  }, [filters, monthlyAmount, duration]);
+
+    // Sort based on the selected offers tab
+    if (offersTab === 'yield') {
+      return [...enriched].sort((a, b) => b.expectedSum - a.expectedSum);
+    } else if (offersTab === 'guaranteed') {
+      return [...enriched].sort((a, b) => b.guaranteedSum - a.guaranteedSum);
+    } else if (offersTab === 'partner') {
+      return [...enriched].sort((a, b) => {
+        if (a.isPartner && !b.isPartner) return -1;
+        if (!a.isPartner && b.isPartner) return 1;
+        return b.rating - a.rating;
+      });
+    }
+
+    return enriched;
+  }, [filters, monthlyAmount, duration, offersTab]);
+
+  // 6. GSAP-driven Staggered Reveal for results list cards
+  useEffect(() => {
+    if (!quizMode && !isAnalyzing && resultsContainerRef.current) {
+      const cards = resultsContainerRef.current.querySelectorAll('.pension-result-card');
+      if (cards.length > 0) {
+        gsap.killTweensOf(cards);
+        gsap.set(cards, { opacity: 0, y: 30 });
+        gsap.to(cards, {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.12,
+          ease: 'power3.out',
+          clearProps: 'opacity,transform'
+        });
+      }
+    }
+  }, [quizMode, isAnalyzing, offersTab, simulatedResults]);
 
   const handleFilterChange = <K extends keyof LifeFilterState>(key: K, value: LifeFilterState[K]) => {
     setFilters((prev) => ({
@@ -879,7 +965,17 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                               {/* Profession, Income & 2nd Pillar */}
                               <div className="space-y-4">
                                 <div className="space-y-1">
-                                  <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Statut professionnel</label>
+                                  <div className="flex items-center space-x-1">
+                                    <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Statut professionnel</label>
+                                    <FormTooltip content={
+                                      <div className="space-y-1.5 text-white">
+                                        <p className="font-bold text-fennec-terracotta">Impact sur le 3e Pilier :</p>
+                                        <p>• <strong>Salarié (avec LPP) :</strong> Plafond de cotisation annuel maximal fixé à <strong>CHF 7'258.-</strong> (en 2026).</p>
+                                        <p>• <strong>Indépendant (sans LPP) :</strong> Déduction jusqu'à 20% du gain d'exploitation net, max <strong>CHF 36'288.-</strong>.</p>
+                                        <p>• <strong>Sans activité :</strong> Pas de réduction fiscale sur le 3a (lié) mais le 3b reste totalement possible.</p>
+                                      </div>
+                                    } />
+                                  </div>
                                   <select
                                     value={filters.employmentStatus || 'salaried'}
                                     onChange={(e) => handleFilterChange('employmentStatus', e.target.value as any)}
@@ -892,7 +988,16 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                                 </div>
 
                                 <div className="space-y-1">
-                                  <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Revenu annuel brut (CHF)</label>
+                                  <div className="flex items-center space-x-1">
+                                    <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Revenu annuel brut (CHF)</label>
+                                    <FormTooltip content={
+                                      <div className="space-y-1.5 text-white">
+                                        <p className="font-bold text-fennec-terracotta font-sans">Progressivité de l'impôt :</p>
+                                        <p>En Suisse, le taux d'imposition augmente de façon progressive avec vos revenus.</p>
+                                        <p>Plus vos revenus sont importants, plus votre économie d'impôt réelle sera élevée en déduisant les cotisations de votre 3e Pilier (souvent entre 22% et 45% de gain fiscal direct !).</p>
+                                      </div>
+                                    } />
+                                  </div>
                                   <div className="relative">
                                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-xs font-bold text-fennec-brown/50">CHF</span>
                                     <input 
@@ -906,7 +1011,16 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                                 </div>
 
                                 <div className="space-y-1">
-                                  <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Déjà affilié à un 2ème pilier (LPP) ?</label>
+                                  <div className="flex items-center space-x-1">
+                                    <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Déjà affilié à un 2ème pilier (LPP) ?</label>
+                                    <FormTooltip content={
+                                      <div className="space-y-1.5 text-white">
+                                        <p className="font-bold text-fennec-terracotta font-sans">Caisse de pension (LPP) :</p>
+                                        <p>Si vous possédez une caisse de pension par votre employeur ou à titre personnel, votre plafond de cotisation 3a annuel est de <strong>CHF 7'258.-</strong>.</p>
+                                        <p>Si vous n'en possédez pas (indépendant ou sans activité), vous pouvez verser jusqu'à 20% de votre revenu d'activité lucrative net, max <strong>CHF 36'288.-</strong>.</p>
+                                      </div>
+                                    } />
+                                  </div>
                                   <div className="grid grid-cols-2 gap-2">
                                     {[true, false].map((val) => (
                                       <button
@@ -1909,15 +2023,111 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
 
               </div>
 
+              {/* Filter/Sorting Tab Bar */}
+              <div className="space-y-2.5">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-1 gap-2">
+                  <span className="text-[11px] font-bold uppercase text-fennec-brown tracking-wider block">
+                    Filtrer & Trier les offres 3e pilier
+                  </span>
+                  <span className="text-[10px] text-fennec-dark/60 block font-bold bg-fennec-cream/20 border border-fennec-cream px-2 py-0.5 rounded-md">
+                    {simulatedResults.length} assureurs disponibles
+                  </span>
+                </div>
+                
+                <div className="bg-white rounded-2xl border border-fennec-cream/40 p-1.5 shadow-3xs flex flex-wrap gap-1">
+                  <button
+                    onClick={() => setOffersTab('all')}
+                    className={`flex-1 min-w-[125px] text-center py-2.5 px-3.5 rounded-xl font-display font-extrabold text-xs transition-all flex items-center justify-center gap-1.5 ${
+                      offersTab === 'all'
+                        ? 'bg-fennec-dark text-white shadow-xs'
+                        : 'text-fennec-dark/70 hover:bg-fennec-cream/20'
+                    }`}
+                  >
+                    <SlidersHorizontal className="w-3.5 h-3.5" />
+                    <span>Tous les assureurs</span>
+                  </button>
+                  
+                  <button
+                    onClick={() => setOffersTab('yield')}
+                    className={`flex-1 min-w-[125px] text-center py-2.5 px-3.5 rounded-xl font-display font-extrabold text-xs transition-all flex items-center justify-center gap-1.5 ${
+                      offersTab === 'yield'
+                        ? 'bg-fennec-dark text-white shadow-xs'
+                        : 'text-fennec-dark/70 hover:bg-fennec-cream/20'
+                    }`}
+                  >
+                    <TrendingUp className="w-3.5 h-3.5 text-emerald-500" />
+                    <span>Rendement max (Actions)</span>
+                  </button>
+                  
+                  <button
+                    onClick={() => setOffersTab('guaranteed')}
+                    className={`flex-1 min-w-[125px] text-center py-2.5 px-3.5 rounded-xl font-display font-extrabold text-xs transition-all flex items-center justify-center gap-1.5 ${
+                      offersTab === 'guaranteed'
+                        ? 'bg-fennec-dark text-white shadow-xs'
+                        : 'text-fennec-dark/70 hover:bg-fennec-cream/20'
+                    }`}
+                  >
+                    <Shield className="w-3.5 h-3.5 text-blue-500" />
+                    <span>Sécurité & Capital</span>
+                  </button>
+                  
+                  <button
+                    onClick={() => setOffersTab('partner')}
+                    className={`flex-1 min-w-[125px] text-center py-2.5 px-3.5 rounded-xl font-display font-extrabold text-xs transition-all flex items-center justify-center gap-1.5 ${
+                      offersTab === 'partner'
+                        ? 'bg-fennec-dark text-white shadow-xs'
+                        : 'text-fennec-dark/70 hover:bg-fennec-cream/20'
+                    }`}
+                  >
+                    <Award className="w-3.5 h-3.5 text-amber-500" />
+                    <span>Partenaires agréés</span>
+                  </button>
+                </div>
+              </div>
+
               {/* Results list */}
-              <div className="space-y-4">
-                {simulatedResults.map((company) => {
+              <div ref={resultsContainerRef} className="space-y-4">
+                {simulatedResults.map((company, index) => {
                   const isExpanded = expandedCompany === company.id;
+                  
+                  // Compute the top badge for this specific card
+                  let badgeContent = null;
+                  if (offersTab === 'yield' && index === 0) {
+                    badgeContent = (
+                      <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-100 text-[10px] font-bold rounded-md flex items-center gap-1 shadow-3xs">
+                        <TrendingUp className="w-3 h-3 text-emerald-600" />
+                        Meilleur rendement projeté
+                      </span>
+                    );
+                  } else if (offersTab === 'guaranteed' && index === 0) {
+                    badgeContent = (
+                      <span className="px-2 py-0.5 bg-blue-50 text-blue-700 border border-blue-100 text-[10px] font-bold rounded-md flex items-center gap-1 shadow-3xs">
+                        <Shield className="w-3 h-3 text-blue-600" />
+                        Capital garanti le plus élevé
+                      </span>
+                    );
+                  } else if (company.isPartner) {
+                    badgeContent = (
+                      <span className="px-2 py-0.5 bg-amber-50 text-amber-800 border border-amber-100 text-[10px] font-bold rounded-md flex items-center gap-1 shadow-3xs">
+                        <Award className="w-3 h-3 text-amber-600" />
+                        Partenaire agréé Fenny
+                      </span>
+                    );
+                  }
+
                   return (
                     <div 
                       key={company.id}
-                      className="bg-white rounded-3xl border border-fennec-cream/40 shadow-xs hover:shadow-md transition-all relative overflow-hidden flex flex-col"
+                      className={`pension-result-card bg-white rounded-3xl border transition-all relative overflow-hidden flex flex-col ${
+                        index === 0 && offersTab !== 'all'
+                          ? 'border-fennec-terracotta/60 shadow-md ring-1 ring-fennec-terracotta/10'
+                          : 'border-fennec-cream/40 shadow-xs hover:shadow-md'
+                      }`}
                     >
+                      {index === 0 && offersTab !== 'all' && (
+                        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-fennec-terracotta to-amber-500" />
+                      )}
+                      
                       {/* Top Row: Flex block for main info */}
                       <div className="p-6 flex flex-col lg:flex-row justify-between items-center gap-6">
                         {/* Left: Logo and description */}
@@ -1925,14 +2135,12 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                           {/* Real company logo */}
                           <CompanyLogo id={company.id} className="w-14 h-14 shrink-0 bg-[#FAF8F5] p-1 rounded-2xl border border-fennec-cream/20" />
                           <div>
-                            <h4 className="font-display font-bold text-lg text-fennec-dark">
-                              {company.name}
-                              {company.isPartner && (
-                                <span className="ml-2 px-1.5 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-100 text-[9px] font-bold rounded">
-                                  Partenaire
-                                </span>
-                              )}
-                            </h4>
+                            <div className="flex flex-wrap items-center gap-2">
+                              <h4 className="font-display font-bold text-lg text-fennec-dark">
+                                {company.name}
+                              </h4>
+                              {badgeContent}
+                            </div>
                             
                             {/* Pros Bulletpoints */}
                             <div className="space-y-0.5 mt-1.5">
