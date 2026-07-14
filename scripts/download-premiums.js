@@ -2,24 +2,40 @@ import fs from 'fs';
 import path from 'path';
 
 const INSURER_MAP = {
-  '32': 'assura',
-  '1384': 'css',
-  '1562': 'helsana',
-  '290': 'swica',
-  '1568': 'visana',
-  '1555': 'visana',
-  '1386': 'visana',
-  '1509': 'sanitas',
-  '312': 'concordia',
-  '376': 'kpt',
-  '1542': 'mutuel',
-  '1479': 'mutuel',
-  '1507': 'mutuel',
-  '1535': 'mutuel',
-  '343': 'mutuel',
   '8': 'okk',
-  '509': 'sympany',
-  '455': 'atupri'
+  '32': 'assura',
+  '134': 'glarner',
+  '194': 'waedenswil',
+  '246': 'aquilana',
+  '290': 'swica',
+  '312': 'concordia',
+  '343': 'amb',
+  '360': 'einsiedeln',
+  '376': 'kpt',
+  '455': 'atupri',
+  '509': 'sympany', // Vivao Sympany
+  '780': 'steffisburg',
+  '820': 'kpt', // KPT (Agilia was integrated into KPT)
+  '881': 'agrisano',
+  '923': 'simplon',
+  '941': 'visperterminen',
+  '966': 'zeneggen',
+  '1040': 'galenos',
+  '1113': 'compact',
+  '1318': 'sodalis',
+  '1322': 'luzernerhinterland',
+  '1384': 'css',
+  '1386': 'sana24',
+  '1401': 'rhenusana',
+  '1479': 'mutuel',
+  '1507': 'easysana',
+  '1509': 'sanitas',
+  '1535': 'philos',
+  '1542': 'avenir',
+  '1555': 'vivacare',
+  '1560': 'moovesympany',
+  '1562': 'progres',
+  '1568': 'visana'
 };
 
 const AGE_MAP = {

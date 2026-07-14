@@ -104,13 +104,6 @@ export default function App() {
                   {/* Hero Left Content */}
                   <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
                     
-                    {/* Badge */}
-                    <div className="hero-animate opacity-0 inline-flex items-center space-x-2 bg-fennec-cream/50 border border-fennec-cream px-3.5 py-1.5 rounded-full text-xs font-bold text-fennec-dark shadow-3xs">
-                      <Calendar className="w-3.5 h-3.5 text-emerald-600" />
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <span>Mise à jour quotidienne • Comparatifs validés (OFSP & Priminfo 2026)</span>
-                    </div>
-
                     {/* Headline */}
                     <h1 className="hero-animate opacity-0 font-display font-black text-3xl sm:text-4xl md:text-5xl text-fennec-dark leading-tight tracking-tight">
                       Comparez les assurances en Suisse <br />

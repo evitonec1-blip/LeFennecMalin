@@ -77,9 +77,12 @@ async function queryLocalCache(query: PriminfoQuery): Promise<PremiumOffer[]> {
   const region = getRegionCode(canton, zone);
 
   const activeInsurers = [
-    'assura', 'css', 'helsana', 'swica', 'visana', 
-    'sanitas', 'concordia', 'kpt', 'mutuel', 'okk', 
-    'sympany', 'atupri'
+    'okk', 'assura', 'glarner', 'waedenswil', 'aquilana', 'swica', 'concordia',
+    'amb', 'einsiedeln', 'kpt', 'atupri', 'sympany', 'steffisburg', 'agrisano',
+    'simplon', 'visperterminen', 'zeneggen', 'galenos', 'compact', 'sodalis',
+    'luzernerhinterland', 'css', 'sana24', 'rhenusana', 'mutuel', 'easysana',
+    'sanitas', 'philos', 'avenir', 'vivacare', 'moovesympany', 'progres',
+    'visana', 'helsana'
   ];
 
   const modelTypes: ('standard' | 'family' | 'hmo' | 'telemed')[] = [

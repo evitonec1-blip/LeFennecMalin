@@ -93,20 +93,42 @@ export function lookupPremium(
  */
 export function getInsurerDisplayName(id: string): string {
   const names: Record<string, string> = {
-    assura: 'Assura',
-    css: 'CSS Assurance',
-    helsana: 'Helsana',
-    swica: 'Swica',
-    visana: 'Visana',
-    sanitas: 'Sanitas',
-    concordia: 'Concordia',
-    kpt: 'KPT / CPT',
-    mutuel: 'Groupe Mutuel',
     okk: 'ÖKK',
-    sympany: 'Sympany',
-    atupri: 'Atupri'
+    assura: 'Assura',
+    glarner: 'Glarner Krankenversicherung',
+    waedenswil: 'KK Wädenswil',
+    aquilana: 'Aquilana',
+    swica: 'Swica',
+    concordia: 'Concordia',
+    amb: 'AMB Assurances',
+    einsiedeln: 'KK Einsiedeln',
+    kpt: 'KPT / CPT',
+    atupri: 'Atupri',
+    sympany: 'Vivao Sympany',
+    steffisburg: 'KK Steffisburg',
+    agrisano: 'Agrisano',
+    simplon: 'KK Simplon',
+    visperterminen: 'KK Visperterminen',
+    zeneggen: 'KK Zeneggen',
+    galenos: 'Galenos',
+    compact: 'Compact',
+    sodalis: 'Sodalis',
+    luzernerhinterland: 'KK Luzerner Hinterland',
+    css: 'CSS',
+    sana24: 'Sana24',
+    rhenusana: 'rhenusana',
+    mutuel: 'Mutuel Assurance',
+    easysana: 'Easy Sana',
+    sanitas: 'Sanitas',
+    philos: 'Philos',
+    avenir: 'Avenir',
+    vivacare: 'vivacare',
+    moovesympany: 'Moove Sympany',
+    progres: 'Progrès',
+    visana: 'Visana',
+    helsana: 'Helsana'
   };
-  return names[id.toLowerCase()] || id;
+  return names[id.toLowerCase().trim()] || id;
 }
 
 /**
