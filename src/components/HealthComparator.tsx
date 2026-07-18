@@ -244,6 +244,12 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
   const [analysisStage, setAnalysisStage] = useState<number>(0);
   const [showFiltersInline, setShowFiltersInline] = useState<boolean>(false);
 
+  // SMS & Email verification states
+  const [verificationStep, setVerificationStep] = useState<'details' | 'code'>('details');
+  const [verificationCodeInput, setVerificationCodeInput] = useState<string>('');
+  const [verificationError, setVerificationError] = useState<string | null>(null);
+  const [isSendingCode, setIsSendingCode] = useState<boolean>(false);
+
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
     let timeoutId: NodeJS.Timeout;
@@ -457,11 +463,8 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
 
   // Next step handler in wizard
   const nextStep = () => {
-    if (currentStep < 7) {
+    if (currentStep < 8) {
       setCurrentStep(prev => prev + 1);
-    } else {
-      // Trigger smooth final loading simulation
-      setIsAnalyzing(true);
     }
   };
 
@@ -479,7 +482,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
 
   // 1. GSAP-driven Progress Bar Animation for Wizard & Global
   useEffect(() => {
-    const percentage = quizMode ? (currentStep / 7) * 100 : 100;
+    const percentage = quizMode ? (currentStep / 8) * 100 : 100;
     if (progressBarRef.current) {
       gsap.to(progressBarRef.current, {
         width: `${percentage}%`,
@@ -595,6 +598,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
              filters.hasActiveTreatments === undefined || 
              filters.hasMedicalHistory === undefined;
     }
+    if (currentStep === 8) return true;
     return false;
   }, [currentStep, resolvedInfo, filters]);
 
@@ -1699,6 +1703,180 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                           </motion.div>
                         )}
 
+                        {/* STEP 8: SMS & Email Verification */}
+                        {currentStep === 8 && (
+                          <motion.div
+                            key="step-8"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="space-y-6 w-full text-left"
+                          >
+                            <div className="space-y-2">
+                              <div className="flex items-center space-x-2 text-fennec-red">
+                                <Shield className="w-5 h-5 shrink-0" />
+                                <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
+                                  Vérification de sécurité
+                                </h3>
+                              </div>
+                              <p className="text-xs text-fennec-dark/65 leading-relaxed">
+                                Avant d'accéder au comparatif officiel des caisses maladie 2026, veuillez valider vos coordonnées. Un code de sécurité unique vous sera envoyé gratuitement.
+                              </p>
+                            </div>
+
+                            {verificationStep === 'details' ? (
+                              <div className="space-y-4">
+                                <div className="grid grid-cols-2 gap-3">
+                                  <div className="space-y-1">
+                                    <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">Prénom *</label>
+                                    <input 
+                                      type="text" 
+                                      required
+                                      placeholder="Ex: Jean"
+                                      value={formData.firstName}
+                                      onChange={(e) => setFormData(p => ({ ...p, firstName: e.target.value }))}
+                                      className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3 py-2 text-xs text-fennec-dark focus:ring-1 focus:ring-fennec-terracotta"
+                                    />
+                                  </div>
+                                  <div className="space-y-1">
+                                    <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">Nom *</label>
+                                    <input 
+                                      type="text" 
+                                      required
+                                      placeholder="Ex: Dupont"
+                                      value={formData.lastName}
+                                      onChange={(e) => setFormData(p => ({ ...p, lastName: e.target.value }))}
+                                      className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3 py-2 text-xs text-fennec-dark focus:ring-1 focus:ring-fennec-terracotta"
+                                    />
+                                  </div>
+                                </div>
+
+                                <div className="space-y-1">
+                                  <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">Adresse E-mail *</label>
+                                  <input 
+                                    type="email" 
+                                    required
+                                    placeholder="jean.dupont@gmail.com"
+                                    value={formData.email}
+                                    onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))}
+                                    className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3 py-2 text-xs text-fennec-dark focus:ring-1 focus:ring-fennec-terracotta"
+                                  />
+                                </div>
+
+                                <div className="space-y-1">
+                                  <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">Téléphone Mobile Suisse *</label>
+                                  <input 
+                                    type="tel" 
+                                    required
+                                    placeholder="Ex: 079 123 45 67"
+                                    value={formData.phone}
+                                    onChange={(e) => setFormData(p => ({ ...p, phone: e.target.value }))}
+                                    className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3 py-2 text-xs text-fennec-dark focus:ring-1 focus:ring-fennec-terracotta"
+                                  />
+                                </div>
+
+                                {verificationError && (
+                                  <div className="text-[11px] font-semibold text-fennec-red bg-red-50 p-2.5 rounded-xl border border-red-200">
+                                    {verificationError}
+                                  </div>
+                                )}
+
+                                <button
+                                  type="button"
+                                  disabled={isSendingCode}
+                                  onClick={async () => {
+                                    if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
+                                      setVerificationError("Veuillez remplir tous les champs obligatoires.");
+                                      return;
+                                    }
+                                    setVerificationError(null);
+                                    setIsSendingCode(true);
+                                    
+                                    try {
+                                      await fetch('/api/submit-lead', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({ type: 'health_pre_verify', lead: formData, filters })
+                                      });
+                                    } catch(e) {}
+
+                                    setTimeout(() => {
+                                      setIsSendingCode(false);
+                                      setVerificationStep('code');
+                                    }, 1200);
+                                  }}
+                                  className="w-full py-3 bg-fennec-dark hover:bg-fennec-terracotta text-white font-display font-bold rounded-xl text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center space-x-2 cursor-pointer"
+                                >
+                                  {isSendingCode ? (
+                                    <>
+                                      <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                      <span>Génération du code de sécurité...</span>
+                                    </>
+                                  ) : (
+                                    <span>Recevoir mon code de validation</span>
+                                  )}
+                                </button>
+                              </div>
+                            ) : (
+                              <div className="space-y-4">
+                                <div className="bg-amber-50 border border-amber-200 text-[11px] text-amber-800 p-3.5 rounded-xl leading-relaxed">
+                                  <strong>💡 SMS & E-mail envoyés !</strong> Pour valider votre dossier et débloquer les tarifs, veuillez saisir le code de sécurité reçu.
+                                </div>
+
+                                <div className="space-y-1">
+                                  <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">Saisir le Code de Sécurité *</label>
+                                  <input 
+                                    type="text" 
+                                    maxLength={4}
+                                    placeholder="Ex: 7492"
+                                    value={verificationCodeInput}
+                                    onChange={(e) => setVerificationCodeInput(e.target.value)}
+                                    className="w-full text-center tracking-[0.5em] font-mono bg-white border border-fennec-cream/80 rounded-xl px-3 py-3 text-sm text-fennec-dark focus:ring-1 focus:ring-fennec-terracotta"
+                                  />
+                                </div>
+
+                                {verificationError && (
+                                  <div className="text-[11px] font-semibold text-fennec-red bg-red-50 p-2.5 rounded-xl border border-red-200">
+                                    {verificationError}
+                                  </div>
+                                )}
+
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    if (verificationCodeInput !== '7492') {
+                                      setVerificationError("Code de validation incorrect. (Saisissez le code 7492 fourni ci-dessous par Fenny !)");
+                                      return;
+                                    }
+                                    setVerificationError(null);
+                                    setIsAnalyzing(true);
+                                  }}
+                                  className="w-full py-3 bg-fennec-red hover:bg-red-600 text-white font-display font-bold rounded-xl text-xs uppercase tracking-wider transition-all shadow-md shadow-fennec-red/25 flex items-center justify-center cursor-pointer"
+                                >
+                                  Valider le code & afficher les résultats
+                                </button>
+
+                                <button 
+                                  type="button"
+                                  onClick={() => setVerificationStep('details')}
+                                  className="w-full text-center text-[10px] text-fennec-dark/50 hover:text-fennec-dark underline font-semibold cursor-pointer"
+                                >
+                                  Modifier mes coordonnées
+                                </button>
+                              </div>
+                            )}
+
+                            {/* Balloon notification from Fenny containing the mock code! */}
+                            <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-3 md:p-4 flex items-start space-x-3 text-emerald-800">
+                              <span className="text-xl">🦊</span>
+                              <div className="text-[11px] leading-relaxed">
+                                <strong>Message de Fenny :</strong> "Afin de valider la simulation, j'ai généré votre code de sécurité unique. Saisissez <strong>7492</strong> pour confirmer vos informations de contact et charger immédiatement le tableau comparatif 2026 !"
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+
                       </AnimatePresence>
                     </div>
 
@@ -1719,19 +1897,21 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                       </button>
 
                       {/* Display explicit "Next" button for all questions */}
-                      <button
-                        type="button"
-                        onClick={nextStep}
-                        disabled={isNextDisabled}
-                        className={`flex items-center text-xs font-bold font-display px-6 py-2.5 rounded-full transition-all shadow-sm ${
-                          isNextDisabled
-                            ? 'bg-fennec-cream text-fennec-brown/40 cursor-not-allowed shadow-none'
-                            : 'bg-fennec-dark hover:bg-fennec-terracotta text-white'
-                        }`}
-                      >
-                        <span>{currentStep === 7 ? "Lancer l'analyse" : "Continuer"}</span>
-                        <ChevronRight className="w-4 h-4 ml-1.5" />
-                      </button>
+                      {currentStep < 8 && (
+                        <button
+                          type="button"
+                          onClick={nextStep}
+                          disabled={isNextDisabled}
+                          className={`flex items-center text-xs font-bold font-display px-6 py-2.5 rounded-full transition-all shadow-sm ${
+                            isNextDisabled
+                              ? 'bg-fennec-cream text-fennec-brown/40 cursor-not-allowed shadow-none'
+                              : 'bg-fennec-dark hover:bg-fennec-terracotta text-white'
+                          }`}
+                        >
+                          <span>{currentStep === 7 ? "Étape de vérification" : "Continuer"}</span>
+                          <ChevronRight className="w-4 h-4 ml-1.5" />
+                        </button>
+                      )}
                     </div>
                   </div>
 
@@ -2196,9 +2376,6 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
         )}
       </AnimatePresence>
 
-      {/* ========================================== */}
-      /*      MODAL WINDOW FOR OFFER DEMAND         */
-      /* ========================================== */
       {selectedCaisse && (
         <div className="fixed inset-0 z-50 flex items-start justify-center p-4 pt-10 md:pt-20 bg-black/60 backdrop-blur-xs overflow-y-auto">
           <div className="bg-white rounded-3xl max-w-lg w-full max-h-[calc(100vh-2rem)] flex flex-col overflow-hidden shadow-2xl border border-fennec-cream relative animate-in fade-in zoom-in duration-200">

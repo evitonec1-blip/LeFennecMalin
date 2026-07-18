@@ -29,6 +29,16 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleLogoClick = () => {
+    if (currentTab === 'home') {
+      window.location.href = '/';
+    } else {
+      onTabChange('home');
+      setMobileMenuOpen(false);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-fennec-cream/50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -37,7 +47,7 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
           {/* Logo Brand Lockup */}
           <div 
             className="flex items-center space-x-3 cursor-pointer group"
-            onClick={() => handleNavClick('home')}
+            onClick={handleLogoClick}
           >
             <div className="relative w-12 h-12 rounded-full border-2 border-fennec-tan overflow-hidden shadow-sm group-hover:scale-105 transition-transform duration-300">
               <img 

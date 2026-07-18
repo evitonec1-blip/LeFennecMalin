@@ -66,6 +66,13 @@ const DOMAIN_MAP: Record<string, string> = {
   'la mobilière': 'mobiliere.ch',
   baloise: 'baloise.ch',
   'baloise assurances': 'baloise.ch',
+  pax: 'pax.ch',
+  retraitepopulaire: 'retraitepopulaire.ch',
+  'retraite populaire': 'retraitepopulaire.ch',
+  vaudoise: 'vaudoise.ch',
+  'la vaudoise': 'vaudoise.ch',
+  groupemutuel: 'groupemutuel.ch',
+  'groupe mutuel': 'groupemutuel.ch',
 };
 
 export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogoProps) {
@@ -231,6 +238,7 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
 
     case 'mutuel':
     case 'groupe mutuel':
+    case 'groupemutuel':
       return (
         <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-2 shadow-2xs`}>
           <div className="flex flex-col items-center justify-center">
@@ -372,6 +380,32 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
             </svg>
             <span className="text-[10px] font-black text-[#002D62] font-display">Baloise</span>
           </div>
+        </div>
+      );
+
+    case 'pax':
+      return (
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-2 shadow-2xs`}>
+          <span className="text-sm font-black text-[#0B2545] font-display tracking-widest leading-none">PAX</span>
+          <span className="text-[6px] font-bold text-amber-600 mt-0.5 tracking-wider uppercase">Prévoyance</span>
+        </div>
+      );
+
+    case 'retraitepopulaire':
+    case 'retraite populaire':
+      return (
+        <div className={`${className} bg-[#00549F] rounded-2xl flex flex-col items-center justify-center p-2 text-white shadow-2xs`}>
+          <span className="text-[9px] font-black leading-tight uppercase text-center font-display">Retraite</span>
+          <span className="text-[9px] font-bold leading-none uppercase text-center text-amber-300">Populaire</span>
+        </div>
+      );
+
+    case 'vaudoise':
+    case 'la vaudoise':
+      return (
+        <div className={`${className} bg-[#009639] rounded-2xl flex flex-col items-center justify-center p-2 text-white shadow-2xs`}>
+          <span className="text-xs font-black uppercase font-display leading-none">Vaudoise</span>
+          <span className="text-[7px] font-bold tracking-widest leading-none mt-1 opacity-90">ASSURANCES</span>
         </div>
       );
 

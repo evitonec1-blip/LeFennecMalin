@@ -105,6 +105,7 @@ export interface LifeFilterState {
   deathCoverageNeeded?: boolean;
   deathCoverageAmount?: number;
   disabilityCoverageNeeded?: 'rente' | 'capital' | 'none';
+  disabilityPensionAmount?: number;
   premiumExemptionNeeded?: boolean;
   hasDependents?: boolean;
 

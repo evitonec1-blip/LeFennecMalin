@@ -130,7 +130,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
     hasDependents: false,
     savingAmount: 300,
     savingFrequency: 'monthly',
-    commitmentPreference: 'flexible',
+    commitmentPreference: 'fixed',
     investmentHorizon: 25,
     riskTolerance: 'balanced',
     reactionToDrop: 'hold',
@@ -248,7 +248,13 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
   const [analysisStage, setAnalysisStage] = useState<number>(0);
   const [showFiltersInline, setShowFiltersInline] = useState<boolean>(false);
   const [expandedCompany, setExpandedCompany] = useState<string | null>(null);
-  const [offersTab, setOffersTab] = useState<'all' | 'yield' | 'guaranteed' | 'partner'>('all');
+  const [offersTab, setOffersTab] = useState<'all' | 'yield' | 'guaranteed'>('all');
+
+  // SMS & Email verification states
+  const [verificationStep, setVerificationStep] = useState<'details' | 'code'>('details');
+  const [verificationCodeInput, setVerificationCodeInput] = useState<string>('');
+  const [verificationError, setVerificationError] = useState<string | null>(null);
+  const [isSendingCode, setIsSendingCode] = useState<boolean>(false);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
@@ -299,7 +305,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
 
   // 1. GSAP-driven Progress Bar Animation for Wizard & Global
   useEffect(() => {
-    const percentage = quizMode ? (currentStep / 9) * 100 : 100;
+    const percentage = quizMode ? (currentStep / 10) * 100 : 100;
     if (progressBarRef.current) {
       gsap.to(progressBarRef.current, {
         width: `${percentage}%`,
@@ -554,11 +560,8 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
 
   // Next step handler in wizard
   const nextStep = () => {
-    if (currentStep < 9) {
+    if (currentStep < 10) {
       setCurrentStep(prev => prev + 1);
-    } else {
-      // Trigger smooth final loading simulation
-      setIsAnalyzing(true);
     }
   };
 
@@ -1067,9 +1070,8 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
 
                             <div className="grid grid-cols-1 gap-3">
                               {[
-                                { id: 'pure-savings', label: 'Épargne pure (Banque)', desc: 'Pas de risque boursier, capital garanti mais rendement historique très bas.', icon: PiggyBank },
+                                { id: 'pure-savings', label: 'Épargne pure', desc: 'Pas de risque boursier, capital garanti.', icon: PiggyBank },
                                 { id: 'equity-savings', label: 'Épargne en titres (Fonds / ETF)', desc: 'Placement boursier pour dynamiser le rendement sur le long terme.', icon: TrendingUp },
-                                { id: 'life-insurance', label: 'Assurance-vie liée (3a)', desc: 'Épargne combinée à une protection décès/invalidité pour votre foyer.', icon: Shield },
                                 { id: 'mixed', label: 'Formule Mixte (Fonds + Assurance)', desc: 'Combinaison flexible d\'un capital garanti et d\'un investissement actions.', icon: Sparkles },
                               ].map((p) => {
                                 const isSelected = filters.productType === p.id;
@@ -1202,10 +1204,9 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                               {/* Disability Coverage */}
                               <div className="p-4 border border-fennec-cream/60 rounded-2xl space-y-2 bg-fennec-cream/5">
                                 <span className="text-sm font-bold text-fennec-dark block">Couverture en cas d'incapacité de gain / invalidité</span>
-                                <div className="grid grid-cols-3 gap-2">
+                                <div className="grid grid-cols-2 gap-2">
                                   {[
                                     { id: 'monthly-pension', label: 'Rente mensuelle' },
-                                    { id: 'lump-sum', label: 'Capital unique' },
                                     { id: 'none', label: 'Aucune' },
                                   ].map((opt) => (
                                     <button
@@ -1222,6 +1223,30 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                                     </button>
                                   ))}
                                 </div>
+
+                                {filters.disabilityCoverageNeeded === 'monthly-pension' && (
+                                  <motion.div 
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: 'auto' }}
+                                    className="pt-3 border-t border-fennec-cream/40 mt-3"
+                                  >
+                                    <label className="text-[10px] font-black uppercase text-fennec-brown block mb-1">Rente mensuelle souhaitée</label>
+                                    <input 
+                                      type="range"
+                                      min="500"
+                                      max="4000"
+                                      step="500"
+                                      value={filters.disabilityPensionAmount || 1500}
+                                      onChange={(e) => handleFilterChange('disabilityPensionAmount', Number(e.target.value))}
+                                      className="w-full accent-fennec-terracotta cursor-pointer"
+                                    />
+                                    <div className="flex justify-between text-[10px] font-mono text-fennec-brown/60">
+                                      <span>CHF 500.-</span>
+                                      <span className="font-bold text-fennec-terracotta">CHF {(filters.disabilityPensionAmount || 1500).toLocaleString()}.- / mois</span>
+                                      <span>CHF 4'000.-</span>
+                                    </div>
+                                  </motion.div>
+                                )}
                               </div>
 
                               {/* Exemption and Dependents */}
@@ -1291,9 +1316,13 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                                       key={f.id}
                                       type="button"
                                       onClick={() => {
+                                        const isIndependent = filters.employmentStatus === 'independent';
+                                        const maxAmount = isIndependent 
+                                          ? (f.id === 'yearly' ? 36288 : 3024) 
+                                          : (f.id === 'yearly' ? 7258 : 604);
                                         const newAmount = f.id === 'yearly' 
-                                          ? (filters.savingAmount || 300) * 12 
-                                          : Math.round((filters.savingAmount || 3600) / 12);
+                                          ? Math.min((filters.savingAmount || 300) * 12, maxAmount)
+                                          : Math.min(Math.round((filters.savingAmount || 3600) / 12), maxAmount);
                                         setFilters(prev => ({
                                           ...prev,
                                           savingFrequency: f.id as any,
@@ -1313,40 +1342,56 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                               </div>
 
                               {/* Amount display */}
-                              <div className="bg-fennec-cream/10 border-2 border-fennec-cream/60 rounded-2xl p-5 text-center">
-                                <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Versement estimé</span>
-                                <span className="font-display text-3xl font-black text-fennec-terracotta block">
-                                  CHF {(filters.savingAmount || 300).toLocaleString()}.- <span className="text-sm font-bold text-fennec-dark/60">/ {filters.savingFrequency === 'yearly' ? 'an' : 'mois'}</span>
-                                </span>
-                                <span className="text-xs text-emerald-700 font-bold block bg-emerald-50 max-w-max mx-auto px-2.5 py-0.5 rounded-full mt-1.5">
-                                  Gain fiscal estimé : ~CHF {Math.round((filters.savingFrequency === 'yearly' ? (filters.savingAmount || 3600) : (filters.savingAmount || 300) * 12) * 0.22).toLocaleString()}.- / an
-                                </span>
-                              </div>
+                              {(() => {
+                                const isIndependent = filters.employmentStatus === 'independent';
+                                const isYearly = filters.savingFrequency === 'yearly';
+                                const maxAmount = isIndependent 
+                                  ? (isYearly ? 36288 : 3024) 
+                                  : (isYearly ? 7258 : 604);
+                                const minAmount = isYearly ? 500 : 50;
+                                const stepAmount = isIndependent 
+                                  ? (isYearly ? 500 : 50) 
+                                  : (isYearly ? 100 : 10);
+                                const currentSavingAmount = Math.min(filters.savingAmount || (isYearly ? 3000 : 300), maxAmount);
 
-                              {/* Amount slider */}
-                              <div className="space-y-1">
-                                <input 
-                                  type="range"
-                                  min={filters.savingFrequency === 'yearly' ? 500 : 50}
-                                  max={filters.savingFrequency === 'yearly' ? 12000 : 1000}
-                                  step={filters.savingFrequency === 'yearly' ? 500 : 50}
-                                  value={filters.savingAmount || 300}
-                                  onChange={(e) => handleFilterChange('savingAmount', Number(e.target.value))}
-                                  className="w-full accent-fennec-terracotta cursor-pointer"
-                                />
-                                <div className="flex justify-between text-[10px] font-mono text-fennec-brown/60">
-                                  <span>{filters.savingFrequency === 'yearly' ? 'CHF 500.-' : 'CHF 50.-'}</span>
-                                  <span>{filters.savingFrequency === 'yearly' ? 'CHF 6\'000.-' : 'CHF 500.-'}</span>
-                                  <span>{filters.savingFrequency === 'yearly' ? 'CHF 12\'000.- / an' : 'CHF 1\'000.- / mois'}</span>
-                                </div>
-                              </div>
+                                return (
+                                  <>
+                                    <div className="bg-fennec-cream/10 border-2 border-fennec-cream/60 rounded-2xl p-5 text-center">
+                                      <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Versement estimé</span>
+                                      <span className="font-display text-3xl font-black text-fennec-terracotta block">
+                                        CHF {currentSavingAmount.toLocaleString()}.- <span className="text-sm font-bold text-fennec-dark/60">/ {isYearly ? 'an' : 'mois'}</span>
+                                      </span>
+                                      <span className="text-xs text-emerald-700 font-bold block bg-emerald-50 max-w-max mx-auto px-2.5 py-0.5 rounded-full mt-1.5">
+                                        Gain fiscal estimé : ~CHF {Math.round((isYearly ? currentSavingAmount : currentSavingAmount * 12) * 0.22).toLocaleString()}.- / an
+                                      </span>
+                                    </div>
+
+                                    {/* Amount slider */}
+                                    <div className="space-y-1">
+                                      <input 
+                                        type="range"
+                                        min={minAmount}
+                                        max={maxAmount}
+                                        step={stepAmount}
+                                        value={currentSavingAmount}
+                                        onChange={(e) => handleFilterChange('savingAmount', Number(e.target.value))}
+                                        className="w-full accent-fennec-terracotta cursor-pointer"
+                                      />
+                                      <div className="flex justify-between text-[10px] font-mono text-fennec-brown/60">
+                                        <span>CHF {minAmount.toLocaleString()}.-</span>
+                                        <span className="font-bold text-fennec-terracotta">Max: CHF {maxAmount.toLocaleString()}.-</span>
+                                        <span>CHF {maxAmount.toLocaleString()}.- / {isYearly ? 'an' : 'mois'}</span>
+                                      </div>
+                                    </div>
+                                  </>
+                                );
+                              })()}
 
                               {/* Commitment preference */}
                               <div className="space-y-1.5">
                                 <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Niveau d'engagement contractuel</label>
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                   {[
-                                    { id: 'flexible', label: '100% Flexible', desc: 'Versement libre (Banque)' },
                                     { id: 'fixed', label: 'Fixe régulier', desc: 'Prévoyance assurée' },
                                     { id: 'both', label: 'Les deux', desc: 'Solution hybride' },
                                   ].map((c) => (
@@ -1647,9 +1692,13 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                                       <label className="text-[10px] font-black uppercase text-fennec-brown block">Montant déjà accumulé (CHF)</label>
                                       <input 
                                         type="number"
+                                        min="0"
                                         placeholder="Ex: 15'000"
                                         value={filters.existingAmount || ''}
-                                        onChange={(e) => handleFilterChange('existingAmount', Number(e.target.value))}
+                                        onChange={(e) => {
+                                          const val = Number(e.target.value);
+                                          handleFilterChange('existingAmount', val < 0 ? 0 : val);
+                                        }}
                                         className="w-full px-3 py-2 rounded-lg border border-fennec-cream text-sm font-mono font-bold focus:outline-none focus:border-fennec-terracotta"
                                       />
                                     </div>
@@ -1773,6 +1822,180 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                           </motion.div>
                         )}
 
+                        {/* STEP 10: SMS & Email Verification */}
+                        {currentStep === 10 && (
+                          <motion.div
+                            key="p-step-10"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="space-y-6 text-left w-full animate-in fade-in duration-300"
+                          >
+                            <div className="space-y-2">
+                              <div className="flex items-center space-x-2 text-fennec-red">
+                                <Shield className="w-5 h-5 shrink-0" />
+                                <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
+                                  Vérification de sécurité
+                                </h3>
+                              </div>
+                              <p className="text-xs text-fennec-dark/65 leading-relaxed">
+                                Avant d'accéder au comparatif des rendements du 3e Pilier et d'optimisation fiscale, veuillez valider vos coordonnées. Un code de sécurité unique vous sera envoyé gratuitement.
+                              </p>
+                            </div>
+
+                            {verificationStep === 'details' ? (
+                              <div className="space-y-4">
+                                <div className="grid grid-cols-2 gap-3">
+                                  <div className="space-y-1">
+                                    <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">Prénom *</label>
+                                    <input 
+                                      type="text" 
+                                      required
+                                      placeholder="Ex: Jean"
+                                      value={formData.firstName}
+                                      onChange={(e) => setFormData(p => ({ ...p, firstName: e.target.value }))}
+                                      className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3 py-2 text-xs text-fennec-dark focus:ring-1 focus:ring-fennec-terracotta"
+                                    />
+                                  </div>
+                                  <div className="space-y-1">
+                                    <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">Nom *</label>
+                                    <input 
+                                      type="text" 
+                                      required
+                                      placeholder="Ex: Dupont"
+                                      value={formData.lastName}
+                                      onChange={(e) => setFormData(p => ({ ...p, lastName: e.target.value }))}
+                                      className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3 py-2 text-xs text-fennec-dark focus:ring-1 focus:ring-fennec-terracotta"
+                                    />
+                                  </div>
+                                </div>
+
+                                <div className="space-y-1">
+                                  <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">Adresse E-mail *</label>
+                                  <input 
+                                    type="email" 
+                                    required
+                                    placeholder="jean.dupont@gmail.com"
+                                    value={formData.email}
+                                    onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))}
+                                    className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3 py-2 text-xs text-fennec-dark focus:ring-1 focus:ring-fennec-terracotta"
+                                  />
+                                </div>
+
+                                <div className="space-y-1">
+                                  <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">Téléphone Mobile Suisse *</label>
+                                  <input 
+                                    type="tel" 
+                                    required
+                                    placeholder="Ex: 079 123 45 67"
+                                    value={formData.phone}
+                                    onChange={(e) => setFormData(p => ({ ...p, phone: e.target.value }))}
+                                    className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3 py-2 text-xs text-fennec-dark focus:ring-1 focus:ring-fennec-terracotta"
+                                  />
+                                </div>
+
+                                {verificationError && (
+                                  <div className="text-[11px] font-semibold text-fennec-red bg-red-50 p-2.5 rounded-xl border border-red-200">
+                                    {verificationError}
+                                  </div>
+                                )}
+
+                                <button
+                                  type="button"
+                                  disabled={isSendingCode}
+                                  onClick={async () => {
+                                    if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
+                                      setVerificationError("Veuillez remplir tous les champs obligatoires.");
+                                      return;
+                                    }
+                                    setVerificationError(null);
+                                    setIsSendingCode(true);
+                                    
+                                    try {
+                                      await fetch('/api/submit-lead', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({ type: 'life_pre_verify', lead: formData, filters })
+                                      });
+                                    } catch(e) {}
+
+                                    setTimeout(() => {
+                                      setIsSendingCode(false);
+                                      setVerificationStep('code');
+                                    }, 1200);
+                                  }}
+                                  className="w-full py-3 bg-fennec-dark hover:bg-fennec-terracotta text-white font-display font-bold rounded-xl text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center space-x-2 cursor-pointer"
+                                >
+                                  {isSendingCode ? (
+                                    <>
+                                      <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                      <span>Génération du code de sécurité...</span>
+                                    </>
+                                  ) : (
+                                    <span>Recevoir mon code de validation</span>
+                                  )}
+                                </button>
+                              </div>
+                            ) : (
+                              <div className="space-y-4">
+                                <div className="bg-amber-50 border border-amber-200 text-[11px] text-amber-800 p-3.5 rounded-xl leading-relaxed">
+                                  <strong>💡 SMS & E-mail envoyés !</strong> Pour valider votre prévoyance et charger les résultats détaillés de rendement, veuillez saisir le code reçu.
+                                </div>
+
+                                <div className="space-y-1">
+                                  <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">Saisir le Code de Sécurité *</label>
+                                  <input 
+                                    type="text" 
+                                    maxLength={4}
+                                    placeholder="Ex: 7492"
+                                    value={verificationCodeInput}
+                                    onChange={(e) => setVerificationCodeInput(e.target.value)}
+                                    className="w-full text-center tracking-[0.5em] font-mono bg-white border border-fennec-cream/80 rounded-xl px-3 py-3 text-sm text-fennec-dark focus:ring-1 focus:ring-fennec-terracotta"
+                                  />
+                                </div>
+
+                                {verificationError && (
+                                  <div className="text-[11px] font-semibold text-fennec-red bg-red-50 p-2.5 rounded-xl border border-red-200">
+                                    {verificationError}
+                                  </div>
+                                )}
+
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    if (verificationCodeInput !== '7492') {
+                                      setVerificationError("Code de validation incorrect. (Saisissez le code 7492 fourni ci-dessous par Fenny !)");
+                                      return;
+                                    }
+                                    setVerificationError(null);
+                                    setIsAnalyzing(true);
+                                  }}
+                                  className="w-full py-3 bg-fennec-red hover:bg-red-600 text-white font-display font-bold rounded-xl text-xs uppercase tracking-wider transition-all shadow-md shadow-fennec-red/25 flex items-center justify-center cursor-pointer"
+                                >
+                                  Valider le code & afficher les résultats
+                                </button>
+
+                                <button 
+                                  type="button"
+                                  onClick={() => setVerificationStep('details')}
+                                  className="w-full text-center text-[10px] text-fennec-dark/50 hover:text-fennec-dark underline font-semibold cursor-pointer"
+                                >
+                                  Modifier mes coordonnées
+                                </button>
+                              </div>
+                            )}
+
+                            {/* Balloon notification from Fenny containing the mock code! */}
+                            <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-3 md:p-4 flex items-start space-x-3 text-emerald-800">
+                              <span className="text-xl">🦊</span>
+                              <div className="text-[11px] leading-relaxed">
+                                <strong>Message de Fenny :</strong> "J'ai bien préparé vos résultats ! Saisissez le code de sécurité <strong>7492</strong> pour confirmer votre identité et débloquer instantanément la projection de capital et de gain d'impôts 2025/2026."
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+
                       </AnimatePresence>
                     </div>
 
@@ -1792,14 +2015,16 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                         <span>Retour</span>
                       </button>
 
-                      <button
-                        type="button"
-                        onClick={nextStep}
-                        className="flex items-center text-xs font-bold font-display px-6 py-2.5 rounded-full bg-fennec-dark hover:bg-fennec-terracotta text-white transition-all shadow-sm"
-                      >
-                        <span>{currentStep === 9 ? "Lancer l'analyse" : "Continuer"}</span>
-                        <ChevronRight className="w-4 h-4 ml-1.5" />
-                      </button>
+                      {currentStep < 10 && (
+                        <button
+                          type="button"
+                          onClick={nextStep}
+                          className="flex items-center text-xs font-bold font-display px-6 py-2.5 rounded-full bg-fennec-dark hover:bg-fennec-terracotta text-white transition-all shadow-sm"
+                        >
+                          <span>{currentStep === 9 ? "Étape de vérification" : "Continuer"}</span>
+                          <ChevronRight className="w-4 h-4 ml-1.5" />
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -2070,18 +2295,6 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                     <Shield className="w-3.5 h-3.5 text-blue-500" />
                     <span>Sécurité & Capital</span>
                   </button>
-                  
-                  <button
-                    onClick={() => setOffersTab('partner')}
-                    className={`flex-1 min-w-[125px] text-center py-2.5 px-3.5 rounded-xl font-display font-extrabold text-xs transition-all flex items-center justify-center gap-1.5 ${
-                      offersTab === 'partner'
-                        ? 'bg-fennec-dark text-white shadow-xs'
-                        : 'text-fennec-dark/70 hover:bg-fennec-cream/20'
-                    }`}
-                  >
-                    <Award className="w-3.5 h-3.5 text-amber-500" />
-                    <span>Partenaires agréés</span>
-                  </button>
                 </div>
               </div>
 
@@ -2097,13 +2310,6 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                       <span className="px-2 py-0.5 bg-blue-50 text-blue-700 border border-blue-100 text-[10px] font-bold rounded-md flex items-center gap-1 shadow-3xs">
                         <Shield className="w-3 h-3 text-blue-600" />
                         Capital garanti le plus élevé
-                      </span>
-                    );
-                  } else if (company.isPartner) {
-                    badgeContent = (
-                      <span className="px-2 py-0.5 bg-amber-50 text-amber-800 border border-amber-100 text-[10px] font-bold rounded-md flex items-center gap-1 shadow-3xs">
-                        <Award className="w-3 h-3 text-amber-600" />
-                        Partenaire agréé Fenny
                       </span>
                     );
                   }
@@ -2151,13 +2357,10 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                         <div className="text-center lg:text-right w-full lg:w-auto border-y lg:border-y-0 lg:border-x border-fennec-cream/20 py-4 lg:py-0 lg:px-6">
                           <div>
                             <span className="text-[10px] font-bold text-fennec-brown uppercase block tracking-wider">
-                              Capital Garanti
+                              Votre Projection
                             </span>
                             <span className="text-base sm:text-lg font-display font-extrabold text-fennec-dark block">
                               CHF {company.guaranteedSum.toLocaleString()}.-
-                            </span>
-                            <span className="text-[9px] text-fennec-dark/50 block">
-                              Taux technique légal
                             </span>
                           </div>
                         </div>
@@ -2166,10 +2369,10 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                         <div className="w-full lg:w-auto shrink-0 flex flex-col sm:flex-row lg:flex-col gap-2.5 items-stretch justify-center">
                           <button
                             onClick={() => setExpandedCompany(isExpanded ? null : company.id)}
-                            className="px-4 py-2 border border-fennec-cream text-fennec-dark hover:bg-fennec-cream/20 font-display font-bold text-[10px] uppercase tracking-wider rounded-full transition-all inline-flex items-center justify-center min-h-[40px]"
+                            className="px-4 py-2 border border-fennec-cream text-fennec-dark hover:bg-fennec-cream/20 font-display font-bold text-[10px] uppercase tracking-wider rounded-full transition-all inline-flex items-center justify-center min-h-[40px] whitespace-nowrap"
                           >
                             <SlidersHorizontal className="w-3.5 h-3.5 mr-1" />
-                            <span>{isExpanded ? 'Masquer les détails' : 'Fiche technique (au centime)'}</span>
+                            <span>{isExpanded ? 'Masquer les détails' : 'Fiche technique'}</span>
                           </button>
                         </div>
                       </div>
@@ -2306,15 +2509,17 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                 </p>
               </div>
 
+              {/* Disclaimer */}
+              <div className="bg-fennec-cream/10 rounded-2xl p-4 border border-fennec-cream/20 text-center text-[11px] text-fennec-dark/60">
+                ⚠️ Il s’agit d’une simulation avec des montants approximatifs. Ce comparateur ne saurait engager Le Fennec Malin ou les compagnies d’assurances mentionnées.
+              </div>
+
             </div>
 
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* ========================================== */}
-      /*      MODAL WINDOW FOR LIFE DEMAND          */
-      /* ========================================== */
       {selectedAssureur && (
         <div className="fixed inset-0 z-50 flex items-start justify-center p-4 pt-10 md:pt-20 bg-black/60 backdrop-blur-xs overflow-y-auto">
           <div className="bg-white rounded-3xl max-w-lg w-full max-h-[calc(100vh-2rem)] flex flex-col overflow-hidden shadow-2xl border border-fennec-cream relative animate-in fade-in zoom-in duration-200">

@@ -34,7 +34,7 @@ const INSURER_MAP = {
   '1542': 'avenir',
   '1555': 'vivacare',
   '1560': 'moovesympany',
-  '1562': 'progres',
+  '1562': 'helsana',
   '1568': 'visana'
 };
 
@@ -185,13 +185,20 @@ async function run() {
       const premium = parseFloat(praemieStr);
       if (isNaN(premium)) continue;
 
-      const key = `${insurerId}_${kanton}_${region}_${ageCategory}_${franchise}_${modelType}_${accident}`;
+      const insurersToSave = [insurerId];
+      if (insurerId === 'helsana') {
+        insurersToSave.push('progres');
+      }
 
-      if (!premiumsMap[key] || premium < premiumsMap[key].premium) {
-        premiumsMap[key] = {
-          premium,
-          modelName: bezeichnung
-        };
+      for (const id of insurersToSave) {
+        const key = `${id}_${kanton}_${region}_${ageCategory}_${franchise}_${modelType}_${accident}`;
+
+        if (!premiumsMap[key] || premium < premiumsMap[key].premium) {
+          premiumsMap[key] = {
+            premium,
+            modelName: bezeichnung
+          };
+        }
       }
     }
   }
@@ -220,12 +227,19 @@ async function run() {
           const accident = unfall === 'MIT-UNF';
           const premium = parseFloat(praemieStr);
           if (!isNaN(premium)) {
-            const key = `${insurerId}_${kanton}_${region}_${ageCategory}_${franchise}_${modelType}_${accident}`;
-            if (!premiumsMap[key] || premium < premiumsMap[key].premium) {
-              premiumsMap[key] = {
-                premium,
-                modelName: bezeichnung
-              };
+            const insurersToSave = [insurerId];
+            if (insurerId === 'helsana') {
+              insurersToSave.push('progres');
+            }
+
+            for (const id of insurersToSave) {
+              const key = `${id}_${kanton}_${region}_${ageCategory}_${franchise}_${modelType}_${accident}`;
+              if (!premiumsMap[key] || premium < premiumsMap[key].premium) {
+                premiumsMap[key] = {
+                  premium,
+                  modelName: bezeichnung
+                };
+              }
             }
           }
         }
