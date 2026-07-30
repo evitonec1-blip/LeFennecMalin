@@ -1,0 +1,62 @@
+npa,locality,canton,premium_region,bfs_number,commune,district,npa_spans_multiple_regions_flag,locality_spans_multiple_communes_flag
+1000,Lausanne,VD,1,5586,Lausanne,Lausanne,0,0
+1003,Lausanne,VD,1,5586,Lausanne,Lausanne,0,0
+1004,Lausanne,VD,1,5586,Lausanne,Lausanne,0,0
+1005,Lausanne,VD,1,5586,Lausanne,Lausanne,0,0
+1006,Lausanne,VD,1,5586,Lausanne,Lausanne,0,0
+1007,Lausanne,VD,1,5586,Lausanne,Lausanne,0,0
+1009,Pully,VD,1,5590,Pully,Lavaux-Oron,0,0
+1020,Renens,VD,1,5591,Renens,Ouest lausannois,0,0
+1030,Bussigny,VD,2,5624,Bussigny,Ouest lausannois,0,0
+1053,Cugy VD,VD,1,5516,Cugy,Gros-de-Vaud,1,0
+1053,Bretigny-sur-Morrens,VD,2,5512,Bretigny-sur-Morrens,Gros-de-Vaud,1,0
+1085,Vullierens,VD,1,5653,Vullierens,Morges,1,0
+1085,Aclens,VD,2,5621,Aclens,Morges,1,0
+1110,Morges,VD,1,5642,Morges,Morges,0,0
+1196,Gland,VD,2,5721,Gland,Nyon,0,0
+1200,Genève,GE,0,6621,Genève,Genève,0,0
+1201,Genève,GE,0,6621,Genève,Genève,0,0
+1202,Genève,GE,0,6621,Genève,Genève,0,0
+1203,Genève,GE,0,6621,Genève,Genève,0,0
+1204,Genève,GE,0,6621,Genève,Genève,0,0
+1205,Genève,GE,0,6621,Genève,Genève,0,0
+1206,Genève,GE,0,6621,Genève,Genève,0,0
+1207,Genève,GE,0,6621,Genève,Genève,0,0
+1208,Genève,GE,0,6621,Genève,Genève,0,0
+1212,Grand-Lancy,GE,0,6628,Lancy,Genève,0,0
+1213,Onex,GE,0,6631,Onex,Genève,0,0
+1217,Meyrin,GE,0,6630,Meyrin,Genève,0,0
+1227,Carouge,GE,0,6608,Carouge,Genève,0,0
+1260,Nyon,VD,1,5724,Nyon,Nyon,0,0
+1400,Yverdon-les-Bains,VD,1,5571,Yverdon-les-Bains,Jura-Nord vaudois,0,0
+1530,Payerne,VD,2,5822,Payerne,Broye-Vully,0,0
+1630,Bulle,FR,1,2125,Bulle,Gruyère,0,0
+1700,Fribourg,FR,1,2196,Fribourg,Sarine,0,0
+1752,Villars-sur-Glâne,FR,1,2228,Villars-sur-Glâne,Sarine,0,0
+1800,Vevey,VD,1,5890,Vevey,Riviera-Pays-d'Enhaut,0,0
+1820,Montreux,VD,1,5886,Montreux,Riviera-Pays-d'Enhaut,0,0
+1870,Monthey,VS,1,6153,Monthey,Monthey,0,0
+1920,Martigny,VS,1,6136,Martigny,Martigny,0,0
+1950,Sion,VS,1,6266,Sion,Sion,0,0
+1964,Conthey,VS,2,6023,Conthey,Conthey,0,0
+2000,Neuchâtel,NE,0,6458,Neuchâtel,Neuchâtel,0,0
+2300,La Chaux-de-Fonds,NE,0,6421,La Chaux-de-Fonds,La Chaux-de-Fonds,0,0
+2800,Delémont,JU,0,6705,Delémont,Delémont,0,0
+3000,Berne,BE,1,351,Bern,Bern-Mittelland,0,0
+3007,Berne,BE,1,351,Bern,Bern-Mittelland,0,0
+3011,Berne,BE,1,351,Bern,Bern-Mittelland,0,0
+3600,Thun,BE,2,942,Thun,Thun,0,0
+3900,Brig,VS,1,6002,Brig-Glis,Brig,0,0
+3960,Sierre,VS,1,6248,Sierre,Sierre,0,0
+4000,Bâle,BS,0,2701,Basel,Basel-Stadt,0,0
+4001,Bâle,BS,0,2701,Basel,Basel-Stadt,0,0
+6000,Luzern,LU,1,1061,Luzern,Luzern-Stadt,0,0
+6500,Bellinzona,TI,1,5002,Bellinzona,Bellinzona,0,0
+6900,Lugano,TI,1,5192,Lugano,Lugano,0,0
+8000,Zürich,ZH,1,261,Zürich,Zürich,0,0
+8001,Zürich,ZH,1,261,Zürich,Zürich,0,0
+8004,Zürich,ZH,1,261,Zürich,Zürich,0,0
+8005,Zürich,ZH,1,261,Zürich,Zürich,0,0
+8050,Zürich,ZH,1,261,Zürich,Zürich,0,0
+8400,Winterthur,ZH,1,230,Winterthur,Winterthur,0,0
+9000,St. Gallen,SG,1,3203,St. Gallen,St. Gallen,0,0

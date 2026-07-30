@@ -306,7 +306,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
 
   // 1. GSAP-driven Progress Bar Animation for Wizard & Global
   useEffect(() => {
-    const percentage = quizMode ? (currentStep / 10) * 100 : 100;
+    const percentage = quizMode ? Math.min(100, (currentStep / 9) * 100) : 100;
     if (progressBarRef.current) {
       gsap.to(progressBarRef.current, {
         width: `${percentage}%`,
@@ -675,14 +675,14 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
 
               <div className="flex-1 max-w-md mx-6 text-center space-y-1.5">
                 <div className="flex justify-between items-center text-[10px] text-fennec-brown font-black uppercase tracking-widest">
-                  <span>Question {currentStep} sur 9</span>
-                  <span>{Math.round((currentStep / 9) * 100)}% complété</span>
+                  <span>{currentStep >= 9 ? "Action 9/9" : `Question ${currentStep} sur 9`}</span>
+                  <span>{Math.min(100, Math.round((currentStep / 9) * 100))}% complété</span>
                 </div>
                 <div className="h-1.5 w-full bg-fennec-cream/40 rounded-full overflow-hidden relative">
                   <div 
                     ref={progressBarRef}
                     className="h-full bg-fennec-terracotta rounded-full origin-left"
-                    style={{ width: `${(currentStep / 9) * 100}%` }}
+                    style={{ width: `${Math.min(100, (currentStep / 9) * 100)}%` }}
                   />
                 </div>
               </div>
@@ -2039,7 +2039,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
 
                             {/* Balloon notification from Fenny */}
                             <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-3 md:p-4 flex items-start space-x-3 text-emerald-800">
-                              <span className="text-xl">🦊</span>
+                              <img src={fenyAvatar} className="w-7 h-7 rounded-full object-cover shrink-0 border border-emerald-300" alt="Fenny" />
                               <div className="text-[11px] leading-relaxed">
                                 <strong>Message de Fenny :</strong> "J'ai bien préparé vos résultats ! Un code de sécurité unique à 4 chiffres a été envoyé à <strong>{formData.email || 'votre e-mail'}</strong> pour débloquer instantanément vos projections de capital 3e pilier."
                               </div>

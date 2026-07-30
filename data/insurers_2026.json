@@ -1,0 +1,76 @@
+{
+  "insurers": {
+    "8": {
+      "name": "ÖKK Kranken- und Unfallversicherungen AG",
+      "ide": "CHE-105.940.380",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "32": {
+      "name": "Assura SA",
+      "ide": "CHE-105.981.879",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "290": {
+      "name": "SWICA Krankenversicherung AG",
+      "ide": "CHE-105.882.383",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "312": {
+      "name": "Concordia Schweizerische Kranken- und Unfallversicherung AG",
+      "ide": "CHE-105.972.102",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "376": {
+      "name": "KPT Krankenkasse AG",
+      "ide": "CHE-105.975.291",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "455": {
+      "name": "Atupri Gesundheitsversicherung AG",
+      "ide": "CHE-105.945.022",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "509": {
+      "name": "Sympany Versicherungen AG",
+      "ide": "CHE-105.977.102",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1384": {
+      "name": "CSS Versicherung AG",
+      "ide": "CHE-105.978.211",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1509": {
+      "name": "Sanitas Grundversicherungen AG",
+      "ide": "CHE-105.980.111",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1542": {
+      "name": "Groupe Mutuel Assurances GMA SA",
+      "ide": "CHE-105.982.302",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1562": {
+      "name": "Helsana Versicherungen AG",
+      "ide": "CHE-105.983.411",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1568": {
+      "name": "Visana AG",
+      "ide": "CHE-105.984.522",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    }
+  }
+}

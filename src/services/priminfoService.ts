@@ -20,8 +20,41 @@ export interface PriminfoQuery {
   zipCode: string;
   franchise: number;
   ageCategory: 'adult' | 'young' | 'child' | string;
+  yob?: number | string;
   accidentCoverage: boolean;
   model: 'standard' | 'telemed' | 'family' | 'hmo' | string;
+  locality?: string;
+  region?: string;
+}
+
+export interface NpaLookupResult {
+  success: boolean;
+  ambiguous: boolean;
+  npa: string;
+  message?: string;
+  locality?: string;
+  canton?: string;
+  premium_region?: string;
+  premium_region_code?: string;
+  localities?: Array<{
+    locality: string;
+    canton: string;
+    premium_region: string;
+    premium_region_code: string;
+    commune?: string;
+  }>;
+}
+
+export async function fetchNpaInfo(npa: string): Promise<NpaLookupResult | null> {
+  if (!npa || npa.trim().length !== 4) return null;
+  try {
+    const res = await fetch(`/api/priminfo/npa-lookup?npa=${encodeURIComponent(npa.trim())}`);
+    if (!res.ok) return null;
+    return await res.json();
+  } catch (err) {
+    console.error('[PriminfoService] NPA lookup error:', err);
+    return null;
+  }
 }
 
 export interface PremiumOffer {
@@ -187,7 +220,11 @@ export async function fetchOfficialPremiums(query: PriminfoQuery): Promise<Premi
   }
 
   const accidentVal = accidentCoverage ? '1' : '0';
-  const url = `/api/priminfo/praemien?zipCode=${zipCode}&franchise=${franchise}&ageCategory=${ageCategory}&accident=${accidentVal}`;
+  const yobParam = query.yob ? `&yob=${query.yob}` : '';
+  const modelParam = query.model ? `&model=${query.model}` : '';
+  const locParam = query.locality ? `&locality=${encodeURIComponent(query.locality)}` : '';
+  const regParam = query.region ? `&region=${encodeURIComponent(query.region)}` : '';
+  const url = `/api/priminfo/praemien?zipCode=${zipCode}&franchise=${franchise}&ageCategory=${ageCategory}&accident=${accidentVal}${yobParam}${modelParam}${locParam}${regParam}`;
 
   try {
     const res = await fetchWithBackoff(url);

@@ -13,7 +13,7 @@ import {
   getInsurerModelFallbackName, 
   lookupPremium 
 } from '../utils/premiumLookupService';
-import { fetchOfficialPremiums } from '../services/priminfoService';
+import { fetchOfficialPremiums, fetchNpaInfo, NpaLookupResult } from '../services/priminfoService';
 import fenyWinking from '../assets/images/feny_winking_1783331270164.jpg';
 import fenyThinking from '../assets/images/feny_thinking_1783331247759.jpg';
 import fenyAvatar from '../assets/images/feny_avatar_1783331224698.jpg';
@@ -42,7 +42,8 @@ import {
   SlidersHorizontal,
   ThumbsUp,
   Baby,
-  ArrowLeft
+  ArrowLeft,
+  AlertCircle
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import gsap from 'gsap';
@@ -99,28 +100,75 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
 
   const [zipInput, setZipInput] = useState<string>('1201');
   const [resolvedInfo, setResolvedInfo] = useState<{ zip: string; canton: string; zone: number; city: string } | null>(() => resolveZipCode('1201'));
+  const [ambiguousData, setAmbiguousData] = useState<NpaLookupResult | null>(null);
+  const [selectedLocality, setSelectedLocality] = useState<string | null>(null);
+  const [selectedRegionCode, setSelectedRegionCode] = useState<string | null>(null);
 
   // Handler for zip code input change
-  const handleZipChange = (val: string) => {
+  const handleZipChange = async (val: string) => {
     const clean = val.replace(/\D/g, '').slice(0, 4);
     setZipInput(clean);
+    setSelectedLocality(null);
+    setSelectedRegionCode(null);
 
     if (clean.length === 4) {
-      const info = resolveZipCode(clean);
-      if (info) {
-        setResolvedInfo(info);
-        setFilters(prev => ({
-          ...prev,
-          zipCode: clean,
-          canton: info.canton,
-          zone: info.zone
-        }));
+      const npaRes = await fetchNpaInfo(clean);
+      if (npaRes && npaRes.success) {
+        if (npaRes.ambiguous) {
+          setAmbiguousData(npaRes);
+          setResolvedInfo(null);
+        } else {
+          setAmbiguousData(null);
+          const zoneNum = parseInt(npaRes.premium_region || '1', 10) || 1;
+          setResolvedInfo({
+            zip: clean,
+            canton: npaRes.canton || 'VD',
+            zone: zoneNum,
+            city: npaRes.locality || ''
+          });
+          setFilters(prev => ({
+            ...prev,
+            zipCode: clean,
+            canton: npaRes.canton || 'VD',
+            zone: zoneNum
+          }));
+        }
       } else {
-        setResolvedInfo(null);
+        const info = resolveZipCode(clean);
+        if (info) {
+          setResolvedInfo(info);
+          setFilters(prev => ({
+            ...prev,
+            zipCode: clean,
+            canton: info.canton,
+            zone: info.zone
+          }));
+        } else {
+          setResolvedInfo(null);
+        }
       }
     } else {
       setResolvedInfo(null);
+      setAmbiguousData(null);
     }
+  };
+
+  const handleSelectLocality = (locItem: { locality: string; canton: string; premium_region: string; premium_region_code: string }) => {
+    const zoneNum = parseInt(locItem.premium_region, 10) || 1;
+    setSelectedLocality(locItem.locality);
+    setSelectedRegionCode(locItem.premium_region);
+    setResolvedInfo({
+      zip: zipInput,
+      canton: locItem.canton,
+      zone: zoneNum,
+      city: locItem.locality
+    });
+    setFilters(prev => ({
+      ...prev,
+      zipCode: zipInput,
+      canton: locItem.canton,
+      zone: zoneNum
+    }));
   };
 
   // Handler for manual canton button click
@@ -215,14 +263,24 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
     handleFilterChange('birthDate', dateVal);
     if (dateVal) {
       const birthYear = new Date(dateVal).getFullYear();
-      const currentYear = new Date().getFullYear();
+      const currentYear = 2026;
       const age = currentYear - birthYear;
       let category: 'adult' | 'young' | 'child' = 'adult';
       if (age <= 18) {
         category = 'child';
-        handleFilterChange('franchise', 0);
+        if (filters.franchise > 600) {
+          handleFilterChange('franchise', 0);
+        }
       } else if (age <= 25) {
         category = 'young';
+        if (filters.franchise < 300) {
+          handleFilterChange('franchise', 2500);
+        }
+      } else {
+        category = 'adult';
+        if (filters.franchise < 300) {
+          handleFilterChange('franchise', 2500);
+        }
       }
       handleFilterChange('ageCategory', category);
     }
@@ -301,12 +359,16 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
       if (!filters.zipCode || filters.zipCode.length !== 4) return;
       setLoadingReal(true);
       try {
+        const birthYear = filters.birthDate ? new Date(filters.birthDate).getFullYear() : undefined;
         const results = await fetchOfficialPremiums({
           zipCode: filters.zipCode,
           franchise: filters.franchise,
           ageCategory: filters.ageCategory,
+          yob: birthYear && !isNaN(birthYear) ? birthYear : undefined,
           accidentCoverage: filters.accidentCoverage,
-          model: filters.model
+          model: filters.model,
+          locality: selectedLocality || undefined,
+          region: selectedRegionCode || undefined
         });
 
         if (active) {
@@ -334,7 +396,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
     return () => {
       active = false;
     };
-  }, [filters.zipCode, filters.franchise, filters.ageCategory, filters.accidentCoverage, currentCaisseId, filters.model]);
+  }, [filters.zipCode, filters.franchise, filters.ageCategory, filters.birthDate, filters.accidentCoverage, currentCaisseId, filters.model, selectedLocality, selectedRegionCode]);
 
   // Computed premiums list
   const calculatedResults = useMemo(() => {
@@ -482,7 +544,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
 
   // 1. GSAP-driven Progress Bar Animation for Wizard & Global
   useEffect(() => {
-    const percentage = quizMode ? (currentStep / 8) * 100 : 100;
+    const percentage = quizMode ? Math.min(100, (currentStep / 7) * 100) : 100;
     if (progressBarRef.current) {
       gsap.to(progressBarRef.current, {
         width: `${percentage}%`,
@@ -707,14 +769,14 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
 
               <div className="flex-1 max-w-md mx-6 text-center space-y-1.5">
                 <div className="flex justify-between items-center text-[10px] text-fennec-brown font-black uppercase tracking-widest">
-                  <span>Question {currentStep} sur 7</span>
-                  <span>{Math.round((currentStep / 7) * 100)}% complété</span>
+                  <span>{currentStep >= 7 ? "Action 7/7" : `Question ${currentStep} sur 7`}</span>
+                  <span>{Math.min(100, Math.round((currentStep / 7) * 100))}% complété</span>
                 </div>
                 <div className="h-1.5 w-full bg-fennec-cream/40 rounded-full overflow-hidden relative">
                   <div 
                     ref={progressBarRef}
                     className="h-full bg-fennec-terracotta rounded-full origin-left"
-                    style={{ width: `${(currentStep / 7) * 100}%` }}
+                    style={{ width: `${Math.min(100, (currentStep / 7) * 100)}%` }}
                   />
                 </div>
               </div>
@@ -882,6 +944,35 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                   )}
                                 </div>
                               </div>
+
+                              {ambiguousData && ambiguousData.ambiguous && ambiguousData.localities && (
+                                <div className="bg-amber-50 border border-amber-200 rounded-xl p-3.5 space-y-2 text-left animate-in fade-in duration-200">
+                                  <div className="flex items-center space-x-2 text-amber-900 font-bold text-xs">
+                                    <MapPin className="w-4 h-4 text-amber-600 shrink-0" />
+                                    <span>{ambiguousData.message || `Précisez votre localité pour le NPA ${zipInput} :`}</span>
+                                  </div>
+                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                                    {ambiguousData.localities.map((loc, idx) => {
+                                      const isSelected = selectedLocality === loc.locality;
+                                      return (
+                                        <button
+                                          key={idx}
+                                          type="button"
+                                          onClick={() => handleSelectLocality(loc)}
+                                          className={`px-3 py-2 rounded-lg text-xs text-left border font-semibold transition-all flex justify-between items-center ${
+                                            isSelected
+                                              ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-xs'
+                                              : 'bg-white text-fennec-dark border-amber-200 hover:border-fennec-terracotta hover:bg-fennec-cream/20'
+                                          }`}
+                                        >
+                                          <span>{loc.locality} ({loc.canton})</span>
+                                          <span className="text-[10px] font-bold opacity-80">Région {loc.premium_region}</span>
+                                        </button>
+                                      );
+                                    })}
+                                  </div>
+                                </div>
+                              )}
 
                               {resolvedInfo ? (
                                 <div className="flex flex-wrap gap-2 pt-1 animate-in fade-in duration-150">
@@ -1919,7 +2010,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
 
                             {/* Balloon notification from Fenny */}
                             <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-3 md:p-4 flex items-start space-x-3 text-emerald-800">
-                              <span className="text-xl">🦊</span>
+                              <img src={fenyAvatar} className="w-7 h-7 rounded-full object-cover shrink-0 border border-emerald-300" alt="Fenny" />
                               <div className="text-[11px] leading-relaxed">
                                 <strong>Message de Fenny :</strong> "Afin de valider votre dossier et de vous présenter les vraies primes certifiées 2026, un code de sécurité à 4 chiffres vient d'être généré et envoyé à l'adresse <strong>{formData.email || 'votre e-mail'}</strong> !"
                               </div>
@@ -2270,6 +2361,21 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
 
               {/* Actual list of companies */}
               <div className="space-y-4">
+                {calculatedResults.length === 0 && (
+                  <div className="bg-white border border-fennec-cream rounded-3xl p-8 text-center space-y-3">
+                    <AlertCircle className="w-10 h-10 text-fennec-terracotta mx-auto" />
+                    <h4 className="font-display font-bold text-lg text-fennec-dark">
+                      Aucune offre trouvée pour cette combinaison
+                    </h4>
+                    <p className="text-xs text-fennec-brown max-w-md mx-auto">
+                      Aucun tarif officiel n'est répertorié dans le registre fédéral pour le NPA {filters.zipCode}, la franchise CHF {filters.franchise}.- et le modèle sélectionné.
+                    </p>
+                    <span className="inline-block text-[10px] text-fennec-dark/60 font-medium bg-fennec-cream/20 px-3 py-1 rounded-full border border-fennec-cream">
+                      Source : OFSP/priminfo, primes 2026
+                    </span>
+                  </div>
+                )}
+
                 {calculatedResults.map((caisse, index) => {
                   const isCheapest = index === 0 && filters.sortBy === 'price';
                   return (
@@ -2359,18 +2465,11 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                           )}
                         </div>
 
-                        {/* Official OFSP / priminfo Source Badge */}
-                        {caisse.isRealData ? (
-                          <div className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-md bg-emerald-50 border border-emerald-150 text-[9px] text-emerald-800 font-bold">
-                            <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
-                            <span>Donnée Officielle OFSP</span>
-                          </div>
-                        ) : (
-                          <div className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-md bg-amber-50 border border-amber-150 text-[9px] text-amber-800 font-bold">
-                            <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-                            <span>Donnée Estimée 2026</span>
-                          </div>
-                        )}
+                        {/* Official OFSP / priminfo Source Notice */}
+                        <div className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-md bg-emerald-50 border border-emerald-150 text-[9px] text-emerald-800 font-bold">
+                          <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
+                          <span>Source : OFSP/priminfo, primes 2026</span>
+                        </div>
 
                         {/* Real retrieved model name */}
                         {caisse.realModelName && (

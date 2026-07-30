@@ -1,8 +1,11 @@
 /**
  * Premium Lookup Service and JSON Data Store Utility
- * Defines a structured schema and provides efficient lookups by
- * (canton, region, ageCategory, deductible, model, accidentCoverage).
+ * Defines a structured schema and provides efficient lookups aligned with
+ * official priminfo.admin.ch calculation parameters:
+ * (canton, region, yob/ageCategory, deductible, model, accidentCoverage).
  */
+
+import { resolveZipCode, ZipCodeInfo } from './swissZipCodes';
 
 export interface PremiumRecord {
   premium: number;
@@ -17,37 +20,75 @@ export interface PremiumLookupQuery {
   canton: string;
   region: string;
   ageCategory: AgeCategory | string;
+  yob?: number;
   deductible: number;
   model: ModelType | string;
   accidentCoverage: boolean;
 }
 
 /**
+ * Maps Year of Birth (yob) directly to official Swiss LAMal age categories:
+ * - Children (0–18 years): yob >= currentYear - 18 (e.g., 2008..2026 for 2026)
+ * - Young Adults (19–25 years): yob between currentYear - 25 and currentYear - 19 (e.g., 2001..2007)
+ * - Adults (26+ years): yob <= currentYear - 26 (e.g., <= 2000)
+ */
+export function getAgeCategoryFromYob(yob: number | string, referenceYear: number = 2026): AgeCategory {
+  const year = typeof yob === 'number' ? yob : parseInt(String(yob), 10);
+  if (isNaN(year) || year <= 0) return 'adult';
+  const age = referenceYear - year;
+  if (age <= 18) return 'child';
+  if (age <= 25) return 'young';
+  return 'adult';
+}
+
+/**
+ * Returns official statutory deductibles (franchises) under Swiss LAMal law:
+ * - Adults (26+) & Young Adults (19–25): CHF 300, 500, 1000, 1500, 2000, 2500
+ * - Children (0–18): CHF 0, 100, 200, 300, 400, 500, 600
+ */
+export function getStatutoryFranchises(ageCategory: string): number[] {
+  if (ageCategory === 'child') {
+    return [0, 100, 200, 300, 400, 500, 600];
+  }
+  return [300, 500, 1000, 1500, 2000, 2500];
+}
+
+/**
+ * Normalizes Priminfo model codes (BASE, HAM, HMO, TEL) to app model types.
+ */
+export function normalizeModelCode(model: string): ModelType {
+  const m = model.toLowerCase().trim();
+  if (m === 'base' || m === 'standard') return 'standard';
+  if (m === 'ham' || m === 'family' || m === 'hausarzt') return 'family';
+  if (m === 'hmo') return 'hmo';
+  if (m === 'tel' || m === 'telemed' || m === 'télémédecine') return 'telemed';
+  return 'standard';
+}
+
+/**
  * Generates the standard lookup key for the pre-compiled premiums database.
  * Key structure: `insurerId_canton_region_ageCategory_deductible_model_accident`
  * E.g., `css_GE_PR-REG CH1_adult_2500_telemed_true`
- *
- * @param query The premium lookup query parameters
- * @returns The generated database key string
  */
 export function generatePremiumKey(query: PremiumLookupQuery): string {
   const insurer = query.insurerId.toLowerCase().trim();
   const canton = query.canton.toUpperCase().trim();
   const region = query.region.trim(); // E.g., "PR-REG CH1"
-  const age = query.ageCategory.toLowerCase().trim();
+  
+  // Resolve age category from yob if provided, otherwise clean string
+  const resolvedAgeCat = query.yob 
+    ? getAgeCategoryFromYob(query.yob) 
+    : (query.ageCategory || 'adult').toLowerCase().trim();
+    
   const deductible = Number(query.deductible);
-  const model = query.model.toLowerCase().trim();
+  const model = normalizeModelCode(query.model);
   const accident = !!query.accidentCoverage;
 
-  return `${insurer}_${canton}_${region}_${age}_${deductible}_${model}_${accident}`;
+  return `${insurer}_${canton}_${region}_${resolvedAgeCat}_${deductible}_${model}_${accident}`;
 }
 
 /**
  * Resolves a region code based on Swiss canton rules and ZIP zone numbers.
- *
- * @param canton Standard Swiss 2-letter canton code (e.g., "GE", "BE")
- * @param zone Region zone index (e.g., 1, 2, 3)
- * @returns Standardised region code (e.g., "PR-REG CH1")
  */
 export function getRegionCode(canton: string, zone: number): string {
   const singleRegionCantons = [
@@ -74,10 +115,6 @@ export function getRegionCode(canton: string, zone: number): string {
 
 /**
  * Performs an efficient O(1) database lookup using the pre-compiled hashmap.
- *
- * @param database Loaded JSON database of premiums
- * @param query Lookup parameters
- * @returns PremiumRecord or null if not found
  */
 export function lookupPremium(
   database: Record<string, PremiumRecord>,
@@ -136,10 +173,11 @@ export function getInsurerDisplayName(id: string): string {
  */
 export function getInsurerModelFallbackName(id: string, type: string): string {
   const displayNames: Record<string, string> = {
-    standard: 'Base / Standard (AOS)',
-    telemed: 'Télémédecine',
-    family: 'Médecin de Famille',
+    standard: 'Base / Standard (AOS - BASE)',
+    telemed: 'Télémédecine (TEL)',
+    family: 'Médecin de Famille (HAM)',
     hmo: 'Réseau de soins / HMO'
   };
   return displayNames[type.toLowerCase()] || type;
 }
+

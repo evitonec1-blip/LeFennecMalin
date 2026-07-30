@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import nodemailer from "nodemailer";
 import fs from "fs";
 import { resolveZipCode } from "./src/utils/swissZipCodes.js";
-import { getRegionCode, getInsurerDisplayName, getInsurerModelFallbackName, lookupPremium } from "./src/utils/premiumLookupService.js";
+import { getRegionCode, getInsurerDisplayName, getInsurerModelFallbackName, lookupPremium, getAgeCategoryFromYob } from "./src/utils/premiumLookupService.js";
 
 // Load environment variables
 dotenv.config();
@@ -71,14 +71,18 @@ app.post("/api/send-verification-code", async (req, res) => {
     const subject = `🔒 Votre code de sécurité Le Fennec Malin : ${generatedCode}`;
     const textBody = `Bonjour ${firstName || ''},\n\nVotre code de vérification pour accéder à votre comparatif d'assurances est : ${generatedCode}\n\nCe code est valable pendant 10 minutes.\n\nCordialement,\nL'équipe Le Fennec Malin`;
     const htmlBody = `
-      <div style="font-family: Arial, sans-serif; padding: 20px; color: #2F2921; max-width: 500px; border: 1px solid #ECE1D4; border-radius: 12px; background-color: #FCFAF8;">
-        <h2 style="color: #D36D53; margin-top: 0;">🦊 Code de vérification de sécurité</h2>
-        <p>Bonjour ${firstName || ''},</p>
-        <p>Voici votre code de sécurité unique pour valider votre demande et afficher le comparatif officiel :</p>
-        <div style="text-align: center; margin: 24px 0; padding: 16px; background-color: #2F2921; color: #FFF; font-size: 32px; font-weight: bold; letter-spacing: 8px; border-radius: 8px;">
+      <div style="font-family: Arial, sans-serif; padding: 24px; color: #2F2921; max-width: 500px; border: 1px solid #ECE1D4; border-radius: 12px; background-color: #FCFAF8; margin: 0 auto;">
+        <div style="text-align: center; margin-bottom: 20px;">
+          <img src="cid:fenneclogo" alt="Le Fennec Malin" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #D36D53; display: inline-block; margin-bottom: 8px;" />
+          <h2 style="color: #D36D53; margin: 0; font-size: 20px; font-weight: bold;">Code de vérification de sécurité</h2>
+          <p style="margin: 4px 0 0; font-size: 12px; color: #7F7366; font-weight: 600;">LE FENNEC MALIN - COMPARATEUR NEUTRE</p>
+        </div>
+        <p style="margin-top: 0; font-size: 14px;">Bonjour ${firstName || ''},</p>
+        <p style="font-size: 14px; color: #4A4036;">Voici votre code de sécurité unique à 4 chiffres pour valider votre demande et afficher les tarifs officiels :</p>
+        <div style="text-align: center; margin: 24px 0; padding: 18px; background-color: #2F2921; color: #FFF; font-size: 36px; font-weight: 900; letter-spacing: 10px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
           ${generatedCode}
         </div>
-        <p style="font-size: 12px; color: #7F7366;">Ce code expire dans 10 minutes. Si vous n'avez pas demandé ce code, vous pouvez ignorer cet e-mail.</p>
+        <p style="font-size: 12px; color: #7F7366; margin-bottom: 0;">Ce code expire dans 10 minutes. Si vous n'avez pas demandé ce code, vous pouvez ignorer cet e-mail.</p>
       </div>
     `;
 
@@ -91,12 +95,22 @@ app.post("/api/send-verification-code", async (req, res) => {
           auth: { user: smtpUser, pass: smtpPass }
         });
 
+        const logoPath = path.join(process.cwd(), "public", "fennec-logo.jpg");
+        const attachments = fs.existsSync(logoPath) ? [
+          {
+            filename: "fennec-logo.jpg",
+            path: logoPath,
+            cid: "fenneclogo"
+          }
+        ] : [];
+
         await transporter.sendMail({
           from: process.env.SMTP_FROM || `"Le Fennec Malin" <${smtpUser}>`,
           to: cleanEmail,
           subject,
           text: textBody,
-          html: htmlBody
+          html: htmlBody,
+          attachments
         });
         console.log(`[Verification] Email successfully sent to ${cleanEmail}`);
       } catch (mailErr: any) {
@@ -202,7 +216,8 @@ Caisse actuelle: ${filters?.currentCaisse || "Non renseignée"}
       htmlBody = `
         <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; border: 1px solid #ECE1D4; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
           <div style="background-color: #2F2921; color: #FFF; padding: 20px; text-align: center;">
-            <h2 style="margin: 0; font-size: 20px; letter-spacing: 1px;">🦊 FENY - LE FENNEC MALIN</h2>
+            <img src="cid:fenneclogo" alt="Le Fennec Malin" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #D36D53; margin-bottom: 6px;" />
+            <h2 style="margin: 0; font-size: 20px; letter-spacing: 1px;">FENY - LE FENNEC MALIN</h2>
             <p style="margin: 5px 0 0; font-size: 13px; color: #ECE1D4; opacity: 0.9;">Nouveau Lead Assurance Maladie (LAMal)</p>
           </div>
           <div style="padding: 24px; background-color: #FCFAF8;">
@@ -291,7 +306,8 @@ Total économie fiscale sur le terme: CHF ${totalTaxSavings.toLocaleString()}.-
       htmlBody = `
         <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; border: 1px solid #ECE1D4; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
           <div style="background-color: #2F2921; color: #FFF; padding: 20px; text-align: center;">
-            <h2 style="margin: 0; font-size: 20px; letter-spacing: 1px;">🦊 FENY - LE FENNEC MALIN</h2>
+            <img src="cid:fenneclogo" alt="Le Fennec Malin" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #D36D53; margin-bottom: 6px;" />
+            <h2 style="margin: 0; font-size: 20px; letter-spacing: 1px;">FENY - LE FENNEC MALIN</h2>
             <p style="margin: 5px 0 0; font-size: 13px; color: #ECE1D4; opacity: 0.9;">Nouveau Lead Prévoyance 3ème Pilier</p>
           </div>
           <div style="padding: 24px; background-color: #FCFAF8;">
@@ -378,12 +394,22 @@ Total économie fiscale sur le terme: CHF ${totalTaxSavings.toLocaleString()}.-
         }
       });
 
+      const logoPath = path.join(process.cwd(), "public", "fennec-logo.jpg");
+      const attachments = fs.existsSync(logoPath) ? [
+        {
+          filename: "fennec-logo.jpg",
+          path: logoPath,
+          cid: "fenneclogo"
+        }
+      ] : [];
+
       await transporter.sendMail({
         from: process.env.SMTP_FROM || `"Feny Leads" <${smtpUser}>`,
         to: recipientEmail,
         subject: subject,
         text: textBody,
-        html: htmlBody
+        html: htmlBody,
+        attachments
       });
 
       console.log(`[SMTP] Email successfully sent to ${recipientEmail}!`);
@@ -410,9 +436,70 @@ Total économie fiscale sur le terme: CHF ${totalTaxSavings.toLocaleString()}.-
 });
 
 
-// Load 2026 premiums database from the public or dist folder.
-// This runs once at cold start; if it fails, premiumsLoadError explains why
-// instead of the route silently returning a generic, undiagnosable 500.
+// Load 2026 premiums database and NPA region map from data or public folder.
+interface NpaEntry {
+  npa: string;
+  locality: string;
+  canton: string;
+  premium_region: string;
+  bfs_number: string;
+  commune: string;
+  district: string;
+  npa_spans_multiple_regions_flag: number;
+  locality_spans_multiple_communes_flag: number;
+}
+
+let npaMap: Record<string, NpaEntry[]> = {};
+
+function loadNpaToRegionMap() {
+  if (Object.keys(npaMap).length > 0) return npaMap;
+  const cwd = process.cwd();
+  const candidatePaths = [
+    path.join(cwd, "data", "npa_to_region_2026.csv"),
+    path.join(cwd, "public", "npa_to_region_2026.csv"),
+  ];
+  if (typeof __dirname !== "undefined") {
+    candidatePaths.push(path.join(__dirname, "data", "npa_to_region_2026.csv"));
+    candidatePaths.push(path.join(__dirname, "..", "data", "npa_to_region_2026.csv"));
+  }
+  const existingPath = candidatePaths.find(p => fs.existsSync(p));
+  if (existingPath) {
+    try {
+      const raw = fs.readFileSync(existingPath, "utf-8");
+      const lines = raw.split("\n");
+      npaMap = {};
+      for (let i = 1; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (!line) continue;
+        const parts = line.split(",");
+        if (parts.length >= 4) {
+          const npa = parts[0].trim();
+          const locality = parts[1].trim();
+          const canton = parts[2].trim();
+          const premium_region = parts[3].trim();
+          const bfs_number = parts[4] ? parts[4].trim() : "";
+          const commune = parts[5] ? parts[5].trim() : "";
+          const district = parts[6] ? parts[6].trim() : "";
+          const npa_spans_multiple_regions_flag = parts[7] ? parseInt(parts[7].trim(), 10) : 0;
+          const locality_spans_multiple_communes_flag = parts[8] ? parseInt(parts[8].trim(), 10) : 0;
+
+          if (!npaMap[npa]) npaMap[npa] = [];
+          npaMap[npa].push({
+            npa, locality, canton, premium_region, bfs_number, commune, district,
+            npa_spans_multiple_regions_flag, locality_spans_multiple_communes_flag
+          });
+        }
+      }
+      console.log(`[Server] Loaded ${Object.keys(npaMap).length} NPAs from ${existingPath}`);
+    } catch (err) {
+      console.error("[Server] Error loading npa_to_region_2026.csv:", err);
+    }
+  }
+  return npaMap;
+}
+
+loadNpaToRegionMap();
+
 let premiumsDb: Record<string, { premium: number; modelName: string }> = {};
 let premiumsLoadError: string | null = null;
 
@@ -445,8 +532,6 @@ async function loadPremiums() {
     premiumsLoadError = null;
     console.log(`[Server] Successfully loaded ${Object.keys(premiumsDb).length} premium records.`);
   } catch (parseErr: any) {
-    // A corrupt/truncated file is a very different problem from a missing file -
-    // log the exact length and error so it's obvious in Vercel logs what happened.
     premiumsLoadError = `premiums_2026.json at ${existingPath} is not valid JSON (file length: ${raw.length} chars): ${parseErr.message}`;
     console.error(`[Server] ${premiumsLoadError}`);
   }
@@ -457,25 +542,83 @@ async function loadPremiums() {
 // Ensure it's loaded at startup if possible
 loadPremiums();
 
+// API endpoint for resolving NPA to locality / region
+app.get("/api/priminfo/npa-lookup", (req, res) => {
+  const npaStr = String(req.query.npa || req.query.zipCode || "").trim();
+  if (!npaStr) {
+    return res.status(400).json({ error: "NPA param est requis" });
+  }
+
+  if (Object.keys(npaMap).length === 0) {
+    loadNpaToRegionMap();
+  }
+
+  const entries = npaMap[npaStr];
+  if (!entries || entries.length === 0) {
+    const zipInfo = resolveZipCode(npaStr);
+    if (!zipInfo) {
+      return res.status(404).json({ error: "Code postal inconnu", npa: npaStr });
+    }
+    const regionCode = getRegionCode(zipInfo.canton, zipInfo.zone);
+    const regNum = regionCode.replace("PR-REG CH", "");
+    return res.json({
+      success: true,
+      ambiguous: false,
+      npa: npaStr,
+      locality: zipInfo.city,
+      canton: zipInfo.canton,
+      premium_region: regNum,
+      premium_region_code: regionCode
+    });
+  }
+
+  const distinctRegions = new Set(entries.map(e => `${e.canton}_${e.premium_region}`));
+  const distinctLocalities = new Set(entries.map(e => e.locality));
+  const spansFlag = entries.some(e => e.npa_spans_multiple_regions_flag === 1);
+
+  if (entries.length > 1 && (distinctRegions.size > 1 || distinctLocalities.size > 1 || spansFlag)) {
+    return res.json({
+      success: true,
+      ambiguous: true,
+      npa: npaStr,
+      message: `Le code postal ${npaStr} correspond à plusieurs localités ou régions de primes. Veuillez préciser votre localité.`,
+      localities: entries.map(e => ({
+        locality: e.locality,
+        canton: e.canton,
+        premium_region: e.premium_region,
+        premium_region_code: `PR-REG CH${e.premium_region}`,
+        commune: e.commune
+      }))
+    });
+  }
+
+  const primary = entries[0];
+  return res.json({
+    success: true,
+    ambiguous: false,
+    npa: npaStr,
+    locality: primary.locality,
+    canton: primary.canton,
+    premium_region: primary.premium_region,
+    premium_region_code: `PR-REG CH${primary.premium_region}`
+  });
+});
 
 // API endpoint for fetching local official premiums
 app.get("/api/priminfo/praemien", async (req, res) => {
   try {
-    // Ensure DB is loaded (crucial for Vercel cold starts)
     if (Object.keys(premiumsDb).length === 0) {
       await loadPremiums();
     }
 
     if (Object.keys(premiumsDb).length === 0) {
-       // Return the real reason instead of a generic message - this is what was
-       // missing before and made the 500 impossible to diagnose from the client.
        return res.status(500).json({
          error: "Could not load the premiums database.",
          reason: premiumsLoadError || "Unknown error while loading premiums_2026.json"
        });
     }
 
-    const { zipCode, franchise, ageCategory, accident } = req.query;
+    const { zipCode, franchise, ageCategory, yob, accident, locality, region: customRegion } = req.query;
     console.log("[Priminfo API] Processing proxy request for Swiss open data...");
 
     if (!zipCode) {
@@ -484,17 +627,48 @@ app.get("/api/priminfo/praemien", async (req, res) => {
 
     const cleanZip = String(zipCode).trim();
     const cleanFranchise = franchise ? parseInt(String(franchise), 10) : 2500;
-    const cleanAgeCategory = ageCategory ? String(ageCategory) : "adult";
+    
+    let cleanAgeCategory = ageCategory ? String(ageCategory) : "adult";
+    if (yob) {
+      const parsedYob = parseInt(String(yob), 10);
+      if (!isNaN(parsedYob) && parsedYob > 1900) {
+        cleanAgeCategory = getAgeCategoryFromYob(parsedYob);
+      }
+    }
+    
     const cleanAccident = accident === "0" ? false : true;
 
-    const zipInfo = resolveZipCode(cleanZip);
-    if (!zipInfo) {
-      return res.status(404).json({ error: "Invalid or unsupported ZIP code" });
+    // Resolve canton and region
+    let canton = "";
+    let region = "";
+
+    if (Object.keys(npaMap).length === 0) loadNpaToRegionMap();
+    const npaEntries = npaMap[cleanZip];
+
+    if (npaEntries && npaEntries.length > 0) {
+      let matched = npaEntries[0];
+      if (locality) {
+        const foundLoc = npaEntries.find(e => e.locality.toLowerCase() === String(locality).toLowerCase());
+        if (foundLoc) matched = foundLoc;
+      }
+      canton = matched.canton;
+      const zNum = parseInt(matched.premium_region, 10) || 1;
+      region = getRegionCode(canton, zNum);
     }
 
-    const canton = zipInfo.canton;
-    const zone = zipInfo.zone;
-    const region = getRegionCode(canton, zone);
+    if (!canton || !region) {
+      const zipInfo = resolveZipCode(cleanZip);
+      if (!zipInfo) {
+        return res.status(404).json({ error: "Invalid or unsupported ZIP code" });
+      }
+      canton = zipInfo.canton;
+      region = getRegionCode(canton, zipInfo.zone);
+    }
+
+    if (customRegion) {
+      const parsedRegNum = parseInt(String(customRegion).replace("PR-REG CH", ""), 10) || 1;
+      region = getRegionCode(canton, parsedRegNum);
+    }
 
     const activeInsurers = [
       'okk', 'assura', 'glarner', 'waedenswil', 'aquilana', 'swica', 'concordia',
@@ -523,20 +697,31 @@ app.get("/api/priminfo/praemien", async (req, res) => {
           accidentCoverage: cleanAccident
         });
 
-        if (record) {
+        if (record && record.premium > 0) {
           results.push({
             insurerId,
             insurerName: getInsurerDisplayName(insurerId),
             modelName: record.modelName || getInsurerModelFallbackName(insurerId, modelType),
             modelType,
-            premium: record.premium
+            premium: record.premium,
+            sourceNotice: "Source : OFSP/priminfo, primes 2026"
           });
         }
       }
     }
 
+    // Sort by monthly premium ascending
+    results.sort((a, b) => a.premium - b.premium);
+
     console.log(`[PremiumLookup] Resolved ${results.length} official records for ZIP ${cleanZip} (${canton}, Region: ${region}, Franchise: ${cleanFranchise}, Category: ${cleanAgeCategory}, Accident: ${cleanAccident})`);
-    res.json({ success: true, count: results.length, data: results });
+    res.json({
+      success: true,
+      source: "Source : OFSP/priminfo, primes 2026",
+      canton,
+      region,
+      count: results.length,
+      data: results
+    });
 
   } catch (error: any) {
     console.error("[PremiumLookupError]", error);
