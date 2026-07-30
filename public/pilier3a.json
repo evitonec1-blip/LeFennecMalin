@@ -1,0 +1,90 @@
+[
+  {
+    "id": "viac",
+    "provider": "VIAC (Terzo Vorsorgestiftung)",
+    "type": "compte/fonds",
+    "interest_rate_percent": 0.80,
+    "annual_fees_percent": 0.40,
+    "max_equity_percent": 99,
+    "source_url": "https://viac.ch/fr/3a/",
+    "last_verified": "2026-07-30",
+    "notes": "Compte 3a numérique sans frais de dépôt. Frais de gestion de 0.40% max sur les stratégies d'actions."
+  },
+  {
+    "id": "finpension",
+    "provider": "Finpension 3a",
+    "type": "fonds/compte",
+    "interest_rate_percent": 0.85,
+    "annual_fees_percent": 0.39,
+    "max_equity_percent": 99,
+    "source_url": "https://finpension.ch/fr/3a/",
+    "last_verified": "2026-07-30",
+    "notes": "Frais forfaitaires de 0.39% + TVA sur la part investie. Choix jusqu'à 99% d'actions."
+  },
+  {
+    "id": "frankly",
+    "provider": "frankly (Zürcher Kantonalbank)",
+    "type": "fonds/compte",
+    "interest_rate_percent": 0.80,
+    "annual_fees_percent": 0.44,
+    "max_equity_percent": 95,
+    "source_url": "https://www.frankly.ch/fr/3a",
+    "last_verified": "2026-07-30",
+    "notes": "Frais all-in dégressifs gérés par la Banque Cantonale de Zurich."
+  },
+  {
+    "id": "swisslife",
+    "provider": "Swiss Life 3a (Dynamic Elements)",
+    "type": "assurance/fonds",
+    "interest_rate_percent": 0.75,
+    "annual_fees_percent": 1.05,
+    "max_equity_percent": 80,
+    "source_url": "https://www.swisslife.ch/fr/particuliers/prevoyance/troisieme-pilier.html",
+    "last_verified": "2026-07-30",
+    "notes": "Solution d'assurance 3a combinant garanties de capital et exonération de prime en cas d'incapacité."
+  },
+  {
+    "id": "axa",
+    "provider": "AXA Prévoyance 3a SmartInvest",
+    "type": "assurance/fonds",
+    "interest_rate_percent": 0.70,
+    "annual_fees_percent": 0.95,
+    "max_equity_percent": 80,
+    "source_url": "https://www.axa.ch/fr/particuliers/offres/prevoyance-patrimoine/3e-pilier.html",
+    "last_verified": "2026-07-30",
+    "notes": "Solution 3a assurance avec options de protection décès et invalidité."
+  },
+  {
+    "id": "postfinance",
+    "provider": "PostFinance 3a",
+    "type": "compte/fonds",
+    "interest_rate_percent": 0.80,
+    "annual_fees_percent": 0.60,
+    "max_equity_percent": 75,
+    "source_url": "https://www.postfinance.ch/fr/particuliers/produits/epargne-placement/troisieme-pilier.html",
+    "last_verified": "2026-07-30",
+    "notes": "Compte de prévoyance rémunéré et souscription de fonds e-financiers."
+  },
+  {
+    "id": "baloise",
+    "provider": "Baloise Mon 3e Pilier",
+    "type": "assurance/fonds",
+    "interest_rate_percent": 0.65,
+    "annual_fees_percent": 1.10,
+    "max_equity_percent": 75,
+    "source_url": "https://www.baloise.ch/fr/clients-prives/prevoyance/troisieme-pilier.html",
+    "last_verified": "2026-07-30",
+    "notes": "Combinaison épargne et sécurité avec garantie de maintien des versements."
+  },
+  {
+    "id": "unverified_bank_example",
+    "provider": "Caisse Locale Partenaire (Offre sur demande)",
+    "type": "compte",
+    "interest_rate_percent": null,
+    "annual_fees_percent": null,
+    "max_equity_percent": null,
+    "source_url": "https://www.priminfo.admin.ch",
+    "last_verified": "2026-07-30",
+    "notes": "Taux et frais non publiés en données ouvertes. Veuillez consulter directement l'établissement."
+  }
+]

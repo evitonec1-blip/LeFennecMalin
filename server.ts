@@ -34,6 +34,135 @@ app.use((req, res, next) => {
 });
 
 
+// Verification code storage (in-memory map)
+const verificationCodes = new Map<string, { code: string; expiresAt: number; phone?: string; firstName?: string; lastName?: string }>();
+
+// API endpoint to send real verification code via email
+app.post("/api/send-verification-code", async (req, res) => {
+  try {
+    const { email, firstName, lastName, phone } = req.body;
+
+    if (!email || typeof email !== "string" || !email.includes("@")) {
+      return res.status(400).json({ error: "Adresse e-mail valide requise." });
+    }
+
+    const cleanEmail = email.trim().toLowerCase();
+    
+    // Generate random 4-digit code
+    const generatedCode = Math.floor(1000 + Math.random() * 9000).toString();
+    const expiresAt = Date.now() + 10 * 60 * 1000; // 10 minutes expiry
+
+    verificationCodes.set(cleanEmail, {
+      code: generatedCode,
+      expiresAt,
+      phone,
+      firstName,
+      lastName
+    });
+
+    console.log(`[Verification] Code generated for ${cleanEmail}: ${generatedCode}`);
+
+    // Try to send email via Nodemailer if SMTP configured
+    const smtpHost = process.env.SMTP_HOST;
+    const smtpPort = process.env.SMTP_PORT;
+    const smtpUser = process.env.SMTP_USER;
+    const smtpPass = process.env.SMTP_PASS;
+
+    const subject = `🔒 Votre code de sécurité Le Fennec Malin : ${generatedCode}`;
+    const textBody = `Bonjour ${firstName || ''},\n\nVotre code de vérification pour accéder à votre comparatif d'assurances est : ${generatedCode}\n\nCe code est valable pendant 10 minutes.\n\nCordialement,\nL'équipe Le Fennec Malin`;
+    const htmlBody = `
+      <div style="font-family: Arial, sans-serif; padding: 20px; color: #2F2921; max-width: 500px; border: 1px solid #ECE1D4; border-radius: 12px; background-color: #FCFAF8;">
+        <h2 style="color: #D36D53; margin-top: 0;">🦊 Code de vérification de sécurité</h2>
+        <p>Bonjour ${firstName || ''},</p>
+        <p>Voici votre code de sécurité unique pour valider votre demande et afficher le comparatif officiel :</p>
+        <div style="text-align: center; margin: 24px 0; padding: 16px; background-color: #2F2921; color: #FFF; font-size: 32px; font-weight: bold; letter-spacing: 8px; border-radius: 8px;">
+          ${generatedCode}
+        </div>
+        <p style="font-size: 12px; color: #7F7366;">Ce code expire dans 10 minutes. Si vous n'avez pas demandé ce code, vous pouvez ignorer cet e-mail.</p>
+      </div>
+    `;
+
+    if (smtpHost && smtpUser && smtpPass) {
+      try {
+        const transporter = nodemailer.createTransport({
+          host: smtpHost,
+          port: parseInt(smtpPort || "587"),
+          secure: process.env.SMTP_SECURE === "true",
+          auth: { user: smtpUser, pass: smtpPass }
+        });
+
+        await transporter.sendMail({
+          from: process.env.SMTP_FROM || `"Le Fennec Malin" <${smtpUser}>`,
+          to: cleanEmail,
+          subject,
+          text: textBody,
+          html: htmlBody
+        });
+        console.log(`[Verification] Email successfully sent to ${cleanEmail}`);
+      } catch (mailErr: any) {
+        console.error(`[Verification] SMTP failed to send email to ${cleanEmail}:`, mailErr.message);
+      }
+    } else {
+      console.log(`[Verification] SMTP not configured. Code logged for development: ${generatedCode}`);
+    }
+
+    return res.json({ 
+      success: true, 
+      message: `Code de vérification envoyé à ${cleanEmail}`,
+      devCodeNotice: !smtpHost ? generatedCode : undefined
+    });
+  } catch (error: any) {
+    console.error("[SendVerificationError]", error);
+    return res.status(500).json({ error: error.message || "Impossible d'envoyer le code de vérification." });
+  }
+});
+
+// API endpoint to verify code
+app.post("/api/verify-code", async (req, res) => {
+  try {
+    const { email, code } = req.body;
+
+    if (!email || !code) {
+      return res.status(400).json({ error: "L'adresse e-mail et le code sont obligatoires." });
+    }
+
+    const cleanEmail = String(email).trim().toLowerCase();
+    const cleanCode = String(code).trim();
+
+    const record = verificationCodes.get(cleanEmail);
+
+    if (!record) {
+      return res.status(400).json({ 
+        success: false, 
+        error: "Aucun code trouvé pour cet e-mail. Veuillez demander un nouveau code." 
+      });
+    }
+
+    if (Date.now() > record.expiresAt) {
+      verificationCodes.delete(cleanEmail);
+      return res.status(400).json({ 
+        success: false, 
+        error: "Ce code a expiré. Veuillez cliquer sur 'Recevoir mon code' à nouveau." 
+      });
+    }
+
+    if (record.code !== cleanCode) {
+      return res.status(400).json({ 
+        success: false, 
+        error: "Code de vérification incorrect. Veuillez vérifier votre e-mail." 
+      });
+    }
+
+    // Code verified! Remove code from store
+    verificationCodes.delete(cleanEmail);
+
+    return res.json({ success: true, verified: true });
+  } catch (error: any) {
+    console.error("[VerifyCodeError]", error);
+    return res.status(500).json({ error: error.message || "Erreur lors de la vérification du code." });
+  }
+});
+
 // API endpoint for form lead submission
 app.post("/api/submit-lead", async (req, res) => {
   try {

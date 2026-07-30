@@ -1794,34 +1794,53 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                     setIsSendingCode(true);
                                     
                                     try {
-                                      await fetch('/api/submit-lead', {
+                                      const res = await fetch('/api/send-verification-code', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({ 
+                                          email: formData.email, 
+                                          firstName: formData.firstName, 
+                                          lastName: formData.lastName, 
+                                          phone: formData.phone 
+                                        })
+                                      });
+                                      const data = await res.json();
+                                      if (!res.ok || !data.success) {
+                                        setVerificationError(data.error || "Erreur lors de l'envoi du code par e-mail.");
+                                        setIsSendingCode(false);
+                                        return;
+                                      }
+                                      
+                                      // Log lead as pre-verify
+                                      fetch('/api/submit-lead', {
                                         method: 'POST',
                                         headers: { 'Content-Type': 'application/json' },
                                         body: JSON.stringify({ type: 'health_pre_verify', lead: formData, filters })
-                                      });
-                                    } catch(e) {}
+                                      }).catch(() => {});
 
-                                    setTimeout(() => {
                                       setIsSendingCode(false);
                                       setVerificationStep('code');
-                                    }, 1200);
+                                    } catch(e: any) {
+                                      setIsSendingCode(false);
+                                      setVerificationError("Impossible de contacter le serveur de vérification.");
+                                    }
                                   }}
                                   className="w-full py-3 bg-fennec-dark hover:bg-fennec-terracotta text-white font-display font-bold rounded-xl text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center space-x-2 cursor-pointer"
                                 >
                                   {isSendingCode ? (
                                     <>
                                       <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                                      <span>Génération du code de sécurité...</span>
+                                      <span>Envoi du code e-mail en cours...</span>
                                     </>
                                   ) : (
-                                    <span>Recevoir mon code de validation</span>
+                                    <span>Recevoir mon code de validation par E-mail</span>
                                   )}
                                 </button>
                               </div>
                             ) : (
                               <div className="space-y-4">
                                 <div className="bg-amber-50 border border-amber-200 text-[11px] text-amber-800 p-3.5 rounded-xl leading-relaxed">
-                                  <strong>💡 SMS & E-mail envoyés !</strong> Pour valider votre dossier et débloquer les tarifs, veuillez saisir le code de sécurité reçu.
+                                  <strong>💡 Code de sécurité envoyé par e-mail !</strong> Veuillez vérifier la boîte de réception de <strong>{formData.email}</strong> et saisir le code à 4 chiffres ci-dessous.
                                 </div>
 
                                 <div className="space-y-1">
@@ -1829,7 +1848,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                   <input 
                                     type="text" 
                                     maxLength={4}
-                                    placeholder="Ex: 7492"
+                                    placeholder="Ex: 8392"
                                     value={verificationCodeInput}
                                     onChange={(e) => setVerificationCodeInput(e.target.value)}
                                     className="w-full text-center tracking-[0.5em] font-mono bg-white border border-fennec-cream/80 rounded-xl px-3 py-3 text-sm text-fennec-dark focus:ring-1 focus:ring-fennec-terracotta"
@@ -1844,17 +1863,48 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
 
                                 <button
                                   type="button"
-                                  onClick={() => {
-                                    if (verificationCodeInput !== '7492') {
-                                      setVerificationError("Code de validation incorrect. (Saisissez le code 7492 fourni ci-dessous par Fenny !)");
+                                  disabled={isSendingCode}
+                                  onClick={async () => {
+                                    if (!verificationCodeInput || verificationCodeInput.length < 4) {
+                                      setVerificationError("Veuillez saisir le code à 4 chiffres reçu par e-mail.");
                                       return;
                                     }
                                     setVerificationError(null);
-                                    setIsAnalyzing(true);
+                                    setIsSendingCode(true);
+
+                                    try {
+                                      const res = await fetch('/api/verify-code', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({
+                                          email: formData.email,
+                                          code: verificationCodeInput
+                                        })
+                                      });
+                                      const data = await res.json();
+                                      setIsSendingCode(false);
+
+                                      if (!res.ok || !data.verified) {
+                                        setVerificationError(data.error || "Code de vérification incorrect.");
+                                        return;
+                                      }
+
+                                      // Submit final lead log
+                                      fetch('/api/submit-lead', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({ type: 'health_verified', lead: formData, filters })
+                                      }).catch(() => {});
+
+                                      setIsAnalyzing(true);
+                                    } catch(e: any) {
+                                      setIsSendingCode(false);
+                                      setVerificationError("Erreur lors de la vérification du code.");
+                                    }
                                   }}
                                   className="w-full py-3 bg-fennec-red hover:bg-red-600 text-white font-display font-bold rounded-xl text-xs uppercase tracking-wider transition-all shadow-md shadow-fennec-red/25 flex items-center justify-center cursor-pointer"
                                 >
-                                  Valider le code & afficher les résultats
+                                  {isSendingCode ? "Vérification en cours..." : "Valider le code & afficher les résultats"}
                                 </button>
 
                                 <button 
@@ -1867,11 +1917,11 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               </div>
                             )}
 
-                            {/* Balloon notification from Fenny containing the mock code! */}
+                            {/* Balloon notification from Fenny */}
                             <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-3 md:p-4 flex items-start space-x-3 text-emerald-800">
                               <span className="text-xl">🦊</span>
                               <div className="text-[11px] leading-relaxed">
-                                <strong>Message de Fenny :</strong> "Afin de valider la simulation, j'ai généré votre code de sécurité unique. Saisissez <strong>7492</strong> pour confirmer vos informations de contact et charger immédiatement le tableau comparatif 2026 !"
+                                <strong>Message de Fenny :</strong> "Afin de valider votre dossier et de vous présenter les vraies primes certifiées 2026, un code de sécurité à 4 chiffres vient d'être généré et envoyé à l'adresse <strong>{formData.email || 'votre e-mail'}</strong> !"
                               </div>
                             </div>
                           </motion.div>
@@ -2194,6 +2244,8 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                 </button>
               </div>
               
+
+
               {/* Savings Highlighter Badge */}
               {bestValueCaisse && (
                 <div className="bg-emerald-50/70 border border-emerald-100 rounded-2xl p-5 flex flex-col sm:flex-row items-center sm:justify-between text-center sm:text-left gap-4">
