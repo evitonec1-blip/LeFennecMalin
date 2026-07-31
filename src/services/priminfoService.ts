@@ -11,6 +11,7 @@
 import { 
   getInsurerDisplayName, 
   getInsurerModelFallbackName, 
+  translateModelNameToFrench,
   lookupPremium,
   ACTIVE_INSURER_IDS
 } from '../utils/premiumLookupService';
@@ -177,7 +178,7 @@ async function queryLocalCache(query: PriminfoQuery): Promise<PremiumOffer[]> {
           results.push({
             insurerId,
             insurerName: getInsurerDisplayName(insurerId),
-            modelName: record.modelName || getInsurerModelFallbackName(insurerId, modelType),
+            modelName: translateModelNameToFrench(record.modelName || getInsurerModelFallbackName(insurerId, modelType), modelType),
             modelType,
             premium: record.premium,
             isRealData: true

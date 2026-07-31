@@ -2484,14 +2484,6 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                         </span>
                       )}
 
-                      {/* Partner badge */}
-                      {caisse.isPartner && !isCheapest && (
-                        <span className="absolute top-0 left-0 bg-emerald-600 text-white text-[9px] font-bold uppercase py-1 px-4 rounded-br-2xl tracking-wider flex items-center">
-                          <Check className="w-3 h-3 mr-1" />
-                          Partenaire Officiel
-                        </span>
-                      )}
-
                       {/* Left: Brand logo & satisfaction */}
                       <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
                         {/* Real circular insurer logo badge */}
@@ -2501,9 +2493,6 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                           <div className="flex items-center flex-wrap gap-2 mt-1 justify-center sm:justify-start">
                             <h4 className="font-display font-bold text-lg text-fennec-dark flex items-center">
                               {caisse.name}
-                              {caisse.isPartner && (
-                                <span className="ml-2 w-2 h-2 rounded-full bg-emerald-500" title="Partenaire de souscription" />
-                              )}
                             </h4>
                             {caisse.modelType && (
                               <span className="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-fennec-tan/30 text-fennec-dark border border-fennec-tan/50">
@@ -2585,9 +2574,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               ? 'bg-fennec-cream/40 text-fennec-dark/30 cursor-not-allowed border border-fennec-cream/70'
                               : isCheapest
                               ? 'bg-fennec-terracotta hover:bg-fennec-dark text-white shadow-md shadow-fennec-terracotta/15'
-                              : caisse.isPartner
-                              ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
-                              : 'bg-fennec-cream hover:bg-fennec-sand text-fennec-dark'
+                              : 'bg-fennec-cream hover:bg-fennec-sand text-fennec-dark border border-fennec-tan/40'
                           }`}
                         >
                           <span>{caisse.computedPremium === 0 ? 'Indisponible' : "Obtenir l'offre"}</span>

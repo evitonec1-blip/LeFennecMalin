@@ -207,3 +207,42 @@ export function getInsurerModelFallbackName(id: string, type: string): string {
   return displayNames[type.toLowerCase()] || type;
 }
 
+/**
+ * Translates German/English model names into clean French display names.
+ */
+export function translateModelNameToFrench(modelName: string, modelType?: string): string {
+  if (!modelName) {
+    if (modelType === 'family') return 'Médecin de famille (HAM)';
+    if (modelType === 'telemed') return 'Télémédecine (TEL)';
+    if (modelType === 'hmo') return 'Réseau de soins (HMO)';
+    return 'Assurance de base (Standard)';
+  }
+
+  let name = modelName.trim();
+
+  const translations: [RegExp, string][] = [
+    [/Hausarztversicherung/gi, 'Médecin de famille'],
+    [/Hausarzt-Modell/gi, 'Médecin de famille'],
+    [/Hausarztmodell/gi, 'Médecin de famille'],
+    [/Hausarztsystem/gi, 'Médecin de famille'],
+    [/Hausarzt Modell/gi, 'Médecin de famille'],
+    [/\bHausarzt\b/gi, 'Médecin de famille'],
+    [/Grundversicherung/gi, 'Assurance de base'],
+    [/Gesundheitspraxisversicherung/gi, 'Cabinet médical'],
+    [/Gesundheitszentrum/gi, 'Centre de santé (HMO)'],
+    [/Gesundheitsplan/gi, 'Plan de santé'],
+    [/Gesundheitsnetz/gi, 'Réseau de santé'],
+    [/Gesundheitnetz/gi, 'Réseau de santé'],
+    [/Telemedizin/gi, 'Télémédecine'],
+    [/\bohne\b/gi, 'sans'],
+    [/\bmit\b/gi, 'avec'],
+    [/Taggeldkasse/gi, 'Indemnités journalières'],
+  ];
+
+  for (const [regex, replacement] of translations) {
+    name = name.replace(regex, replacement);
+  }
+
+  return name.replace(/\s+/g, ' ').trim();
+}
+

@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import nodemailer from "nodemailer";
 import fs from "fs";
 import { fileURLToPath } from "url";
-import { getInsurerDisplayName, getInsurerModelFallbackName, lookupPremium, getAgeCategoryFromYob, ACTIVE_INSURER_IDS } from "./src/utils/premiumLookupService.js";
+import { getInsurerDisplayName, getInsurerModelFallbackName, translateModelNameToFrench, lookupPremium, getAgeCategoryFromYob, ACTIVE_INSURER_IDS } from "./src/utils/premiumLookupService.js";
 
 // Polyfill __filename and __dirname for ESM environments
 const __filename_esm = fileURLToPath(import.meta.url);
@@ -778,7 +778,7 @@ app.get("/api/priminfo/praemien", async (req, res) => {
           results.push({
             insurerId,
             insurerName: getInsurerDisplayName(insurerId),
-            modelName: record.modelName || getInsurerModelFallbackName(insurerId, modelType),
+            modelName: translateModelNameToFrench(record.modelName || getInsurerModelFallbackName(insurerId, modelType), modelType),
             modelType,
             premium: record.premium,
             sourceNotice: "Source : OFSP/priminfo, primes 2026"
