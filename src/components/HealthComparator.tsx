@@ -92,11 +92,35 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
     zone: 1,
     ageCategory: 'adult',
     franchise: 2500,
-    model: 'family',
+    model: 'all',
+    selectedModels: ['family', 'telemed', 'hmo', 'standard'],
     accidentCoverage: true,
     sortBy: 'price',
     supplementaryType: 'none',
   });
+
+  const toggleModel = (modelId: string) => {
+    setFilters((prev) => {
+      const current = prev.selectedModels && prev.selectedModels.length > 0
+        ? prev.selectedModels
+        : ['family', 'telemed', 'hmo', 'standard'];
+      let updated: string[];
+      if (current.includes(modelId)) {
+        if (current.length > 1) {
+          updated = current.filter((m) => m !== modelId);
+        } else {
+          updated = ['family', 'telemed', 'hmo', 'standard'];
+        }
+      } else {
+        updated = [...current, modelId];
+      }
+      return {
+        ...prev,
+        selectedModels: updated,
+        model: updated.length === 4 ? 'all' : (updated[0] as any),
+      };
+    });
+  };
 
   const [zipInput, setZipInput] = useState<string>('1201');
   const [resolvedInfo, setResolvedInfo] = useState<{ zip: string; canton: string; zone: number; city: string } | null>(() => resolveZipCode('1201'));
@@ -398,18 +422,18 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
     return () => {
       active = false;
     };
-  }, [filters.zipCode, filters.franchise, filters.ageCategory, filters.birthDate, filters.accidentCoverage, currentCaisseId, filters.model, selectedLocality, selectedRegionCode]);
+  }, [filters.zipCode, filters.franchise, filters.ageCategory, filters.birthDate, filters.accidentCoverage, currentCaisseId, filters.model, filters.selectedModels, selectedLocality, selectedRegionCode]);
 
-  // Computed premiums list: Return ALL matching offers for ALL insurers
+  // Computed premiums list: Return ALL matching offers for ALL insurers matching selected models
   const calculatedResults = useMemo(() => {
     let rawOffers: any[] = [];
 
     if (realPremiums && realPremiums.length > 0) {
-      // Filter by model if selected, or if 'all', keep all offers
-      const matchingReal = realPremiums.filter((rp) => {
-        if (!filters.model || (filters.model as string) === 'all') return true;
-        return rp.modelType === filters.model;
-      });
+      const activeModels = filters.selectedModels && filters.selectedModels.length > 0
+        ? filters.selectedModels
+        : ['family', 'telemed', 'hmo', 'standard'];
+
+      const matchingReal = realPremiums.filter((rp) => activeModels.includes(rp.modelType));
 
       rawOffers = matchingReal.map((rp) => {
         const caisseMeta = CAISSES_MALADIE.find((c) => c.id === rp.insurerId) || {
@@ -1431,32 +1455,43 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                 </div>
                               </div>
 
-                              {/* Models selection */}
-                              <div className="space-y-1.5">
-                                <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
-                                  Modèle de coordination des soins (LAMal)
-                                </label>
+                              {/* Models selection - Multi-select */}
+                              <div className="space-y-2">
+                                <div className="flex items-center justify-between">
+                                  <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
+                                    Modèle(s) de coordination des soins (LAMal)
+                                  </label>
+                                  <span className="text-[10px] font-bold text-fennec-terracotta bg-fennec-cream/25 px-2 py-0.5 rounded-full">
+                                    Plusieurs choix possibles
+                                  </span>
+                                </div>
                                 <div className="grid grid-cols-2 gap-2">
                                   {[
                                     { id: 'family', label: 'Médecin de Famille', desc: 'Consultation du généraliste d\'abord' },
                                     { id: 'telemed', label: 'Télémédecine (Telmed)', desc: 'Appel d\'une hotline médicale d\'abord' },
                                     { id: 'hmo', label: 'Réseau HMO', desc: 'Consultation dans un centre agréé' },
-                                    { id: 'standard', label: 'Standard (Libre choix)', desc: 'Aucun filtre, accès spécialiste direct' },
+                                    { id: 'standard', label: 'Standard (Libre choix)', desc: 'Accès spécialiste direct' },
                                   ].map((modelOpt) => {
-                                    const isSelected = filters.model === modelOpt.id;
+                                    const selectedList = filters.selectedModels || ['family', 'telemed', 'hmo', 'standard'];
+                                    const isSelected = selectedList.includes(modelOpt.id);
                                     return (
                                       <button
                                         key={modelOpt.id}
                                         type="button"
-                                        onClick={() => handleFilterChange('model', modelOpt.id as any)}
+                                        onClick={() => toggleModel(modelOpt.id)}
                                         className={`p-3 rounded-xl border text-left flex flex-col justify-between transition-all ${
                                           isSelected
                                             ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-xs'
                                             : 'border-fennec-cream/80 text-fennec-dark bg-fennec-cream/5 hover:bg-fennec-cream/15'
                                         }`}
                                       >
-                                        <span className="font-bold text-xs leading-none">{modelOpt.label}</span>
-                                        <span className="text-[9px] opacity-80 mt-1 leading-tight font-medium">
+                                        <div className="flex items-center justify-between w-full">
+                                          <span className="font-bold text-xs leading-none">{modelOpt.label}</span>
+                                          <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-black ${
+                                            isSelected ? 'bg-white text-fennec-terracotta' : 'border border-fennec-cream/80 text-transparent'
+                                          }`}>✓</span>
+                                        </div>
+                                        <span className="text-[9px] opacity-80 mt-1.5 leading-tight font-medium">
                                           {modelOpt.desc}
                                         </span>
                                       </button>
@@ -2193,9 +2228,19 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                   <span className="font-bold text-fennec-dark">CHF {filters.franchise}.-</span>
                 </div>
                 <div className="flex justify-between p-2.5 bg-fennec-cream/10 rounded-xl">
-                  <span className="text-fennec-brown font-medium">Modèle d'assurance :</span>
-                  <span className="font-bold text-fennec-dark">
-                    {filters.model === 'standard' ? 'Standard' : filters.model === 'telemed' ? 'Télémédecine' : filters.model === 'family' ? 'Médecin de Famille' : 'HMO'}
+                  <span className="text-fennec-brown font-medium">Modèles d'assurance :</span>
+                  <span className="font-bold text-fennec-dark text-right text-xs">
+                    {(() => {
+                      const list = filters.selectedModels || ['family', 'telemed', 'hmo', 'standard'];
+                      if (list.length === 4) return 'Tous les modèles (4)';
+                      const labels: Record<string, string> = {
+                        family: 'Médecin famille',
+                        telemed: 'Télémédecine',
+                        hmo: 'HMO',
+                        standard: 'Standard'
+                      };
+                      return list.map(m => labels[m] || m).join(', ');
+                    })()}
                   </span>
                 </div>
                 <div className="flex justify-between p-2.5 bg-fennec-cream/10 rounded-xl">
@@ -2263,18 +2308,35 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-fennec-brown block">Modèle d'assurance</label>
-                    <select
-                      value={filters.model}
-                      onChange={(e) => handleFilterChange('model', e.target.value as any)}
-                      className="w-full bg-white border border-fennec-cream/60 rounded-xl px-2.5 py-1.5 text-xs text-fennec-dark focus:outline-none"
-                    >
-                      <option value="all">Tous les modèles (Toutes les offres)</option>
-                      <option value="telemed">Télémédecine</option>
-                      <option value="family">Médecin de famille</option>
-                      <option value="hmo">Réseau HMO</option>
-                      <option value="standard">Standard</option>
-                    </select>
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-fennec-brown block">
+                      Modèles d'assurance ({filters.selectedModels?.length || 4}/4)
+                    </label>
+                    <div className="grid grid-cols-2 gap-1.5">
+                      {[
+                        { id: 'family', label: 'Médecin Famille' },
+                        { id: 'telemed', label: 'Télémédecine' },
+                        { id: 'hmo', label: 'Réseau HMO' },
+                        { id: 'standard', label: 'Standard' },
+                      ].map((mOpt) => {
+                        const activeList = filters.selectedModels || ['family', 'telemed', 'hmo', 'standard'];
+                        const isActive = activeList.includes(mOpt.id);
+                        return (
+                          <button
+                            key={mOpt.id}
+                            type="button"
+                            onClick={() => toggleModel(mOpt.id)}
+                            className={`px-2.5 py-1.5 rounded-lg border text-xs font-semibold flex items-center justify-between transition-all ${
+                              isActive
+                                ? 'bg-fennec-terracotta text-white border-fennec-terracotta shadow-xs'
+                                : 'bg-white text-fennec-dark border-fennec-cream/80 hover:bg-fennec-cream/10'
+                            }`}
+                          >
+                            <span>{mOpt.label}</span>
+                            <span>{isActive ? '✓' : '+'}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
 
                   <div className="space-y-1.5">
@@ -2584,7 +2646,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
               {!formSubmitted ? (
                 <form onSubmit={handleFormSubmit} className="space-y-4">
                   <p className="text-xs text-fennec-dark/85 leading-relaxed">
-                    Saisissez vos coordonnées pour recevoir votre dossier d'offre complet pour l'assurance obligatoire <strong>{selectedCaisse.name}</strong> en modèle <strong>{filters.model === 'family' ? 'Médecin de Famille' : filters.model === 'telemed' ? 'Télémédecine' : filters.model === 'hmo' ? 'HMO' : 'Standard'}</strong>, Franchise <strong>CHF {filters.franchise}.-</strong> dans le canton de <strong>{filters.canton}</strong>.
+                    Saisissez vos coordonnées pour recevoir votre dossier d'offre complet pour l'assurance obligatoire <strong>{selectedCaisse.name}</strong> en modèle <strong>{selectedCaisse.realModelName || 'LAMal'}</strong>, Franchise <strong>CHF {filters.franchise}.-</strong> dans le canton de <strong>{filters.canton}</strong>.
                   </p>
 
                   <div className="grid grid-cols-2 gap-4">

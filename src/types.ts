@@ -41,7 +41,8 @@ export interface HealthFilterState {
   zone: number;
   ageCategory: 'adult' | 'young' | 'child';
   franchise: number;
-  model: 'standard' | 'telemed' | 'family' | 'hmo';
+  model: 'standard' | 'telemed' | 'family' | 'hmo' | 'all';
+  selectedModels?: string[];
   accidentCoverage: boolean;
   sortBy: 'price' | 'rating' | 'name';
   supplementaryType?: 'essential' | 'confort' | 'premium' | 'none';
