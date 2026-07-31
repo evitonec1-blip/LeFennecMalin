@@ -2500,7 +2500,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               </span>
                             )}
                           </div>
-                          <p className="text-xs text-fennec-brown font-medium mt-0.5">
+                          <p className="text-xs text-fennec-brown font-medium mt-0.5 line-clamp-1 max-w-xs truncate">
                             {caisse.notes}
                           </p>
                           

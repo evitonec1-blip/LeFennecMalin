@@ -148,51 +148,75 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
   const normId = resolveBrandKey(id);
   const domain = DOMAIN_MAP[normId];
 
-  const [imgSrc, setImgSrc] = useState<string | null>(null);
-  const [retryState, setRetryState] = useState<number>(0); // 0 = initial, 1 = fallback, 2 = fallback svg
+  const [retryState, setRetryState] = useState<number>(0);
 
-  // Reset and load the image when the ID changes
+  const specialUrls: Record<string, string> = {
+    // Caisses Maladie (Swiss Health Insurers)
+    css: 'https://www.google.com/s2/favicons?sz=128&domain=css.ch',
+    helsana: 'https://www.google.com/s2/favicons?sz=128&domain=helsana.ch',
+    swica: 'https://www.google.com/s2/favicons?sz=128&domain=swica.ch',
+    visana: 'https://www.google.com/s2/favicons?sz=128&domain=visana.ch',
+    sanitas: 'https://www.google.com/s2/favicons?sz=128&domain=sanitas.ch',
+    concordia: 'https://www.google.com/s2/favicons?sz=128&domain=concordia.ch',
+    groupemutuel: 'https://www.google.com/s2/favicons?sz=128&domain=groupemutuel.ch',
+    mutuel: 'https://www.google.com/s2/favicons?sz=128&domain=groupemutuel.ch',
+    avenir: 'https://www.google.com/s2/favicons?sz=128&domain=groupemutuel.ch',
+    philos: 'https://www.google.com/s2/favicons?sz=128&domain=groupemutuel.ch',
+    amb: 'https://www.google.com/s2/favicons?sz=128&domain=groupemutuel.ch',
+    easysana: 'https://www.google.com/s2/favicons?sz=128&domain=groupemutuel.ch',
+    kpt: 'https://www.google.com/s2/favicons?sz=128&domain=kpt.ch',
+    cpt: 'https://www.google.com/s2/favicons?sz=128&domain=kpt.ch',
+    sympany: 'https://www.google.com/s2/favicons?sz=128&domain=sympany.ch',
+    assura: 'https://www.google.com/s2/favicons?sz=128&domain=assura.ch',
+    atupri: 'https://www.google.com/s2/favicons?sz=128&domain=atupri.ch',
+    okk: 'https://www.google.com/s2/favicons?sz=128&domain=oekk.ch',
+    agrisano: 'https://www.google.com/s2/favicons?sz=128&domain=agrisano.ch',
+    aquilana: 'https://www.google.com/s2/favicons?sz=128&domain=aquilana.ch',
+    sodalis: 'https://www.google.com/s2/favicons?sz=128&domain=sodalis.ch',
+
+    // Assureurs Vie (Life Insurers)
+    swisslife: 'https://www.google.com/s2/favicons?sz=128&domain=swisslife.ch',
+    'swiss life': 'https://www.google.com/s2/favicons?sz=128&domain=swisslife.ch',
+    axa: 'https://www.google.com/s2/favicons?sz=128&domain=axa.ch',
+    zurich: 'https://www.google.com/s2/favicons?sz=128&domain=zurich.ch',
+    helvetia: 'https://www.google.com/s2/favicons?sz=128&domain=helvetia.ch',
+    allianz: 'https://www.google.com/s2/favicons?sz=128&domain=allianz.ch',
+    generali: 'https://www.google.com/s2/favicons?sz=128&domain=generali.ch',
+    vaudoise: 'https://www.google.com/s2/favicons?sz=128&domain=vaudoise.ch',
+    mobiliere: 'https://www.google.com/s2/favicons?sz=128&domain=mobiliere.ch',
+    baloise: 'https://www.google.com/s2/favicons?sz=128&domain=baloise.ch',
+  };
+
   useEffect(() => {
-    const specialUrls: Record<string, string> = {
-      sanitas: 'https://upload.wikimedia.org/wikipedia/commons/4/4b/Sanitas_Krankenversicherung_logo.svg',
-      concordia: 'https://upload.wikimedia.org/wikipedia/de/e/ea/Concordia_Logo.svg'
-    };
+    setRetryState(0);
+  }, [id, normId]);
 
+  let imgSrc: string | null = null;
+
+  if (retryState === 0) {
     if (specialUrls[normId]) {
-      setImgSrc(specialUrls[normId]);
-      setRetryState(0);
+      imgSrc = specialUrls[normId];
     } else if (domain) {
-      setImgSrc(`https://www.google.com/s2/favicons?sz=128&domain=${domain}`);
-      setRetryState(0);
-    } else {
-      setImgSrc(null);
-      setRetryState(2);
+      imgSrc = `https://www.google.com/s2/favicons?sz=128&domain=${domain}`;
     }
-  }, [id, normId, domain]);
+  } else if (retryState === 1) {
+    if (domain) {
+      imgSrc = `https://www.google.com/s2/favicons?sz=128&domain=${domain}`;
+    }
+  } else if (retryState === 2) {
+    if (domain) {
+      imgSrc = `https://logo.clearbit.com/${domain}`;
+    }
+  }
 
   const handleImageError = () => {
-    const specialUrls: Record<string, string> = {
-      sanitas: 'https://upload.wikimedia.org/wikipedia/commons/4/4b/Sanitas_Krankenversicherung_logo.svg',
-      concordia: 'https://upload.wikimedia.org/wikipedia/de/e/ea/Concordia_Logo.svg'
-    };
-
-    if (specialUrls[normId]) {
-      // If our special URL fails, fallback to custom inline SVG immediately
-      setRetryState(2);
-    } else if (retryState === 0 && domain) {
-      // Fallback to Clearbit
-      setImgSrc(`https://logo.clearbit.com/${domain}`);
-      setRetryState(1);
-    } else {
-      // Fallback to beautiful custom inline SVG
-      setRetryState(2);
-    }
+    setRetryState((prev) => prev + 1);
   };
 
   // Render the real company logo if available and hasn't failed
-  if (domain && retryState < 2 && imgSrc) {
+  if (retryState < 3 && imgSrc) {
     return (
-      <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex items-center justify-center p-2.5 shadow-2xs overflow-hidden shrink-0`}>
+      <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex items-center justify-center p-2 shadow-2xs overflow-hidden shrink-0`}>
         <img 
           src={imgSrc} 
           alt={`${id} Logo`} 
@@ -354,6 +378,122 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
         </div>
       );
 
+    case 'agrisano':
+      return (
+        <div className={`${className} bg-[#00875A] rounded-2xl flex flex-col items-center justify-center p-2 text-white shadow-2xs`}>
+          <svg viewBox="0 0 40 25" className="w-8 h-5" fill="currentColor">
+            <path d="M 20,3 C 10,12 10,22 20,22 C 30,22 30,12 20,3 Z" fill="white" opacity="0.9" />
+            <path d="M 20,8 V 19 M 15,14 H 25" stroke="#00875A" strokeWidth="2.5" strokeLinecap="round" />
+          </svg>
+          <span className="text-[8px] font-black tracking-wider uppercase leading-none mt-0.5">Agrisano</span>
+        </div>
+      );
+
+    case 'aquilana':
+      return (
+        <div className={`${className} bg-white rounded-2xl border border-emerald-200 flex flex-col items-center justify-center p-2 shadow-2xs`}>
+          <span className="text-[10px] font-black text-[#006644] font-display uppercase tracking-wider">AQUILANA</span>
+          <span className="text-[6px] font-bold text-emerald-600 tracking-widest uppercase mt-0.5">Assurance</span>
+        </div>
+      );
+
+    case 'sodalis':
+      return (
+        <div className={`${className} bg-[#5C2D91] rounded-2xl flex flex-col items-center justify-center p-2 text-white shadow-2xs`}>
+          <span className="text-xs font-black font-display tracking-tight leading-none">sodalis</span>
+          <span className="text-[6px] font-semibold text-purple-200 uppercase tracking-widest mt-0.5">Gesundheit</span>
+        </div>
+      );
+
+    case 'rhenusana':
+      return (
+        <div className={`${className} bg-[#005596] rounded-2xl flex flex-col items-center justify-center p-2 text-white shadow-2xs`}>
+          <span className="text-[10px] font-black uppercase font-display tracking-wider">rhenusana</span>
+        </div>
+      );
+
+    case 'galenos':
+      return (
+        <div className={`${className} bg-white rounded-2xl border border-blue-200 flex flex-col items-center justify-center p-2 shadow-2xs`}>
+          <span className="text-[10px] font-black text-[#002D62] font-display uppercase tracking-widest">GALENOS</span>
+        </div>
+      );
+
+    case 'glarner':
+      return (
+        <div className={`${className} bg-[#C8102E] rounded-2xl flex flex-col items-center justify-center p-2 text-white shadow-2xs`}>
+          <span className="text-[9px] font-black uppercase tracking-wider font-display text-center leading-tight">Glarner</span>
+          <span className="text-[6px] font-bold uppercase tracking-widest text-amber-200">Krankenkasse</span>
+        </div>
+      );
+
+    case 'einsiedeln':
+      return (
+        <div className={`${className} bg-[#A6192E] rounded-2xl flex flex-col items-center justify-center p-1.5 text-white shadow-2xs`}>
+          <span className="text-[8px] font-black uppercase tracking-tight text-center leading-tight">Einsiedler</span>
+          <span className="text-[6px] font-semibold opacity-80 uppercase">Krankenkasse</span>
+        </div>
+      );
+
+    case 'steffisburg':
+      return (
+        <div className={`${className} bg-[#003A70] rounded-2xl flex flex-col items-center justify-center p-1.5 text-white shadow-2xs`}>
+          <span className="text-[8px] font-black uppercase tracking-tight text-center leading-tight">Steffisburg</span>
+        </div>
+      );
+
+    case 'sumiswalder':
+      return (
+        <div className={`${className} bg-[#002855] rounded-2xl flex flex-col items-center justify-center p-1.5 text-white shadow-2xs`}>
+          <span className="text-[7px] font-black uppercase tracking-tight text-center leading-tight">Sumiswalder</span>
+        </div>
+      );
+
+    case 'luzernerhinterland':
+      return (
+        <div className={`${className} bg-[#008080] rounded-2xl flex flex-col items-center justify-center p-1.5 text-white shadow-2xs`}>
+          <span className="text-[7px] font-black uppercase tracking-tight text-center leading-tight">Luzerner</span>
+          <span className="text-[6px] font-bold text-teal-100">Hinterland</span>
+        </div>
+      );
+
+    case 'curaulta':
+    case 'egk':
+    case 'slkk':
+    case 'surselva':
+    case 'visperterminen':
+    case 'entremont':
+    case 'waedenswil':
+    case 'birchmeier':
+      return (
+        <div className={`${className} bg-white rounded-2xl border border-fennec-tan/50 flex flex-col items-center justify-center p-2 shadow-2xs`}>
+          <span className="text-[10px] font-black text-fennec-dark uppercase tracking-wider font-display text-center leading-tight">
+            {normId.toUpperCase().slice(0, 8)}
+          </span>
+          <span className="text-[6px] font-bold text-fennec-terracotta uppercase tracking-widest mt-0.5">Assurance</span>
+        </div>
+      );
+
+    case 'sana24':
+      return (
+        <div className={`${className} bg-[#003366] rounded-2xl flex flex-col items-center justify-center p-2 text-white shadow-2xs`}>
+          <span className="text-xs font-black font-display tracking-tight">sana24</span>
+        </div>
+      );
+
+    case 'avenir':
+    case 'philos':
+    case 'amb':
+    case 'easysana':
+      return (
+        <div className={`${className} bg-[#003865] rounded-2xl flex flex-col items-center justify-center p-1.5 text-white shadow-2xs`}>
+          <span className="text-[9px] font-black uppercase tracking-wide font-display text-center leading-none">
+            {normId.toUpperCase()}
+          </span>
+          <span className="text-[6px] font-bold text-amber-400 tracking-widest uppercase mt-0.5">Gr. Mutuel</span>
+        </div>
+      );
+
     // --- ASSUREURS VIE (Life Insurance) ---
     case 'swisslife':
     case 'swiss life':
@@ -479,13 +619,19 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
       );
 
     default: {
-      const alphaOnly = id.replace(/[^a-zA-Z]/g, '').trim();
+      const alphaOnly = id.replace(/[^a-zA-Z\s]/g, '').trim();
       const displayLabel = alphaOnly.length >= 2 
-        ? alphaOnly.slice(0, 3).toUpperCase() 
-        : 'SUI';
+        ? alphaOnly.slice(0, 6).toUpperCase() 
+        : 'LAMal';
       return (
-        <div className={`${className} rounded-2xl bg-fennec-cream/20 border border-fennec-cream/70 flex items-center justify-center font-display font-black text-xs text-fennec-dark shadow-2xs shrink-0 p-1 text-center`}>
-          {displayLabel}
+        <div className={`${className} rounded-2xl bg-gradient-to-br from-fennec-dark to-[#2B1B17] text-white flex flex-col items-center justify-center font-display shadow-2xs shrink-0 p-1 text-center border border-fennec-cream/20 relative overflow-hidden`}>
+          <div className="flex items-center space-x-1 mb-0.5">
+            <div className="w-2.5 h-2.5 rounded-full bg-red-600 flex items-center justify-center text-[7px] font-bold text-white leading-none">
+              +
+            </div>
+            <span className="text-[9px] font-black tracking-wider leading-none">{displayLabel}</span>
+          </div>
+          <span className="text-[6px] font-semibold text-fennec-tan uppercase tracking-widest">Assurance</span>
         </div>
       );
     }
