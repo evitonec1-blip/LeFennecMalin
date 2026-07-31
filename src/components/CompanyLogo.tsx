@@ -75,8 +75,77 @@ const DOMAIN_MAP: Record<string, string> = {
   'groupe mutuel': 'groupemutuel.ch',
 };
 
+const NUMERIC_ID_MAP: Record<string, string> = {
+  '8': 'css',
+  '32': 'aquilana',
+  '134': 'einsiedeln',
+  '194': 'sumiswalder',
+  '246': 'steffisburg',
+  '290': 'concordia',
+  '312': 'atupri',
+  '343': 'avenir',
+  '360': 'luzernerhinterland',
+  '376': 'kpt',
+  '455': 'okk',
+  '509': 'sympany',
+  '780': 'glarner',
+  '820': 'curaulta',
+  '881': 'egk',
+  '923': 'slkk',
+  '941': 'sodalis',
+  '966': 'surselva',
+  '1040': 'visperterminen',
+  '1113': 'entremont',
+  '1318': 'waedenswil',
+  '1322': 'birchmeier',
+  '1384': 'swica',
+  '1386': 'galenos',
+  '1401': 'rhenusana',
+  '1479': 'mutuel',
+  '1507': 'amb',
+  '1509': 'sanitas',
+  '1535': 'philos',
+  '1542': 'assura',
+  '1555': 'visana',
+  '1560': 'agrisano',
+  '1562': 'helsana',
+  '1568': 'sana24',
+};
+
+export function resolveBrandKey(rawId: string): string {
+  if (!rawId) return '';
+  const clean = rawId.toLowerCase().trim();
+  if (NUMERIC_ID_MAP[clean]) return NUMERIC_ID_MAP[clean];
+  if (clean.includes('assura')) return 'assura';
+  if (clean.includes('css')) return 'css';
+  if (clean.includes('helsana')) return 'helsana';
+  if (clean.includes('swica')) return 'swica';
+  if (clean.includes('visana')) return 'visana';
+  if (clean.includes('sanitas')) return 'sanitas';
+  if (clean.includes('concordia')) return 'concordia';
+  if (clean.includes('kpt') || clean.includes('cpt')) return 'kpt';
+  if (clean.includes('mutuel')) return 'mutuel';
+  if (clean.includes('atupri')) return 'atupri';
+  if (clean.includes('sympany')) return 'sympany';
+  if (clean.includes('okk') || clean.includes('ökk')) return 'okk';
+  if (clean.includes('agrisano')) return 'agrisano';
+  if (clean.includes('aquilana')) return 'aquilana';
+  if (clean.includes('sodalis')) return 'sodalis';
+  if (clean.includes('rhenusana')) return 'rhenusana';
+  if (clean.includes('galenos')) return 'galenos';
+  if (clean.includes('avenir')) return 'avenir';
+  if (clean.includes('philos')) return 'philos';
+  if (clean.includes('amb')) return 'amb';
+  if (clean.includes('sana24')) return 'sana24';
+  if (clean.includes('glarner')) return 'glarner';
+  if (clean.includes('waedenswil') || clean.includes('wädenswil')) return 'waedenswil';
+  if (clean.includes('einsiedel')) return 'einsiedeln';
+  if (clean.includes('steffisburg')) return 'steffisburg';
+  return clean;
+}
+
 export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogoProps) {
-  const normId = id.toLowerCase().trim();
+  const normId = resolveBrandKey(id);
   const domain = DOMAIN_MAP[normId];
 
   const [imgSrc, setImgSrc] = useState<string | null>(null);
@@ -409,12 +478,16 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
         </div>
       );
 
-    default:
-      // Fallback elegant styled badge
+    default: {
+      const alphaOnly = id.replace(/[^a-zA-Z]/g, '').trim();
+      const displayLabel = alphaOnly.length >= 2 
+        ? alphaOnly.slice(0, 3).toUpperCase() 
+        : 'SUI';
       return (
-        <div className={`${className} rounded-2xl bg-fennec-cream/15 border border-fennec-cream/60 flex items-center justify-center font-display font-black text-lg text-fennec-dark shadow-2xs shrink-0`}>
-          {id.slice(0, 3).toUpperCase()}
+        <div className={`${className} rounded-2xl bg-fennec-cream/20 border border-fennec-cream/70 flex items-center justify-center font-display font-black text-xs text-fennec-dark shadow-2xs shrink-0 p-1 text-center`}>
+          {displayLabel}
         </div>
       );
+    }
   }
 }

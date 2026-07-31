@@ -382,7 +382,9 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
           );
 
           if (matchedCurrent && !userHasEditedCurrentPremium) {
-            setCurrentPremiumInput(Math.round(matchedCurrent.premium));
+            // Cut 5.15 CHF environmental tax deduction
+            const netCurrent = Math.max(0, Math.round((matchedCurrent.premium - 5.15) * 100) / 100);
+            setCurrentPremiumInput(netCurrent);
           }
         }
       } catch (err) {
@@ -398,52 +400,60 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
     };
   }, [filters.zipCode, filters.franchise, filters.ageCategory, filters.birthDate, filters.accidentCoverage, currentCaisseId, filters.model, selectedLocality, selectedRegionCode]);
 
-  // Computed premiums list
+  // Computed premiums list: Return ALL matching offers for ALL insurers
   const calculatedResults = useMemo(() => {
-    const list = CAISSES_MALADIE.map((caisse) => {
-      // Find matching real premium from the parsed list for the exact model chosen
-      const realMatches = realPremiums.filter(
-        (rp) => rp.insurerId === caisse.id && rp.modelType === filters.model
-      );
+    let rawOffers: any[] = [];
 
-      let premium = 0;
-      let matchedModelName = '';
-      let isRealData = false;
+    if (realPremiums && realPremiums.length > 0) {
+      // Filter by model if selected, or if 'all', keep all offers
+      const matchingReal = realPremiums.filter((rp) => {
+        if (!filters.model || (filters.model as string) === 'all') return true;
+        return rp.modelType === filters.model;
+      });
 
-      if (realMatches.length > 0) {
-        // Use the cheapest matched premium for this insurer
-        realMatches.sort((a, b) => a.premium - b.premium);
-        premium = realMatches[0].premium;
-        matchedModelName = realMatches[0].modelName;
-        isRealData = true;
-      }
+      rawOffers = matchingReal.map((rp) => {
+        const caisseMeta = CAISSES_MALADIE.find((c) => c.id === rp.insurerId) || {
+          id: rp.insurerId,
+          name: rp.insurerName,
+          rating: 5.0,
+          ratingStars: 5,
+          logo: rp.insurerId,
+          basePrice: 0,
+          isPartner: false,
+          notes: 'Assureur agréé LAMal (OFSP)',
+        };
 
-      // We strictly ONLY return real official data. Fake calculations are illegal.
-      // If there is no real data found for this caisse, we skip it or return 0.
-      
-      return {
-        ...caisse,
-        computedPremium: premium,
-        realModelName: matchedModelName || undefined,
-        isRealData: isRealData,
-      };
-    }).filter(caisse => caisse.computedPremium > 0); // Filter out insurers with no real data
+        // Requirement: "for the prices of the offers you show the prime price i want you to show the total price it means you must cut 5.15 for all prices"
+        const netPremium = Math.max(0, rp.premium - 5.15);
+
+        return {
+          id: `${rp.insurerId}-${rp.modelType}-${rp.modelName.replace(/\s+/g, '_')}-${rp.premium}`,
+          insurerId: rp.insurerId,
+          name: rp.insurerName,
+          rating: caisseMeta.rating,
+          ratingStars: caisseMeta.ratingStars,
+          logo: rp.insurerId,
+          isPartner: caisseMeta.isPartner,
+          notes: caisseMeta.notes,
+          computedPremium: netPremium,
+          rawPremium: rp.premium,
+          realModelName: rp.modelName,
+          modelType: rp.modelType,
+          isRealData: true,
+        };
+      });
+    }
 
     // Sort results
     if (filters.sortBy === 'price') {
-      list.sort((a, b) => {
-        if (a.computedPremium === 0 && b.computedPremium === 0) return 0;
-        if (a.computedPremium === 0) return 1;
-        if (b.computedPremium === 0) return -1;
-        return a.computedPremium - b.computedPremium;
-      });
+      rawOffers.sort((a, b) => a.computedPremium - b.computedPremium);
     } else if (filters.sortBy === 'rating') {
-      list.sort((a, b) => b.rating - a.rating);
+      rawOffers.sort((a, b) => b.rating - a.rating);
     } else if (filters.sortBy === 'name') {
-      list.sort((a, b) => a.name.localeCompare(b.name));
+      rawOffers.sort((a, b) => a.name.localeCompare(b.name));
     }
 
-    return list;
+    return rawOffers;
   }, [filters, realPremiums]);
 
   // Best/Cheapest caisse for visual highlights
@@ -2259,10 +2269,11 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                       onChange={(e) => handleFilterChange('model', e.target.value as any)}
                       className="w-full bg-white border border-fennec-cream/60 rounded-xl px-2.5 py-1.5 text-xs text-fennec-dark focus:outline-none"
                     >
-                      <option value="standard">Standard</option>
+                      <option value="all">Tous les modèles (Toutes les offres)</option>
                       <option value="telemed">Télémédecine</option>
                       <option value="family">Médecin de famille</option>
                       <option value="hmo">Réseau HMO</option>
+                      <option value="standard">Standard</option>
                     </select>
                   </div>
 
@@ -2406,7 +2417,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                       {/* Left: Brand logo & satisfaction */}
                       <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
                         {/* Real circular insurer logo badge */}
-                        <CompanyLogo id={caisse.id} className="w-16 h-16 shrink-0" />
+                        <CompanyLogo id={caisse.insurerId || caisse.id || caisse.name} className="w-16 h-16 shrink-0" />
 
                         <div className="text-center sm:text-left">
                           <h4 className="font-display font-bold text-lg text-fennec-dark flex items-center justify-center sm:justify-start">
@@ -2442,7 +2453,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                       <div className="text-center sm:text-right shrink-0 space-y-1.5">
                         <div>
                           <span className="text-[10px] font-bold tracking-widest text-fennec-brown uppercase block">
-                            Prime mensuelle 2026
+                            Prix total net 2026
                           </span>
                           <div className="flex items-baseline justify-center sm:justify-end min-h-[36px]">
                             {caisse.computedPremium > 0 ? (
@@ -2459,8 +2470,8 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                             )}
                           </div>
                           {caisse.computedPremium > 0 && (
-                            <span className="text-[10px] text-fennec-dark/60 block">
-                              Sans frais additionnels
+                            <span className="text-[10px] text-emerald-700 font-semibold block">
+                              -5.15 CHF déduits (taxe environnementale)
                             </span>
                           )}
                         </div>
