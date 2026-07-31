@@ -1,266 +1,112 @@
+/**
+ * Builds public/premiums_2026.json and public/npa_to_region.json
+ * from the REAL official OFSP data files already committed in data/.
+ *
+ * IMPORTANT: this script does NOT download anything and does NOT invent any
+ * insurer mapping. It reads data/premiums_2026.csv, data/insurers_2026.json
+ * and data/npa_to_region_2026.csv exactly as generated from the official
+ * priminfo.admin.ch / opendata.swiss files, and only reformats them into
+ * the lookup-key format the app expects. If you need to refresh the source
+ * data (e.g. next year's premiums), replace the files in data/ with fresh
+ * downloads from priminfo.admin.ch — do not hand-edit insurer mappings here.
+ *
+ * This script runs automatically via `npm install` (postinstall) and `npm run build`.
+ */
 import fs from 'fs';
 import path from 'path';
 
-const INSURER_MAP = {
-  '8': 'okk',
-  '32': 'assura',
-  '134': 'glarner',
-  '194': 'waedenswil',
-  '246': 'aquilana',
-  '290': 'swica',
-  '312': 'concordia',
-  '343': 'amb',
-  '360': 'einsiedeln',
-  '376': 'kpt',
-  '455': 'atupri',
-  '509': 'sympany', // Vivao Sympany
-  '780': 'steffisburg',
-  '820': 'kpt', // KPT (Agilia was integrated into KPT)
-  '881': 'agrisano',
-  '923': 'simplon',
-  '941': 'visperterminen',
-  '966': 'zeneggen',
-  '1040': 'galenos',
-  '1113': 'compact',
-  '1318': 'sodalis',
-  '1322': 'luzernerhinterland',
-  '1384': 'css',
-  '1386': 'sana24',
-  '1401': 'rhenusana',
-  '1479': 'mutuel',
-  '1507': 'easysana',
-  '1509': 'sanitas',
-  '1535': 'philos',
-  '1542': 'avenir',
-  '1555': 'vivacare',
-  '1560': 'moovesympany',
-  '1562': 'helsana',
-  '1568': 'visana'
-};
+const DATA_DIR = path.join(process.cwd(), 'data');
+const PUBLIC_DIR = path.join(process.cwd(), 'public');
 
-const AGE_MAP = {
-  'AKL-ERW': 'adult',
-  'AKL-JUG': 'young',
-  'AKL-KIN': 'child'
-};
+const AGE_MAP = { 'AKL-KIN': 'child', 'AKL-JUG': 'young', 'AKL-ERW': 'adult' };
+const MODEL_MAP = { 'TAR-BASE': 'standard', 'TAR-HAM': 'family', 'TAR-HMO': 'hmo', 'TAR-DIV': 'telemed' };
+const ACCIDENT_MAP = { 'MIT-UNF': true, 'OHN-UNF': false };
 
-const MODEL_MAP = {
-  'TAR-BASE': 'standard',
-  'TAR-HAM': 'family',
-  'TAR-HMO': 'hmo',
-  'TAR-DIV': 'telemed'
-};
-
-async function run() {
-  console.log('Step 1: Fetching package metadata from opendata.swiss CKAN API...');
-  
-  const response = await fetch('https://ckan.opendata.swiss/api/3/action/package_show?id=health-insurance-premiums', {
-    headers: {
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-    }
-  });
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch package metadata from opendata.swiss: status ${response.status}`);
+function parseCsv(text) {
+  // Simple CSV parser: handles quoted fields, \r\n line endings, no embedded newlines in fields.
+  const lines = text.split(/\r?\n/).filter(l => l.length > 0);
+  const headers = lines[0].split(',');
+  const rows = [];
+  for (let i = 1; i < lines.length; i++) {
+    const cells = lines[i].split(',');
+    const row = {};
+    headers.forEach((h, idx) => { row[h] = cells[idx]; });
+    rows.push(row);
   }
-
-  const json = await response.json();
-  if (!json.success) {
-    throw new Error('Failed to parse metadata: success flag is false');
-  }
-
-  const resources = json.result.resources;
-  const csvResource = resources.find(r => {
-    const isCsv = r.format === 'CSV';
-    let nameStr = '';
-    if (typeof r.name === 'string') {
-      nameStr = r.name;
-    } else if (r.name && typeof r.name === 'object') {
-      nameStr = r.name.en || r.name.de || r.name.fr || r.name.it || '';
-    }
-    const urlStr = r.url || '';
-    
-    return isCsv && (
-      nameStr.toLowerCase().includes('prämien_ch') || 
-      nameStr.toLowerCase().includes('praemien_ch') ||
-      urlStr.toLowerCase().includes('praemien_ch') ||
-      urlStr.includes('Pr%C3%A4mien_CH')
-    );
-  });
-  
-  if (!csvResource) {
-    throw new Error('Could not find CSV resource for premiums in CKAN metadata');
-  }
-
-  const downloadUrl = csvResource.url;
-  console.log(`Step 2: Found official premium CSV download link: ${downloadUrl}`);
-  
-  console.log('Step 3: Downloading and parsing CSV file...');
-  
-  const csvResponse = await fetch(downloadUrl, {
-    headers: {
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
-    }
-  });
-
-  if (!csvResponse.ok) {
-    throw new Error(`Failed to download premium CSV: status ${csvResponse.status}`);
-  }
-
-  const premiumsMap = {};
-  const reader = csvResponse.body.getReader();
-  const decoder = new TextDecoder('utf-8');
-  let lineBuffer = '';
-  let headerParsed = false;
-  let headers = [];
-  let totalLines = 0;
-
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-
-    lineBuffer += decoder.decode(value, { stream: true });
-    const lines = lineBuffer.split('\n');
-    lineBuffer = lines.pop(); // keep last incomplete line
-
-    for (const line of lines) {
-      totalLines++;
-      if (!line.trim()) continue;
-
-      // Parse CSV row respecting potential quotes
-      const row = [];
-      let insideQuote = false;
-      let entry = '';
-      for (let i = 0; i < line.length; i++) {
-        const char = line[i];
-        if (char === '"') {
-          insideQuote = !insideQuote;
-        } else if (char === ',' && !insideQuote) {
-          row.push(entry.trim());
-          entry = '';
-        } else {
-          entry += char;
-        }
-      }
-      row.push(entry.trim());
-
-      if (!headerParsed) {
-        if (row[0] && row[0].charCodeAt(0) === 0xFEFF) {
-          row[0] = row[0].substring(1);
-        }
-        headers = row;
-        headerParsed = true;
-        continue;
-      }
-
-      const versicherer = row[0];
-      const kanton = row[1];
-      const jahr = row[3];
-      const region = row[5];
-      const akl = row[6];
-      const unfall = row[7];
-      const tariftyp = row[9];
-      const franchiseStr = row[12];
-      const praemieStr = row[13];
-      const bezeichnung = row[16] || '';
-
-      // Only import 2026 premiums
-      if (jahr !== '2026') continue;
-      
-      const insurerId = INSURER_MAP[versicherer];
-      if (!insurerId) continue;
-
-      const ageCategory = AGE_MAP[akl];
-      if (!ageCategory) continue;
-
-      const modelType = MODEL_MAP[tariftyp];
-      if (!modelType) continue;
-
-      if (!franchiseStr || !franchiseStr.startsWith('FRA-')) continue;
-      const franchise = parseInt(franchiseStr.replace('FRA-', ''), 10);
-      if (isNaN(franchise)) continue;
-
-      const accident = unfall === 'MIT-UNF'; // true for MIT-UNF, false for OHN-UNF
-
-      const premium = parseFloat(praemieStr);
-      if (isNaN(premium)) continue;
-
-      const insurersToSave = [insurerId];
-      if (insurerId === 'helsana') {
-        insurersToSave.push('progres');
-      }
-
-      for (const id of insurersToSave) {
-        const key = `${id}_${kanton}_${region}_${ageCategory}_${franchise}_${modelType}_${accident}`;
-
-        if (!premiumsMap[key] || premium < premiumsMap[key].premium) {
-          premiumsMap[key] = {
-            premium,
-            modelName: bezeichnung
-          };
-        }
-      }
-    }
-  }
-
-  // Handle remaining buffer line
-  if (lineBuffer.trim()) {
-    const row = lineBuffer.split(',').map(s => s.trim());
-    const versicherer = row[0];
-    const kanton = row[1];
-    const jahr = row[3];
-    const region = row[5];
-    const akl = row[6];
-    const unfall = row[7];
-    const tariftyp = row[9];
-    const franchiseStr = row[12];
-    const praemieStr = row[13];
-    const bezeichnung = row[16] || '';
-
-    if (jahr === '2026') {
-      const insurerId = INSURER_MAP[versicherer];
-      const ageCategory = AGE_MAP[akl];
-      const modelType = MODEL_MAP[tariftyp];
-      if (insurerId && ageCategory && modelType && franchiseStr && franchiseStr.startsWith('FRA-')) {
-        const franchise = parseInt(franchiseStr.replace('FRA-', ''), 10);
-        if (!isNaN(franchise)) {
-          const accident = unfall === 'MIT-UNF';
-          const premium = parseFloat(praemieStr);
-          if (!isNaN(premium)) {
-            const insurersToSave = [insurerId];
-            if (insurerId === 'helsana') {
-              insurersToSave.push('progres');
-            }
-
-            for (const id of insurersToSave) {
-              const key = `${id}_${kanton}_${region}_${ageCategory}_${franchise}_${modelType}_${accident}`;
-              if (!premiumsMap[key] || premium < premiumsMap[key].premium) {
-                premiumsMap[key] = {
-                  premium,
-                  modelName: bezeichnung
-                };
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  console.log(`Step 4: Aggregated ${Object.keys(premiumsMap).length} unique official premium profiles.`);
-
-  const publicDir = path.join(process.cwd(), 'public');
-  if (!fs.existsSync(publicDir)) {
-    fs.mkdirSync(publicDir);
-  }
-
-  const outputPath = path.join(publicDir, 'premiums_2026.json');
-  fs.writeFileSync(outputPath, JSON.stringify(premiumsMap));
-  console.log(`Step 5: Successfully saved database to ${outputPath}`);
-  console.log(`File size: ${(fs.statSync(outputPath).size / 1024).toFixed(2)} KB`);
+  return rows;
 }
 
-run().catch(err => {
-  console.error('Fatal execution error:', err);
+function buildPremiums() {
+  const csvPath = path.join(DATA_DIR, 'premiums_2026.csv');
+  if (!fs.existsSync(csvPath)) {
+    throw new Error(`Missing ${csvPath}. This file must contain the real OFSP premiums export (data/premiums_2026.csv) — see README_premiums.md.`);
+  }
+  const text = fs.readFileSync(csvPath, 'utf-8');
+  const rows = parseCsv(text);
+
+  const db = {};
+  let skipped = 0;
+  for (const row of rows) {
+    const age = AGE_MAP[row.age_class_code];
+    const model = MODEL_MAP[row.tariff_type_code];
+    const accident = ACCIDENT_MAP[row.accident_inclusion_code];
+    if (age === undefined || model === undefined || accident === undefined) { skipped++; continue; }
+
+    const insurer = (row.insurer_code || '').trim();
+    const canton = (row.canton_code || '').trim().toUpperCase();
+    const region = (row.premium_region_code || '').trim();
+    const deductible = parseInt(row.deductible_chf, 10);
+    const premium = parseFloat(row.monthly_premium_chf);
+    if (!insurer || !canton || !region || isNaN(deductible) || isNaN(premium)) { skipped++; continue; }
+
+    const key = `${insurer}_${canton}_${region}_${age}_${deductible}_${model}_${accident}`;
+    if (!db[key] || premium < db[key].premium) {
+      db[key] = { premium, modelName: row.tariff_name_raw || '' };
+    }
+  }
+
+  console.log(`[download-premiums] Parsed ${rows.length} rows from data/premiums_2026.csv, skipped ${skipped}, wrote ${Object.keys(db).length} unique keys.`);
+
+  if (!fs.existsSync(PUBLIC_DIR)) fs.mkdirSync(PUBLIC_DIR);
+  fs.writeFileSync(path.join(PUBLIC_DIR, 'premiums_2026.json'), JSON.stringify(db));
+  console.log(`[download-premiums] Wrote public/premiums_2026.json (${(fs.statSync(path.join(PUBLIC_DIR, 'premiums_2026.json')).size / 1024 / 1024).toFixed(2)} MB)`);
+}
+
+function buildNpaMap() {
+  const csvPath = path.join(DATA_DIR, 'npa_to_region_2026.csv');
+  if (!fs.existsSync(csvPath)) {
+    throw new Error(`Missing ${csvPath}. This file must contain the real OFSP NPA-to-region mapping (data/npa_to_region_2026.csv).`);
+  }
+  const text = fs.readFileSync(csvPath, 'utf-8');
+  const rows = parseCsv(text);
+
+  const npaMap = {};
+  for (const row of rows) {
+    const npa = (row.npa || '').trim();
+    if (!npa) continue;
+    const entry = {
+      locality: row.locality,
+      canton: row.canton,
+      premium_region: row.premium_region,
+      premium_region_code: `PR-REG CH${row.premium_region}`,
+      bfs_number: row.bfs_number,
+      commune: row.commune,
+      npa_spans_multiple_regions_flag: parseInt(row.npa_spans_multiple_regions_flag || '0', 10),
+    };
+    if (!npaMap[npa]) npaMap[npa] = [];
+    npaMap[npa].push(entry);
+  }
+
+  console.log(`[download-premiums] Parsed ${rows.length} NPA rows, ${Object.keys(npaMap).length} distinct postal codes.`);
+  fs.writeFileSync(path.join(PUBLIC_DIR, 'npa_to_region.json'), JSON.stringify(npaMap));
+  console.log(`[download-premiums] Wrote public/npa_to_region.json`);
+}
+
+try {
+  buildPremiums();
+  buildNpaMap();
+  console.log('[download-premiums] Done — data built entirely from local official OFSP files, no network calls, no invented insurers.');
+} catch (err) {
+  console.error('[download-premiums] Fatal error:', err.message);
   process.exit(1);
-});
+}

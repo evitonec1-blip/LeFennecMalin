@@ -126,46 +126,72 @@ export function lookupPremium(
 }
 
 /**
- * Returns a user-friendly name for an insurer by its ID
+ * Official OFSP insurer registry (numeric BAG/OFSP code -> legal name),
+ * sourced verbatim from assureurs-maladie-admis-2026-01-01.xlsx (data/insurers_2026.json).
+ * DO NOT hand-edit these values — regenerate from the official file if it changes.
+ */
+export const OFFICIAL_INSURERS: Record<string, string> = {
+    '8': 'CSS Assurance-maladie SA',
+    '32': 'Aquilana Versicherungen',
+    '134': 'Einsiedler Krankenkasse',
+    '194': 'Sumiswalder Krankenkasse',
+    '246': 'Genossenschaft Krankenkasse Steffisburg',
+    '290': 'CONCORDIA Assurance suisse de maladie et accidents SA',
+    '312': 'Atupri Assurance de la santé SA',
+    '343': 'Avenir Assurance',
+    '360': 'Krankenkasse Luzerner Hinterland',
+    '376': 'KPT Caisse-maladie SA',
+    '455': 'ÖKK Kranken- und Unfallversicherungen AG',
+    '509': 'Vivao Sympany SA',
+    '780': 'Genossenschaft Glarner Krankenversicherung',
+    '820': 'curaulta',
+    '881': 'EGK Grundversicherungen AG',
+    '923': 'Genossenschaft KRANKENKASSE SLKK',
+    '941': 'sodalis gesundheitsgruppe',
+    '966': 'vita surselva',
+    '1040': 'Verein Krankenkasse Visperterminen',
+    '1113': 'Caisse-maladie de la vallée d\'Entremont société coopérative',
+    '1179': 'Mutuelle',
+    '1318': 'Stiftung Krankenkasse Wädenswil',
+    '1322': 'Krankenkasse Birchmeier',
+    '1384': 'SWICA Assurance-maladie SA',
+    '1386': 'Galenos AG',
+    '1401': 'rhenusana',
+    '1402': 'Taggeldkasse bildende KünstlerInnen',
+    '1479': 'Mutuel Assurance',
+    '1491': 'Gewerbliche Krankenkasse',
+    '1507': 'AMB Assurances SA',
+    '1509': 'Sanitas Grundversicherungen AG',
+    '1520': 'HOTELA Caisse maladie',
+    '1522': 'Krankenkasse Schweizerischer Metallbaufirmen',
+    '1535': 'Philos Assurance',
+    '1542': 'Assura-Basis SA',
+    '1555': 'Visana AG',
+    '1560': 'Agrisano Krankenkasse AG',
+    '1562': 'Helsana Assurances SA',
+    '1568': 'sana24 AG',
+};
+
+/**
+ * Insurer codes that actually sell compulsory health insurance (AOS/LAMal).
+ * Excludes the 5 codes flagged `daily_allowance_only: true` in the official
+ * registry (they only sell daily-allowance insurance, never AOS premiums).
+ */
+export const ACTIVE_INSURER_IDS: string[] = [
+  '8', '32', '134', '194', '246', '290', '312', '343', '360', '376', '455',
+  '509', '780', '820', '881', '923', '941', '966', '1040', '1113', '1318',
+  '1322', '1384', '1386', '1401', '1479', '1507', '1509', '1535', '1542',
+  '1555', '1560', '1562', '1568'
+];
+
+/**
+ * Returns the official insurer name by its OFSP numeric code.
+ * If the code isn't in the official registry, returns a clearly-flagged
+ * placeholder instead of guessing a name — never invent an insurer name.
  */
 export function getInsurerDisplayName(id: string): string {
-  const names: Record<string, string> = {
-    okk: 'ÖKK',
-    assura: 'Assura',
-    glarner: 'Glarner Krankenversicherung',
-    waedenswil: 'KK Wädenswil',
-    aquilana: 'Aquilana',
-    swica: 'Swica',
-    concordia: 'Concordia',
-    amb: 'AMB Assurances',
-    einsiedeln: 'KK Einsiedeln',
-    kpt: 'KPT / CPT',
-    atupri: 'Atupri',
-    sympany: 'Vivao Sympany',
-    steffisburg: 'KK Steffisburg',
-    agrisano: 'Agrisano',
-    simplon: 'KK Simplon',
-    visperterminen: 'KK Visperterminen',
-    zeneggen: 'KK Zeneggen',
-    galenos: 'Galenos',
-    compact: 'Compact',
-    sodalis: 'Sodalis',
-    luzernerhinterland: 'KK Luzerner Hinterland',
-    css: 'CSS',
-    sana24: 'Sana24',
-    rhenusana: 'rhenusana',
-    mutuel: 'Mutuel Assurance',
-    easysana: 'Easy Sana',
-    sanitas: 'Sanitas',
-    philos: 'Philos',
-    avenir: 'Avenir',
-    vivacare: 'vivacare',
-    moovesympany: 'Moove Sympany',
-    progres: 'Progrès',
-    visana: 'Visana',
-    helsana: 'Helsana'
-  };
-  return names[id.toLowerCase().trim()] || id;
+  const code = id.trim();
+  return OFFICIAL_INSURERS[code] || `Assureur inconnu (code ${code})`;
 }
 
 /**

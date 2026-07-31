@@ -348,7 +348,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
   const [loadingReal, setLoadingReal] = useState<boolean>(false);
 
   // User's current premium details
-  const [currentCaisseId, setCurrentCaisseId] = useState<string>('helsana');
+  const [currentCaisseId, setCurrentCaisseId] = useState<string>('1562');
   const [currentPremiumInput, setCurrentPremiumInput] = useState<number>(0);
   const [userHasEditedCurrentPremium, setUserHasEditedCurrentPremium] = useState<boolean>(false);
 
@@ -1230,7 +1230,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                         Assureur actuel
                                       </label>
                                       <select
-                                        value={filters.currentInsurerId || 'helsana'}
+                                        value={filters.currentInsurerId || '1562'}
                                         onChange={(e) => {
                                           handleFilterChange('currentInsurerId', e.target.value);
                                           setCurrentCaisseId(e.target.value);

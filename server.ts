@@ -4,8 +4,7 @@ import path from "path";
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
 import fs from "fs";
-import { resolveZipCode } from "./src/utils/swissZipCodes.js";
-import { getRegionCode, getInsurerDisplayName, getInsurerModelFallbackName, lookupPremium, getAgeCategoryFromYob } from "./src/utils/premiumLookupService.js";
+import { getInsurerDisplayName, getInsurerModelFallbackName, lookupPremium, getAgeCategoryFromYob, ACTIVE_INSURER_IDS } from "./src/utils/premiumLookupService.js";
 
 // Load environment variables
 dotenv.config();
@@ -555,20 +554,12 @@ app.get("/api/priminfo/npa-lookup", (req, res) => {
 
   const entries = npaMap[npaStr];
   if (!entries || entries.length === 0) {
-    const zipInfo = resolveZipCode(npaStr);
-    if (!zipInfo) {
-      return res.status(404).json({ error: "Code postal inconnu", npa: npaStr });
-    }
-    const regionCode = getRegionCode(zipInfo.canton, zipInfo.zone);
-    const regNum = regionCode.replace("PR-REG CH", "");
-    return res.json({
-      success: true,
-      ambiguous: false,
-      npa: npaStr,
-      locality: zipInfo.city,
-      canton: zipInfo.canton,
-      premium_region: regNum,
-      premium_region_code: regionCode
+    // NPA not found in the official OFSP npa_to_region file.
+    // We do NOT guess a canton/region from a ZIP-range heuristic —
+    // an incorrect guess would mean a wrong premium region and wrong prices.
+    return res.status(404).json({
+      error: "Ce code postal n'a pas été trouvé dans le fichier officiel OFSP des régions de primes.",
+      npa: npaStr
     });
   }
 
@@ -638,7 +629,7 @@ app.get("/api/priminfo/praemien", async (req, res) => {
     
     const cleanAccident = accident === "0" ? false : true;
 
-    // Resolve canton and region
+    // Resolve canton and region strictly from the official npa_to_region data.
     let canton = "";
     let region = "";
 
@@ -650,34 +641,36 @@ app.get("/api/priminfo/praemien", async (req, res) => {
       if (locality) {
         const foundLoc = npaEntries.find(e => e.locality.toLowerCase() === String(locality).toLowerCase());
         if (foundLoc) matched = foundLoc;
+      } else if (npaEntries.length > 1) {
+        const distinctRegions = new Set(npaEntries.map(e => `${e.canton}_${e.premium_region}`));
+        if (distinctRegions.size > 1) {
+          return res.status(409).json({
+            error: "Ce code postal correspond à plusieurs régions de primes. Veuillez préciser la localité.",
+            ambiguous: true,
+            localities: npaEntries.map(e => ({ locality: e.locality, canton: e.canton, premium_region: e.premium_region }))
+          });
+        }
       }
       canton = matched.canton;
-      const zNum = parseInt(matched.premium_region, 10) || 1;
-      region = getRegionCode(canton, zNum);
+      // Use the real premium region straight from the official file — do NOT
+      // re-derive it through the ZIP-range heuristic, which would discard the
+      // exact official value we just looked up.
+      region = `PR-REG CH${matched.premium_region}`;
     }
 
     if (!canton || !region) {
-      const zipInfo = resolveZipCode(cleanZip);
-      if (!zipInfo) {
-        return res.status(404).json({ error: "Invalid or unsupported ZIP code" });
-      }
-      canton = zipInfo.canton;
-      region = getRegionCode(canton, zipInfo.zone);
+      // NPA not found in the official file: report it rather than guessing.
+      return res.status(404).json({ error: "Code postal non trouvé dans le fichier officiel OFSP des régions de primes." });
     }
 
     if (customRegion) {
-      const parsedRegNum = parseInt(String(customRegion).replace("PR-REG CH", ""), 10) || 1;
-      region = getRegionCode(canton, parsedRegNum);
+      const parsedRegNum = parseInt(String(customRegion).replace("PR-REG CH", ""), 10);
+      if (!isNaN(parsedRegNum)) {
+        region = `PR-REG CH${parsedRegNum}`;
+      }
     }
 
-    const activeInsurers = [
-      'okk', 'assura', 'glarner', 'waedenswil', 'aquilana', 'swica', 'concordia',
-      'amb', 'einsiedeln', 'kpt', 'atupri', 'sympany', 'steffisburg', 'agrisano',
-      'simplon', 'visperterminen', 'zeneggen', 'galenos', 'compact', 'sodalis',
-      'luzernerhinterland', 'css', 'sana24', 'rhenusana', 'mutuel', 'easysana',
-      'sanitas', 'philos', 'avenir', 'vivacare', 'moovesympany', 'progres',
-      'visana', 'helsana'
-    ];
+    const activeInsurers = ACTIVE_INSURER_IDS;
 
     const modelTypes: ('standard' | 'family' | 'hmo' | 'telemed')[] = [
       'standard', 'family', 'hmo', 'telemed'

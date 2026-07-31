@@ -8,12 +8,11 @@
  * It mirrors the official calculations from the federal calculator (priminfo.admin.ch).
  */
 
-import { resolveZipCode, ZipCodeInfo } from '../utils/swissZipCodes';
 import { 
-  getRegionCode, 
   getInsurerDisplayName, 
   getInsurerModelFallbackName, 
-  lookupPremium 
+  lookupPremium,
+  ACTIVE_INSURER_IDS
 } from '../utils/premiumLookupService';
 
 export interface PriminfoQuery {
@@ -96,27 +95,63 @@ async function getClientPremiumsDb(): Promise<Record<string, { premium: number; 
   }
 }
 
+export interface NpaRegionEntry {
+  locality: string;
+  canton: string;
+  premium_region: string;
+  premium_region_code: string;
+  bfs_number: string;
+  commune: string;
+  npa_spans_multiple_regions_flag: number;
+}
+
+let clientNpaMapCache: Record<string, NpaRegionEntry[]> | null = null;
+
+async function getClientNpaMap(): Promise<Record<string, NpaRegionEntry[]>> {
+  if (clientNpaMapCache) return clientNpaMapCache;
+  const res = await fetch('/npa_to_region.json');
+  if (!res.ok) {
+    throw new Error(`Failed to load npa_to_region.json (status ${res.status})`);
+  }
+  clientNpaMapCache = await res.json();
+  return clientNpaMapCache!;
+}
+
 /**
  * Queries the local high-fidelity client-side JSON database.
+ * Resolves NPA -> canton/region using the REAL official OFSP mapping
+ * (npa_to_region.json), not a guessed ZIP-range heuristic. If the NPA
+ * is genuinely absent from the official file, returns no results rather
+ * than fabricating a canton/region.
  */
 async function queryLocalCache(query: PriminfoQuery): Promise<PremiumOffer[]> {
-  const { zipCode, franchise, ageCategory, accidentCoverage } = query;
-  const zipInfo = resolveZipCode(zipCode);
-  if (!zipInfo) {
+  const { zipCode, franchise, ageCategory, accidentCoverage, locality } = query;
+
+  let canton: string;
+  let region: string;
+
+  try {
+    const npaMap = await getClientNpaMap();
+    const entries = npaMap[zipCode.trim()];
+    if (!entries || entries.length === 0) {
+      console.warn(`[PriminfoService] NPA ${zipCode} not found in official npa_to_region.json — no fabricated fallback used.`);
+      return [];
+    }
+    let matched = entries[0];
+    if (locality) {
+      const found = entries.find(e => e.locality.toLowerCase() === locality.toLowerCase());
+      if (found) matched = found;
+    } else if (entries.length > 1) {
+      // Ambiguous NPA and no locality specified: do not silently guess.
+      console.warn(`[PriminfoService] NPA ${zipCode} is ambiguous (${entries.length} localities) and no locality was provided.`);
+      return [];
+    }
+    canton = matched.canton;
+    region = matched.premium_region_code;
+  } catch (err) {
+    console.error("[PriminfoService] Failed to resolve NPA via official mapping:", err);
     return [];
   }
-  const canton = zipInfo.canton;
-  const zone = zipInfo.zone;
-  const region = getRegionCode(canton, zone);
-
-  const activeInsurers = [
-    'okk', 'assura', 'glarner', 'waedenswil', 'aquilana', 'swica', 'concordia',
-    'amb', 'einsiedeln', 'kpt', 'atupri', 'sympany', 'steffisburg', 'agrisano',
-    'simplon', 'visperterminen', 'zeneggen', 'galenos', 'compact', 'sodalis',
-    'luzernerhinterland', 'css', 'sana24', 'rhenusana', 'mutuel', 'easysana',
-    'sanitas', 'philos', 'avenir', 'vivacare', 'moovesympany', 'progres',
-    'visana', 'helsana'
-  ];
 
   const modelTypes: ('standard' | 'family' | 'hmo' | 'telemed')[] = [
     'standard', 'family', 'hmo', 'telemed'
@@ -126,7 +161,7 @@ async function queryLocalCache(query: PriminfoQuery): Promise<PremiumOffer[]> {
     const db = await getClientPremiumsDb();
     const results: PremiumOffer[] = [];
 
-    for (const insurerId of activeInsurers) {
+    for (const insurerId of ACTIVE_INSURER_IDS) {
       for (const modelType of modelTypes) {
         const record = lookupPremium(db, {
           insurerId,

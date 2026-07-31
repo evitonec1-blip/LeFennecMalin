@@ -1,75 +1,317 @@
 {
+  "source_file": "assureurs-maladie-admis-2026-01-01.xlsx (priminfo.admin.ch / OFSP)",
+  "note": "Mapping numero OFSP -> nom officiel, extrait tel quel du fichier.",
   "insurers": {
     "8": {
-      "name": "ÖKK Kranken- und Unfallversicherungen AG",
-      "ide": "CHE-105.940.380",
+      "name": "CSS Assurance-maladie SA",
+      "ide": "CHE-110.130.047",
       "legal_form": "SA",
+      "group": "---",
+      "activity_area": "CH\n\nUE, AELE, UK",
       "daily_allowance_only": false
     },
     "32": {
-      "name": "Assura SA",
-      "ide": "CHE-105.981.879",
-      "legal_form": "SA",
+      "name": "Aquilana Versicherungen",
+      "ide": "CHE-107.860.582",
+      "legal_form": "Association",
+      "group": "---",
+      "activity_area": "CH\n\nAT, DE, ES, FR, GB, IT, NL, PT",
+      "daily_allowance_only": false
+    },
+    "134": {
+      "name": "Einsiedler Krankenkasse",
+      "ide": "CHE-108.619.178",
+      "legal_form": "Association",
+      "group": "---",
+      "activity_area": "GL, LU, NW, OW, SG, SZ, UR, ZG, ZH",
+      "daily_allowance_only": false
+    },
+    "194": {
+      "name": "Sumiswalder Krankenkasse",
+      "ide": "CHE-107.232.368",
+      "legal_form": "Association",
+      "group": "---",
+      "activity_area": "AG, AI, AR, BE, BL, BS, FR, GL; GR, LU, NW, OW, SG, SH, SO, SZ, TG, UR, VS, ZG, ZH",
+      "daily_allowance_only": false
+    },
+    "246": {
+      "name": "Genossenschaft Krankenkasse Steffisburg",
+      "ide": "CHE-107.592.039",
+      "legal_form": "Société coopérative",
+      "group": "---",
+      "activity_area": "AG, BE, GL, NW, OW, SO, SZ, UR, VS, ZG, ZH",
       "daily_allowance_only": false
     },
     "290": {
-      "name": "SWICA Krankenversicherung AG",
-      "ide": "CHE-105.882.383",
+      "name": "CONCORDIA Assurance suisse de maladie et accidents SA",
+      "ide": "CHE-112.992.321",
       "legal_form": "SA",
+      "group": "---",
+      "activity_area": "CH, FL\n\nUE, AELE, UK",
       "daily_allowance_only": false
     },
     "312": {
-      "name": "Concordia Schweizerische Kranken- und Unfallversicherung AG",
-      "ide": "CHE-105.972.102",
+      "name": "Atupri Assurance de la santé SA",
+      "ide": "CHE-191.743.207",
       "legal_form": "SA",
+      "group": "---",
+      "activity_area": "CH",
+      "daily_allowance_only": false
+    },
+    "343": {
+      "name": "Avenir Assurance",
+      "ide": "CHE-115.747.083",
+      "legal_form": "SA",
+      "group": "Groupe Mutuel",
+      "activity_area": "CH",
+      "daily_allowance_only": false
+    },
+    "360": {
+      "name": "Krankenkasse Luzerner Hinterland",
+      "ide": "CHE-107.866.521",
+      "legal_form": "Association",
+      "group": "---",
+      "activity_area": "AG, BE, LU, NW, OW, SO, SZ, UR, ZG, ZH",
       "daily_allowance_only": false
     },
     "376": {
-      "name": "KPT Krankenkasse AG",
-      "ide": "CHE-105.975.291",
+      "name": "KPT Caisse-maladie SA",
+      "ide": "CHE-112.983.842",
       "legal_form": "SA",
+      "group": "---",
+      "activity_area": "CH\n\nUE, AELE, UK",
       "daily_allowance_only": false
     },
     "455": {
-      "name": "Atupri Gesundheitsversicherung AG",
-      "ide": "CHE-105.945.022",
+      "name": "ÖKK Kranken- und Unfallversicherungen AG",
+      "ide": "CHE-106.844.103",
       "legal_form": "SA",
+      "group": "---",
+      "activity_area": "CH\n\nUE, AELE, UK",
       "daily_allowance_only": false
     },
     "509": {
-      "name": "Sympany Versicherungen AG",
-      "ide": "CHE-105.977.102",
+      "name": "Vivao Sympany SA",
+      "ide": "CHE-108.905.164",
       "legal_form": "SA",
+      "group": "---",
+      "activity_area": "CH\n\nUE, AELE, UK",
+      "daily_allowance_only": false
+    },
+    "780": {
+      "name": "Genossenschaft Glarner Krankenversicherung",
+      "ide": "CHE-107.739.934",
+      "legal_form": "Société coopérative",
+      "group": "---",
+      "activity_area": "GL, SG, SZ",
+      "daily_allowance_only": false
+    },
+    "820": {
+      "name": "curaulta",
+      "ide": "CHE-108.918.310",
+      "legal_form": "Stiftung",
+      "group": "---",
+      "activity_area": "GR",
+      "daily_allowance_only": false
+    },
+    "881": {
+      "name": "EGK Grundversicherungen AG",
+      "ide": "CHE-317.024.660",
+      "legal_form": "SA",
+      "group": "---",
+      "activity_area": "CH",
+      "daily_allowance_only": false
+    },
+    "923": {
+      "name": "Genossenschaft KRANKENKASSE SLKK",
+      "ide": "CHE-107.298.953",
+      "legal_form": "Société coopérative",
+      "group": "---",
+      "activity_area": "AG, AI, AR, BE, BL, BS, FR, GL, GR, LU, NW, OW, SG, SH, SO, SZ, TG, UR, ZG, ZH\nVS : Région 2",
+      "daily_allowance_only": false
+    },
+    "941": {
+      "name": "sodalis gesundheitsgruppe",
+      "ide": "CHE-105.755.313",
+      "legal_form": "Association",
+      "group": "---",
+      "activity_area": "BE, VS\n\nIT",
+      "daily_allowance_only": false
+    },
+    "966": {
+      "name": "vita surselva",
+      "ide": "CHE-108.920.330",
+      "legal_form": "Fondation",
+      "group": "---",
+      "activity_area": "CH",
+      "daily_allowance_only": false
+    },
+    "1040": {
+      "name": "Verein Krankenkasse Visperterminen",
+      "ide": "CHE-108.685.809",
+      "legal_form": "Association",
+      "group": "---",
+      "activity_area": "VS : Région 2",
+      "daily_allowance_only": false
+    },
+    "1113": {
+      "name": "Caisse-maladie de la vallée d’Entremont société coopérative",
+      "ide": " CHE-108.307.939",
+      "legal_form": "Société coopérative",
+      "group": "Groupe Mutuel (Coopération)",
+      "activity_area": "VS",
+      "daily_allowance_only": false
+    },
+    "1179": {
+      "name": "Mutuelle",
+      "ide": "CHE-110.398.377",
+      "legal_form": "Fondation",
+      "group": "---",
+      "activity_area": "NE",
+      "daily_allowance_only": true
+    },
+    "1318": {
+      "name": "Stiftung Krankenkasse Wädenswil",
+      "ide": "CHE-110.206.124",
+      "legal_form": "Fondation",
+      "group": "---",
+      "activity_area": "AG, SZ, ZG, ZH",
+      "daily_allowance_only": false
+    },
+    "1322": {
+      "name": "Krankenkasse Birchmeier",
+      "ide": "CHE-108.590.563",
+      "legal_form": "Association",
+      "group": "---",
+      "activity_area": "AG",
       "daily_allowance_only": false
     },
     "1384": {
-      "name": "CSS Versicherung AG",
-      "ide": "CHE-105.978.211",
+      "name": "SWICA Assurance-maladie SA",
+      "ide": "CHE-109.337.400",
       "legal_form": "SA",
+      "group": "---",
+      "activity_area": "CH, FL\n\nUE, AELE, UK",
+      "daily_allowance_only": false
+    },
+    "1386": {
+      "name": "Galenos AG",
+      "ide": "CHE-272.377.083",
+      "legal_form": "SA",
+      "group": "Visana",
+      "activity_area": "CH",
+      "daily_allowance_only": false
+    },
+    "1401": {
+      "name": "rhenusana",
+      "ide": "CHE-108.585.421",
+      "legal_form": "Association",
+      "group": "---",
+      "activity_area": "CH",
+      "daily_allowance_only": false
+    },
+    "1402": {
+      "name": "Taggeldkasse bildende KünstlerInnen",
+      "ide": "CHE-101.722.579",
+      "legal_form": "Fondation",
+      "group": "---",
+      "activity_area": "Profession",
+      "daily_allowance_only": true
+    },
+    "1479": {
+      "name": "Mutuel Assurance",
+      "ide": "CHE-115.747.953",
+      "legal_form": "SA",
+      "group": "Groupe Mutuel",
+      "activity_area": "CH",
+      "daily_allowance_only": false
+    },
+    "1491": {
+      "name": "Gewerbliche Krankenkasse",
+      "ide": "CHE-112.327.483",
+      "legal_form": "Association",
+      "group": "---",
+      "activity_area": "Profession",
+      "daily_allowance_only": true
+    },
+    "1507": {
+      "name": "AMB Assurances SA",
+      "ide": "CHE-383.575.104",
+      "legal_form": "SA",
+      "group": "Groupe Mutuel",
+      "activity_area": "VS",
       "daily_allowance_only": false
     },
     "1509": {
       "name": "Sanitas Grundversicherungen AG",
-      "ide": "CHE-105.980.111",
+      "ide": "CHE-110.227.511",
       "legal_form": "SA",
+      "group": "---",
+      "activity_area": "CH\n\nUE, AELE, UK",
+      "daily_allowance_only": false
+    },
+    "1520": {
+      "name": "HOTELA Caisse maladie",
+      "ide": "CHE-110.388.746",
+      "legal_form": "Fondation",
+      "group": "---",
+      "activity_area": "CH",
+      "daily_allowance_only": true
+    },
+    "1522": {
+      "name": "Krankenkasse Schweizerischer Metallbaufirmen",
+      "ide": "CHE-107.837.695",
+      "legal_form": "Association",
+      "group": "---",
+      "activity_area": "Profession",
+      "daily_allowance_only": true
+    },
+    "1535": {
+      "name": "Philos Assurance",
+      "ide": "CHE-115.748.007",
+      "legal_form": "SA",
+      "group": "Groupe Mutuel",
+      "activity_area": "CH",
       "daily_allowance_only": false
     },
     "1542": {
-      "name": "Groupe Mutuel Assurances GMA SA",
-      "ide": "CHE-105.982.302",
+      "name": "Assura-Basis SA",
+      "ide": " CHE-203.697.177",
       "legal_form": "SA",
+      "group": "---",
+      "activity_area": "CH\n\nUE, AELE, UK",
+      "daily_allowance_only": false
+    },
+    "1555": {
+      "name": "Visana AG",
+      "ide": "CHE-375.956.898",
+      "legal_form": "SA",
+      "group": "Visana",
+      "activity_area": "CH\n\nUE, AELE, UK",
+      "daily_allowance_only": false
+    },
+    "1560": {
+      "name": "Agrisano Krankenkasse AG",
+      "ide": "CHE-496.636.075",
+      "legal_form": "SA",
+      "group": "---",
+      "activity_area": "CH\n\nUE, AELE, UK",
       "daily_allowance_only": false
     },
     "1562": {
-      "name": "Helsana Versicherungen AG",
-      "ide": "CHE-105.983.411",
+      "name": "Helsana Assurances SA",
+      "ide": "CHE-102.695.608",
       "legal_form": "SA",
+      "group": "---",
+      "activity_area": "CH\n\nUE, AELE, UK",
       "daily_allowance_only": false
     },
     "1568": {
-      "name": "Visana AG",
-      "ide": "CHE-105.984.522",
+      "name": "sana24 AG",
+      "ide": "CHE-110.550.573",
       "legal_form": "SA",
+      "group": "Visana",
+      "activity_area": "CH",
       "daily_allowance_only": false
     }
   }
