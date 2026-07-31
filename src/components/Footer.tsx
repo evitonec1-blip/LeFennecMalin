@@ -36,6 +36,9 @@ export default function Footer({ onTabChange }: FooterProps) {
                   alt="Fenny" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = '/fennec-avatar.jpg';
+                  }}
                 />
               </div>
               <span className="font-display text-2xl font-black text-white tracking-tight">

@@ -78,6 +78,9 @@ export default function HowItWorks() {
                   alt={`Fenny step ${step.num}`}
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = '/fennec-logo.jpg';
+                  }}
                 />
               </div>
 

@@ -134,7 +134,15 @@ export default function ProductsGrid({ onTabChange }: ProductsGridProps) {
             <div className="px-8 pb-8 pt-0 flex items-center justify-between mt-auto border-t border-fennec-cream/20 bg-fennec-cream/5">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 rounded-full border border-fennec-cream overflow-hidden">
-                  <img src={p.image} alt="Fenny Icon" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  <img 
+                    src={p.image} 
+                    alt="Fenny Icon" 
+                    className="w-full h-full object-cover" 
+                    referrerPolicy="no-referrer" 
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = '/fennec-logo.jpg';
+                    }}
+                  />
                 </div>
                 <span className="text-xs font-semibold text-fennec-brown">Fenny compare pour vous</span>
               </div>

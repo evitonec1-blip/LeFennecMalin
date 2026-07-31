@@ -582,6 +582,9 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
             alt="Fenny" 
             className="w-full h-full object-cover rounded-2xl"
             referrerPolicy="no-referrer"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = '/fennec-logo.jpg';
+            }}
           />
         </div>
         
@@ -720,6 +723,9 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                       alt="Fenny analyse" 
                       className="w-full h-full object-cover rounded-2xl animate-pulse"
                       referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = '/fennec-logo.jpg';
+                      }}
                     />
                   </div>
 
@@ -796,6 +802,9 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                         alt="Feny" 
                         className="w-full h-full object-cover rounded-2xl"
                         referrerPolicy="no-referrer"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = '/fennec-logo.jpg';
+                        }}
                       />
                     </div>
                   </div>
@@ -2039,7 +2048,14 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
 
                             {/* Balloon notification from Fenny */}
                             <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-3 md:p-4 flex items-start space-x-3 text-emerald-800">
-                              <img src={fenyAvatar} className="w-7 h-7 rounded-full object-cover shrink-0 border border-emerald-300" alt="Fenny" />
+                              <img 
+                                src={fenyAvatar} 
+                                className="w-7 h-7 rounded-full object-cover shrink-0 border border-emerald-300" 
+                                alt="Fenny" 
+                                onError={(e) => {
+                                  (e.target as HTMLImageElement).src = '/fennec-avatar.jpg';
+                                }}
+                              />
                               <div className="text-[11px] leading-relaxed">
                                 <strong>Message de Fenny :</strong> "J'ai bien préparé vos résultats ! Un code de sécurité unique à 4 chiffres a été envoyé à <strong>{formData.email || 'votre e-mail'}</strong> pour débloquer instantanément vos projections de capital 3e pilier."
                               </div>
@@ -2604,6 +2620,9 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                   alt="Fenny" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = '/fennec-logo.jpg';
+                  }}
                 />
               </div>
               <div>

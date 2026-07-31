@@ -185,6 +185,9 @@ export default function App() {
                         alt="Fenny le fennec malin" 
                         className="w-full h-full object-cover rounded-2xl"
                         referrerPolicy="no-referrer"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = '/fennec-logo.jpg';
+                        }}
                       />
                       
                       {/* Floating Speech Bubble */}
@@ -320,6 +323,9 @@ export default function App() {
                         alt="Fenny Avatar" 
                         className="w-full h-full object-cover"
                         referrerPolicy="no-referrer"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = '/fennec-avatar.jpg';
+                        }}
                       />
                     </div>
 
@@ -365,6 +371,9 @@ export default function App() {
                       alt="Fenny" 
                       className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = '/fennec-logo.jpg';
+                      }}
                     />
                   </div>
                   <div>

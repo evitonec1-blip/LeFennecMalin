@@ -4,7 +4,12 @@ import path from "path";
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
 import fs from "fs";
+import { fileURLToPath } from "url";
 import { getInsurerDisplayName, getInsurerModelFallbackName, lookupPremium, getAgeCategoryFromYob, ACTIVE_INSURER_IDS } from "./src/utils/premiumLookupService.js";
+
+// Polyfill __filename and __dirname for ESM environments
+const __filename_esm = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename_esm);
 
 // Load environment variables
 dotenv.config();
@@ -36,6 +41,31 @@ app.use((req, res, next) => {
 // Verification code storage (in-memory map)
 const verificationCodes = new Map<string, { code: string; expiresAt: number; phone?: string; firstName?: string; lastName?: string }>();
 
+// Helper to get Fennec logo buffer and base64 URI across Vercel/Node environments
+function getLogoData() {
+  const possiblePaths = [
+    path.join(process.cwd(), "public", "fennec-logo.jpg"),
+    path.join(process.cwd(), "dist", "fennec-logo.jpg"),
+    path.join(__dirname, "public", "fennec-logo.jpg"),
+    path.join(__dirname, "..", "public", "fennec-logo.jpg"),
+    path.join(process.cwd(), "src", "assets", "images", "feny_logo_1783331214351.jpg"),
+    path.join(__dirname, "src", "assets", "images", "feny_logo_1783331214351.jpg"),
+  ];
+
+  for (const p of possiblePaths) {
+    if (fs.existsSync(p)) {
+      try {
+        const buffer = fs.readFileSync(p);
+        const base64Uri = `data:image/jpeg;base64,${buffer.toString("base64")}`;
+        return { buffer, base64Uri, path: p };
+      } catch (err) {
+        // continue search
+      }
+    }
+  }
+  return null;
+}
+
 // API endpoint to send real verification code via email
 app.post("/api/send-verification-code", async (req, res) => {
   try {
@@ -61,6 +91,10 @@ app.post("/api/send-verification-code", async (req, res) => {
 
     console.log(`[Verification] Code generated for ${cleanEmail}: ${generatedCode}`);
 
+    // Get logo data
+    const logoData = getLogoData();
+    const logoImgSrc = logoData ? logoData.base64Uri : "cid:fenneclogo";
+
     // Try to send email via Nodemailer if SMTP configured
     const smtpHost = process.env.SMTP_HOST;
     const smtpPort = process.env.SMTP_PORT;
@@ -72,7 +106,7 @@ app.post("/api/send-verification-code", async (req, res) => {
     const htmlBody = `
       <div style="font-family: Arial, sans-serif; padding: 24px; color: #2F2921; max-width: 500px; border: 1px solid #ECE1D4; border-radius: 12px; background-color: #FCFAF8; margin: 0 auto;">
         <div style="text-align: center; margin-bottom: 20px;">
-          <img src="cid:fenneclogo" alt="Le Fennec Malin" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #D36D53; display: inline-block; margin-bottom: 8px;" />
+          <img src="${logoImgSrc}" alt="Le Fennec Malin" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #D36D53; display: inline-block; margin-bottom: 8px;" />
           <h2 style="color: #D36D53; margin: 0; font-size: 20px; font-weight: bold;">Code de vérification de sécurité</h2>
           <p style="margin: 4px 0 0; font-size: 12px; color: #7F7366; font-weight: 600;">LE FENNEC MALIN - COMPARATEUR NEUTRE</p>
         </div>
@@ -94,11 +128,10 @@ app.post("/api/send-verification-code", async (req, res) => {
           auth: { user: smtpUser, pass: smtpPass }
         });
 
-        const logoPath = path.join(process.cwd(), "public", "fennec-logo.jpg");
-        const attachments = fs.existsSync(logoPath) ? [
+        const attachments = logoData ? [
           {
             filename: "fennec-logo.jpg",
-            path: logoPath,
+            content: logoData.buffer,
             cid: "fenneclogo"
           }
         ] : [];
@@ -190,6 +223,9 @@ app.post("/api/submit-lead", async (req, res) => {
     let textBody = "";
     let htmlBody = "";
 
+    const logoData = getLogoData();
+    const logoImgSrc = logoData ? logoData.base64Uri : "cid:fenneclogo";
+
     if (type === "health") {
       subject = `🔥 Nouveau Lead Assurance Maladie (LAMal) - ${lead.firstName} ${lead.lastName}`;
       
@@ -215,7 +251,7 @@ Caisse actuelle: ${filters?.currentCaisse || "Non renseignée"}
       htmlBody = `
         <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; border: 1px solid #ECE1D4; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
           <div style="background-color: #2F2921; color: #FFF; padding: 20px; text-align: center;">
-            <img src="cid:fenneclogo" alt="Le Fennec Malin" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #D36D53; margin-bottom: 6px;" />
+            <img src="${logoImgSrc}" alt="Le Fennec Malin" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #D36D53; margin-bottom: 6px;" />
             <h2 style="margin: 0; font-size: 20px; letter-spacing: 1px;">FENY - LE FENNEC MALIN</h2>
             <p style="margin: 5px 0 0; font-size: 13px; color: #ECE1D4; opacity: 0.9;">Nouveau Lead Assurance Maladie (LAMal)</p>
           </div>
@@ -305,7 +341,7 @@ Total économie fiscale sur le terme: CHF ${totalTaxSavings.toLocaleString()}.-
       htmlBody = `
         <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; border: 1px solid #ECE1D4; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
           <div style="background-color: #2F2921; color: #FFF; padding: 20px; text-align: center;">
-            <img src="cid:fenneclogo" alt="Le Fennec Malin" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #D36D53; margin-bottom: 6px;" />
+            <img src="${logoImgSrc}" alt="Le Fennec Malin" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #D36D53; margin-bottom: 6px;" />
             <h2 style="margin: 0; font-size: 20px; letter-spacing: 1px;">FENY - LE FENNEC MALIN</h2>
             <p style="margin: 5px 0 0; font-size: 13px; color: #ECE1D4; opacity: 0.9;">Nouveau Lead Prévoyance 3ème Pilier</p>
           </div>
@@ -393,14 +429,62 @@ Total économie fiscale sur le terme: CHF ${totalTaxSavings.toLocaleString()}.-
         }
       });
 
-      const logoPath = path.join(process.cwd(), "public", "fennec-logo.jpg");
-      const attachments = fs.existsSync(logoPath) ? [
+      const attachments = logoData ? [
         {
           filename: "fennec-logo.jpg",
-          path: logoPath,
+          content: logoData.buffer,
           cid: "fenneclogo"
         }
       ] : [];
+
+      await transporter.sendMail({
+        from: process.env.SMTP_FROM || `"Feny Leads" <${smtpUser}>`,
+        to: recipientEmail,
+        subject: subject,
+        text: textBody,
+        html: htmlBody,
+        attachments
+      });
+
+      // Also send a copy to the user if valid lead email provided
+      if (lead.email && lead.email.toLowerCase() !== recipientEmail.toLowerCase()) {
+        try {
+          const userConfirmationHtml = `
+            <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; border: 1px solid #ECE1D4; border-radius: 12px; overflow: hidden; margin: 0 auto;">
+              <div style="background-color: #2F2921; color: #FFF; padding: 24px; text-align: center;">
+                <img src="${logoImgSrc}" alt="Le Fennec Malin" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #D36D53; margin-bottom: 8px;" />
+                <h2 style="margin: 0; font-size: 20px; color: #FFF;">Le Fennec Malin 🇨🇭</h2>
+                <p style="margin: 4px 0 0; font-size: 13px; color: #ECE1D4;">Confirmation de votre demande d'offre</p>
+              </div>
+              <div style="padding: 24px; background-color: #FCFAF8;">
+                <p style="font-size: 15px; color: #2F2921;">Bonjour <strong>${lead.firstName}</strong>,</p>
+                <p style="font-size: 14px; color: #4A4036;">Nous avons bien enregistré votre demande d'offre comparative pour <strong>${type === "health" ? caisse?.name || "Assurance Maladie" : assureur?.name || "3ème Pilier"}</strong>.</p>
+                <div style="background-color: #FFF; border: 1px solid #ECE1D4; border-radius: 10px; padding: 16px; margin: 20px 0;">
+                  <p style="margin: 0 0 8px; font-weight: bold; color: #D36D53; font-size: 13px; text-transform: uppercase;">Prochaines étapes :</p>
+                  <ul style="margin: 0; padding-left: 20px; font-size: 13px; color: #4A4036;">
+                    <li>Un conseiller spécialisé étudie vos données pour vérifier l'éligibilité aux meilleurs rabais.</li>
+                    <li>Votre dossier d'offre complet et officiel vous sera transmis très prochainement.</li>
+                  </ul>
+                </div>
+                <p style="font-size: 13px; color: #7F7366;">Si vous avez des questions, n'hésitez pas à nous contacter à <a href="mailto:contact@lefennecmalin.ch" style="color: #D36D53;">contact@lefennecmalin.ch</a>.</p>
+                <p style="font-size: 13px; color: #2F2921; font-weight: bold; margin-bottom: 0;">L'équipe de Fenny, le fennec malin</p>
+              </div>
+            </div>
+          `;
+
+          await transporter.sendMail({
+            from: process.env.SMTP_FROM || `"Le Fennec Malin" <${smtpUser}>`,
+            to: lead.email,
+            subject: `✅ Confirmation de votre demande — Le Fennec Malin`,
+            text: `Bonjour ${lead.firstName},\n\nNous avons bien reçu votre demande d'offre pour ${type === "health" ? caisse?.name || "Assurance Maladie" : assureur?.name || "3ème Pilier"}.\n\nUn conseiller étudie votre dossier.\n\nCordialement,\nLe Fennec Malin`,
+            html: userConfirmationHtml,
+            attachments
+          });
+          console.log(`[SMTP] Confirmation copy sent to prospect ${lead.email}`);
+        } catch (confirmErr: any) {
+          console.error(`[SMTP] Failed sending confirmation to prospect:`, confirmErr.message);
+        }
+      }
 
       await transporter.sendMail({
         from: process.env.SMTP_FROM || `"Feny Leads" <${smtpUser}>`,

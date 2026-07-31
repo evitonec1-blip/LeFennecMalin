@@ -707,6 +707,9 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
             alt="Fenny" 
             className="w-full h-full object-cover rounded-2xl"
             referrerPolicy="no-referrer"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = '/fennec-logo.jpg';
+            }}
           />
         </div>
         
@@ -848,6 +851,9 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                       alt="Fenny analyse" 
                       className="w-full h-full object-cover rounded-2xl animate-pulse"
                       referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = '/fennec-logo.jpg';
+                      }}
                     />
                   </div>
 
@@ -924,6 +930,9 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                         alt="Feny" 
                         className="w-full h-full object-cover rounded-2xl"
                         referrerPolicy="no-referrer"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = '/fennec-logo.jpg';
+                        }}
                       />
                     </div>
                   </div>
@@ -2055,7 +2064,14 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
 
                             {/* Balloon notification from Fenny */}
                             <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-3 md:p-4 flex items-start space-x-3 text-emerald-800">
-                              <img src={fenyAvatar} className="w-7 h-7 rounded-full object-cover shrink-0 border border-emerald-300" alt="Fenny" />
+                              <img 
+                                src={fenyAvatar} 
+                                className="w-7 h-7 rounded-full object-cover shrink-0 border border-emerald-300" 
+                                alt="Fenny" 
+                                onError={(e) => {
+                                  (e.target as HTMLImageElement).src = '/fennec-avatar.jpg';
+                                }}
+                              />
                               <div className="text-[11px] leading-relaxed">
                                 <strong>Message de Fenny :</strong> "Afin de valider votre dossier et de vous présenter les vraies primes certifiées 2026, un code de sécurité à 4 chiffres vient d'être généré et envoyé à l'adresse <strong>{formData.email || 'votre e-mail'}</strong> !"
                               </div>
@@ -2482,12 +2498,19 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                         <CompanyLogo id={caisse.insurerId || caisse.id || caisse.name} className="w-16 h-16 shrink-0" />
 
                         <div className="text-center sm:text-left">
-                          <h4 className="font-display font-bold text-lg text-fennec-dark flex items-center justify-center sm:justify-start">
-                            {caisse.name}
-                            {caisse.isPartner && (
-                              <span className="ml-2 w-2 h-2 rounded-full bg-emerald-500" title="Partenaire de souscription" />
+                          <div className="flex items-center flex-wrap gap-2 mt-1 justify-center sm:justify-start">
+                            <h4 className="font-display font-bold text-lg text-fennec-dark flex items-center">
+                              {caisse.name}
+                              {caisse.isPartner && (
+                                <span className="ml-2 w-2 h-2 rounded-full bg-emerald-500" title="Partenaire de souscription" />
+                              )}
+                            </h4>
+                            {caisse.modelType && (
+                              <span className="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-fennec-tan/30 text-fennec-dark border border-fennec-tan/50">
+                                {caisse.modelType === 'telemed' ? 'Télémédecine' : caisse.modelType === 'hmo' ? 'HMO' : caisse.modelType === 'family' ? 'Médecin de famille' : 'Standard'}
+                              </span>
                             )}
-                          </h4>
+                          </div>
                           <p className="text-xs text-fennec-brown font-medium mt-0.5">
                             {caisse.notes}
                           </p>
@@ -2620,6 +2643,9 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                   alt="Fenny" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = '/fennec-logo.jpg';
+                  }}
                 />
               </div>
               <div>

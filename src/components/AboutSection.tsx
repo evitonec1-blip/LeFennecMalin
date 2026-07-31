@@ -19,6 +19,9 @@ export default function AboutSection() {
             alt="Fenny le fennec malin" 
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = '/fennec-thinking.jpg';
+            }}
           />
         </div>
         <div className="space-y-4">
