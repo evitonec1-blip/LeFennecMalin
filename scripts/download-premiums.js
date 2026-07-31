@@ -14,6 +14,7 @@
  */
 import fs from 'fs';
 import path from 'path';
+import zlib from 'zlib';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const PUBLIC_DIR = path.join(process.cwd(), 'public');
@@ -38,10 +39,23 @@ function parseCsv(text) {
 
 function buildPremiums() {
   const csvPath = path.join(DATA_DIR, 'premiums_2026.csv');
-  if (!fs.existsSync(csvPath)) {
-    throw new Error(`Missing ${csvPath}. This file must contain the real OFSP premiums export (data/premiums_2026.csv) — see README_premiums.md.`);
+  const gzPath = path.join(DATA_DIR, 'premiums_2026.csv.gz');
+  const jsonPath = path.join(PUBLIC_DIR, 'premiums_2026.json');
+  let text = '';
+
+  if (fs.existsSync(csvPath)) {
+    text = fs.readFileSync(csvPath, 'utf-8');
+  } else if (fs.existsSync(gzPath)) {
+    console.log('[download-premiums] Decompressing data/premiums_2026.csv.gz...');
+    const buffer = fs.readFileSync(gzPath);
+    text = zlib.gunzipSync(buffer).toString('utf-8');
+  } else if (fs.existsSync(jsonPath)) {
+    console.log('[download-premiums] public/premiums_2026.json already exists, skipping CSV parse.');
+    return;
+  } else {
+    throw new Error(`Missing source files: checked data/premiums_2026.csv, data/premiums_2026.csv.gz, and public/premiums_2026.json.`);
   }
-  const text = fs.readFileSync(csvPath, 'utf-8');
+
   const rows = parseCsv(text);
 
   const db = {};
@@ -65,19 +79,32 @@ function buildPremiums() {
     }
   }
 
-  console.log(`[download-premiums] Parsed ${rows.length} rows from data/premiums_2026.csv, skipped ${skipped}, wrote ${Object.keys(db).length} unique keys.`);
+  console.log(`[download-premiums] Parsed ${rows.length} rows, skipped ${skipped}, wrote ${Object.keys(db).length} unique keys.`);
 
-  if (!fs.existsSync(PUBLIC_DIR)) fs.mkdirSync(PUBLIC_DIR);
-  fs.writeFileSync(path.join(PUBLIC_DIR, 'premiums_2026.json'), JSON.stringify(db));
-  console.log(`[download-premiums] Wrote public/premiums_2026.json (${(fs.statSync(path.join(PUBLIC_DIR, 'premiums_2026.json')).size / 1024 / 1024).toFixed(2)} MB)`);
+  if (!fs.existsSync(PUBLIC_DIR)) fs.mkdirSync(PUBLIC_DIR, { recursive: true });
+  fs.writeFileSync(jsonPath, JSON.stringify(db));
+  console.log(`[download-premiums] Wrote public/premiums_2026.json (${(fs.statSync(jsonPath).size / 1024 / 1024).toFixed(2)} MB)`);
 }
 
 function buildNpaMap() {
   const csvPath = path.join(DATA_DIR, 'npa_to_region_2026.csv');
-  if (!fs.existsSync(csvPath)) {
-    throw new Error(`Missing ${csvPath}. This file must contain the real OFSP NPA-to-region mapping (data/npa_to_region_2026.csv).`);
+  const gzPath = path.join(DATA_DIR, 'npa_to_region_2026.csv.gz');
+  const jsonPath = path.join(PUBLIC_DIR, 'npa_to_region.json');
+  let text = '';
+
+  if (fs.existsSync(csvPath)) {
+    text = fs.readFileSync(csvPath, 'utf-8');
+  } else if (fs.existsSync(gzPath)) {
+    console.log('[download-premiums] Decompressing data/npa_to_region_2026.csv.gz...');
+    const buffer = fs.readFileSync(gzPath);
+    text = zlib.gunzipSync(buffer).toString('utf-8');
+  } else if (fs.existsSync(jsonPath)) {
+    console.log('[download-premiums] public/npa_to_region.json already exists, skipping NPA build.');
+    return;
+  } else {
+    throw new Error(`Missing source files for NPA: checked data/npa_to_region_2026.csv, data/npa_to_region_2026.csv.gz, and public/npa_to_region.json.`);
   }
-  const text = fs.readFileSync(csvPath, 'utf-8');
+
   const rows = parseCsv(text);
 
   const npaMap = {};
@@ -98,7 +125,8 @@ function buildNpaMap() {
   }
 
   console.log(`[download-premiums] Parsed ${rows.length} NPA rows, ${Object.keys(npaMap).length} distinct postal codes.`);
-  fs.writeFileSync(path.join(PUBLIC_DIR, 'npa_to_region.json'), JSON.stringify(npaMap));
+  if (!fs.existsSync(PUBLIC_DIR)) fs.mkdirSync(PUBLIC_DIR, { recursive: true });
+  fs.writeFileSync(jsonPath, JSON.stringify(npaMap));
   console.log(`[download-premiums] Wrote public/npa_to_region.json`);
 }
 
