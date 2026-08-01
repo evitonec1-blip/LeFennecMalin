@@ -5,8 +5,11 @@
 
 import React from 'react';
 import { Shield, Sparkles, HelpCircle, CheckCircle, Scale, Eye, Heart, Search, Star, MapPin } from 'lucide-react';
+import { useLanguage } from '../i18n/LanguageContext';
 
 export default function TrustStrip() {
+  const { t } = useLanguage();
+
   const stats = [
     {
       icon: (
@@ -14,8 +17,8 @@ export default function TrustStrip() {
           <Scale className="w-6 h-6" />
         </div>
       ),
-      value: "100% Indépendant",
-      description: "Aucun assureur ne nous contrôle. Nos résultats sont objectifs et neutres.",
+      value: t('trust_independent'),
+      description: t('trust_independent_desc'),
     },
     {
       icon: (
@@ -23,8 +26,8 @@ export default function TrustStrip() {
           <Shield className="w-6 h-6" />
         </div>
       ),
-      value: "Données de l'OFSP & Priminfo 2026",
-      description: "Données officielles de l'Office Fédéral de la Santé Publique et de Priminfo.",
+      value: t('trust_official'),
+      description: t('trust_official_desc'),
     },
     {
       icon: (
@@ -32,17 +35,17 @@ export default function TrustStrip() {
           <Sparkles className="w-6 h-6" />
         </div>
       ),
-      value: "Gratuit & Sans engagement",
-      description: "Aucuns frais cachés ni de majoration de primes. Vous économisez librement.",
+      value: t('trust_free'),
+      description: t('trust_free_desc'),
     },
   ];
 
   const brandValues = [
-    { name: "Bienveillant", icon: <Heart className="w-6 h-6 text-rose-500" />, desc: "Fenny veille sur votre budget avec bienveillance" },
-    { name: "Curieux & Malin", icon: <Search className="w-6 h-6 text-amber-600" />, desc: "Toujours à la recherche des meilleures offres du marché" },
-    { name: "Fiable", icon: <Shield className="w-6 h-6 text-emerald-600" />, desc: "Données certifiées et conformité réglementaire stricte" },
-    { name: "Simple", icon: <Star className="w-6 h-6 text-blue-500" />, desc: "Des formulaires clairs, sans jargon inutile" },
-    { name: "Proche de vous", icon: <MapPin className="w-6 h-6 text-red-500" />, desc: "Établi en Suisse, proche de votre réalité locale" },
+    { name: t('val_caring'), icon: <Heart className="w-6 h-6 text-rose-500" />, desc: t('val_caring_desc') },
+    { name: t('val_curious'), icon: <Search className="w-6 h-6 text-amber-600" />, desc: t('val_curious_desc') },
+    { name: t('val_reliable'), icon: <Shield className="w-6 h-6 text-emerald-600" />, desc: t('val_reliable_desc') },
+    { name: t('val_simple'), icon: <Star className="w-6 h-6 text-blue-500" />, desc: t('val_simple_desc') },
+    { name: t('val_local'), icon: <MapPin className="w-6 h-6 text-red-500" />, desc: t('val_local_desc') },
   ];
 
   return (
@@ -73,10 +76,10 @@ export default function TrustStrip() {
       <div className="bg-fennec-cream/30 border border-fennec-cream/60 rounded-2xl py-6 px-4 md:px-8">
         <div className="text-center mb-6">
           <span className="text-[11px] font-bold tracking-widest text-fennec-terracotta uppercase block mb-1">
-            Proche de vous
+            {t('trust_close_to_you')}
           </span>
           <h4 className="font-display font-bold text-xl text-fennec-dark">
-            Les 5 engagements en or de notre fennec malin
+            {t('trust_5_engagements')}
           </h4>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">

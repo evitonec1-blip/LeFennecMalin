@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import gsap from 'gsap';
+import { useLanguage } from '../i18n/LanguageContext';
 
 interface PreloaderProps {
   onComplete: () => void;
@@ -8,6 +9,7 @@ interface PreloaderProps {
 export default function Preloader({ onComplete }: PreloaderProps) {
   const [percentage, setPercentage] = useState(0);
   const [activeWordIndex, setActiveWordIndex] = useState(0);
+  const { language } = useLanguage();
 
   // References for curtain animations
   const creamCurtainRef = useRef<HTMLDivElement>(null);
@@ -19,7 +21,14 @@ export default function Preloader({ onComplete }: PreloaderProps) {
   const wordsRef = useRef<HTMLDivElement>(null);
   const digitsContainerRef = useRef<HTMLDivElement>(null);
 
-  const words = ["Analyser", "Comparer", "Économiser", "Malin 🇨🇭"];
+  const wordMap = {
+    fr: ["Analyser", "Comparer", "Économiser", "Malin 🇨🇭"],
+    de: ["Analysieren", "Vergleichen", "Sparen", "Schlau 🇨🇭"],
+    en: ["Analyze", "Compare", "Save", "Smart 🇨🇭"],
+    it: ["Analizzare", "Confrontare", "Risparmiare", "Intelligente 🇨🇭"]
+  };
+
+  const words = wordMap[language] || wordMap.fr;
 
   // Determine active word index based on percentage
   const targetWordIndex = percentage < 25 ? 0 : percentage < 55 ? 1 : percentage < 80 ? 2 : 3;
@@ -27,7 +36,6 @@ export default function Preloader({ onComplete }: PreloaderProps) {
   // Simple text fade crossfade when word index changes
   useEffect(() => {
     if (wordsRef.current && targetWordIndex !== activeWordIndex) {
-      // Simple fade out, update word, fade back in
       gsap.to(wordsRef.current, {
         opacity: 0,
         y: -10,
@@ -49,20 +57,17 @@ export default function Preloader({ onComplete }: PreloaderProps) {
   useEffect(() => {
     const counterObj = { val: 0 };
     
-    // Create master timeline for preloader
     const tl = gsap.timeline();
 
-    // 1. Smooth simple numerical increment from 0 to 100
     tl.to(counterObj, {
       val: 100,
-      duration: 4.2,
+      duration: 3.5,
       ease: "power2.out",
       onUpdate: () => {
         setPercentage(Math.floor(counterObj.val));
       },
     });
 
-    // 2. Simple exit sequence
     tl.to([wordsRef.current, digitsContainerRef.current, logoRef.current], {
       opacity: 0,
       y: -20,
@@ -71,27 +76,26 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       ease: "power2.in",
     });
 
-    // Elegant peeling curtains
     tl.to(mainContainerRef.current, {
       yPercent: -100,
-      duration: 1.0,
+      duration: 0.9,
       ease: "power3.inOut"
     }, "-=0.15");
 
     tl.to(terracottaCurtainRef.current, {
       yPercent: -100,
-      duration: 1.0,
+      duration: 0.9,
       ease: "power3.inOut"
-    }, "-=0.9");
+    }, "-=0.8");
 
     tl.to(creamCurtainRef.current, {
       yPercent: -100,
-      duration: 1.0,
+      duration: 0.9,
       ease: "power3.inOut",
       onComplete: () => {
         onComplete();
       }
-    }, "-=0.9");
+    }, "-=0.8");
 
     return () => {
       tl.kill();
@@ -99,65 +103,57 @@ export default function Preloader({ onComplete }: PreloaderProps) {
   }, [onComplete]);
 
   return (
-    <div className="fixed inset-0 z-[9999] overflow-hidden select-none pointer-events-auto">
-      {/* Layer 1: Cream Curtain (bottom layer) */}
+    <div className="fixed inset-0 z-50 overflow-hidden pointer-events-auto">
+      {/* Curtain Layer 1: Fennec Cream */}
       <div 
-        ref={creamCurtainRef} 
-        className="absolute inset-0 bg-[#FDFBF9] z-10" 
+        ref={creamCurtainRef}
+        className="absolute inset-0 bg-fennec-cream z-30"
       />
 
-      {/* Layer 2: Terracotta Curtain (middle layer) */}
+      {/* Curtain Layer 2: Fennec Terracotta */}
       <div 
-        ref={terracottaCurtainRef} 
-        className="absolute inset-0 bg-[#B86F4E] z-20" 
+        ref={terracottaCurtainRef}
+        className="absolute inset-0 bg-fennec-terracotta z-20"
       />
 
-      {/* Layer 3: Main Dark Container (top layer) */}
+      {/* Curtain Layer 3: Fennec Dark - Main Container */}
       <div 
-        ref={mainContainerRef} 
-        className="absolute inset-0 bg-[#2D251E] z-30 flex flex-col justify-between p-8 md:p-12"
+        ref={mainContainerRef}
+        className="absolute inset-0 bg-fennec-dark z-10 flex flex-col justify-between p-8 md:p-12 text-fennec-cream"
       >
-        {/* Header inside preloader */}
-        <div ref={logoRef} className="flex justify-between items-center w-full">
+        {/* Top bar */}
+        <div ref={logoRef} className="flex justify-between items-center">
           <div className="flex items-center space-x-2">
-            <span className="font-display font-black text-xl text-white tracking-widest">LE FENNEC MALIN</span>
-            <span className="bg-[#E53935] text-white text-[10px] font-black px-1.5 py-0.5 rounded-sm">SUISSE 🇨🇭</span>
-          </div>
-        </div>
-
-        {/* Central Word Transition (Simple Opacity/Y Reveal) */}
-        <div className="text-center w-full px-4 relative">
-          <div className="h-24 md:h-32 flex items-center justify-center overflow-hidden">
-            <div 
-              ref={wordsRef} 
-              className="font-display font-black text-4xl sm:text-6xl md:text-8xl text-white tracking-wider uppercase"
-            >
-              {words[activeWordIndex] === "Malin 🇨🇭" ? (
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#EAC89B] via-[#F3E6D6] to-white animate-pulse">
-                  {words[activeWordIndex]}
-                </span>
-              ) : (
-                words[activeWordIndex]
-              )}
+            <div className="w-8 h-8 rounded-full bg-fennec-terracotta flex items-center justify-center text-white font-display font-extrabold text-sm">
+              F
             </div>
+            <span className="font-display font-extrabold tracking-wider text-sm uppercase text-white">
+              Le Fennec Malin
+            </span>
           </div>
-          <p className="text-[#F3E6D6]/30 text-[10px] sm:text-xs mt-4 tracking-widest uppercase font-mono">
-            Chargement des données officielles OFSP...
-          </p>
+          <span className="text-xs font-mono tracking-widest text-fennec-sand uppercase">
+            CH 2026
+          </span>
         </div>
 
-        {/* Bottom Spacer */}
-        <div className="h-4" />
+        {/* Center Animated Word */}
+        <div className="my-auto text-center overflow-hidden py-4">
+          <div 
+            ref={wordsRef}
+            className="font-display font-black text-4xl md:text-6xl text-white tracking-tight"
+          >
+            {words[activeWordIndex]}
+          </div>
+        </div>
 
-        {/* Bottom-Right Clean Numerical Counter */}
-        <div 
-          ref={digitsContainerRef} 
-          className="fixed bottom-8 right-8 md:bottom-12 md:right-12 z-40 flex items-baseline select-none text-white font-mono"
-        >
-          <span className="font-mono font-black text-5xl sm:text-7xl md:text-8xl tracking-tight">
-            {percentage}
-          </span>
-          <span className="text-xl sm:text-2xl md:text-4xl font-mono text-[#F3E6D6]/50 ml-2 font-black">%</span>
+        {/* Bottom Progress Counter */}
+        <div ref={digitsContainerRef} className="flex justify-between items-end border-t border-white/10 pt-4">
+          <div className="text-xs text-fennec-sand/80 font-medium max-w-xs">
+            Comparateur helvétique indépendant
+          </div>
+          <div className="font-mono font-black text-5xl md:text-7xl text-fennec-sand tracking-tighter">
+            {percentage}<span className="text-2xl text-fennec-terracotta">%</span>
+          </div>
         </div>
       </div>
     </div>

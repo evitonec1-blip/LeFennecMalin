@@ -5,38 +5,41 @@
 
 import React from 'react';
 import { ArrowRight, FileText, CheckSquare, BarChart3, TrendingDown } from 'lucide-react';
+import { useLanguage } from '../i18n/LanguageContext';
 import fenyThinking from '../assets/images/feny_thinking_1783331247759.jpg';
 import fenyAnalyse from '../assets/images/feny_analyse_1783331235825.jpg';
 import fenyAvatar from '../assets/images/feny_avatar_1783331224698.jpg';
 import fenyResults from '../assets/images/feny_results_1783331258491.jpg';
 
 export default function HowItWorks() {
+  const { t } = useLanguage();
+
   const steps = [
     {
       num: "1",
-      title: "Choisissez",
-      desc: "Sélectionnez l'assurance maladie ou la prévoyance 3ème Pilier.",
+      title: t('step1_title'),
+      desc: t('step1_desc'),
       icon: <CheckSquare className="w-6 h-6 text-fennec-dark" />,
       avatar: fenyThinking
     },
     {
       num: "2",
-      title: "Remplissez",
-      desc: "Indiquez votre canton et profil en deux minutes.",
+      title: t('step2_title'),
+      desc: t('step2_desc'),
       icon: <FileText className="w-6 h-6 text-fennec-dark" />,
       avatar: fenyAnalyse
     },
     {
       num: "3",
-      title: "Comparez",
-      desc: "Découvrez la liste transparente des offres classées par prix ou avis.",
+      title: t('step3_title'),
+      desc: t('step3_desc'),
       icon: <BarChart3 className="w-6 h-6 text-fennec-dark" />,
       avatar: fenyAvatar
     },
     {
       num: "4",
-      title: "Économisez",
-      desc: "Épargnez jusqu'à CHF 3'000.- par an sans frais d'intermédiaires !",
+      title: t('step4_title'),
+      desc: t('step4_desc'),
       icon: <TrendingDown className="w-6 h-6 text-white" />,
       avatar: fenyResults
     }
@@ -46,13 +49,13 @@ export default function HowItWorks() {
     <div className="w-full">
       <div className="text-center mb-10">
         <span className="text-[11px] font-bold tracking-widest text-fennec-terracotta uppercase block mb-1">
-          Simplicité Totale
+          {t('how_it_works_badge')}
         </span>
         <h2 className="font-display font-extrabold text-3xl text-fennec-dark">
-          Comment fonctionne Le Fennec Malin ?
+          {t('how_it_works_title')}
         </h2>
         <p className="mt-2 text-base text-fennec-dark/70 max-w-2xl mx-auto">
-          Pas de paperasse complexe ni d'appels intempestifs. Fenny s'occupe de trier et de vous afficher les meilleures opportunités en quatre étapes simples.
+          {t('how_it_works_subtitle')}
         </p>
       </div>
 

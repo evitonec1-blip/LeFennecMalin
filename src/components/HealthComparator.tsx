@@ -7,6 +7,7 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { CAISSES_MALADIE, SWISS_CANTONS, FRANCHISES, calculateHealthPremium, calculateSavings } from '../data';
 import { HealthFilterState, CaisseMaladie } from '../types';
 import { resolveZipCode } from '../utils/swissZipCodes';
+import { useLanguage } from '../i18n/LanguageContext';
 import { 
   getRegionCode, 
   getInsurerDisplayName, 
@@ -52,18 +53,742 @@ import CompanyLogo from './CompanyLogo';
 // Client-side cache for Vercel static deployment lookup fallback
 let cachedClientDb: Record<string, { premium: number; modelName: string }> | null = null;
 
-const HEALTH_ADVICE_MAP: Record<string, string> = {
-  canton: "Le canton de résidence est le critère numéro 1 de calcul de la prime LAMal. L'OFSP ajuste les prix selon le coût des infrastructures hospitalières de votre région.",
-  personalInfo: "L'âge, le genre et la nationalité influencent le calcul de l'assurance complémentaire (LCA). Pour l'assurance obligatoire (LAMal), la prime dépend uniquement de l'âge et de votre région.",
-  currentSituation: "Indiquer votre assureur et prime actuels permet de calculer précisément vos économies potentielles et d'identifier si un changement de modèle est judicieux.",
-  lamal: "La franchise et le modèle alternatif (Médecin de famille, Telmed, HMO) sont vos leviers principaux pour économiser jusqu'à 50% sur l'assurance de base obligatoire.",
-  lcaBesoins: "Les complémentaires remboursent les soins hors LAMal (ostéopathie, dentaire, lunettes, chambre privée). Contrairement à la LAMal, l'assureur a le droit de poser des réserves.",
-  healthDeclaration: "Un questionnaire de santé est requis uniquement pour les assurances complémentaires (LCA). Répondez honnêtement pour éviter une annulation ultérieure de couverture.",
-  preferences: "Personnaliser vos préférences (budget, gestion en ligne, priorités) nous permet de trier et de vous suggérer les assureurs suisses offrant le meilleur rapport qualité-prix.",
-  firstName: "Votre prénom nous permet de personnaliser votre offre gratuite Fenny et d'établir un dossier de simulation maladie à votre nom.",
-  lastName: "Votre nom de famille est requis par les caisses maladie suisses pour valider la légitimité du calcul de prime personnalisé.",
-  email: "Votre adresse e-mail nous sert à vous transmettre instantanément votre rapport comparatif complet de primes au format PDF.",
-  phone: "Votre téléphone mobile suisse valide permet à un conseiller partenaire de valider la simulation et de vous confirmer la baisse de prime.",
+const HEALTH_ADVICE_MAPS: Record<string, Record<string, string>> = {
+  fr: {
+    canton: "Le canton de résidence est le critère numéro 1 de calcul de la prime LAMal. L'OFSP ajuste les prix selon le coût des infrastructures hospitalières de votre région.",
+    personalInfo: "L'âge, le genre et la nationalité influencent le calcul de l'assurance complémentaire (LCA). Pour l'assurance obligatoire (LAMal), la prime dépend uniquement de l'âge et de votre région.",
+    currentSituation: "Indiquer votre assureur et prime actuels permet de calculer précisément vos économies potentielles.",
+    lamal: "La franchise et le modèle alternatif (Médecin de famille, Telmed, HMO) sont vos leviers principaux pour économiser.",
+    lcaBesoins: "Les complémentaires remboursent les soins hors LAMal (ostéopathie, dentaire, lunettes, chambre privée).",
+    healthDeclaration: "Un questionnaire de santé est requis uniquement pour les assurances complémentaires (LCA).",
+    preferences: "Personnaliser vos préférences nous permet de trier et de vous suggérer les assureurs offrant le meilleur rapport qualité-prix."
+  },
+  de: {
+    canton: "Der Wohnkanton ist das Hauptkriterium für die KVG-Prämienberechnung. Das BAG passt die Preise den spitalen Kosten Ihrer Region an.",
+    personalInfo: "Alter, Geschlecht und Nationalität beeinflussen die Zusatzversicherung (VVG). Für die Grundversicherung (KVG) zählt nur Alter und Region.",
+    currentSituation: "Die Angabe Ihres aktuellen Versicherers ermöglicht eine genaue Berechnung Ihrer Ersparnis.",
+    lamal: "Franchise und Alternativmodell (Hausarzt, Telmed, HMO) sind Ihre Haupthebel zum Sparen.",
+    lcaBesoins: "Zusatzversicherungen decken Leistungen außerhalb der Grundversicherung ab (Zahn, Brille, Komplementärmedizin).",
+    healthDeclaration: "Eine Gesundheitserklärung ist nur für Zusatzversicherungen (VVG) erforderlich.",
+    preferences: "Ihre Präferenzen helfen uns, das beste Preis-Leistungs-Verhältnis zu finden."
+  },
+  en: {
+    canton: "Your canton of residence is the primary factor for mandatory health insurance premiums (LAMal/KVG).",
+    personalInfo: "Age, gender, and nationality affect supplementary insurance (LCA/VVG). Mandatory insurance depends solely on age and region.",
+    currentSituation: "Providing your current insurer and premium helps calculate your exact potential savings.",
+    lamal: "Deductible and alternative models (GP, Telmed, HMO) are key to saving up to 50% on basic coverage.",
+    lcaBesoins: "Supplementary plans cover non-basic care (dental, optical, alternative medicine, private room).",
+    healthDeclaration: "A health questionnaire is required only for supplementary insurance (LCA/VVG).",
+    preferences: "Customizing your preferences helps us recommend insurers with the best value."
+  },
+  it: {
+    canton: "Il cantone di residenza è il criterio principale per il calcolo del premio LAMal.",
+    personalInfo: "Età, sesso e nazionalità influenzano le assicurazioni complementari (LCA). Per la LAMal contano solo età e regione.",
+    currentSituation: "Indicare l'assicuratore e il premio attuale consente di calcolare esattamente i risparmi.",
+    lamal: "La franchigia e i modelli alternativi (Medico di famiglia, Telmed, HMO) sono la leva principale per risparmiare.",
+    lcaBesoins: "Le complementari rimborsano le cure escluse dalla LAMal (dentista, occhiali, camera privata).",
+    healthDeclaration: "Il questionario medico è richiesto solo per le assicurazioni complementari (LCA).",
+    preferences: "Personalizzare le preferenze ci aiuta a suggerirti gli assicuratori con il miglior rapporto qualità-prezzo."
+  }
+};
+
+const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
+  fr: {
+    zipTitle: "Quel est votre code postal de domicile ?",
+    zipSubtitle: "Les primes d'assurance maladie dépendent de votre code postal (détermination automatique de la zone de primes 1 ou 2, identique à Priminfo).",
+    zipLabel: "Saisissez votre code postal suisse (NPA) :",
+    zipPlaceholder: "Ex: 1007, 1201, 1950...",
+    localityPrompt: "Précisez votre localité pour le NPA",
+    cantonLabel: "Canton :",
+    localityLabel: "Localité :",
+    zoneLabel: "Zone de primes :",
+    regionText: "Région",
+    unresolvedZip: "Code postal non identifié. Veuillez choisir votre canton manuellement ci-dessous.",
+    enter4digits: "Saisissez votre code postal à 4 chiffres.",
+    cantonDirect: "Ou sélectionnez directement un canton :",
+
+    personalTitle: "Informations personnelles",
+    personalSubtitle: "Ces données réglementaires permettent d'appliquer les barèmes légaux précis de l'OFSP et d'estimer vos risques pour les complémentaires.",
+    birthdateLabel: "Date de naissance de l'assuré (JJ.MM.AAAA) *",
+    birthdatePlaceholder: "Ex: 28.05.1990",
+    birthdateHint: "Saisissez les 8 chiffres de votre date de naissance. Très rapide sur mobile.",
+    birthdateInvalid: "⚠️ Date invalide ou impossible",
+    ageCategoryLabel: "Catégorie d'âge :",
+    yearsOld: "ans",
+    genderLabel: "Sexe légal *",
+    male: "Homme",
+    female: "Femme",
+    nationalityLabel: "Nationalité / Permis de séjour *",
+    natSwiss: "Suisse",
+    natPermitC: "Permis C (Établissement)",
+    natPermitB: "Permis B (Résident)",
+    natOther: "Autre / Frontalier",
+    categoryRecognized: "Catégorie d'âge reconnue :",
+    childCat: "Enfant (0-18 ans)",
+    youngCat: "Jeune Adulte (19-25 ans)",
+    adultCat: "Adulte (26 ans+)",
+
+    situationTitle: "Votre situation actuelle",
+    situationSubtitle: "Renseigner votre contrat actuel nous permet de calculer à l'exact centime près les économies réelles dont vous bénéficierez.",
+    hasInsurerQuestion: "Avez-vous déjà une assurance maladie en Suisse ? *",
+    yesInsured: "Oui, déjà assuré",
+    noInsured: "Non, nouveau résident / autre",
+    currentInsurer: "Assureur actuel",
+    monthlyPremium: "Prime mensuelle totale (CHF)",
+    seniority: "Ancienneté chez cet assureur",
+    less2yrs: "- de 2 ans",
+    between2_5yrs: "2 à 5 ans",
+    more5yrs: "+ de 5 ans",
+    nextTermination: "Prochaine résiliation possible",
+    termNov: "30 Novembre (Fin d'année standard)",
+    termJune: "30 Juin (Franchise 300 & standard uniquement)",
+    termUnknown: "Je ne sais pas",
+
+    lamalTitle: "Votre assurance de base (LAMal)",
+    lamalSubtitle: "L'assurance obligatoire de base (LAMal) offre des garanties identiques chez tous les assureurs. Seuls la franchise et le modèle influencent son prix.",
+    householdLabel: "Nombre de personnes à assurer",
+    single: "Seul",
+    couple: "En Couple",
+    family: "Famille / Enfants",
+    franchiseLabel: "Franchise annuelle souhaitée",
+    ecoMax: "Éco Max",
+    secuMax: "Sécu Max",
+    standard: "Standard",
+    accidentLabel: "Couverture accident",
+    accidentYes: "Oui, inclure",
+    accidentNo: "Non, exclure",
+    modelsLabel: "Modèle(s) de coordination des soins (LAMal)",
+    multipleChoice: "Plusieurs choix possibles",
+    modelFamily: "Médecin de Famille",
+    modelFamilyDesc: "Consultation du généraliste d'abord",
+    modelTelemed: "Télémédecine (Telmed)",
+    modelTelemedDesc: "Appel d'une hotline médicale d'abord",
+    modelHmo: "Réseau HMO",
+    modelHmoDesc: "Consultation dans un centre agréé",
+    modelStandard: "Standard (Libre choix)",
+    modelStandardDesc: "Accès spécialiste direct",
+
+    lcaTitle: "Vos besoins complémentaires (LCA)",
+    lcaSubtitle: "Les complémentaires remboursent les soins que la LAMal n'indemnise pas (dentaire, médecines douces, confort hospitalier, etc.).",
+    lcaLevelLabel: "Niveau de couverture souhaité",
+    lcaNone: "AUCUNE LCA",
+    lcaEssential: "ESSENTIELLE",
+    lcaConfort: "CONFORT",
+    lcaPremium: "PREMIUM",
+    hospitalDivisionLabel: "Division d'hospitalisation souhaitée",
+    divCommune: "Division Commune",
+    divSwiss: "Toute la Suisse",
+    divSemiPrivate: "Demi-Privée (2 lits)",
+    divPrivate: "Privée (1 lit)",
+    ambulatoryNeedsLabel: "Cochez vos besoins ambulatoires spécifiques :",
+    needAltMed: "Médecines douces",
+    needAltMedDesc: "Ostéopathie, acupuncture...",
+    needDental: "Soins dentaires",
+    needDentalDesc: "Détartrages, orthodontie...",
+    needSports: "Sports à risque",
+    needSportsDesc: "Ski, sports aériens, plongée...",
+    needTravel: "Voyages réguliers",
+    needTravelDesc: "Urgences à l'étranger...",
+    needMaternity: "Maternité / Grossesse",
+    needMaternityDesc: "Désir d'enfant ou en cours",
+
+    healthTitle: "Votre état de santé actuel",
+    healthSubtitle: "Un questionnaire médical simplifié est requis pour souscrire à une complémentaire (LCA). Ces déclarations sont purement indicatives.",
+    healthReminder: "Rappel constitutionnel : L'assurance de base obligatoire (LAMal) ne peut jamais refuser un assuré pour son état de santé. Ces questions n'impactent que l'estimation des complémentaires LCA.",
+    healthChronic: "Maladies chroniques ou affections de longue durée ?",
+    healthChronicDesc: "Diabète, cardiopathies, asthme sévère, dépression...",
+    healthTreatment: "Traitements médicaux, thérapies ou médicaments en cours ?",
+    healthTreatmentDesc: "Suivi régulier de spécialistes, traitements prescrits...",
+    healthHistory: "Antécédents majeurs (hospitalisations, chirurgies) sous 5 ans ?",
+    healthHistoryDesc: "Opérations chirurgicales ou longs séjours hospitaliers...",
+    yes: "Oui",
+    no: "Non",
+
+    prefTitle: "Vos préférences & budget",
+    prefSubtitle: "Dernière étape ! Ajustez votre budget mensuel et vos exigences pour que Fenny classe et optimise vos propositions.",
+    servicePrefLabel: "Type de gestion de contrat",
+    serviceOnline: "100% En ligne (Application, documents PDF)",
+    serviceHuman: "Traditionnel (Réseau d'agences physiques)",
+    serviceHybrid: "Hybride (Gestion App + conseiller dédié)",
+    serviceImportanceLabel: "Priorité au service client",
+    serviceLow: "Standard (Tous canaux numériques)",
+    serviceMedium: "Élevé (Meilleurs retours satisfaction client)",
+    serviceHigh: "Absolue (Remboursements rapides & assistance locale)",
+    maxBudgetLabel: "Budget mensuel maximum visé",
+    perMonth: "/ mois",
+    prioLabel: "Votre objectif prioritaire",
+    prioPrice: "Économie maximale",
+    prioPriceDesc: "Priorité au tarif brut",
+    prioCoverage: "Couverture maximale",
+    prioCoverageDesc: "Remboursements LCA au top",
+    prioReputation: "Satisfaction & Service",
+    prioReputationDesc: "Assureur le mieux noté",
+    prioFlexibility: "Flexibilité médicale",
+    prioFlexibilityDesc: "Accès sans contrainte standard",
+
+    verifyTitle: "Vérification de sécurité",
+    verifySubtitle: "Avant d'accéder au comparatif officiel des caisses maladie 2026, veuillez valider vos coordonnées. Un code de sécurité unique vous sera envoyé gratuitement.",
+    firstName: "Prénom *",
+    lastName: "Nom *",
+    email: "Adresse E-mail *",
+    phone: "Téléphone Mobile Suisse *",
+    sendCodeBtn: "Recevoir mon code de validation par E-mail",
+    sendingCodeBtn: "Envoi du code e-mail en cours...",
+    codeSentNotice: "💡 Code de sécurité envoyé par e-mail ! Veuillez vérifier la boîte de réception de",
+    codeLabel: "Saisir le Code de Sécurité *",
+    validateCodeBtn: "Valider le code & afficher les résultats",
+    verifyingCodeBtn: "Vérification en cours...",
+    modifyDetails: "Modifier mes coordonnées",
+    fennyMessage: "Afin de valider votre dossier et de vous présenter les vraies primes certifiées 2026, un code de sécurité à 4 chiffres vient d'être généré et envoyé à l'adresse",
+
+    backBtn: "Retour",
+    continueBtn: "Continuer",
+    verifyStepBtn: "Étape de vérification",
+    pledgeFooter: "Fenny s'engage : 100% anonyme, conforme à la nLPD suisse, aucune revente de données.",
+    embeddedTitle: "Simulez vos primes d'assurance maladie suisse avec Fenny",
+    embeddedSubtitle: "Répondez à 5 questions simples en moins de 2 minutes. Notre algorithme indépendant compare l'intégralité des 37 caisses d'assurance maladie suisses agréées OFSP pour identifier le tarif le plus compétitif de votre canton.",
+    embeddedStat1: "37 caisses agréées comparées (LAMal)",
+    embeddedStat2: "Données officielles OFSP & Priminfo 2026",
+    embeddedStat3: "100% gratuit, anonyme & conforme nLPD",
+    embeddedBtn: "Lancer le comparateur maladie",
+    resultsBadge: "Comparateur Officiel 2026",
+    resultsTitle: "Comparez les primes d'assurance maladie suisse",
+    resultsSubtitle: "Trouvez instantanément le tarif le plus avantageux et adapté à vos besoins réels.",
+    questionOf: "Question {n} sur 7",
+    actionFinal: "Action 7/7",
+    percentComplete: "% complété",
+    quitBtn: "Quitter",
+    analyzingTitle: "Analyse comparative en cours...",
+    analyzingDescPre: "Fenny interroge les bases de données officielles de l'",
+    analyzingOfsp: "OFSP (OFAS) 2026",
+    analyzingDescMid: " et compare en temps réel ",
+    analyzing37: "37 caisses maladie",
+    analyzingDescEnd: " pour la région de",
+    comparingCompanies: "Compagnies en cours de comparaison :",
+    fennyAdvises: "Fenny conseille",
+  },
+  de: {
+    zipTitle: "Wie lautet Ihre Postleitzahl am Wohnort?",
+    zipSubtitle: "Die Krankenkassenprämien hängen von Ihrer Postleitzahl ab (automatische Bestimmung der Prämienregion 1 oder 2, analog Priminfo).",
+    zipLabel: "Geben Sie Ihre Schweizer Postleitzahl (PLZ) ein:",
+    zipPlaceholder: "Z.B. 1007, 1201, 1950...",
+    localityPrompt: "Präzisieren Sie Ihre Ortschaft für PLZ",
+    cantonLabel: "Kanton:",
+    localityLabel: "Ortschaft:",
+    zoneLabel: "Prämienregion:",
+    regionText: "Region",
+    unresolvedZip: "Postleitzahl nicht erkannt. Bitte wählen Sie Ihren Kanton unten manuell aus.",
+    enter4digits: "Geben Sie Ihre 4-stellige Postleitzahl ein.",
+    cantonDirect: "Oder wählen Sie direkt einen Kanton:",
+
+    personalTitle: "Persönliche Angaben",
+    personalSubtitle: "Diese gesetzlichen Daten ermöglichen die genaue Anwendung der BAG-Tarife und die Risikoabschätzung für Zusatzversicherungen.",
+    birthdateLabel: "Geburtsdatum der versicherten Person (TT.MM.JJJJ) *",
+    birthdatePlaceholder: "Z.B. 28.05.1990",
+    birthdateHint: "Geben Sie die 8 Ziffern Ihres Geburtsdatums ein. Sehr schnell auf dem Smartphone.",
+    birthdateInvalid: "⚠️ Ungültiges oder unmögliches Datum",
+    ageCategoryLabel: "Alterskategorie:",
+    yearsOld: "Jahre",
+    genderLabel: "Amtliches Geschlecht *",
+    male: "Mann",
+    female: "Frau",
+    nationalityLabel: "Nationalität / Aufenthaltsbewilligung *",
+    natSwiss: "Schweiz",
+    natPermitC: "Bewilligung C (Niederlassung)",
+    natPermitB: "Bewilligung B (Aufenthalt)",
+    natOther: "Andere / Grenzgänger",
+    categoryRecognized: "Erkannte Alterskategorie:",
+    childCat: "Kind (0-18 Jahre)",
+    youngCat: "Junger Erwachsener (19-25 Jahre)",
+    adultCat: "Erwachsener (26+ Jahre)",
+
+    situationTitle: "Ihre aktuelle Situation",
+    situationSubtitle: "Die Angabe Ihres aktuellen Vertrags ermöglicht die exakte Berechnung Ihrer tatsächlichen Ersparnis.",
+    hasInsurerQuestion: "Haben Sie bereits eine Krankenversicherung in der Schweiz? *",
+    yesInsured: "Ja, bereits versichert",
+    noInsured: "Nein, Neuzuzüger / Anderes",
+    currentInsurer: "Aktueller Versicherer",
+    monthlyPremium: "Gesamte Monatsprämie (CHF)",
+    seniority: "Dauer bei diesem Versicherer",
+    less2yrs: "< 2 Jahre",
+    between2_5yrs: "2 bis 5 Jahre",
+    more5yrs: "> 5 Jahre",
+    nextTermination: "Nächste Kündigungsmöglichkeit",
+    termNov: "30. November (Standard Jahresende)",
+    termJune: "30. Juni (Nur Franchise 300 & Standard)",
+    termUnknown: "Ich weiß nicht",
+
+    lamalTitle: "Ihre Grundversicherung (KVG)",
+    lamalSubtitle: "Die obligatorische Grundversicherung (KVG) bietet bei allen Kassen identische Leistungen. Nur Franchise und Modell bestimmen den Preis.",
+    householdLabel: "Anzahl zu versichernder Personen",
+    single: "Einzelperson",
+    couple: "Paar",
+    family: "Familie / Kinder",
+    franchiseLabel: "Gewünschte Jahresfranchise",
+    ecoMax: "Öko Max",
+    secuMax: "Sicherheit Max",
+    standard: "Standard",
+    accidentLabel: "Unfalldeckung",
+    accidentYes: "Ja, einschließen",
+    accidentNo: "Nein, ausschließen",
+    modelsLabel: "Versicherungsmodell(e) (KVG)",
+    multipleChoice: "Mehrere Auswahlen möglich",
+    modelFamily: "Hausarztmodell",
+    modelFamilyDesc: "Erstkonsultation beim Hausarzt",
+    modelTelemed: "Telemedizin (Telmed)",
+    modelTelemedDesc: "Erstkontakt über medizinische Hotline",
+    modelHmo: "HMO-Netzwerk",
+    modelHmoDesc: "Behandlung in einem HMO-Zentrum",
+    modelStandard: "Standard (Freie Arztwahl)",
+    modelStandardDesc: "Direkter Zugang zu Spezialisten",
+
+    lcaTitle: "Ihr Zusatzversicherungsbedarf (VVG)",
+    lcaSubtitle: "Zusatzversicherungen decken Leistungen, die die KVG nicht übernimmt (Zahn, Komplementärmedizin, Spitalkomfort etc.).",
+    lcaLevelLabel: "Gewünschtes Deckungsniveau",
+    lcaNone: "KEINE VVG",
+    lcaEssential: "ESSENZIELL",
+    lcaConfort: "KOMFORT",
+    lcaPremium: "PREMIUM",
+    hospitalDivisionLabel: "Gewünschte Spitalabteilung",
+    divCommune: "Allgemeine Abteilung",
+    divSwiss: "Ganze Schweiz",
+    divSemiPrivate: "Halbprivat (2-Bett)",
+    divPrivate: "Privat (1-Bett)",
+    ambulatoryNeedsLabel: "Spezifische ambulante Bedürfnisse auswählen:",
+    needAltMed: "Komplementärmedizin",
+    needAltMedDesc: "Osteopathie, Akupunktur...",
+    needDental: "Zahnbehandlung",
+    needDentalDesc: "Prophylaxe, Kieferorthopädie...",
+    needSports: "Risikosportarten",
+    needSportsDesc: "Skifahren, Flugsport, Tauchen...",
+    needTravel: "Häufige Reisen",
+    needTravelDesc: "Notfälle im Ausland...",
+    needMaternity: "Mutterschaft / Schwangerschaft",
+    needMaternityDesc: "Kinderwunsch oder bestehend",
+
+    healthTitle: "Ihr aktueller Gesundheitszustand",
+    healthSubtitle: "Für den Abschluss einer Zusatzversicherung (VVG) ist eine vereinfachte Gesundheitserklärung erforderlich.",
+    healthReminder: "Verfassungsrechtlicher Hinweis: Die Grundversicherung (KVG) darf niemanden aufgrund seines Gesundheitszustands ablehnen.",
+    healthChronic: "Chronische Krankheiten oder Langzeiterkrankungen?",
+    healthChronicDesc: "Diabetes, Herzerkrankungen, schweres Asthma, Depression...",
+    healthTreatment: "Laufende medizinische Behandlungen oder Medikamente?",
+    healthTreatmentDesc: "Regelmäßige Facharztbesuche, verschriebene Therapien...",
+    healthHistory: "Wichtige Vorerkrankungen (Spital, Operationen) der letzten 5 Jahre?",
+    healthHistoryDesc: "Operative Eingriffe oder längere Spitalaufenthalte...",
+    yes: "Ja",
+    no: "Nein",
+
+    prefTitle: "Ihre Präferenzen & Budget",
+    prefSubtitle: "Letzter Schritt! Passen Sie Ihr Monatsbudget an, damit Fenny Ihre Angebote optimal sortiert.",
+    servicePrefLabel: "Vertragsverwaltung",
+    serviceOnline: "100% Online (App, PDF-Dokumente)",
+    serviceHuman: "Traditionell (Physikalisches Agenturnetz)",
+    serviceHybrid: "Hybrid (App + persönlicher Berater)",
+    serviceImportanceLabel: "Kundenservice-Priorität",
+    serviceLow: "Standard (Digitale Kanäle)",
+    serviceMedium: "Hoch (Beste Kundenzufriedenheit)",
+    serviceHigh: "Absolut (Schnelle Rückerstattung & Vor-Ort-Hilfe)",
+    maxBudgetLabel: "Maximales Monatsbudget",
+    perMonth: "/ Monat",
+    prioLabel: "Ihr Hauptziel",
+    prioPrice: "Maximale Ersparnis",
+    prioPriceDesc: "Fokus auf die günstigste Prämie",
+    prioCoverage: "Maximale Deckung",
+    prioCoverageDesc: "Beste VVG-Rückerstattung",
+    prioReputation: "Zufriedenheit & Service",
+    prioReputationDesc: "Bestbewerteter Versicherer",
+    prioFlexibility: "Medizinische Flexibilität",
+    prioFlexibilityDesc: "Standard freie Wahl",
+
+    verifyTitle: "Sicherheitsprüfung",
+    verifySubtitle: "Bevor Sie auf den offiziellen Krankenkassenvergleich 2026 zugreifen, bestätigen Sie bitte Ihre Kontaktdaten.",
+    firstName: "Vorname *",
+    lastName: "Nachname *",
+    email: "E-Mail-Adresse *",
+    phone: "Schweizer Handynummer *",
+    sendCodeBtn: "Bestätigungscode per E-Mail anfordern",
+    sendingCodeBtn: "Code wird per E-Mail gesendet...",
+    codeSentNotice: "💡 Sicherheitscode per E-Mail gesendet! Bitte prüfen Sie den Posteingang von",
+    codeLabel: "Sicherheitscode eingeben *",
+    validateCodeBtn: "Code bestätigen & Ergebnisse anzeigen",
+    verifyingCodeBtn: "Überprüfung läuft...",
+    modifyDetails: "Kontaktdaten ändern",
+    fennyMessage: "Um Ihre Daten zu bestätigen und die echten zertifizierten Prämien 2026 anzuzeigen, wurde ein 4-stelliger Code gesendet an",
+
+    backBtn: "Zurück",
+    continueBtn: "Weiter",
+    verifyStepBtn: "Überprüfungsschritt",
+    pledgeFooter: "Fennys Versprechen: 100% anonym, nDSG-konform, kein Datenverkauf.",
+    embeddedTitle: "Simulieren Sie Ihre Schweizer Krankenkassenprämien mit Fenny",
+    embeddedSubtitle: "Beantworten Sie 5 einfache Fragen in weniger als 2 Minuten. Unser unabhängiger Algorithmus vergleicht alle 37 BAG-zugelassenen Schweizer Krankenkassen, um den günstigsten Tarif in Ihrem Kanton zu ermitteln.",
+    embeddedStat1: "37 zugelassene Kassen verglichen (KVG)",
+    embeddedStat2: "Offizielle BAG- & Priminfo-Daten 2026",
+    embeddedStat3: "100% kostenlos, anonym & nDSG-konform",
+    embeddedBtn: "Krankenkassenvergleich starten",
+    resultsBadge: "Offizieller Vergleich 2026",
+    resultsTitle: "Vergleichen Sie Schweizer Krankenkassenprämien",
+    resultsSubtitle: "Finden Sie sofort den günstigsten Tarif, der zu Ihren tatsächlichen Bedürfnissen passt.",
+    questionOf: "Frage {n} von 7",
+    actionFinal: "Schritt 7/7",
+    percentComplete: "% abgeschlossen",
+    quitBtn: "Beenden",
+    analyzingTitle: "Vergleichsanalyse läuft...",
+    analyzingDescPre: "Fenny durchsucht die offiziellen Datenbanken des ",
+    analyzingOfsp: "BAG (2026)",
+    analyzingDescMid: " und vergleicht in Echtzeit ",
+    analyzing37: "37 Krankenkassen",
+    analyzingDescEnd: " für die Region",
+    comparingCompanies: "Verglichene Versicherer:",
+    fennyAdvises: "Fenny empfiehlt",
+  },
+  en: {
+    zipTitle: "What is your residential postal code?",
+    zipSubtitle: "Health insurance premiums depend on your postal code (automatic determination of premium region 1 or 2, same as Priminfo).",
+    zipLabel: "Enter your Swiss postal code (ZIP):",
+    zipPlaceholder: "Ex: 1007, 1201, 1950...",
+    localityPrompt: "Please specify your locality for ZIP code",
+    cantonLabel: "Canton:",
+    localityLabel: "Locality:",
+    zoneLabel: "Premium region:",
+    regionText: "Region",
+    unresolvedZip: "Postal code not identified. Please select your canton manually below.",
+    enter4digits: "Enter your 4-digit postal code.",
+    cantonDirect: "Or select a canton directly:",
+
+    personalTitle: "Personal information",
+    personalSubtitle: "These regulatory details apply exact official FOPH rate scales and estimate risks for supplementary insurance.",
+    birthdateLabel: "Insured person's date of birth (DD.MM.YYYY) *",
+    birthdatePlaceholder: "Ex: 28.05.1990",
+    birthdateHint: "Enter the 8 digits of your birth date. Fast on mobile devices.",
+    birthdateInvalid: "⚠️ Invalid or impossible date",
+    ageCategoryLabel: "Age category:",
+    yearsOld: "years",
+    genderLabel: "Legal gender *",
+    male: "Male",
+    female: "Female",
+    nationalityLabel: "Nationality / Residence permit *",
+    natSwiss: "Swiss",
+    natPermitC: "Permit C (Settlement)",
+    natPermitB: "Permit B (Resident)",
+    natOther: "Other / Cross-border",
+    categoryRecognized: "Recognized age category:",
+    childCat: "Child (0-18 yrs)",
+    youngCat: "Young Adult (19-25 yrs)",
+    adultCat: "Adult (26+ yrs)",
+
+    situationTitle: "Your current situation",
+    situationSubtitle: "Providing your current contract allows us to calculate your exact savings down to the cent.",
+    hasInsurerQuestion: "Do you already have health insurance in Switzerland? *",
+    yesInsured: "Yes, already insured",
+    noInsured: "No, new resident / other",
+    currentInsurer: "Current insurer",
+    monthlyPremium: "Total monthly premium (CHF)",
+    seniority: "Years with this insurer",
+    less2yrs: "< 2 years",
+    between2_5yrs: "2 to 5 years",
+    more5yrs: "> 5 years",
+    nextTermination: "Next cancellation date",
+    termNov: "November 30 (Standard year-end)",
+    termJune: "June 30 (Deductible 300 & standard only)",
+    termUnknown: "I don't know",
+
+    lamalTitle: "Your mandatory health insurance (LAMal)",
+    lamalSubtitle: "Mandatory health insurance (LAMal) offers identical benefits across all insurers. Only deductible and care model affect the price.",
+    householdLabel: "Number of persons to insure",
+    single: "Single",
+    couple: "Couple",
+    family: "Family / Children",
+    franchiseLabel: "Desired annual deductible",
+    ecoMax: "Eco Max",
+    secuMax: "Safety Max",
+    standard: "Standard",
+    accidentLabel: "Accident coverage",
+    accidentYes: "Yes, include",
+    accidentNo: "No, exclude",
+    modelsLabel: "Care coordination model(s) (LAMal)",
+    multipleChoice: "Multiple selections allowed",
+    modelFamily: "General Practitioner (GP)",
+    modelFamilyDesc: "Consult GP doctor first",
+    modelTelemed: "Telemedicine (Telmed)",
+    modelTelemedDesc: "Call medical hotline first",
+    modelHmo: "HMO Network",
+    modelHmoDesc: "Consult in an approved HMO center",
+    modelStandard: "Standard (Free choice)",
+    modelStandardDesc: "Direct access to specialists",
+
+    lcaTitle: "Your supplementary needs (LCA)",
+    lcaSubtitle: "Supplementary policies cover care not reimbursed by mandatory insurance (dental, alternative medicine, hospital comfort, etc.).",
+    lcaLevelLabel: "Desired coverage level",
+    lcaNone: "NO SUPPLEMENTARY",
+    lcaEssential: "ESSENTIAL",
+    lcaConfort: "COMFORT",
+    lcaPremium: "PREMIUM",
+    hospitalDivisionLabel: "Desired hospital room type",
+    divCommune: "General Ward",
+    divSwiss: "All Switzerland",
+    divSemiPrivate: "Semi-Private (2 beds)",
+    divPrivate: "Private (1 bed)",
+    ambulatoryNeedsLabel: "Check your specific outpatient needs:",
+    needAltMed: "Alternative medicine",
+    needAltMedDesc: "Osteopathy, acupuncture...",
+    needDental: "Dental care",
+    needDentalDesc: "Hygiene, orthodontics...",
+    needSports: "High-risk sports",
+    needSportsDesc: "Skiing, air sports, diving...",
+    needTravel: "Frequent travel",
+    needTravelDesc: "Medical emergencies abroad...",
+    needMaternity: "Maternity / Pregnancy",
+    needMaternityDesc: "Planning or ongoing pregnancy",
+
+    healthTitle: "Your current health status",
+    healthSubtitle: "A simplified health questionnaire is required for supplementary coverage (LCA). These details are purely indicative.",
+    healthReminder: "Constitutional reminder: Mandatory basic insurance (LAMal) can never reject anyone based on health status.",
+    healthChronic: "Chronic conditions or long-term illnesses?",
+    healthChronicDesc: "Diabetes, heart conditions, severe asthma, depression...",
+    healthTreatment: "Ongoing medical treatments, therapy or medication?",
+    healthTreatmentDesc: "Regular specialist care, prescribed therapies...",
+    healthHistory: "Major medical history (hospitalization, surgery) in past 5 years?",
+    healthHistoryDesc: "Surgeries or long hospital stays...",
+    yes: "Yes",
+    no: "No",
+
+    prefTitle: "Your preferences & budget",
+    prefSubtitle: "Last step! Adjust your monthly budget and preferences so Fenny can rank your top options.",
+    servicePrefLabel: "Contract management type",
+    serviceOnline: "100% Online (Mobile App, PDF files)",
+    serviceHuman: "Traditional (Physical agency network)",
+    serviceHybrid: "Hybrid (App + dedicated advisor)",
+    serviceImportanceLabel: "Customer service priority",
+    serviceLow: "Standard (All digital channels)",
+    serviceMedium: "High (Top customer satisfaction)",
+    serviceHigh: "Absolute (Fast reimbursements & local help)",
+    maxBudgetLabel: "Target maximum monthly budget",
+    perMonth: "/ month",
+    prioLabel: "Your primary goal",
+    prioPrice: "Maximum savings",
+    prioPriceDesc: "Priority on lowest price",
+    prioCoverage: "Maximum coverage",
+    prioCoverageDesc: "Top supplementary coverage",
+    prioReputation: "Satisfaction & Service",
+    prioReputationDesc: "Highest rated fund",
+    prioFlexibility: "Medical flexibility",
+    prioFlexibilityDesc: "Standard free choice access",
+
+    verifyTitle: "Security verification",
+    verifySubtitle: "Before accessing the official 2026 health fund comparison, please confirm your contact details.",
+    firstName: "First Name *",
+    lastName: "Last Name *",
+    email: "Email Address *",
+    phone: "Swiss Mobile Number *",
+    sendCodeBtn: "Receive validation code by Email",
+    sendingCodeBtn: "Sending email code...",
+    codeSentNotice: "💡 Security code sent by email! Please check the inbox of",
+    codeLabel: "Enter Security Code *",
+    validateCodeBtn: "Validate code & view results",
+    verifyingCodeBtn: "Verifying...",
+    modifyDetails: "Modify my contact details",
+    fennyMessage: "To validate your file and present certified 2026 premiums, a 4-digit code was sent to",
+
+    backBtn: "Back",
+    continueBtn: "Continue",
+    verifyStepBtn: "Verification step",
+    pledgeFooter: "Fenny's pledge: 100% anonymous, Swiss FADP compliant, zero data reselling.",
+    embeddedTitle: "Simulate your Swiss health insurance premiums with Fenny",
+    embeddedSubtitle: "Answer 5 simple questions in under 2 minutes. Our independent algorithm compares all 37 BAG-approved Swiss health insurers to find the most competitive rate in your canton.",
+    embeddedStat1: "37 approved insurers compared (LAMal)",
+    embeddedStat2: "Official FOPH & Priminfo 2026 data",
+    embeddedStat3: "100% free, anonymous & Swiss nDPA compliant",
+    embeddedBtn: "Launch health insurance comparator",
+    resultsBadge: "Official 2026 Comparator",
+    resultsTitle: "Compare Swiss health insurance premiums",
+    resultsSubtitle: "Instantly find the best rate suited to your actual needs.",
+    questionOf: "Question {n} of 7",
+    actionFinal: "Action 7/7",
+    percentComplete: "% complete",
+    quitBtn: "Quit",
+    analyzingTitle: "Comparative analysis in progress...",
+    analyzingDescPre: "Fenny is querying the official ",
+    analyzingOfsp: "FOPH (2026)",
+    analyzingDescMid: " databases and comparing ",
+    analyzing37: "37 health insurers",
+    analyzingDescEnd: " in real time for the region",
+    comparingCompanies: "Companies being compared:",
+    fennyAdvises: "Fenny recommends",
+  },
+  it: {
+    zipTitle: "Qual è il tuo codice postale di residenza?",
+    zipSubtitle: "I premi dell'assicurazione malattia dipendono dal tuo codice postale (determinazione automatica della regione di premio 1 o 2, identica a Priminfo).",
+    zipLabel: "Inserisci il tuo codice postale svizzero (NPA):",
+    zipPlaceholder: "Es: 1007, 1201, 1950...",
+    localityPrompt: "Specifica la tua località per il NPA",
+    cantonLabel: "Cantone:",
+    localityLabel: "Località:",
+    zoneLabel: "Zona premi:",
+    regionText: "Regione",
+    unresolvedZip: "Codice postale non identificato. Seleziona manualmente il tuo cantone qui sotto.",
+    enter4digits: "Inserisci il tuo codice postale di 4 cifre.",
+    cantonDirect: "Oppure seleziona direttamente un cantone:",
+
+    personalTitle: "Informazioni personali",
+    personalSubtitle: "Questi dati normativi consentono di applicare le tariffe legali dell'UFSP e stimare i rischi per le complementari.",
+    birthdateLabel: "Data di nascita dell'assicurato (GG.MM.AAAA) *",
+    birthdatePlaceholder: "Es: 28.05.1990",
+    birthdateHint: "Inserisci le 8 cifre della tua data di nascita. Molto veloce su mobile.",
+    birthdateInvalid: "⚠️ Data non valida o impossibile",
+    ageCategoryLabel: "Categoria d'età:",
+    yearsOld: "anni",
+    genderLabel: "Sesso legale *",
+    male: "Uomo",
+    female: "Donna",
+    nationalityLabel: "Nazionalità / Permesso di soggiorno *",
+    natSwiss: "Svizzera",
+    natPermitC: "Permesso C (Domicilio)",
+    natPermitB: "Permesso B (Dimora)",
+    natOther: "Altro / Frontaliero",
+    categoryRecognized: "Categoria d'età riconosciuta:",
+    childCat: "Bambino (0-18 anni)",
+    youngCat: "Giovane Adulto (19-25 anni)",
+    adultCat: "Adulto (26+ anni)",
+
+    situationTitle: "La tua situazione attuale",
+    situationSubtitle: "Inserire il tuo contratto attuale ci permette di calcolare al centesimo i risparmi reali.",
+    hasInsurerQuestion: "Hai già un'assicurazione malattia in Svizzera? *",
+    yesInsured: "Sì, già assicurato",
+    noInsured: "No, nuovo residente / altro",
+    currentInsurer: "Assicuratore attuale",
+    monthlyPremium: "Premio mensile totale (CHF)",
+    seniority: "Anni presso questo assicuratore",
+    less2yrs: "< 2 anni",
+    between2_5yrs: "da 2 a 5 anni",
+    more5yrs: "> 5 anni",
+    nextTermination: "Prossima disdetta possibile",
+    termNov: "30 Novembre (Fine anno standard)",
+    termJune: "30 Giugno (Solo franchigia 300 e standard)",
+    termUnknown: "Non so",
+
+    lamalTitle: "La tua assicurazione di base (LAMal)",
+    lamalSubtitle: "L'assicurazione obbligatoria di base (LAMal) offre prestazioni identiche in tutte le casse. Solo la franchigia e il modello influiscono sul prezzo.",
+    householdLabel: "Numero di persone da assicurare",
+    single: "Singolo",
+    couple: "Coppia",
+    family: "Famiglia / Figli",
+    franchiseLabel: "Franchigia annuale desiderata",
+    ecoMax: "Eco Max",
+    secuMax: "Sicurezza Max",
+    standard: "Standard",
+    accidentLabel: "Copertura infortuni",
+    accidentYes: "Sì, includi",
+    accidentNo: "No, escludi",
+    modelsLabel: "Modello/i di coordinamento delle cure (LAMal)",
+    multipleChoice: "Scelte multiple possibili",
+    modelFamily: "Medico di Famiglia",
+    modelFamilyDesc: "Prima consultazione dal medico curante",
+    modelTelemed: "Telemedicina (Telmed)",
+    modelTelemedDesc: "Prima chiamata alla hotline medica",
+    modelHmo: "Rete HMO",
+    modelHmoDesc: "Consultazione in un centro HMO",
+    modelStandard: "Standard (Libera scelta)",
+    modelStandardDesc: "Accesso diretto agli specialisti",
+
+    lcaTitle: "Le tue esigenze complementari (LCA)",
+    lcaSubtitle: "Le complementari rimborsano le cure non coperte dalla LAMal (dentista, medicine naturali, comfort ospedaliero, ecc.).",
+    lcaLevelLabel: "Livello di copertura desiderato",
+    lcaNone: "NESSUNA LCA",
+    lcaEssential: "ESSENZIALE",
+    lcaConfort: "COMFORT",
+    lcaPremium: "PREMIUM",
+    hospitalDivisionLabel: "Reparto ospedaliero desiderato",
+    divCommune: "Reparto Comune",
+    divSwiss: "Tutta la Svizzera",
+    divSemiPrivate: "Semi-Privato (2 letti)",
+    divPrivate: "Privato (1 letto)",
+    ambulatoryNeedsLabel: "Seleziona le tue esigenze ambulatoriali specifiche:",
+    needAltMed: "Medicine naturali",
+    needAltMedDesc: "Osteopatia, agopuntura...",
+    needDental: "Cure dentarie",
+    needDentalDesc: "Igiene, ortodonzia...",
+    needSports: "Sport a rischio",
+    needSportsDesc: "Sci, sport aerei, immersioni...",
+    needTravel: "Viaggi frequenti",
+    needTravelDesc: "Emergenze all'estero...",
+    needMaternity: "Maternità / Gravidanza",
+    needMaternityDesc: "Pianificata o in corso",
+
+    healthTitle: "Il tuo stato di salute attuale",
+    healthSubtitle: "Per un'assicurazione complementare (LCA) è richiesto un questionario medico semplificato.",
+    healthReminder: "Richiamo costituzionale: L'assicurazione di base (LAMal) non può mai rifiutare un assicurato per lo stato di salute.",
+    healthChronic: "Malattie croniche o patologie a lungo termine?",
+    healthChronicDesc: "Diabete, cardiopatie, asma grave, depressione...",
+    healthTreatment: "Cure mediche, terapie o farmaci in corso?",
+    healthTreatmentDesc: "Visite specialistiche regolari, terapie prescritte...",
+    healthHistory: "Antecedenti importanti (ricoveri, interventi) negli ultimi 5 anni?",
+    healthHistoryDesc: "Interventi chirurgici o lunghi degenze...",
+    yes: "Sì",
+    no: "No",
+
+    prefTitle: "Le tue preferenze e budget",
+    prefSubtitle: "Ultimo passaggio! Regola il tuo budget mensile affinché Fenny possa classificare al meglio le proposte.",
+    servicePrefLabel: "Gestione del contratto",
+    serviceOnline: "100% Online (App mobile, documenti PDF)",
+    serviceHuman: "Tradizionale (Rete di agenzie fisiche)",
+    serviceHybrid: "Ibrido (App + consulente dedicato)",
+    serviceImportanceLabel: "Priorità al servizio clienti",
+    serviceLow: "Standard (Tutti i canali digitali)",
+    serviceMedium: "Elevato (Migliori valutazioni clienti)",
+    serviceHigh: "Assoluta (Rimborsi rapidi & assistenza locale)",
+    maxBudgetLabel: "Budget mensile massimo desiderato",
+    perMonth: "/ mese",
+    prioLabel: "Il tuo obiettivo principale",
+    prioPrice: "Risparmio massimo",
+    prioPriceDesc: "Priorità al prezzo più basso",
+    prioCoverage: "Copertura massima",
+    prioCoverageDesc: "Rimborsi LCA al top",
+    prioReputation: "Soddisfazione & Servizio",
+    prioReputationDesc: "Assicuratore con la migliore valutazione",
+    prioFlexibility: "Flessibilità medica",
+    prioFlexibilityDesc: "Accesso standard senza vincoli",
+
+    verifyTitle: "Verifica di sicurezza",
+    verifySubtitle: "Prima di accedere al confronto ufficiale delle casse malati 2026, conferma i tuoi dati di contatto.",
+    firstName: "Nome *",
+    lastName: "Cognome *",
+    email: "Indirizzo E-mail *",
+    phone: "Numero di cellulare svizzero *",
+    sendCodeBtn: "Ricevi il codice di verifica via E-mail",
+    sendingCodeBtn: "Invio codice in corso...",
+    codeSentNotice: "💡 Codice di sicurezza inviato via e-mail! Controlla la casella di posta di",
+    codeLabel: "Inserisci il Codice di Sicurezza *",
+    validateCodeBtn: "Conferma codice e mostra risultati",
+    verifyingCodeBtn: "Verifica in corso...",
+    modifyDetails: "Modifica i miei dati",
+    fennyMessage: "Per convalidare la tua richiesta e mostrare i premi certificati 2026, è stato inviato un codice a 4 cifre a",
+
+    backBtn: "Indietro",
+    continueBtn: "Continua",
+    verifyStepBtn: "Passaggio di verifica",
+    pledgeFooter: "Impegno di Fenny: 100% anonimo, conforme alla nLPD svizzera, nessuna rivendita dati.",
+    embeddedTitle: "Simula i tuoi premi dell'assicurazione malattia svizzera con Fenny",
+    embeddedSubtitle: "Rispondi a 5 semplici domande in meno di 2 minuti. Il nostro algoritmo indipendente confronta tutte le 37 casse malati svizzere autorizzate dall'UFSP per trovare la tariffa più conveniente nel tuo cantone.",
+    embeddedStat1: "37 casse autorizzate confrontate (LAMal)",
+    embeddedStat2: "Dati ufficiali UFSP e Priminfo 2026",
+    embeddedStat3: "100% gratuito, anonimo e conforme alla nLPD",
+    embeddedBtn: "Avvia il comparatore casse malati",
+    resultsBadge: "Comparatore Ufficiale 2026",
+    resultsTitle: "Confronta i premi dell'assicurazione malattia svizzera",
+    resultsSubtitle: "Trova immediatamente la tariffa più vantaggiosa e adatta alle tue reali esigenze.",
+    questionOf: "Domanda {n} su 7",
+    actionFinal: "Passo 7/7",
+    percentComplete: "% completato",
+    quitBtn: "Esci",
+    analyzingTitle: "Analisi comparativa in corso...",
+    analyzingDescPre: "Fenny consulta i database ufficiali dell'",
+    analyzingOfsp: "UFSP (2026)",
+    analyzingDescMid: " e confronta in tempo reale ",
+    analyzing37: "37 casse malati",
+    analyzingDescEnd: " per la regione",
+    comparingCompanies: "Compagnie in fase di confronto:",
+    fennyAdvises: "Fenny consiglia",
+  }
 };
 
 const CANTON_DEFAULT_ZIPS: Record<string, { zip: string; zone: number }> = {
@@ -84,7 +809,17 @@ interface HealthComparatorProps {
   onStartQuiz?: () => void;
 }
 
+const HEALTH_ADVICE_MAP = {
+  firstName: "Votre prénom permettra d'éditer une offre personnalisée.",
+  lastName: "Votre nom est nécessaire pour la personnalisation des documents officiels.",
+  email: "L'adresse e-mail recevra votre comparatif détaillé.",
+  phone: "Numéro de téléphone suisse pour valider la demande.",
+};
+
 export default function HealthComparator({ isEmbedded = false, onStartQuiz }: HealthComparatorProps) {
+  const { language } = useLanguage();
+  const ui = HEALTH_UI_TEXTS[language] || HEALTH_UI_TEXTS.fr;
+
   // 1. Core State
   const [filters, setFilters] = useState<HealthFilterState>({
     canton: 'GE',
@@ -598,17 +1333,18 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
   // Set Feny advice automatically based on active step in quiz mode
   useEffect(() => {
     if (quizMode) {
-      if (currentStep === 1) setFenyAdvice(HEALTH_ADVICE_MAP.canton);
-      else if (currentStep === 2) setFenyAdvice(HEALTH_ADVICE_MAP.personalInfo);
-      else if (currentStep === 3) setFenyAdvice(HEALTH_ADVICE_MAP.currentSituation);
-      else if (currentStep === 4) setFenyAdvice(HEALTH_ADVICE_MAP.lamal);
-      else if (currentStep === 5) setFenyAdvice(HEALTH_ADVICE_MAP.lcaBesoins);
-      else if (currentStep === 6) setFenyAdvice(HEALTH_ADVICE_MAP.healthDeclaration);
-      else if (currentStep === 7) setFenyAdvice(HEALTH_ADVICE_MAP.preferences);
+      const adviceMap = HEALTH_ADVICE_MAPS[language] || HEALTH_ADVICE_MAPS.fr;
+      if (currentStep === 1) setFenyAdvice(adviceMap.canton);
+      else if (currentStep === 2) setFenyAdvice(adviceMap.personalInfo);
+      else if (currentStep === 3) setFenyAdvice(adviceMap.currentSituation);
+      else if (currentStep === 4) setFenyAdvice(adviceMap.lamal);
+      else if (currentStep === 5) setFenyAdvice(adviceMap.lcaBesoins);
+      else if (currentStep === 6) setFenyAdvice(adviceMap.healthDeclaration);
+      else if (currentStep === 7) setFenyAdvice(adviceMap.preferences);
     } else {
       setFenyAdvice(null);
     }
-  }, [currentStep, quizMode]);
+  }, [currentStep, quizMode, language]);
 
   // 2. GSAP-driven Contact Form Progress Bar Animation inside Modal
   const completedFieldsCount = useMemo(() => {
@@ -715,35 +1451,35 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
         
         <div className="space-y-2 max-w-xl mx-auto">
           <h3 className="font-display font-extrabold text-2xl text-fennec-dark">
-            Simulez vos primes d'assurance maladie suisse avec Fenny
+            {ui.embeddedTitle}
           </h3>
           <p className="text-sm text-fennec-dark/70 leading-relaxed">
-            Répondez à <strong>5 questions simples</strong> en moins de 2 minutes. Notre algorithme indépendant compare l'intégralité des 37 caisses d'assurance maladie suisses agréées OFSP pour identifier le tarif le plus compétitif de votre canton.
+            {ui.embeddedSubtitle}
           </p>
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-semibold text-fennec-dark/60 max-w-lg mx-auto">
           <span className="flex items-center text-emerald-700">
             <CheckCircle2 className="w-4 h-4 mr-1.5 text-emerald-500 shrink-0" />
-            37 caisses agréées comparées (LAMal)
+            {ui.embeddedStat1}
           </span>
           <span className="flex items-center text-emerald-700">
             <CheckCircle2 className="w-4 h-4 mr-1.5 text-emerald-500 shrink-0" />
-            Données officielles OFSP & Priminfo 2026
+            {ui.embeddedStat2}
           </span>
           <span className="flex items-center text-emerald-700">
             <CheckCircle2 className="w-4 h-4 mr-1.5 text-emerald-500 shrink-0" />
-            100% gratuit, anonyme & conforme nLPD
+            {ui.embeddedStat3}
           </span>
         </div>
 
         <div className="pt-4">
           <button
             onClick={onStartQuiz}
-            className="px-8 py-4 bg-fennec-red hover:bg-red-600 text-white font-display font-extrabold text-base rounded-full shadow-lg shadow-fennec-red/25 hover:-translate-y-0.5 transition-all flex items-center space-x-2 mx-auto animate-bounce"
+            className="px-8 py-4 bg-fennec-red hover:bg-red-600 text-white font-display font-extrabold text-base rounded-full shadow-lg shadow-fennec-red/25 hover:-translate-y-0.5 transition-all flex items-center space-x-2 mx-auto animate-bounce cursor-pointer"
           >
             <Sparkles className="w-5 h-5 animate-pulse" />
-            <span>Lancer le comparateur maladie</span>
+            <span>{ui.embeddedBtn}</span>
             <ChevronRight className="w-5 h-5 stroke-[2.5]" />
           </button>
         </div>
@@ -766,13 +1502,13 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
       {/* HEADER SECTION */}
       <div className="text-center md:text-left mb-6">
         <span className="text-[11px] font-bold tracking-widest text-fennec-terracotta uppercase block mb-1">
-          Comparateur Officiel 2026
+          {ui.resultsBadge}
         </span>
         <h2 className="font-display font-extrabold text-3xl text-fennec-dark">
-          Comparez les primes d'assurance maladie suisse
+          {ui.resultsTitle}
         </h2>
         <p className="mt-1 text-sm text-fennec-dark/70">
-          Trouvez instantanément le tarif le plus avantageux et adapté à vos besoins réels.
+          {ui.resultsSubtitle}
         </p>
       </div>
 
@@ -801,13 +1537,13 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                 }`}
               >
                 <ChevronLeft className="w-4 h-4 mr-1" />
-                <span>Retour</span>
+                <span>{ui.backBtn}</span>
               </button>
 
               <div className="flex-1 max-w-md mx-6 text-center space-y-1.5">
                 <div className="flex justify-between items-center text-[10px] text-fennec-brown font-black uppercase tracking-widest">
-                  <span>{currentStep >= 7 ? "Action 7/7" : `Question ${currentStep} sur 7`}</span>
-                  <span>{Math.min(100, Math.round((currentStep / 7) * 100))}% complété</span>
+                  <span>{currentStep >= 7 ? ui.actionFinal : ui.questionOf.replace('{n}', String(currentStep))}</span>
+                  <span>{Math.min(100, Math.round((currentStep / 7) * 100))}{ui.percentComplete}</span>
                 </div>
                 <div className="h-1.5 w-full bg-fennec-cream/40 rounded-full overflow-hidden relative">
                   <div 
@@ -825,7 +1561,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                 className="flex items-center text-xs font-bold font-display px-3.5 py-2 rounded-full border border-fennec-cream/60 text-fennec-dark hover:bg-fennec-cream/15 transition-all disabled:opacity-50"
               >
                 <X className="w-4 h-4 mr-1" />
-                <span className="hidden sm:inline">Quitter</span>
+                <span className="hidden sm:inline">{ui.quitBtn}</span>
               </button>
             </header>
 
@@ -860,17 +1596,17 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                   <div className="space-y-2">
                     <h3 className="font-display font-black text-2xl text-fennec-dark flex items-center justify-center">
                       <Loader2 className="w-6 h-6 mr-2.5 animate-spin text-fennec-terracotta" />
-                      Analyse comparative en cours...
+                      {ui.analyzingTitle}
                     </h3>
                     <p className="text-sm text-fennec-dark/70 leading-relaxed max-w-lg mx-auto">
-                      Fenny interroge les bases de données officielles de l'<strong>OFSP (OFAS) 2026</strong> et compare en temps réel <strong>37 caisses maladie</strong> pour la région de <strong>{filters.zipCode}</strong>.
+                      {ui.analyzingDescPre}<strong>{ui.analyzingOfsp}</strong>{ui.analyzingDescMid}<strong>{ui.analyzing37}</strong>{ui.analyzingDescEnd} <strong>{filters.zipCode}</strong>.
                     </p>
                   </div>
 
                   {/* Infinite Auto-Scrolling Logo Carousel */}
                   <div className="space-y-2 max-w-xl mx-auto pt-4">
                     <p className="text-[11px] font-black uppercase tracking-wider text-fennec-brown/60 text-center">
-                      Compagnies en cours de comparaison :
+                      {ui.comparingCompanies}
                     </p>
                     <div className="relative w-full overflow-hidden py-3 border-y border-fennec-cream/30 bg-white/30 rounded-2xl">
                       {/* Left and right fade gradients */}
@@ -906,7 +1642,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                       <div className="relative bg-white border border-fennec-cream shadow-sm p-4 rounded-3xl max-w-sm text-left animate-in fade-in slide-in-from-bottom-2 duration-200">
                         <div className="space-y-1">
                           <span className="text-[9px] font-black text-fennec-terracotta uppercase tracking-wider block">
-                            Fenny conseille
+                            {ui.fennyAdvises}
                           </span>
                           <p className="text-xs text-fennec-dark font-medium leading-relaxed">
                             {fenyAdvice}
@@ -956,18 +1692,18 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
                                 <MapPin className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  Quel est votre code postal de domicile ?
+                                  {ui.zipTitle}
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                Les primes d'assurance maladie dépendent de votre code postal (détermination automatique de la zone de primes 1 ou 2, identique à Priminfo).
+                                {ui.zipSubtitle}
                               </p>
                             </div>
 
                             {/* NPA INPUT CONTAINER */}
                             <div className="bg-fennec-cream/20 p-5 rounded-2xl border border-fennec-cream/60 space-y-4">
                               <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">
-                                Saisissez votre code postal suisse (NPA) :
+                                {ui.zipLabel}
                               </label>
                               <div className="relative max-w-xs">
                                 <input
@@ -976,7 +1712,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                   maxLength={4}
                                   value={zipInput}
                                   onChange={(e) => handleZipChange(e.target.value)}
-                                  placeholder="Ex: 1007, 1201, 1950..."
+                                  placeholder={ui.zipPlaceholder}
                                   className="w-full text-2xl font-bold font-mono tracking-widest bg-white border-2 border-fennec-cream rounded-xl px-4 py-3 text-fennec-dark focus:outline-none focus:border-fennec-terracotta transition-colors"
                                 />
                                 <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
@@ -992,7 +1728,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                 <div className="bg-amber-50 border border-amber-200 rounded-xl p-3.5 space-y-2 text-left animate-in fade-in duration-200">
                                   <div className="flex items-center space-x-2 text-amber-900 font-bold text-xs">
                                     <MapPin className="w-4 h-4 text-amber-600 shrink-0" />
-                                    <span>{ambiguousData.message || `Précisez votre localité pour le NPA ${zipInput} :`}</span>
+                                    <span>{ambiguousData.message || `${ui.localityPrompt} ${zipInput} :`}</span>
                                   </div>
                                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
                                     {ambiguousData.localities.map((loc, idx) => {
@@ -1009,7 +1745,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                           }`}
                                         >
                                           <span>{loc.locality} ({loc.canton})</span>
-                                          <span className="text-[10px] font-bold opacity-80">Région {loc.premium_region}</span>
+                                          <span className="text-[10px] font-bold opacity-80">{ui.regionText} {loc.premium_region}</span>
                                         </button>
                                       );
                                     })}
@@ -1020,21 +1756,21 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               {resolvedInfo ? (
                                 <div className="flex flex-wrap gap-2 pt-1 animate-in fade-in duration-150">
                                   <div className="bg-emerald-50 border border-emerald-200 rounded-lg px-2.5 py-1 flex items-center space-x-1.5 text-xs text-emerald-800 font-medium">
-                                    <span className="font-bold">Canton :</span>
+                                    <span className="font-bold">{ui.cantonLabel}</span>
                                     <span>{SWISS_CANTONS.find(c => c.code === resolvedInfo.canton)?.name || resolvedInfo.canton} ({resolvedInfo.canton})</span>
                                   </div>
                                   <div className="bg-emerald-50 border border-emerald-200 rounded-lg px-2.5 py-1 flex items-center space-x-1.5 text-xs text-emerald-800 font-medium">
-                                    <span className="font-bold">Localité :</span>
+                                    <span className="font-bold">{ui.localityLabel}</span>
                                     <span>{resolvedInfo.city}</span>
                                   </div>
                                   <div className="bg-fennec-terracotta/10 border border-fennec-terracotta/20 rounded-lg px-2.5 py-1 flex items-center space-x-1.5 text-xs text-fennec-terracotta font-bold">
-                                    <span className="font-bold">Zone de primes :</span>
-                                    <span>Région {resolvedInfo.zone}</span>
+                                    <span className="font-bold">{ui.zoneLabel}</span>
+                                    <span>{ui.regionText} {resolvedInfo.zone}</span>
                                   </div>
                                 </div>
                               ) : (
                                 <p className="text-[11px] text-fennec-dark/50 italic font-medium">
-                                  {zipInput.length === 4 ? "Code postal non identifié. Veuillez choisir votre canton manuellement ci-dessous." : "Saisissez votre code postal à 4 chiffres."}
+                                  {zipInput.length === 4 ? ui.unresolvedZip : ui.enter4digits}
                                 </p>
                               )}
                             </div>
@@ -1042,7 +1778,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                             {/* CANTON ALTERNATIVES */}
                             <div className="space-y-2 pt-2">
                               <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">
-                                Ou sélectionnez directement un canton :
+                                {ui.cantonDirect}
                               </span>
                               <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
                                 {SWISS_CANTONS.map((c) => {
@@ -1087,11 +1823,11 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
                                 <User className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  Informations personnelles
+                                  {ui.personalTitle}
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                Ces données réglementaires permettent d'appliquer les barèmes légaux précis de l'OFSP et d'estimer vos risques pour les complémentaires.
+                                {ui.personalSubtitle}
                               </p>
                             </div>
 
@@ -1099,12 +1835,12 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               {/* Date de Naissance */}
                               <div className="space-y-1.5">
                                 <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
-                                  Date de naissance de l'assuré (JJ.MM.AAAA) *
+                                  {ui.birthdateLabel}
                                 </label>
                                 <input
                                   type="text"
                                   inputMode="numeric"
-                                  placeholder="Ex: 28.05.1990"
+                                  placeholder={ui.birthdatePlaceholder}
                                   value={typedBirthDate}
                                   onChange={(e) => handleBirthDateTypedChange(e.target.value)}
                                   className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3.5 py-2.5 text-xs text-fennec-dark focus:outline-none focus:ring-1 focus:ring-fennec-terracotta transition-all font-mono font-bold"
@@ -1112,17 +1848,17 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                 />
                                 {typedBirthDate.replace(/\D/g, '').length === 8 && !filters.birthDate && (
                                   <p className="text-[10px] font-semibold text-red-500 mt-1">
-                                    ⚠️ Date invalide ou impossible
+                                    {ui.birthdateInvalid}
                                   </p>
                                 )}
                                 {filters.birthDate && parsedBirthDateInfo && (
                                   <p className="text-[10px] font-bold text-green-600 mt-1">
-                                    ✓ Catégorie d'âge : {parsedBirthDateInfo.label} (Âge : {parsedBirthDateInfo.age} ans)
+                                    ✓ {ui.ageCategoryLabel} {parsedBirthDateInfo.label} ({ui.yearsOld} : {parsedBirthDateInfo.age} {ui.yearsOld})
                                   </p>
                                 )}
                                 {typedBirthDate.replace(/\D/g, '').length < 8 && (
                                   <p className="text-[10px] text-fennec-dark/45 mt-1">
-                                    Saisissez les 8 chiffres de votre date de naissance. Très rapide sur mobile.
+                                    {ui.birthdateHint}
                                   </p>
                                 )}
                               </div>
@@ -1130,12 +1866,12 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               {/* Sexe */}
                               <div className="space-y-1.5">
                                 <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
-                                  Sexe légal *
+                                  {ui.genderLabel}
                                 </label>
                                 <div className="grid grid-cols-2 gap-3">
                                   {[
-                                    { id: 'M', label: 'Homme' },
-                                    { id: 'F', label: 'Femme' }
+                                    { id: 'M', label: ui.male },
+                                    { id: 'F', label: ui.female }
                                   ].map((genderOption) => {
                                     const isSelected = filters.gender === genderOption.id;
                                     return (
@@ -1159,14 +1895,14 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               {/* Nationalité */}
                               <div className="space-y-1.5">
                                 <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
-                                  Nationalité / Permis de séjour *
+                                  {ui.nationalityLabel}
                                 </label>
                                 <div className="grid grid-cols-2 gap-2.5">
                                   {[
-                                    { id: 'swiss', label: 'Suisse' },
-                                    { id: 'permis-c', label: 'Permis C (Établissement)' },
-                                    { id: 'permis-b', label: 'Permis B (Résident)' },
-                                    { id: 'other', label: 'Autre / Frontalier' },
+                                    { id: 'swiss', label: ui.natSwiss },
+                                    { id: 'permis-c', label: ui.natPermitC },
+                                    { id: 'permis-b', label: ui.natPermitB },
+                                    { id: 'other', label: ui.natOther },
                                   ].map((nat) => {
                                     const isSelected = filters.nationality === nat.id;
                                     return (
@@ -1190,13 +1926,13 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               {/* Age Category Feedack */}
                               {filters.birthDate && (
                                 <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-3 text-center text-xs text-emerald-800 font-bold animate-pulse">
-                                  Catégorie d'âge reconnue :{' '}
+                                  {ui.categoryRecognized}{' '}
                                   <span className="uppercase text-fennec-dark">
                                     {filters.ageCategory === 'child'
-                                      ? 'Enfant (0-18 ans)'
+                                      ? ui.childCat
                                       : filters.ageCategory === 'young'
-                                      ? 'Jeune Adulte (19-25 ans)'
-                                      : 'Adulte (26 ans+)'}
+                                      ? ui.youngCat
+                                      : ui.adultCat}
                                   </span>
                                 </div>
                               )}
@@ -1218,11 +1954,11 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
                                 <Activity className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  Votre situation actuelle
+                                  {ui.situationTitle}
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                Renseigner votre contrat actuel nous permet de calculer à l'exact centime près les économies réelles dont vous bénéficierez.
+                                {ui.situationSubtitle}
                               </p>
                             </div>
 
@@ -1230,12 +1966,12 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               {/* Has Insurer */}
                               <div className="space-y-1.5">
                                 <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
-                                  Avez-vous déjà une assurance maladie en Suisse ? *
+                                  {ui.hasInsurerQuestion}
                                 </label>
                                 <div className="grid grid-cols-2 gap-3">
                                   {[
-                                    { value: true, label: 'Oui, déjà assuré' },
-                                    { value: false, label: 'Non, nouveau résident / autre' }
+                                    { value: true, label: ui.yesInsured },
+                                    { value: false, label: ui.noInsured }
                                   ].map((option) => {
                                     const isSelected = filters.hasCurrentInsurer === option.value;
                                     return (
@@ -1270,7 +2006,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                     {/* Insurer list */}
                                     <div className="space-y-1.5">
                                       <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">
-                                        Assureur actuel
+                                        {ui.currentInsurer}
                                       </label>
                                       <select
                                         value={filters.currentInsurerId || '1562'}
@@ -1291,7 +2027,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                     {/* Monthly premium */}
                                     <div className="space-y-1.5">
                                       <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">
-                                        Prime mensuelle totale (CHF)
+                                        {ui.monthlyPremium}
                                       </label>
                                       <input
                                         type="number"
@@ -1313,13 +2049,13 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                     {/* Years with insurer */}
                                     <div className="space-y-1.5">
                                       <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">
-                                        Ancienneté chez cet assureur
+                                        {ui.seniority}
                                       </label>
                                       <div className="grid grid-cols-3 gap-1.5">
                                         {[
-                                          { val: 1, label: '- de 2 ans' },
-                                          { val: 3, label: '2 à 5 ans' },
-                                          { val: 5, label: '+ de 5 ans' }
+                                          { val: 1, label: ui.less2yrs },
+                                          { val: 3, label: ui.between2_5yrs },
+                                          { val: 5, label: ui.more5yrs }
                                         ].map((yearsOpt) => {
                                           const isSelected = filters.yearsWithCurrent === yearsOpt.val;
                                           return (
@@ -1343,16 +2079,16 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                     {/* Termination option */}
                                     <div className="space-y-1.5">
                                       <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">
-                                        Prochaine résiliation possible
+                                        {ui.nextTermination}
                                       </label>
                                       <select
                                         value={filters.terminationOption || 'december'}
                                         onChange={(e) => handleFilterChange('terminationOption', e.target.value as any)}
                                         className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3 py-2 text-xs text-fennec-dark focus:outline-none focus:ring-1 focus:ring-fennec-terracotta"
                                       >
-                                        <option value="december">30 Novembre (Fin d'année standard)</option>
-                                        <option value="june">30 Juin (Franchise 300 & standard uniquement)</option>
-                                        <option value="unknown">Je ne sais pas</option>
+                                        <option value="december">{ui.termNov}</option>
+                                        <option value="june">{ui.termJune}</option>
+                                        <option value="unknown">{ui.termUnknown}</option>
                                       </select>
                                     </div>
                                   </div>
@@ -1376,11 +2112,11 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
                                 <Percent className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  Votre assurance de base (LAMal)
+                                  {ui.lamalTitle}
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                L'assurance obligatoire de base (LAMal) offre des garanties identiques chez tous les assureurs. Seuls la franchise et le modèle influencent son prix.
+                                {ui.lamalSubtitle}
                               </p>
                             </div>
 
@@ -1388,13 +2124,13 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               {/* Household size */}
                               <div className="space-y-1.5">
                                 <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
-                                  Nombre de personnes à assurer
+                                  {ui.householdLabel}
                                 </label>
                                 <div className="grid grid-cols-3 gap-2.5">
                                   {[
-                                    { id: 'single', label: 'Seul' },
-                                    { id: 'couple', label: 'En Couple' },
-                                    { id: 'family', label: 'Famille / Enfants' },
+                                    { id: 'single', label: ui.single },
+                                    { id: 'couple', label: ui.couple },
+                                    { id: 'family', label: ui.family },
                                   ].map((sizeOpt) => {
                                     const isSelected = filters.householdSize === sizeOpt.id;
                                     return (
@@ -1419,7 +2155,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                 {/* Franchise */}
                                 <div className="space-y-1.5">
                                   <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
-                                    Franchise annuelle souhaitée
+                                    {ui.franchiseLabel}
                                   </label>
                                   <select
                                     value={filters.franchise}
@@ -1428,7 +2164,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                   >
                                     {(filters.ageCategory === 'child' ? [0, 100, 200, 300, 400, 500, 600] : FRANCHISES).map((franValue) => (
                                       <option key={franValue} value={franValue}>
-                                        CHF {franValue} ({franValue === 2500 || (filters.ageCategory === 'child' && franValue === 600) ? 'Éco Max' : franValue === 300 || (filters.ageCategory === 'child' && franValue === 0) ? 'Sécu Max' : 'Standard'})
+                                        CHF {franValue} ({franValue === 2500 || (filters.ageCategory === 'child' && franValue === 600) ? ui.ecoMax : franValue === 300 || (filters.ageCategory === 'child' && franValue === 0) ? ui.secuMax : ui.standard})
                                       </option>
                                     ))}
                                   </select>
@@ -1437,12 +2173,12 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                 {/* Accident coverage */}
                                 <div className="space-y-1.5">
                                   <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
-                                    Couverture accident
+                                    {ui.accidentLabel}
                                   </label>
                                   <div className="grid grid-cols-2 gap-2">
                                     {[
-                                      { value: true, label: 'Oui, inclure' },
-                                      { value: false, label: 'Non, exclure' }
+                                      { value: true, label: ui.accidentYes },
+                                      { value: false, label: ui.accidentNo }
                                     ].map((accOpt) => {
                                       const isSelected = filters.accidentCoverage === accOpt.value;
                                       return (
@@ -1468,18 +2204,18 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               <div className="space-y-2">
                                 <div className="flex items-center justify-between">
                                   <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
-                                    Modèle(s) de coordination des soins (LAMal)
+                                    {ui.modelsLabel}
                                   </label>
                                   <span className="text-[10px] font-bold text-fennec-terracotta bg-fennec-cream/25 px-2 py-0.5 rounded-full">
-                                    Plusieurs choix possibles
+                                    {ui.multipleChoice}
                                   </span>
                                 </div>
                                 <div className="grid grid-cols-2 gap-2">
                                   {[
-                                    { id: 'family', label: 'Médecin de Famille', desc: 'Consultation du généraliste d\'abord' },
-                                    { id: 'telemed', label: 'Télémédecine (Telmed)', desc: 'Appel d\'une hotline médicale d\'abord' },
-                                    { id: 'hmo', label: 'Réseau HMO', desc: 'Consultation dans un centre agréé' },
-                                    { id: 'standard', label: 'Standard (Libre choix)', desc: 'Accès spécialiste direct' },
+                                    { id: 'family', label: ui.modelFamily, desc: ui.modelFamilyDesc },
+                                    { id: 'telemed', label: ui.modelTelemed, desc: ui.modelTelemedDesc },
+                                    { id: 'hmo', label: ui.modelHmo, desc: ui.modelHmoDesc },
+                                    { id: 'standard', label: ui.modelStandard, desc: ui.modelStandardDesc },
                                   ].map((modelOpt) => {
                                     const selectedList = filters.selectedModels || ['family', 'telemed', 'hmo', 'standard'];
                                     const isSelected = selectedList.includes(modelOpt.id);
@@ -1526,11 +2262,11 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
                                 <Sparkles className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  Vos besoins complémentaires (LCA)
+                                  {ui.lcaTitle}
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                Les complémentaires remboursent les soins que la LAMal n'indemnise pas (dentaire, médecines douces, confort hospitalier, etc.).
+                                {ui.lcaSubtitle}
                               </p>
                             </div>
 
@@ -1538,14 +2274,14 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               {/* Supplementary type level */}
                               <div className="space-y-1.5">
                                 <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
-                                  Niveau de couverture souhaité
+                                  {ui.lcaLevelLabel}
                                 </label>
                                 <div className="grid grid-cols-4 gap-1.5">
                                   {[
-                                    { id: 'none', label: 'AUCUNE LCA' },
-                                    { id: 'essential', label: 'ESSENTIELLE' },
-                                    { id: 'confort', label: 'CONFORT' },
-                                    { id: 'premium', label: 'PREMIUM' }
+                                    { id: 'none', label: ui.lcaNone },
+                                    { id: 'essential', label: ui.lcaEssential },
+                                    { id: 'confort', label: ui.lcaConfort },
+                                    { id: 'premium', label: ui.lcaPremium }
                                   ].map((levelOpt) => {
                                     const isSelected = filters.supplementaryType === levelOpt.id;
                                     return (
@@ -1572,14 +2308,14 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                   {/* Hospital division */}
                                   <div className="space-y-1.5">
                                     <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">
-                                      Division d'hospitalisation souhaitée
+                                      {ui.hospitalDivisionLabel}
                                     </label>
                                     <div className="grid grid-cols-4 gap-1.5">
                                       {[
-                                        { id: 'none', label: 'Division Commune' },
-                                        { id: 'commune', label: 'Toute la Suisse' },
-                                        { id: 'semi-private', label: 'Demi-Privée (2 lits)' },
-                                        { id: 'private', label: 'Privée (1 lit)' },
+                                        { id: 'none', label: ui.divCommune },
+                                        { id: 'commune', label: ui.divSwiss },
+                                        { id: 'semi-private', label: ui.divSemiPrivate },
+                                        { id: 'private', label: ui.divPrivate },
                                       ].map((divOpt) => {
                                         const isSelected = filters.hospitalDivision === divOpt.id;
                                         return (
@@ -1603,15 +2339,15 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                   {/* Specific Needs Toggles */}
                                   <div className="space-y-1.5">
                                     <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">
-                                      Cochez vos besoins ambulatoires spécifiques :
+                                      {ui.ambulatoryNeedsLabel}
                                     </label>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                       {[
-                                        { id: 'hasAlternativeMedicine', label: 'Médecines douces', desc: 'Ostéopathie, acupuncture...' },
-                                        { id: 'hasDental', label: 'Soins dentaires', desc: 'Détartrages, orthodontie...' },
-                                        { id: 'hasRiskySports', label: 'Sports à risque', desc: 'Ski, sports aériens, plongée...' },
-                                        { id: 'hasFrequentTravel', label: 'Voyages réguliers', desc: 'Urgences à l\'étranger...' },
-                                        { id: 'isExpecting', label: 'Maternité / Grossesse', desc: 'Désir d\'enfant ou en cours' }
+                                        { id: 'hasAlternativeMedicine', label: ui.needAltMed, desc: ui.needAltMedDesc },
+                                        { id: 'hasDental', label: ui.needDental, desc: ui.needDentalDesc },
+                                        { id: 'hasRiskySports', label: ui.needSports, desc: ui.needSportsDesc },
+                                        { id: 'hasFrequentTravel', label: ui.needTravel, desc: ui.needTravelDesc },
+                                        { id: 'isExpecting', label: ui.needMaternity, desc: ui.needMaternityDesc }
                                       ].map((needOpt) => {
                                         const isChecked = !!(filters as any)[needOpt.id];
                                         return (
@@ -1665,11 +2401,11 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
                                 <Shield className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  Votre état de santé actuel
+                                  {ui.healthTitle}
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                Un questionnaire médical simplifié est requis pour souscrire à une complémentaire (LCA). Ces déclarations sont purement indicatives.
+                                {ui.healthSubtitle}
                               </p>
                             </div>
 
@@ -1677,15 +2413,15 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               <div className="bg-amber-50 border border-amber-200/60 p-4 rounded-2xl flex items-start space-x-3">
                                 <Shield className="w-5 h-5 text-amber-600 shrink-0 mt-0.5 animate-pulse" />
                                 <p className="text-[11px] text-amber-900 leading-relaxed font-medium">
-                                  <strong>Rappel constitutionnel :</strong> L'assurance de base obligatoire (LAMal) <strong>ne peut jamais refuser</strong> un assuré pour son état de santé. Ces questions n'impactent que l'estimation des complémentaires LCA.
+                                  <strong>{ui.constReminderTitle}</strong> {ui.constReminderText}
                                 </p>
                               </div>
 
                               <div className="space-y-3">
                                 {[
-                                  { id: 'hasChronicConditions', label: 'Maladies chroniques ou affections de longue durée ?', desc: 'Diabète, cardiopathies, asthme sévère, dépression...' },
-                                  { id: 'hasActiveTreatments', label: 'Traitements médicaux, thérapies ou médicaments en cours ?', desc: 'Suivi régulier de spécialistes, traitements prescrits...' },
-                                  { id: 'hasMedicalHistory', label: 'Antécédents majeurs (hospitalisations, chirurgies) sous 5 ans ?', desc: 'Opérations chirurgicales ou longs séjours hospitaliers...' }
+                                  { id: 'hasChronicConditions', label: ui.chronicLabel, desc: ui.chronicDesc },
+                                  { id: 'hasActiveTreatments', label: ui.treatmentsLabel, desc: ui.treatmentsDesc },
+                                  { id: 'hasMedicalHistory', label: ui.historyLabel, desc: ui.historyDesc }
                                 ].map((healthOpt) => {
                                   const isYesValue = (filters as any)[healthOpt.id];
                                   return (
@@ -1700,8 +2436,8 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                       </div>
                                       <div className="flex space-x-2 shrink-0 self-end sm:self-center">
                                         {[
-                                          { value: true, label: 'Oui' },
-                                          { value: false, label: 'Non' }
+                                          { value: true, label: ui.btnYes },
+                                          { value: false, label: ui.btnNo }
                                         ].map((btnOpt) => {
                                           const isActive = isYesValue === btnOpt.value;
                                           return (
@@ -1742,11 +2478,11 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
                                 <SlidersHorizontal className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  Vos préférences & budget
+                                  {ui.prefTitle}
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                Dernière étape ! Ajustez votre budget mensuel et vos exigences pour que Fenny classe et optimise vos propositions.
+                                {ui.prefSubtitle}
                               </p>
                             </div>
 
@@ -1755,32 +2491,32 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                 {/* Service preference */}
                                 <div className="space-y-1.5">
                                   <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
-                                    Type de gestion de contrat
+                                    {ui.managementTypeLabel}
                                   </label>
                                   <select
                                     value={filters.servicePreference || 'hybrid'}
                                     onChange={(e) => handleFilterChange('servicePreference', e.target.value as any)}
                                     className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3 py-2.5 text-xs text-fennec-dark focus:outline-none focus:ring-1 focus:ring-fennec-terracotta"
                                   >
-                                    <option value="online">100% En ligne (Application, documents PDF)</option>
-                                    <option value="human">Traditionnel (Réseau d'agences physiques)</option>
-                                    <option value="hybrid">Hybride (Gestion App + conseiller dédié)</option>
+                                    <option value="online">{ui.mgmtOnline}</option>
+                                    <option value="human">{ui.mgmtHuman}</option>
+                                    <option value="hybrid">{ui.mgmtHybrid}</option>
                                   </select>
                                 </div>
 
                                 {/* Client service importance */}
                                 <div className="space-y-1.5">
                                   <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
-                                    Priorité au service client
+                                    {ui.clientServiceLabel}
                                   </label>
                                   <select
                                     value={filters.clientServiceImportance || 'medium'}
                                     onChange={(e) => handleFilterChange('clientServiceImportance', e.target.value as any)}
                                     className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3 py-2.5 text-xs text-fennec-dark focus:outline-none focus:ring-1 focus:ring-fennec-terracotta"
                                   >
-                                    <option value="low">Standard (Tous canaux numériques)</option>
-                                    <option value="medium">Élevé (Meilleurs retours satisfaction client)</option>
-                                    <option value="high">Absolue (Remboursements rapides & assistance locale)</option>
+                                    <option value="low">{ui.csLow}</option>
+                                    <option value="medium">{ui.csMedium}</option>
+                                    <option value="high">{ui.csHigh}</option>
                                   </select>
                                 </div>
                               </div>
@@ -1789,10 +2525,10 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               <div className="space-y-1.5 bg-fennec-cream/10 p-4 rounded-2xl border border-fennec-cream/30">
                                 <div className="flex justify-between items-baseline">
                                   <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
-                                    Budget mensuel maximum visé
+                                    {ui.budgetLabel}
                                   </label>
                                   <span className="text-sm font-mono font-black text-fennec-terracotta">
-                                    CHF {filters.maxMonthlyBudget || 450} / mois
+                                    CHF {filters.maxMonthlyBudget || 450} {ui.perMonth}
                                   </span>
                                 </div>
                                 <input
@@ -1805,23 +2541,23 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                   className="w-full accent-fennec-terracotta h-1.5 bg-fennec-cream/60 rounded-lg cursor-pointer"
                                 />
                                 <div className="flex justify-between text-[9px] text-fennec-brown font-extrabold font-mono">
-                                  <span>CHF 100 (Eco)</span>
+                                  <span>CHF 100 ({ui.budgetEco})</span>
                                   <span>CHF 500</span>
-                                  <span>CHF 900+ (Premium)</span>
+                                  <span>CHF 900+ ({ui.budgetPremium})</span>
                                 </div>
                               </div>
 
                               {/* Comparison priority */}
                               <div className="space-y-1.5">
                                 <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">
-                                  Votre objectif prioritaire
+                                  {ui.prioLabel}
                                 </label>
                                 <div className="grid grid-cols-2 gap-2">
                                   {[
-                                    { id: 'price', label: 'Économie maximale', desc: 'Priorité au tarif brut' },
-                                    { id: 'coverage', label: 'Couverture maximale', desc: 'Remboursements LCA au top' },
-                                    { id: 'reputation', label: 'Satisfaction & Service', desc: 'Assureur le mieux noté' },
-                                    { id: 'flexibility', label: 'Flexibilité médicale', desc: 'Accès sans contrainte standard' },
+                                    { id: 'price', label: ui.prioPrice, desc: ui.prioPriceDesc },
+                                    { id: 'coverage', label: ui.prioCoverage, desc: ui.prioCoverageDesc },
+                                    { id: 'reputation', label: ui.prioReputation, desc: ui.prioReputationDesc },
+                                    { id: 'flexibility', label: ui.prioFlexibility, desc: ui.prioFlexibilityDesc },
                                   ].map((prioOpt) => {
                                     const isSelected = filters.comparisonPriority === prioOpt.id;
                                     return (
@@ -1862,11 +2598,11 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               <div className="flex items-center space-x-2 text-fennec-red">
                                 <Shield className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  Vérification de sécurité
+                                  {ui.secTitle}
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                Avant d'accéder au comparatif officiel des caisses maladie 2026, veuillez valider vos coordonnées. Un code de sécurité unique vous sera envoyé gratuitement.
+                                {ui.secSubtitle}
                               </p>
                             </div>
 
@@ -1874,22 +2610,22 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               <div className="space-y-4">
                                 <div className="grid grid-cols-2 gap-3">
                                   <div className="space-y-1">
-                                    <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">Prénom *</label>
+                                    <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">{ui.firstNameLabel}</label>
                                     <input 
                                       type="text" 
                                       required
-                                      placeholder="Ex: Jean"
+                                      placeholder={ui.firstNamePlaceholder}
                                       value={formData.firstName}
                                       onChange={(e) => setFormData(p => ({ ...p, firstName: e.target.value }))}
                                       className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3 py-2 text-xs text-fennec-dark focus:ring-1 focus:ring-fennec-terracotta"
                                     />
                                   </div>
                                   <div className="space-y-1">
-                                    <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">Nom *</label>
+                                    <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">{ui.lastNameLabel}</label>
                                     <input 
                                       type="text" 
                                       required
-                                      placeholder="Ex: Dupont"
+                                      placeholder={ui.lastNamePlaceholder}
                                       value={formData.lastName}
                                       onChange={(e) => setFormData(p => ({ ...p, lastName: e.target.value }))}
                                       className="w-full bg-white border border-fennec-cream/80 rounded-xl px-3 py-2 text-xs text-fennec-dark focus:ring-1 focus:ring-fennec-terracotta"
@@ -1898,7 +2634,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                 </div>
 
                                 <div className="space-y-1">
-                                  <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">Adresse E-mail *</label>
+                                  <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">{ui.emailLabel}</label>
                                   <input 
                                     type="email" 
                                     required
@@ -1910,7 +2646,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                 </div>
 
                                 <div className="space-y-1">
-                                  <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">Téléphone Mobile Suisse *</label>
+                                  <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">{ui.phoneLabel}</label>
                                   <input 
                                     type="tel" 
                                     required
@@ -1932,7 +2668,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                   disabled={isSendingCode}
                                   onClick={async () => {
                                     if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
-                                      setVerificationError("Veuillez remplir tous les champs obligatoires.");
+                                      setVerificationError(ui.errFillRequired);
                                       return;
                                     }
                                     setVerificationError(null);
@@ -1951,7 +2687,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                       });
                                       const data = await res.json();
                                       if (!res.ok || !data.success) {
-                                        setVerificationError(data.error || "Erreur lors de l'envoi du code par e-mail.");
+                                        setVerificationError(data.error || ui.errSendingCode);
                                         setIsSendingCode(false);
                                         return;
                                       }
@@ -1967,7 +2703,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                       setVerificationStep('code');
                                     } catch(e: any) {
                                       setIsSendingCode(false);
-                                      setVerificationError("Impossible de contacter le serveur de vérification.");
+                                      setVerificationError(ui.errContactServer);
                                     }
                                   }}
                                   className="w-full py-3 bg-fennec-dark hover:bg-fennec-terracotta text-white font-display font-bold rounded-xl text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center space-x-2 cursor-pointer"
@@ -1975,21 +2711,21 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                   {isSendingCode ? (
                                     <>
                                       <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                                      <span>Envoi du code e-mail en cours...</span>
+                                      <span>{ui.sendingCodeBtn}</span>
                                     </>
                                   ) : (
-                                    <span>Recevoir mon code de validation par E-mail</span>
+                                    <span>{ui.receiveCodeBtn}</span>
                                   )}
                                 </button>
                               </div>
                             ) : (
                               <div className="space-y-4">
                                 <div className="bg-amber-50 border border-amber-200 text-[11px] text-amber-800 p-3.5 rounded-xl leading-relaxed">
-                                  <strong>💡 Code de sécurité envoyé par e-mail !</strong> Veuillez vérifier la boîte de réception de <strong>{formData.email}</strong> et saisir le code à 4 chiffres ci-dessous.
+                                  <strong>💡 {ui.codeSentTitle}</strong> {ui.codeSentBody.replace('{email}', formData.email)}
                                 </div>
 
                                 <div className="space-y-1">
-                                  <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">Saisir le Code de Sécurité *</label>
+                                  <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">{ui.enterCodeLabel}</label>
                                   <input 
                                     type="text" 
                                     maxLength={4}
@@ -2011,7 +2747,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                   disabled={isSendingCode}
                                   onClick={async () => {
                                     if (!verificationCodeInput || verificationCodeInput.length < 4) {
-                                      setVerificationError("Veuillez saisir le code à 4 chiffres reçu par e-mail.");
+                                      setVerificationError(ui.errEnter4Digits);
                                       return;
                                     }
                                     setVerificationError(null);
@@ -2030,7 +2766,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                       setIsSendingCode(false);
 
                                       if (!res.ok || !data.verified) {
-                                        setVerificationError(data.error || "Code de vérification incorrect.");
+                                        setVerificationError(data.error || ui.errIncorrectCode);
                                         return;
                                       }
 
@@ -2044,12 +2780,12 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                       setIsAnalyzing(true);
                                     } catch(e: any) {
                                       setIsSendingCode(false);
-                                      setVerificationError("Erreur lors de la vérification du code.");
+                                      setVerificationError(ui.errVerifyCode);
                                     }
                                   }}
                                   className="w-full py-3 bg-fennec-red hover:bg-red-600 text-white font-display font-bold rounded-xl text-xs uppercase tracking-wider transition-all shadow-md shadow-fennec-red/25 flex items-center justify-center cursor-pointer"
                                 >
-                                  {isSendingCode ? "Vérification en cours..." : "Valider le code & afficher les résultats"}
+                                  {isSendingCode ? ui.verifyingBtn : ui.validateCodeBtn}
                                 </button>
 
                                 <button 
@@ -2057,7 +2793,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                   onClick={() => setVerificationStep('details')}
                                   className="w-full text-center text-[10px] text-fennec-dark/50 hover:text-fennec-dark underline font-semibold cursor-pointer"
                                 >
-                                  Modifier mes coordonnées
+                                  {ui.editDetailsBtn}
                                 </button>
                               </div>
                             )}
@@ -2073,7 +2809,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                                 }}
                               />
                               <div className="text-[11px] leading-relaxed">
-                                <strong>Message de Fenny :</strong> "Afin de valider votre dossier et de vous présenter les vraies primes certifiées 2026, un code de sécurité à 4 chiffres vient d'être généré et envoyé à l'adresse <strong>{formData.email || 'votre e-mail'}</strong> !"
+                                <strong>{ui.fennyMessageTitle}</strong> {ui.fennyMessageText.replace('{email}', formData.email || ui.yourEmail)}
                               </div>
                             </div>
                           </motion.div>
@@ -2095,7 +2831,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                         }`}
                       >
                         <ChevronLeft className="w-4 h-4 mr-1.5" />
-                        <span>Retour</span>
+                        <span>{ui.backBtn}</span>
                       </button>
 
                       {/* Display explicit "Next" button for all questions */}
@@ -2110,7 +2846,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               : 'bg-fennec-dark hover:bg-fennec-terracotta text-white'
                           }`}
                         >
-                          <span>{currentStep === 7 ? "Étape de vérification" : "Continuer"}</span>
+                          <span>{currentStep === 7 ? ui.verificationStepBtn : ui.continueBtn}</span>
                           <ChevronRight className="w-4 h-4 ml-1.5" />
                         </button>
                       )}
@@ -2123,7 +2859,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
 
             {/* 3. PERSISTENT MINI LEGAL FOOTER IN QUIZ */}
             <footer className="w-full text-center py-4 bg-white/50 border-t border-fennec-cream/20 text-[10px] text-fennec-dark/40 font-medium shrink-0">
-              Fenny s'engage : 100% anonyme, conforme à la nLPD suisse, aucune revente de données.
+              {ui.footerCommitment}
             </footer>
           </motion.div>
         ) : (

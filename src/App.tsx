@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { AppTab } from './types';
 import { TESTIMONIALS } from './data';
+import { useLanguage } from './i18n/LanguageContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import TrustStrip from './components/TrustStrip';
@@ -27,6 +28,7 @@ import fenyResults from './assets/images/feny_results_1783331258491.jpg';
 export default function App() {
   const [currentTab, setCurrentTab] = useState<AppTab>('home');
   const [activeVertical, setActiveVertical] = useState<'health' | 'life'>('health');
+  const { t } = useLanguage();
   
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -106,15 +108,15 @@ export default function App() {
                     
                     {/* Headline */}
                     <h1 className="hero-animate opacity-0 font-display font-black text-3xl sm:text-4xl md:text-5xl text-fennec-dark leading-tight tracking-tight">
-                      Comparez les assurances en Suisse <br />
+                      {t('hero_title_1')} <br />
                       <span className="text-transparent bg-clip-text bg-gradient-to-r from-fennec-terracotta to-fennec-tan">
-                        sans vous faire avoir.
+                        {t('hero_title_2')}
                       </span>
                     </h1>
 
                     {/* Subheading */}
                     <p className="hero-animate opacity-0 text-base sm:text-lg text-fennec-dark/80 max-w-2xl mx-auto lg:mx-0 leading-relaxed text-justify">
-                      Données officielles OFSP & Priminfo 2026. Gratuit, 100% indépendant de tout assureur, et conforme à la nLPD suisse. Fenny s'occupe de trier pour dénicher les offres les plus adaptées.
+                      {t('hero_subtitle')}
                     </p>
 
                     {/* Three Inline Stats Strip */}
@@ -124,7 +126,7 @@ export default function App() {
                           37
                         </span>
                         <span className="text-[10px] text-fennec-dark/60 font-semibold uppercase tracking-wider block mt-0.5">
-                          Caisses Maladie
+                          {t('stat_insurers')}
                         </span>
                       </div>
                       <div className="bg-white p-3.5 rounded-2xl border border-fennec-cream/40 shadow-2xs text-center">
@@ -137,39 +139,39 @@ export default function App() {
                       </div>
                       <div className="bg-white p-3.5 rounded-2xl border border-fennec-cream/40 shadow-2xs text-center flex flex-col justify-center items-center">
                         <span className="font-display font-black text-xs md:text-sm text-fennec-red block uppercase tracking-wide leading-none">
-                          Jusqu'à
+                          {t('stat_savings')}
                         </span>
                         <span className="font-display font-black text-sm md:text-base text-fennec-red block uppercase tracking-tight py-0.5">
                           CHF 3'000.-
                         </span>
                         <span className="text-[9px] text-fennec-dark/60 font-bold uppercase tracking-wider block">
-                          par an
+                          / an
                         </span>
                       </div>
                     </div>
 
                     {/* Hero Big Tab CTAs */}
-                    <div className="hero-animate opacity-0 pt-4 space-y-3 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row justify-center lg:justify-start">
+                    <div className="hero-animate opacity-0 pt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl mx-auto lg:mx-0">
                       <button
                         onClick={() => handleCtaClick('health')}
-                        className={`w-full sm:w-auto px-8 py-4 rounded-2xl font-display font-extrabold text-base transition-all duration-300 flex items-center justify-center space-x-2.5 ${
+                        className={`w-full h-full px-6 py-4 rounded-2xl font-display font-extrabold text-sm sm:text-base transition-all duration-300 flex items-center justify-center text-center space-x-2.5 ${
                           activeVertical === 'health'
                             ? 'bg-fennec-terracotta text-white shadow-lg shadow-fennec-terracotta/20 scale-102 border-b-4 border-amber-900/10'
                             : 'bg-white hover:bg-fennec-cream/25 border border-fennec-cream/70 text-fennec-dark hover:text-fennec-terracotta'
                         }`}
                       >
-                        <span>Assurance Maladie (LAMal)</span>
+                        <span className="leading-tight">{t('compare_health')}</span>
                       </button>
                       
                       <button
                         onClick={() => handleCtaClick('life')}
-                        className={`w-full sm:w-auto px-8 py-4 rounded-2xl font-display font-extrabold text-base transition-all duration-300 flex items-center justify-center space-x-2.5 ${
+                        className={`w-full h-full px-6 py-4 rounded-2xl font-display font-extrabold text-sm sm:text-base transition-all duration-300 flex items-center justify-center text-center space-x-2.5 ${
                           activeVertical === 'life'
                             ? 'bg-fennec-terracotta text-white shadow-lg shadow-fennec-terracotta/20 scale-102 border-b-4 border-amber-900/10'
                             : 'bg-white hover:bg-fennec-cream/25 border border-fennec-cream/70 text-fennec-dark hover:text-fennec-terracotta'
                         }`}
                       >
-                        <span>Prévoyance & 3e Pilier</span>
+                        <span className="leading-tight">{t('compare_life')}</span>
                       </button>
                     </div>
 
@@ -193,9 +195,9 @@ export default function App() {
                       {/* Floating Speech Bubble */}
                       <div className="absolute -bottom-4 -left-4 bg-fennec-dark text-white p-3 rounded-2xl border border-white/10 shadow-md max-w-xs animate-bounce-slow">
                         <div className="flex items-start space-x-2">
-                          <span className="text-[11px] bg-fennec-terracotta px-1.5 py-0.5 rounded font-bold uppercase tracking-wider text-white">Suisse</span>
+                          <span className="text-[11px] bg-fennec-terracotta px-1.5 py-0.5 rounded font-bold uppercase tracking-wider text-white">{t('switzerland')}</span>
                           <p className="text-[11px] font-medium leading-snug">
-                            "Je compare les <strong>37 caisses suisses</strong> pour trouver le modèle idéal chez vous. Simple et neutre !" — <strong>Fenny</strong>
+                            "{t('fenny_quote')}" — <strong>Fenny</strong>
                           </p>
                         </div>
                       </div>
@@ -226,7 +228,7 @@ export default function App() {
                         : 'text-fennec-dark/70 hover:bg-fennec-cream/30'
                     }`}
                   >
-                    Caisses Maladie (LAMal)
+                    {t('health_fund_lamal')}
                   </button>
                   <button
                     onClick={() => setActiveVertical('life')}
@@ -236,7 +238,7 @@ export default function App() {
                         : 'text-fennec-dark/70 hover:bg-fennec-cream/30'
                     }`}
                   >
-                    Prévoyance 3ème Pilier
+                    {t('pension_3rd_pillar')}
                   </button>
                 </div>
 
@@ -259,7 +261,7 @@ export default function App() {
             <section className="bg-fennec-cream/20 py-8 border-y border-fennec-cream/40">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <p className="text-center text-xs font-bold uppercase tracking-wider text-fennec-brown mb-6">
-                  Nos sources de données certifiées indépendantes
+                  {t('data_sources_title')}
                 </p>
                 <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12 opacity-75">
                   {dataSources.map((ds, idx) => (
@@ -283,10 +285,10 @@ export default function App() {
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center mb-10">
                 <span className="text-[11px] font-bold tracking-widest text-fennec-terracotta uppercase block mb-1">
-                  Avis de la communauté
+                  {t('community_reviews')}
                 </span>
                 <h2 className="font-display font-extrabold text-3xl text-fennec-dark">
-                  Ce qu'ils disent de Fenny, le fennec malin
+                  {t('what_they_say_about_fenny')}
                 </h2>
               </div>
 
@@ -378,10 +380,10 @@ export default function App() {
                   </div>
                   <div>
                     <h4 className="font-display font-extrabold text-lg text-white">
-                      Vous économisez et êtes bien assuré ? C’est notre plus grande réussite !
+                      {t('testimonial_banner_title')}
                     </h4>
                     <p className="text-xs text-fennec-cream/80 max-w-xl">
-                      Rejoignez les centaines de familles qui ont revu leur budget prévoyance et maladie cette année grâce à nos simulateurs.
+                      {t('testimonial_banner_desc')}
                     </p>
                   </div>
                 </div>
@@ -389,7 +391,7 @@ export default function App() {
                   onClick={() => handleCtaClick('health')}
                   className="px-6 py-3 bg-fennec-terracotta hover:bg-fennec-red text-white font-display font-bold text-xs rounded-full transition-colors flex items-center space-x-1 shrink-0 shadow-sm"
                 >
-                  <span>Rejoindre la communauté</span>
+                  <span>{t('join_community')}</span>
                   <ArrowUpRight className="w-4 h-4" />
                 </button>
               </div>
@@ -407,25 +409,25 @@ export default function App() {
                 
                 <div className="space-y-4">
                   <h3 className="font-display font-extrabold text-2xl text-fennec-dark">
-                    Un comparateur d'assurance maladie rapide, efficace et transparent
+                    {t('seo_health_title')}
                   </h3>
                   <p className="text-sm text-fennec-dark/80 leading-relaxed text-justify">
-                    Chaque année, l'annonce des primes maladie par l'Office fédéral de la santé publique (OFSP) suscite d'importantes interrogations au sein des foyers. Les augmentations constantes pèsent lourdement sur le pouvoir d'achat. C'est ici que <strong>Le Fennec Malin</strong> intervient. Notre plateforme simule en temps réel les barèmes exacts de l'ensemble des 37 compagnies agréées par l'État (LAMal). 
+                    {t('seo_health_p1')}
                   </p>
                   <p className="text-sm text-fennec-dark/80 leading-relaxed text-justify">
-                    Qu'il s'agisse de comparer les modèles HMO, Telmed ou le médecin de famille traditionnel, ou d'analyser l'incidence de l'augmentation de la franchise de CHF 300 à CHF 2'500, Fenny trie les options en toute transparence. Puisque les prestations de base sont réglementées de manière identique, notre comparateur vous aide à repérer l'assureur le moins cher de votre région sans sacrifier la qualité de vos remboursements.
+                    {t('seo_health_p2')}
                   </p>
                 </div>
 
                 <div className="space-y-4">
                   <h3 className="font-display font-extrabold text-2xl text-fennec-dark">
-                    3ème Pilier suisse : Le guide de référence pour votre prévoyance privée
+                    {t('seo_life_title')}
                   </h3>
                   <p className="text-sm text-fennec-dark/80 leading-relaxed text-justify">
-                    Préparer sa retraite est essentiel dans le système helvétique des trois piliers. Le premier pilier (AVS) et le deuxième pilier (LPP) ne suffisent souvent qu'à couvrir 60% de votre revenu antérieur. Le 3ème pilier constitue donc la solution indispensable pour maintenir votre confort de vie future tout en réalisant des économies d'impôt considérables dès aujourd'hui.
+                    {t('seo_life_p1')}
                   </p>
                   <p className="text-sm text-fennec-dark/80 leading-relaxed text-justify">
-                    À travers nos modules, distinguez immédiatement les avantages du <strong>Pilier 3a (prévoyance liée)</strong>, entièrement déductible de votre revenu imposable jusqu'aux plafonds légaux de CHF 7'258 (salariés) ou CHF 36'288 (indépendants), et du <strong>Pilier 3b (prévoyance libre)</strong>, idéal pour une épargne flexible à court terme. Fenny vous aide à projeter votre capital selon votre profil et à obtenir une étude d'optimisation fiscale sur-mesure.
+                    {t('seo_life_p2_pre')}<strong>{t('seo_life_p2_3a')}</strong>{t('seo_life_p2_mid')}<strong>{t('seo_life_p2_3b')}</strong>{t('seo_life_p2_end')}
                   </p>
                 </div>
 
@@ -481,26 +483,26 @@ export default function App() {
 
       {/* Sticky Bottom Mobile Bar for phone users */}
       {(currentTab === 'home' || currentTab === 'about' || currentTab === 'faq') && (
-        <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white/95 backdrop-blur-md border-t border-fennec-cream/50 px-4 py-3 shadow-2xl flex items-center justify-between gap-3 pb-safe-bottom">
+        <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white/95 backdrop-blur-md border-t border-fennec-cream/50 px-3 py-2.5 shadow-2xl grid grid-cols-2 gap-2.5 pb-safe-bottom">
           <button
             onClick={() => {
               setCurrentTab('health-comparator');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="flex-1 w-1/2 py-3 px-2 bg-fennec-red hover:bg-red-600 text-white font-display font-extrabold text-[11px] rounded-xl flex items-center justify-center space-x-1 shadow-md shadow-fennec-red/20 transition-all active:scale-95"
+            className="w-full min-w-0 py-3 px-2 bg-fennec-red hover:bg-red-600 text-white font-display font-extrabold text-[11px] rounded-xl flex items-center justify-center space-x-1.5 shadow-md shadow-fennec-red/20 transition-all active:scale-95"
           >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Assurance Maladie</span>
+            <Sparkles className="w-3.5 h-3.5 shrink-0" />
+            <span className="truncate text-center">{t('health_insurance')}</span>
           </button>
           <button
             onClick={() => {
               setCurrentTab('life-comparator');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="flex-1 w-1/2 py-3 px-2 bg-fennec-dark hover:bg-fennec-terracotta text-white font-display font-extrabold text-[11px] rounded-xl flex items-center justify-center space-x-1 shadow-md shadow-fennec-dark/20 transition-all active:scale-95"
+            className="w-full min-w-0 py-3 px-2 bg-fennec-dark hover:bg-fennec-terracotta text-white font-display font-extrabold text-[11px] rounded-xl flex items-center justify-center space-x-1.5 shadow-md shadow-fennec-dark/20 transition-all active:scale-95"
           >
-            <ArrowUpRight className="w-3.5 h-3.5" />
-            <span>Vie / 3e Pilier</span>
+            <ArrowUpRight className="w-3.5 h-3.5 shrink-0" />
+            <span className="truncate text-center">{t('life_insurance')}</span>
           </button>
         </div>
       )}

@@ -7,6 +7,7 @@ import React from 'react';
 import { AppTab } from '../types';
 import { ArrowRight, Sparkles, Activity, Shield, Car, Home, Key, Scale } from 'lucide-react';
 import gsap from 'gsap';
+import { useLanguage } from '../i18n/LanguageContext';
 import fenyAnalyse from '../assets/images/feny_analyse_1783331235825.jpg';
 import fenyResults from '../assets/images/feny_results_1783331258491.jpg';
 
@@ -15,27 +16,29 @@ interface ProductsGridProps {
 }
 
 export default function ProductsGrid({ onTabChange }: ProductsGridProps) {
+  const { t } = useLanguage();
+
   const activeProducts = [
     {
       id: 'health-comparator' as AppTab,
       icon: <Activity className="w-8 h-8 text-fennec-terracotta" />,
-      title: "Assurance Maladie (LAMal)",
+      title: t('health_card_title'),
       tagline: "",
-      desc: "Comparez les primes 2026 de l'ensemble des caisses-maladie agréées par l'OFSP & Priminfo. Choisissez le modèle médecin de famille, HMO ou Telmed le plus avantageux pour votre canton.",
-      badge: "Données officielles OFSP & Priminfo 2026",
+      desc: t('health_card_desc'),
+      badge: t('health_card_badge'),
       badgeColor: "bg-emerald-100 text-emerald-800 border-emerald-200",
-      cta: "Comparer les primes",
+      cta: t('health_card_cta'),
       image: fenyAnalyse,
     },
     {
       id: 'life-comparator' as AppTab,
       icon: <Shield className="w-8 h-8 text-fennec-tan" />,
-      title: "Prévoyance & 3e Pilier",
-      tagline: "Épargnez et réduisez vos impôts",
-      desc: "Découvrez les meilleurs rendements et garanties de capital de prévoyance liée 3a et libre 3b en Suisse. Obtenez une projection fiscale gratuite selon votre salaire.",
-      badge: "Avantage Fiscal Max",
+      title: t('life_card_title'),
+      tagline: t('life_card_tagline'),
+      desc: t('life_card_desc'),
+      badge: t('life_card_badge'),
       badgeColor: "bg-blue-100 text-blue-800 border-blue-200",
-      cta: "Calculer mon 3ème pilier",
+      cta: t('life_card_cta'),
       image: fenyResults,
     },
   ];
@@ -43,23 +46,23 @@ export default function ProductsGrid({ onTabChange }: ProductsGridProps) {
   const upcomingProducts = [
     {
       icon: <Car className="w-6 h-6 text-fennec-brown" />,
-      title: "Assurance Auto",
-      desc: "Les meilleures couvertures responsabilité civile, casco partielle et casco complète adaptées à votre véhicule.",
+      title: t('auto_insurance'),
+      desc: t('auto_desc'),
     },
     {
       icon: <Home className="w-6 h-6 text-fennec-brown" />,
-      title: "Ménage & RC Privée",
-      desc: "Protégez vos biens mobiliers et prémunissez-vous contre les dommages causés aux tiers au meilleur prix.",
+      title: t('household_insurance'),
+      desc: t('household_desc'),
     },
     {
       icon: <Key className="w-6 h-6 text-fennec-brown" />,
-      title: "Hypothèque Suisse",
-      desc: "Trouvez le taux fixe ou Saron le plus bas auprès de nos banques et fonds de pension partenaires.",
+      title: t('mortgage_switzerland'),
+      desc: t('mortgage_desc'),
     },
     {
       icon: <Scale className="w-6 h-6 text-fennec-brown" />,
-      title: "Protection Juridique",
-      desc: "Bénéficiez d'une assistance légale optimale en matière de litiges privés, professionnels ou de circulation.",
+      title: t('legal_protection'),
+      desc: t('legal_desc'),
     },
   ];
 
@@ -72,13 +75,13 @@ export default function ProductsGrid({ onTabChange }: ProductsGridProps) {
     <div className="w-full">
       <div className="text-center mb-12">
         <span className="text-[11px] font-bold tracking-widest text-fennec-terracotta uppercase block mb-1">
-          Gamme de Comparaison
+          {t('products_range_badge')}
         </span>
         <h2 className="font-display font-extrabold text-3xl text-fennec-dark">
-          Découvrez tous les comparateurs de Fenny
+          {t('products_range_title')}
         </h2>
         <p className="mt-2 text-base text-fennec-dark/70 max-w-xl mx-auto">
-          Des outils malins conçus pour simplifier la finance et les assurances suisses.
+          {t('products_range_subtitle')}
         </p>
       </div>
 
@@ -144,7 +147,7 @@ export default function ProductsGrid({ onTabChange }: ProductsGridProps) {
                     }}
                   />
                 </div>
-                <span className="text-xs font-semibold text-fennec-brown">Fenny compare pour vous</span>
+                <span className="text-xs font-semibold text-fennec-brown">{t('fenny_compares_for_you')}</span>
               </div>
               <button 
                 onClick={() => handleProductClick(p.id)}
@@ -162,7 +165,7 @@ export default function ProductsGrid({ onTabChange }: ProductsGridProps) {
       <div className="bg-fennec-cream/10 border border-fennec-cream/30 rounded-3xl p-8">
         <h4 className="font-display font-bold text-lg text-fennec-dark mb-6 flex items-center">
           <Sparkles className="w-5 h-5 text-fennec-tan mr-2" />
-          Prochainement disponibles (Courant 2026)
+          {t('coming_soon_title')}
         </h4>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {upcomingProducts.map((p, idx) => (
@@ -201,7 +204,7 @@ export default function ProductsGrid({ onTabChange }: ProductsGridProps) {
               </div>
               <div className="mt-4 pt-3 border-t border-fennec-cream/10 flex justify-between items-center">
                 <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider">
-                  Bientôt
+                  {t('coming_soon_badge')}
                 </span>
                 <span className="w-2 h-2 rounded-full bg-fennec-tan animate-pulse" />
               </div>

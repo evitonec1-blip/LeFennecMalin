@@ -6,6 +6,8 @@
 import React, { useState } from 'react';
 import { AppTab } from '../types';
 import { Menu, X, Shield, Award, HelpCircle } from 'lucide-react';
+import { useLanguage } from '../i18n/LanguageContext';
+import LanguageSelector from './LanguageSelector';
 import fenyWinking from '../assets/images/feny_winking_1783331270164.jpg';
 import fenyLogo from '../assets/images/feny_logo_1783331214351.jpg';
 
@@ -16,12 +18,13 @@ interface HeaderProps {
 
 export default function Header({ currentTab, onTabChange }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { t } = useLanguage();
 
   const navItems = [
-    { id: 'health-comparator', label: 'Assurance Maladie' },
-    { id: 'life-comparator', label: 'Assurance Vie / 3e Pilier' },
-    { id: 'about', label: 'À propos de Fenny' },
-    { id: 'faq', label: 'FAQ' },
+    { id: 'health-comparator', label: t('health_insurance') },
+    { id: 'life-comparator', label: t('life_insurance') },
+    { id: 'about', label: t('about_fenny') },
+    { id: 'faq', label: t('faq') },
   ] as const;
 
   const handleNavClick = (tab: AppTab) => {
@@ -74,7 +77,7 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
                 </span>
               </div>
               <span className="text-[8px] font-bold tracking-wider text-fennec-dark/40 uppercase leading-none mt-0.5">
-                Comparateur Indépendant
+                {t('independent_comparator')}
               </span>
             </div>
           </div>
@@ -100,17 +103,19 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
           </nav>
 
           {/* Right Action buttons */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-3">
+            <LanguageSelector variant="header" />
             <button
               onClick={() => handleNavClick('health-comparator')}
               className="px-5 py-2.5 bg-fennec-red hover:bg-red-600 text-white font-display font-bold rounded-full text-sm shadow-md shadow-fennec-red/25 transition-all duration-200 hover:-translate-y-0.5"
             >
-              Comparer maintenant
+              {t('compare_now')}
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button + Language shortcut */}
           <div className="md:hidden flex items-center space-x-2">
+            <LanguageSelector variant="header" />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-lg text-fennec-dark hover:bg-fennec-cream/30 hover:text-fennec-terracotta focus:outline-none"
@@ -126,7 +131,11 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
       {/* Mobile Navigation Panel */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-fennec-cream/30 bg-white">
-          <div className="px-4 pt-2 pb-6 space-y-2">
+          <div className="px-4 pt-3 pb-6 space-y-3">
+            
+            {/* Language Selector in Mobile Menu */}
+            <LanguageSelector variant="mobile" />
+
             {navItems.map((item) => {
               const isActive = currentTab === item.id;
               return (
@@ -152,7 +161,7 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
                 onClick={() => handleNavClick('health-comparator')}
                 className="w-full text-center py-3 bg-fennec-terracotta hover:bg-fennec-dark text-white font-display font-bold rounded-xl text-base shadow-sm transition-all"
               >
-                Comparer les Caisses
+                {t('compare_now')}
               </button>
             </div>
           </div>
