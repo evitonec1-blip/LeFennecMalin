@@ -149,6 +149,17 @@ export const translations = {
     footer_rights: "Tous droits réservés. Données officielles OFSP 2026.",
     legal_notice: "Mentions Légales",
     privacy_policy: "Protection des Données",
+
+    // Testimonials
+    testimonial_t1_text: "Grâce aux conseils avisés de Fenny, j'ai ajusté ma franchise à CHF 2'500 et choisi un modèle médecin de famille chez un assureur partenaire. Économie nette : CHF 180 par mois !",
+    testimonial_t2_text: "Le comparateur de 3e pilier m'a permis de comprendre enfin la différence entre 3a et 3b. La souscription a été simple, rapide et sans frais d'intermédiaire cachés. Très satisfaite.",
+    testimonial_t3_text: "Malin, gratuit et transparent ! Fenny a trié les caisses maladie de mon canton en quelques secondes. Les prestations obligatoires étant identiques, j'ai pris la moins chère sans aucune hésitation.",
+    testimonial_product_health: "Assurance Maladie",
+    testimonial_product_life: "Prévoyance 3ème Pilier",
+
+    // Data sources
+    data_source_priminfo_desc: "Base officielle fédérale",
+    data_source_ofsp_desc: "Office Fédéral de la Santé Publique",
   },
   de: {
     // Navigation
@@ -278,6 +289,17 @@ export const translations = {
     footer_rights: "Alle Rechte vorbehalten. Offizielle BAG-Daten 2026.",
     legal_notice: "Impressum",
     privacy_policy: "Datenschutz",
+
+    // Testimonials
+    testimonial_t1_text: "Dank Fennys fundierter Beratung habe ich meine Franchise auf CHF 2'500 angepasst und mich bei einem Partnerversicherer für ein Hausarztmodell entschieden. Nettoersparnis: CHF 180 pro Monat!",
+    testimonial_t2_text: "Der Vergleichsrechner für die 3. Säule hat mir endlich geholfen, den Unterschied zwischen 3a und 3b zu verstehen. Der Abschluss war einfach, schnell und ohne versteckte Vermittlungsgebühren. Sehr zufrieden.",
+    testimonial_t3_text: "Clever, kostenlos und transparent! Fenny hat die Krankenkassen meines Kantons in Sekunden sortiert. Da die Pflichtleistungen identisch sind, habe ich ohne zu zögern die günstigste gewählt.",
+    testimonial_product_health: "Krankenversicherung",
+    testimonial_product_life: "3. Säule Vorsorge",
+
+    // Data sources
+    data_source_priminfo_desc: "Offizielle Bundesdatenbank",
+    data_source_ofsp_desc: "Bundesamt für Gesundheit",
   },
   en: {
     // Navigation
@@ -407,6 +429,17 @@ export const translations = {
     footer_rights: "All rights reserved. Official 2026 FOPH data.",
     legal_notice: "Legal Notice",
     privacy_policy: "Privacy Policy",
+
+    // Testimonials
+    testimonial_t1_text: "Thanks to Fenny's sound advice, I raised my deductible to CHF 2,500 and picked a family-doctor model with a partner insurer. Net savings: CHF 180 a month!",
+    testimonial_t2_text: "The 3rd pillar comparator finally helped me understand the difference between 3a and 3b. Signing up was simple, fast, and free of hidden broker fees. Very happy.",
+    testimonial_t3_text: "Smart, free, and transparent! Fenny sorted the health funds in my canton in seconds. Since mandatory coverage is identical across insurers, I picked the cheapest one without hesitation.",
+    testimonial_product_health: "Health Insurance",
+    testimonial_product_life: "3rd Pillar Pension",
+
+    // Data sources
+    data_source_priminfo_desc: "Official federal database",
+    data_source_ofsp_desc: "Federal Office of Public Health",
   },
   it: {
     // Navigation
@@ -536,5 +569,16 @@ export const translations = {
     footer_rights: "Tutti i diritti riservati. Dati ufficiali UFSP 2026.",
     legal_notice: "Note Legali",
     privacy_policy: "Protezione dei Dati",
+
+    // Testimonials
+    testimonial_t1_text: "Grazie ai consigli esperti di Fenny, ho adeguato la mia franchigia a CHF 2'500 e scelto un modello medico di famiglia presso un assicuratore partner. Risparmio netto: CHF 180 al mese!",
+    testimonial_t2_text: "Il comparatore del 3° pilastro mi ha finalmente permesso di capire la differenza tra 3a e 3b. La sottoscrizione è stata semplice, rapida e senza costi di intermediazione nascosti. Molto soddisfatta.",
+    testimonial_t3_text: "Intelligente, gratuito e trasparente! Fenny ha ordinato le casse malati del mio cantone in pochi secondi. Poiché le prestazioni obbligatorie sono identiche, ho scelto la più economica senza esitazione.",
+    testimonial_product_health: "Assicurazione Malattia",
+    testimonial_product_life: "Previdenza 3° Pilastro",
+
+    // Data sources
+    data_source_priminfo_desc: "Banca dati federale ufficiale",
+    data_source_ofsp_desc: "Ufficio Federale della Sanità Pubblica",
   },
 };

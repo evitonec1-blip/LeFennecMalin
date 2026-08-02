@@ -266,6 +266,36 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     analyzingDescEnd: " pour la région de",
     comparingCompanies: "Compagnies en cours de comparaison :",
     fennyAdvises: "Fenny conseille",
+    mySituationTitle: "Ma situation actuelle",
+    loadingLabel: "Chargement...",
+    officialPremiumsLabel: "Primes Officielles",
+    savingsCalcDesc: "Modifiez votre assureur actuel et votre prime payée pour recalculer instantanément vos économies réelles via la méthode",
+    savingsCalcDescSuffix: ".",
+    myInsurerLabel: "Mon assureur",
+    myPremiumLabel: "Ma prime (CHF)",
+    cantonResidenceLabel: "Canton de résidence :",
+    zipCodeLabel: "Code postal / NPA :",
+    premiumZoneLabel: "Zone de primes :",
+    annualFranchiseLabel: "Franchise annuelle :",
+    insuranceModelsLabel: "Modèles d'assurance :",
+    accidentCoverageLabel: "Couverture Accident :",
+    supplementaryLabel: "Complémentaires :",
+    ageAdultLabel: "Adulte (26+)",
+    ageYoungLabel: "Jeune (19-25)",
+    ageChildLabel: "Enfant (0-18)",
+    allModelsLabel: "Tous les modèles (4)",
+    modelFamilyLabel: "Médecin famille",
+    modelTelemedLabel: "Télémédecine",
+    modelHmoLabel: "HMO",
+    modelStandardLabel: "Standard",
+    accidentIncludedLabel: "Oui, incluse",
+    accidentExcludedLabel: "Non, exclue",
+    basicInsuranceOnlyLabel: "Assurance de base uniquement",
+    supEssentialLabel: "ESSENTIELLE",
+    supConfortLabel: "CONFORT",
+    supPremiumLabel: "PREMIUM",
+    hideAdjustmentsLabel: "Masquer les ajustements",
+    adjustFiltersLabel: "Ajuster les filtres directement",
   },
   de: {
     zipTitle: "Wie lautet Ihre Postleitzahl am Wohnort?",
@@ -440,6 +470,36 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     analyzingDescEnd: " für die Region",
     comparingCompanies: "Verglichene Versicherer:",
     fennyAdvises: "Fenny empfiehlt",
+    mySituationTitle: "Meine aktuelle Situation",
+    loadingLabel: "Wird geladen...",
+    officialPremiumsLabel: "Offizielle Prämien",
+    savingsCalcDesc: "Ändern Sie Ihren aktuellen Versicherer und Ihre bezahlte Prämie, um Ihre tatsächlichen Einsparungen sofort über die Methode",
+    savingsCalcDescSuffix: " neu zu berechnen.",
+    myInsurerLabel: "Meine Versicherung",
+    myPremiumLabel: "Meine Prämie (CHF)",
+    cantonResidenceLabel: "Wohnkanton:",
+    zipCodeLabel: "PLZ:",
+    premiumZoneLabel: "Prämienregion:",
+    annualFranchiseLabel: "Jährliche Franchise:",
+    insuranceModelsLabel: "Versicherungsmodelle:",
+    accidentCoverageLabel: "Unfalldeckung:",
+    supplementaryLabel: "Zusatzversicherungen:",
+    ageAdultLabel: "Erwachsene (26+)",
+    ageYoungLabel: "Junge (19-25)",
+    ageChildLabel: "Kind (0-18)",
+    allModelsLabel: "Alle Modelle (4)",
+    modelFamilyLabel: "Hausarztmodell",
+    modelTelemedLabel: "Telemedizin",
+    modelHmoLabel: "HMO",
+    modelStandardLabel: "Standard",
+    accidentIncludedLabel: "Ja, inbegriffen",
+    accidentExcludedLabel: "Nein, ausgeschlossen",
+    basicInsuranceOnlyLabel: "Nur Grundversicherung",
+    supEssentialLabel: "ESSENTIELLE",
+    supConfortLabel: "COMFORT",
+    supPremiumLabel: "PREMIUM",
+    hideAdjustmentsLabel: "Anpassungen ausblenden",
+    adjustFiltersLabel: "Filter direkt anpassen",
   },
   en: {
     zipTitle: "What is your residential postal code?",
@@ -614,6 +674,36 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     analyzingDescEnd: " in real time for the region",
     comparingCompanies: "Companies being compared:",
     fennyAdvises: "Fenny recommends",
+    mySituationTitle: "My current situation",
+    loadingLabel: "Loading...",
+    officialPremiumsLabel: "Official Premiums",
+    savingsCalcDesc: "Change your current insurer and premium paid to instantly recalculate your real savings using the",
+    savingsCalcDescSuffix: " method.",
+    myInsurerLabel: "My insurer",
+    myPremiumLabel: "My premium (CHF)",
+    cantonResidenceLabel: "Canton of residence:",
+    zipCodeLabel: "ZIP / Postcode:",
+    premiumZoneLabel: "Premium zone:",
+    annualFranchiseLabel: "Annual deductible:",
+    insuranceModelsLabel: "Insurance models:",
+    accidentCoverageLabel: "Accident coverage:",
+    supplementaryLabel: "Supplementary:",
+    ageAdultLabel: "Adult (26+)",
+    ageYoungLabel: "Young adult (19-25)",
+    ageChildLabel: "Child (0-18)",
+    allModelsLabel: "All models (4)",
+    modelFamilyLabel: "Family doctor",
+    modelTelemedLabel: "Telemedicine",
+    modelHmoLabel: "HMO",
+    modelStandardLabel: "Standard",
+    accidentIncludedLabel: "Yes, included",
+    accidentExcludedLabel: "No, excluded",
+    basicInsuranceOnlyLabel: "Basic insurance only",
+    supEssentialLabel: "ESSENTIAL",
+    supConfortLabel: "COMFORT",
+    supPremiumLabel: "PREMIUM",
+    hideAdjustmentsLabel: "Hide adjustments",
+    adjustFiltersLabel: "Adjust filters directly",
   },
   it: {
     zipTitle: "Qual è il tuo codice postale di residenza?",
@@ -788,6 +878,36 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     analyzingDescEnd: " per la regione",
     comparingCompanies: "Compagnie in fase di confronto:",
     fennyAdvises: "Fenny consiglia",
+    mySituationTitle: "La mia situazione attuale",
+    loadingLabel: "Caricamento...",
+    officialPremiumsLabel: "Premi Ufficiali",
+    savingsCalcDesc: "Modifica il tuo assicuratore attuale e il premio pagato per ricalcolare istantaneamente i tuoi risparmi reali tramite il metodo",
+    savingsCalcDescSuffix: ".",
+    myInsurerLabel: "Il mio assicuratore",
+    myPremiumLabel: "Il mio premio (CHF)",
+    cantonResidenceLabel: "Cantone di residenza:",
+    zipCodeLabel: "NPA / CAP:",
+    premiumZoneLabel: "Zona premi:",
+    annualFranchiseLabel: "Franchigia annuale:",
+    insuranceModelsLabel: "Modelli assicurativi:",
+    accidentCoverageLabel: "Copertura infortuni:",
+    supplementaryLabel: "Complementari:",
+    ageAdultLabel: "Adulto (26+)",
+    ageYoungLabel: "Giovane (19-25)",
+    ageChildLabel: "Bambino (0-18)",
+    allModelsLabel: "Tutti i modelli (4)",
+    modelFamilyLabel: "Medico di famiglia",
+    modelTelemedLabel: "Telemedicina",
+    modelHmoLabel: "HMO",
+    modelStandardLabel: "Standard",
+    accidentIncludedLabel: "Sì, inclusa",
+    accidentExcludedLabel: "No, esclusa",
+    basicInsuranceOnlyLabel: "Solo assicurazione di base",
+    supEssentialLabel: "ESSENZIALE",
+    supConfortLabel: "COMFORT",
+    supPremiumLabel: "PREMIUM",
+    hideAdjustmentsLabel: "Nascondi le regolazioni",
+    adjustFiltersLabel: "Regola i filtri direttamente",
   }
 };
 
@@ -2903,26 +3023,26 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                 <div className="flex justify-between items-center">
                   <h4 className="font-display font-bold text-sm text-fennec-dark flex items-center">
                     <Sparkles className="w-4 h-4 mr-1.5 text-fennec-terracotta" />
-                    Ma situation actuelle
+                    {ui.mySituationTitle}
                   </h4>
                   {loadingReal ? (
                     <span className="text-[9px] font-black uppercase text-fennec-terracotta bg-fennec-cream/70 px-2 py-0.5 rounded-full animate-pulse">
-                      Chargement...
+                      {ui.loadingLabel}
                     </span>
                   ) : realPremiums.length > 0 ? (
                     <span className="text-[9px] font-black uppercase text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
-                      Primes Officielles
+                      {ui.officialPremiumsLabel}
                     </span>
                   ) : null}
                 </div>
                 
                 <p className="text-[10px] text-fennec-dark/70 leading-relaxed">
-                  Modifiez votre assureur actuel et votre prime payée pour recalculer instantanément vos économies réelles via la méthode <code className="font-mono font-bold text-[9px]">calculateSavings()</code>.
+                  {ui.savingsCalcDesc} <code className="font-mono font-bold text-[9px]">calculateSavings()</code>{ui.savingsCalcDescSuffix}
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                   <div className="space-y-1">
-                    <label className="text-[9px] font-bold text-fennec-brown uppercase tracking-wider block">Mon assureur</label>
+                    <label className="text-[9px] font-bold text-fennec-brown uppercase tracking-wider block">{ui.myInsurerLabel}</label>
                     <select
                       value={currentCaisseId}
                       onChange={(e) => {
@@ -2939,7 +3059,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[9px] font-bold text-fennec-brown uppercase tracking-wider block">Ma prime (CHF)</label>
+                    <label className="text-[9px] font-bold text-fennec-brown uppercase tracking-wider block">{ui.myPremiumLabel}</label>
                     <input
                       type="number"
                       min={40}
@@ -2958,55 +3078,55 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
               {/* Quick Profile Summary Pills */}
               <div className="space-y-2 text-xs text-left">
                 <div className="flex justify-between p-2.5 bg-fennec-cream/10 rounded-xl">
-                  <span className="text-fennec-brown font-medium">Canton de résidence :</span>
+                  <span className="text-fennec-brown font-medium">{ui.cantonResidenceLabel}</span>
                   <span className="font-bold text-fennec-dark">{selectedCantonName} ({filters.canton})</span>
                 </div>
                 <div className="flex justify-between p-2.5 bg-fennec-cream/10 rounded-xl">
-                  <span className="text-fennec-brown font-medium">Code postal / NPA :</span>
+                  <span className="text-fennec-brown font-medium">{ui.zipCodeLabel}</span>
                   <span className="font-bold text-fennec-dark">{filters.zipCode}</span>
                 </div>
                 <div className="flex justify-between p-2.5 bg-fennec-cream/10 rounded-xl">
-                  <span className="text-fennec-brown font-medium">Zone de primes :</span>
+                  <span className="text-fennec-brown font-medium">{ui.premiumZoneLabel}</span>
                   <span className="font-bold text-fennec-dark">Région {filters.zone}</span>
                 </div>
                 <div className="flex justify-between p-2.5 bg-fennec-cream/10 rounded-xl">
-                  <span className="text-fennec-brown font-medium">Catégorie d'âge :</span>
+                  <span className="text-fennec-brown font-medium">{ui.ageCategoryLabel}</span>
                   <span className="font-bold text-fennec-dark capitalize">
-                    {filters.ageCategory === 'adult' ? 'Adulte (26+)' : filters.ageCategory === 'young' ? 'Jeune (19-25)' : 'Enfant (0-18)'}
+                    {filters.ageCategory === 'adult' ? ui.ageAdultLabel : filters.ageCategory === 'young' ? ui.ageYoungLabel : ui.ageChildLabel}
                   </span>
                 </div>
                 <div className="flex justify-between p-2.5 bg-fennec-cream/10 rounded-xl">
-                  <span className="text-fennec-brown font-medium">Franchise annuelle :</span>
+                  <span className="text-fennec-brown font-medium">{ui.annualFranchiseLabel}</span>
                   <span className="font-bold text-fennec-dark">CHF {filters.franchise}.-</span>
                 </div>
                 <div className="flex justify-between p-2.5 bg-fennec-cream/10 rounded-xl">
-                  <span className="text-fennec-brown font-medium">Modèles d'assurance :</span>
+                  <span className="text-fennec-brown font-medium">{ui.insuranceModelsLabel}</span>
                   <span className="font-bold text-fennec-dark text-right text-xs">
                     {(() => {
                       const list = filters.selectedModels || ['family', 'telemed', 'hmo', 'standard'];
-                      if (list.length === 4) return 'Tous les modèles (4)';
+                      if (list.length === 4) return ui.allModelsLabel;
                       const labels: Record<string, string> = {
-                        family: 'Médecin famille',
-                        telemed: 'Télémédecine',
-                        hmo: 'HMO',
-                        standard: 'Standard'
+                        family: ui.modelFamilyLabel,
+                        telemed: ui.modelTelemedLabel,
+                        hmo: ui.modelHmoLabel,
+                        standard: ui.modelStandardLabel
                       };
                       return list.map(m => labels[m] || m).join(', ');
                     })()}
                   </span>
                 </div>
                 <div className="flex justify-between p-2.5 bg-fennec-cream/10 rounded-xl">
-                  <span className="text-fennec-brown font-medium">Couverture Accident :</span>
-                  <span className="font-bold text-fennec-dark">{filters.accidentCoverage ? 'Oui, incluse' : 'Non, exclue'}</span>
+                  <span className="text-fennec-brown font-medium">{ui.accidentCoverageLabel}</span>
+                  <span className="font-bold text-fennec-dark">{filters.accidentCoverage ? ui.accidentIncludedLabel : ui.accidentExcludedLabel}</span>
                 </div>
                 <div className="flex justify-between p-2.5 bg-fennec-cream/10 rounded-xl">
-                  <span className="text-fennec-brown font-medium">Complémentaires :</span>
+                  <span className="text-fennec-brown font-medium">{ui.supplementaryLabel}</span>
                   <span className="font-bold text-fennec-dark">
                     {!filters.supplementaryType || filters.supplementaryType === 'none'
-                      ? "Assurance de base uniquement"
-                      : filters.supplementaryType === 'essential' ? 'ESSENTIELLE'
-                      : filters.supplementaryType === 'confort' ? 'CONFORT'
-                      : 'PREMIUM'}
+                      ? ui.basicInsuranceOnlyLabel
+                      : filters.supplementaryType === 'essential' ? ui.supEssentialLabel
+                      : filters.supplementaryType === 'confort' ? ui.supConfortLabel
+                      : ui.supPremiumLabel}
                   </span>
                 </div>
               </div>
@@ -3017,7 +3137,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                   onClick={() => setShowFiltersInline(!showFiltersInline)}
                   className="w-full text-xs font-bold text-fennec-brown/80 hover:text-fennec-dark flex items-center justify-center p-2 rounded-xl border border-fennec-cream/50 bg-fennec-cream/5 transition-all"
                 >
-                  <span>{showFiltersInline ? 'Masquer les ajustements' : 'Ajuster les filtres directement'}</span>
+                  <span>{showFiltersInline ? ui.hideAdjustmentsLabel : ui.adjustFiltersLabel}</span>
                 </button>
               </div>
 

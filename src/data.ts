@@ -207,6 +207,7 @@ export const TESTIMONIALS: Testimonial[] = [
     date: 'Juin 2026',
     text: 'Grâce aux conseils avisés de Fenny, j\'ai ajusté ma franchise à CHF 2\'500 et choisi un modèle médecin de famille chez un assureur partenaire. Économie nette : CHF 180 par mois !',
     product: 'Assurance Maladie',
+    productCategory: 'health',
   },
   {
     id: 't2',
@@ -216,6 +217,7 @@ export const TESTIMONIALS: Testimonial[] = [
     date: 'Mai 2026',
     text: 'Le comparateur de 3e pilier m\'a permis de comprendre enfin la différence entre 3a et 3b. La souscription a été simple, rapide et sans frais d\'intermédiaire cachés. Très satisfaite.',
     product: 'Prévoyance 3ème Pilier',
+    productCategory: 'life',
   },
   {
     id: 't3',
@@ -225,6 +227,7 @@ export const TESTIMONIALS: Testimonial[] = [
     date: 'Avril 2026',
     text: 'Malin, gratuit et transparent ! Fenny a trié les caisses maladie de mon canton en quelques secondes. Les prestations obligatoires étant identiques, j\'ai pris la moins chère sans aucune hésitation.',
     product: 'Assurance Maladie',
+    productCategory: 'health',
   },
 ];
 

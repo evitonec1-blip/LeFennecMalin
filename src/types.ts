@@ -144,4 +144,5 @@ export interface Testimonial {
   date: string;
   text: string;
   product: string;
+  productCategory: 'health' | 'life';
 }

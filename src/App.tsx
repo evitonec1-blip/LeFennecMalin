@@ -72,8 +72,8 @@ export default function App() {
 
   // Partner logos data
   const dataSources = [
-    { name: "priminfo.admin.ch", desc: "Base officielle fédérale" },
-    { name: "OFSP / BAG", desc: "Office Fédéral de la Santé Publique" }
+    { name: "priminfo.admin.ch", desc: t('data_source_priminfo_desc') },
+    { name: "OFSP / BAG", desc: t('data_source_ofsp_desc') }
   ];
 
   const handleCtaClick = (vertical: 'health' | 'life') => {
@@ -293,9 +293,9 @@ export default function App() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {TESTIMONIALS.map((t) => (
+                {TESTIMONIALS.map((item) => (
                   <div 
-                    key={t.id}
+                    key={item.id}
                     onMouseEnter={(e) => {
                       gsap.to(e.currentTarget, {
                         scale: 1.03,
@@ -334,14 +334,14 @@ export default function App() {
                     <div>
                       {/* Rating stars */}
                       <div className="flex text-amber-400 mb-3.5">
-                        {Array.from({ length: t.rating }).map((_, i) => (
+                        {Array.from({ length: item.rating }).map((_, i) => (
                           <span key={i} className="text-sm">★</span>
                         ))}
                       </div>
 
                       {/* Text */}
                       <p className="text-sm text-fennec-dark/80 italic leading-relaxed mb-6">
-                        "{t.text}"
+                        "{t(`testimonial_${item.id}_text` as any, item.text)}"
                       </p>
                     </div>
 
@@ -349,14 +349,14 @@ export default function App() {
                     <div className="pt-4 border-t border-fennec-cream/20 flex justify-between items-center text-xs">
                       <div>
                         <span className="font-display font-bold text-fennec-dark block">
-                          {t.name}
+                          {item.name}
                         </span>
                         <span className="text-fennec-brown font-semibold block">
-                          {t.location}
+                          {item.location}
                         </span>
                       </div>
                       <span className="px-2 py-0.5 bg-fennec-cream text-fennec-dark rounded-full font-bold text-[9px] uppercase">
-                        {t.product}
+                        {t(item.productCategory === 'health' ? 'testimonial_product_health' : 'testimonial_product_life', item.product)}
                       </span>
                     </div>
 

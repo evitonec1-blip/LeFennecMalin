@@ -7,6 +7,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '../i18n/LanguageContext';
 import { Language } from '../i18n/translations';
 import { Globe, ChevronDown, Check } from 'lucide-react';
+import FlagIcon from './FlagIcon';
 
 interface LanguageSelectorProps {
   variant?: 'header' | 'mobile' | 'footer';
@@ -56,7 +57,7 @@ export default function LanguageSelector({ variant = 'header', className = '' }:
                 }`}
               >
                 <div className="flex items-center space-x-2">
-                  <span className="text-base leading-none">{item.flag}</span>
+                  <FlagIcon code={item.code} className="w-4 h-4" />
                   <span>{item.nativeName}</span>
                 </div>
                 {isSelected && <Check className="w-3.5 h-3.5 text-white" />}
@@ -79,8 +80,7 @@ export default function LanguageSelector({ variant = 'header', className = '' }:
           aria-expanded={isOpen}
         >
           <Globe className="w-3.5 h-3.5 text-fennec-tan" />
-          <span className="text-sm">{currentLanguageInfo.flag}</span>
-          <span className="uppercase tracking-wider font-bold">{currentLanguageInfo.shortLabel}</span>
+          <FlagIcon code={currentLanguageInfo.code} className="w-4 h-4" />
           <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
         </button>
 
@@ -103,7 +103,7 @@ export default function LanguageSelector({ variant = 'header', className = '' }:
                   }`}
                 >
                   <div className="flex items-center space-x-2.5">
-                    <span className="text-base leading-none">{item.flag}</span>
+                    <FlagIcon code={item.code} className="w-4 h-4" />
                     <span className="font-medium">{item.nativeName}</span>
                   </div>
                   {isSelected && <Check className="w-3.5 h-3.5 text-fennec-terracotta" />}
@@ -129,10 +129,7 @@ export default function LanguageSelector({ variant = 'header', className = '' }:
         aria-expanded={isOpen}
       >
         <Globe className="w-3.5 h-3.5 text-fennec-terracotta" />
-        <span className="text-base leading-none">{currentLanguageInfo.flag}</span>
-        <span className="uppercase font-extrabold tracking-wider text-fennec-dark text-xs">
-          {currentLanguageInfo.shortLabel}
-        </span>
+        <FlagIcon code={currentLanguageInfo.code} className="w-5 h-5" />
         <ChevronDown className={`w-3 h-3 text-fennec-dark/60 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
@@ -156,7 +153,7 @@ export default function LanguageSelector({ variant = 'header', className = '' }:
                 }`}
               >
                 <div className="flex items-center space-x-2.5">
-                  <span className="text-lg leading-none">{item.flag}</span>
+                  <FlagIcon code={item.code} className="w-5 h-5" />
                   <div className="flex flex-col text-left">
                     <span className="font-semibold text-xs leading-tight">{item.nativeName}</span>
                     <span className="text-[10px] font-normal text-fennec-dark/50">{item.name}</span>

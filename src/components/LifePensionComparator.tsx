@@ -298,6 +298,42 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     embeddedStat2: "Simulation personnalisée de capital à terme",
     embeddedStat3: "Neutre, indépendant & conforme nLPD",
     embeddedBtn: "Lancer la simulation 3ème Pilier",
+    analyzingTitle: "Analyse fiscale & prévoyance...",
+    analyzingDesc: "Fenny évalue votre profil de prévoyance et calcule votre gain fiscal potentiel en comparant les offres de",
+    pillar3Label: "Pilier 3a / 3b",
+    analyzingDescEnd: " des principaux assureurs suisses.",
+    companiesAnalyzedLabel: "Compagnies d'assurance analysées :",
+    fennyAdvisesLabel: "Fenny conseille",
+    quitBtn: "Quitter",
+    questionOfLabel: "Question {n} sur 9",
+    actionLabel: "Action 9/9",
+    completedLabel: "% complété",
+    cantonZH: "Zurich (ZH)", cantonGE: "Genève (GE)", cantonVD: "Vaud (VD)", cantonBE: "Berne (BE)",
+    cantonFR: "Fribourg (FR)", cantonNE: "Neuchâtel (NE)", cantonVS: "Valais (VS)", cantonJU: "Jura (JU)",
+    cantonAG: "Argovie (AG)", cantonBS: "Bâle-Ville (BS)", cantonBL: "Bâle-Campagne (BL)", cantonSG: "Saint-Gall (SG)",
+    cantonTI: "Tessin (TI)", cantonLU: "Lucerne (LU)",
+    employmentTooltipTitle: "Impact sur le 3e Pilier :",
+    employmentTooltipSalaried: "Salarié (avec LPP) :",
+    employmentTooltipSalariedDesc: "Plafond de cotisation annuel maximal fixé à {amount} (en 2026).",
+    employmentTooltipIndependent: "Indépendant (sans LPP) :",
+    employmentTooltipIndependentDesc: "Déduction jusqu'à 20% du gain d'exploitation net, max {amount}.",
+    employmentTooltipUnemployed: "Sans activité :",
+    employmentTooltipUnemployedDesc: "Pas de réduction fiscale sur le 3a (lié) mais le 3b reste totalement possible.",
+    taxTooltipTitle: "Progressivité de l'impôt :",
+    taxTooltipDesc1: "En Suisse, le taux d'imposition augmente de façon progressive avec vos revenus.",
+    taxTooltipDesc2: "Plus vos revenus sont importants, plus votre économie d'impôt réelle sera élevée en déduisant les cotisations de votre 3e Pilier (souvent entre 22% et 45% de gain fiscal direct !).",
+    lppTooltipTitle: "Caisse de pension (LPP) :",
+    lppTooltipDesc1: "Si vous possédez une caisse de pension par votre employeur ou à titre personnel, votre plafond de cotisation 3a annuel est de {amount}.",
+    lppTooltipDesc2: "Si vous n'en possédez pas (indépendant ou sans activité), vous pouvez verser jusqu'à 20% de votre revenu d'activité lucrative net, max {amount}.",
+    deathCoverageTitle: "Couverture décès complémentaire",
+    deathCoverageDesc: "Versement d'un capital garanti à vos proches en cas de décès.",
+    yesLabel: "Oui",
+    noLabel: "Non",
+    desiredDeathCapitalLabel: "Capital décès souhaité (CHF)",
+    disabilityCoverageTitle: "Couverture en cas d'incapacité de gain / invalidité",
+    monthlyPensionOption: "Rente mensuelle",
+    disabilityNoneOption: "Aucune",
+    desiredMonthlyPensionLabel: "Rente mensuelle souhaitée",
   },
   de: {
     heroTitle: "Säule 3a & Vorsorge Simulator Schweiz",
@@ -459,6 +495,42 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     embeddedStat2: "Personalisierte Endkapital-Simulation",
     embeddedStat3: "Neutral, unabhängig & nDSG-konform",
     embeddedBtn: "Simulation 3. Säule starten",
+    analyzingTitle: "Steuer- und Vorsorgeanalyse...",
+    analyzingDesc: "Fenny bewertet Ihr Vorsorgeprofil und berechnet Ihr steuerliches Sparpotenzial durch den Vergleich der Angebote der",
+    pillar3Label: "Säule 3a / 3b",
+    analyzingDescEnd: " wichtigsten Schweizer Versicherer.",
+    companiesAnalyzedLabel: "Analysierte Versicherungsgesellschaften:",
+    fennyAdvisesLabel: "Fenny empfiehlt",
+    quitBtn: "Beenden",
+    questionOfLabel: "Frage {n} von 9",
+    actionLabel: "Aktion 9/9",
+    completedLabel: "% abgeschlossen",
+    cantonZH: "Zürich (ZH)", cantonGE: "Genf (GE)", cantonVD: "Waadt (VD)", cantonBE: "Bern (BE)",
+    cantonFR: "Freiburg (FR)", cantonNE: "Neuenburg (NE)", cantonVS: "Wallis (VS)", cantonJU: "Jura (JU)",
+    cantonAG: "Aargau (AG)", cantonBS: "Basel-Stadt (BS)", cantonBL: "Basel-Landschaft (BL)", cantonSG: "St. Gallen (SG)",
+    cantonTI: "Tessin (TI)", cantonLU: "Luzern (LU)",
+    employmentTooltipTitle: "Auswirkung auf die 3. Säule:",
+    employmentTooltipSalaried: "Angestellt (mit BVG):",
+    employmentTooltipSalariedDesc: "Maximaler jährlicher Beitragsbetrag auf {amount} festgelegt (2026).",
+    employmentTooltipIndependent: "Selbstständig (ohne BVG):",
+    employmentTooltipIndependentDesc: "Abzug von bis zu 20% des Nettoerwerbseinkommens, max. {amount}.",
+    employmentTooltipUnemployed: "Nicht erwerbstätig:",
+    employmentTooltipUnemployedDesc: "Keine Steuerreduktion bei der gebundenen 3a, die freie 3b bleibt jedoch vollständig möglich.",
+    taxTooltipTitle: "Steuerprogression:",
+    taxTooltipDesc1: "In der Schweiz steigt der Steuersatz progressiv mit Ihrem Einkommen.",
+    taxTooltipDesc2: "Je höher Ihr Einkommen, desto grösser ist Ihre tatsächliche Steuerersparnis durch den Abzug Ihrer Beiträge zur 3. Säule (oft zwischen 22% und 45% direkter Steuergewinn!).",
+    lppTooltipTitle: "Pensionskasse (BVG):",
+    lppTooltipDesc1: "Falls Sie über eine Pensionskasse durch Ihren Arbeitgeber oder privat verfügen, liegt Ihr jährlicher 3a-Beitragsbetrag bei {amount}.",
+    lppTooltipDesc2: "Falls nicht (Selbstständige oder Nichterwerbstätige), können Sie bis zu 20% Ihres Nettoerwerbseinkommens einzahlen, max. {amount}.",
+    deathCoverageTitle: "Zusätzliche Todesfalldeckung",
+    deathCoverageDesc: "Auszahlung eines garantierten Kapitals an Ihre Angehörigen im Todesfall.",
+    yesLabel: "Ja",
+    noLabel: "Nein",
+    desiredDeathCapitalLabel: "Gewünschtes Todesfallkapital (CHF)",
+    disabilityCoverageTitle: "Erwerbsunfähigkeits-/Invaliditätsdeckung",
+    monthlyPensionOption: "Monatliche Rente",
+    disabilityNoneOption: "Keine",
+    desiredMonthlyPensionLabel: "Gewünschte monatliche Rente",
   },
   en: {
     heroTitle: "Swiss Pillar 3a & Pension Simulator",
@@ -620,6 +692,42 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     embeddedStat2: "Personalized capital maturity projection",
     embeddedStat3: "Neutral, independent & nDPA compliant",
     embeddedBtn: "Launch Pillar 3 simulation",
+    analyzingTitle: "Tax & pension analysis...",
+    analyzingDesc: "Fenny is assessing your pension profile and calculating your potential tax savings by comparing",
+    pillar3Label: "Pillar 3a / 3b",
+    analyzingDescEnd: " offers from major Swiss insurers.",
+    companiesAnalyzedLabel: "Insurance companies analyzed:",
+    fennyAdvisesLabel: "Fenny recommends",
+    quitBtn: "Exit",
+    questionOfLabel: "Question {n} of 9",
+    actionLabel: "Action 9/9",
+    completedLabel: "% complete",
+    cantonZH: "Zurich (ZH)", cantonGE: "Geneva (GE)", cantonVD: "Vaud (VD)", cantonBE: "Bern (BE)",
+    cantonFR: "Fribourg (FR)", cantonNE: "Neuchâtel (NE)", cantonVS: "Valais (VS)", cantonJU: "Jura (JU)",
+    cantonAG: "Aargau (AG)", cantonBS: "Basel-Stadt (BS)", cantonBL: "Basel-Landschaft (BL)", cantonSG: "St. Gallen (SG)",
+    cantonTI: "Ticino (TI)", cantonLU: "Lucerne (LU)",
+    employmentTooltipTitle: "Impact on the 3rd Pillar:",
+    employmentTooltipSalaried: "Employed (with LPP):",
+    employmentTooltipSalariedDesc: "Maximum annual contribution cap set at {amount} (in 2026).",
+    employmentTooltipIndependent: "Self-employed (without LPP):",
+    employmentTooltipIndependentDesc: "Deduction of up to 20% of net operating income, max {amount}.",
+    employmentTooltipUnemployed: "Not employed:",
+    employmentTooltipUnemployedDesc: "No tax reduction on the tied 3a, but the free 3b remains fully available.",
+    taxTooltipTitle: "Tax progression:",
+    taxTooltipDesc1: "In Switzerland, the tax rate increases progressively with your income.",
+    taxTooltipDesc2: "The higher your income, the greater your real tax savings from deducting your 3rd Pillar contributions (often between 22% and 45% direct tax gain!).",
+    lppTooltipTitle: "Pension fund (LPP):",
+    lppTooltipDesc1: "If you have a pension fund through your employer or on a private basis, your annual 3a contribution cap is {amount}.",
+    lppTooltipDesc2: "If you don't (self-employed or not employed), you can contribute up to 20% of your net earned income, max {amount}.",
+    deathCoverageTitle: "Supplementary death coverage",
+    deathCoverageDesc: "Payment of a guaranteed capital to your loved ones in the event of death.",
+    yesLabel: "Yes",
+    noLabel: "No",
+    desiredDeathCapitalLabel: "Desired death benefit capital (CHF)",
+    disabilityCoverageTitle: "Disability / incapacity coverage",
+    monthlyPensionOption: "Monthly pension",
+    disabilityNoneOption: "None",
+    desiredMonthlyPensionLabel: "Desired monthly pension",
   },
   it: {
     heroTitle: "Simulatore 3° Pilastro e Previdenza Svizzera",
@@ -781,6 +889,42 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     embeddedStat2: "Simulazione personalizzata del capitale a scadenza",
     embeddedStat3: "Neutro, indipendente e conforme alla nLPD",
     embeddedBtn: "Avvia la simulazione 3° Pilastro",
+    analyzingTitle: "Analisi fiscale e previdenziale...",
+    analyzingDesc: "Fenny valuta il tuo profilo previdenziale e calcola il tuo potenziale risparmio fiscale confrontando le offerte di",
+    pillar3Label: "Pilastro 3a / 3b",
+    analyzingDescEnd: " dei principali assicuratori svizzeri.",
+    companiesAnalyzedLabel: "Compagnie assicurative analizzate:",
+    fennyAdvisesLabel: "Fenny consiglia",
+    quitBtn: "Esci",
+    questionOfLabel: "Domanda {n} di 9",
+    actionLabel: "Azione 9/9",
+    completedLabel: "% completato",
+    cantonZH: "Zurigo (ZH)", cantonGE: "Ginevra (GE)", cantonVD: "Vaud (VD)", cantonBE: "Berna (BE)",
+    cantonFR: "Friburgo (FR)", cantonNE: "Neuchâtel (NE)", cantonVS: "Vallese (VS)", cantonJU: "Giura (JU)",
+    cantonAG: "Argovia (AG)", cantonBS: "Basilea Città (BS)", cantonBL: "Basilea Campagna (BL)", cantonSG: "San Gallo (SG)",
+    cantonTI: "Ticino (TI)", cantonLU: "Lucerna (LU)",
+    employmentTooltipTitle: "Impatto sul 3° pilastro:",
+    employmentTooltipSalaried: "Dipendente (con LPP):",
+    employmentTooltipSalariedDesc: "Massimale annuo di contribuzione fissato a {amount} (nel 2026).",
+    employmentTooltipIndependent: "Indipendente (senza LPP):",
+    employmentTooltipIndependentDesc: "Deduzione fino al 20% del reddito netto d'esercizio, max {amount}.",
+    employmentTooltipUnemployed: "Senza attività:",
+    employmentTooltipUnemployedDesc: "Nessuna riduzione fiscale sul 3a vincolato, ma il 3b resta pienamente possibile.",
+    taxTooltipTitle: "Progressività dell'imposta:",
+    taxTooltipDesc1: "In Svizzera, l'aliquota fiscale aumenta progressivamente con il reddito.",
+    taxTooltipDesc2: "Più alto è il reddito, maggiore sarà il risparmio fiscale reale deducendo i contributi al 3° pilastro (spesso tra il 22% e il 45% di guadagno fiscale diretto!).",
+    lppTooltipTitle: "Cassa pensione (LPP):",
+    lppTooltipDesc1: "Se disponi di una cassa pensione tramite il datore di lavoro o a titolo privato, il tuo massimale annuo 3a è di {amount}.",
+    lppTooltipDesc2: "Se non ne disponi (indipendente o senza attività), puoi versare fino al 20% del tuo reddito netto da lavoro, max {amount}.",
+    deathCoverageTitle: "Copertura decesso complementare",
+    deathCoverageDesc: "Versamento di un capitale garantito ai tuoi cari in caso di decesso.",
+    yesLabel: "Sì",
+    noLabel: "No",
+    desiredDeathCapitalLabel: "Capitale decesso desiderato (CHF)",
+    disabilityCoverageTitle: "Copertura in caso di incapacità di guadagno / invalidità",
+    monthlyPensionOption: "Rendita mensile",
+    disabilityNoneOption: "Nessuna",
+    desiredMonthlyPensionLabel: "Rendita mensile desiderata",
   }
 };
 
@@ -1363,13 +1507,13 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                 }`}
               >
                 <ChevronLeft className="w-4 h-4 mr-1" />
-                <span>Retour</span>
+                <span>{ui.backBtn}</span>
               </button>
 
               <div className="flex-1 max-w-md mx-6 text-center space-y-1.5">
                 <div className="flex justify-between items-center text-[10px] text-fennec-brown font-black uppercase tracking-widest">
-                  <span>{currentStep >= 9 ? "Action 9/9" : `Question ${currentStep} sur 9`}</span>
-                  <span>{Math.min(100, Math.round((currentStep / 9) * 100))}% complété</span>
+                  <span>{currentStep >= 9 ? ui.actionLabel : ui.questionOfLabel.replace('{n}', String(currentStep))}</span>
+                  <span>{Math.min(100, Math.round((currentStep / 9) * 100))}{ui.completedLabel}</span>
                 </div>
                 <div className="h-1.5 w-full bg-fennec-cream/40 rounded-full overflow-hidden relative">
                   <div 
@@ -1387,7 +1531,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                 className="flex items-center text-xs font-bold font-display px-3.5 py-2 rounded-full border border-fennec-cream/60 text-fennec-dark hover:bg-fennec-cream/15 transition-all disabled:opacity-50"
               >
                 <X className="w-4 h-4 mr-1" />
-                <span className="hidden sm:inline">Quitter</span>
+                <span className="hidden sm:inline">{ui.quitBtn}</span>
               </button>
             </header>
 
@@ -1422,17 +1566,17 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                   <div className="space-y-2">
                     <h3 className="font-display font-black text-2xl text-fennec-dark flex items-center justify-center">
                       <Loader2 className="w-6 h-6 mr-2.5 animate-spin text-fennec-terracotta" />
-                      Analyse fiscale & prévoyance...
+                      {ui.analyzingTitle}
                     </h3>
                     <p className="text-sm text-fennec-dark/70 leading-relaxed max-w-lg mx-auto">
-                      Fenny évalue votre profil de prévoyance et calcule votre gain fiscal potentiel en comparant les offres de <strong>Pilier 3a / 3b</strong> des principaux assureurs suisses.
+                      {ui.analyzingDesc} <strong>{ui.pillar3Label}</strong>{ui.analyzingDescEnd}
                     </p>
                   </div>
 
                   {/* Infinite Auto-Scrolling Logo Carousel */}
                   <div className="space-y-2 max-w-xl mx-auto pt-4">
                     <p className="text-[11px] font-black uppercase tracking-wider text-fennec-brown/60 text-center">
-                      Compagnies d'assurance analysées :
+                      {ui.companiesAnalyzedLabel}
                     </p>
                     <div className="relative w-full overflow-hidden py-3 border-y border-fennec-cream/30 bg-white/30 rounded-2xl">
                       {/* Left and right fade gradients */}
@@ -1468,7 +1612,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                       <div className="relative bg-white border border-fennec-cream shadow-sm p-4 rounded-3xl max-w-sm text-left animate-in fade-in slide-in-from-bottom-2 duration-200">
                         <div className="space-y-1">
                           <span className="text-[9px] font-black text-fennec-terracotta uppercase tracking-wider block">
-                            Fenny conseille
+                            {ui.fennyAdvisesLabel}
                           </span>
                           <p className="text-xs text-fennec-dark font-medium leading-relaxed">
                             {fenyAdvice}
@@ -1647,20 +1791,20 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                                     onChange={(e) => handleFilterChange('canton', e.target.value)}
                                     className="w-full px-4 py-2.5 rounded-xl border border-fennec-cream/80 bg-white text-fennec-dark focus:outline-none focus:border-fennec-terracotta font-medium text-sm"
                                   >
-                                    <option value="ZH">Zurich (ZH)</option>
-                                    <option value="GE">Genève (GE)</option>
-                                    <option value="VD">Vaud (VD)</option>
-                                    <option value="BE">Berne (BE)</option>
-                                    <option value="FR">Fribourg (FR)</option>
-                                    <option value="NE">Neuchâtel (NE)</option>
-                                    <option value="VS">Valais (VS)</option>
-                                    <option value="JU">Jura (JU)</option>
-                                    <option value="AG">Argovie (AG)</option>
-                                    <option value="BS">Bâle-Ville (BS)</option>
-                                    <option value="BL">Bâle-Campagne (BL)</option>
-                                    <option value="SG">Saint-Gall (SG)</option>
-                                    <option value="TI">Tessin (TI)</option>
-                                    <option value="LU">Lucerne (LU)</option>
+                                    <option value="ZH">{ui.cantonZH}</option>
+                                    <option value="GE">{ui.cantonGE}</option>
+                                    <option value="VD">{ui.cantonVD}</option>
+                                    <option value="BE">{ui.cantonBE}</option>
+                                    <option value="FR">{ui.cantonFR}</option>
+                                    <option value="NE">{ui.cantonNE}</option>
+                                    <option value="VS">{ui.cantonVS}</option>
+                                    <option value="JU">{ui.cantonJU}</option>
+                                    <option value="AG">{ui.cantonAG}</option>
+                                    <option value="BS">{ui.cantonBS}</option>
+                                    <option value="BL">{ui.cantonBL}</option>
+                                    <option value="SG">{ui.cantonSG}</option>
+                                    <option value="TI">{ui.cantonTI}</option>
+                                    <option value="LU">{ui.cantonLU}</option>
                                   </select>
                                 </div>
                               </div>
@@ -1672,10 +1816,10 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                                     <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">{ui.employmentLabel}</label>
                                     <FormTooltip content={
                                       <div className="space-y-1.5 text-white">
-                                        <p className="font-bold text-fennec-terracotta">Impact sur le 3e Pilier :</p>
-                                        <p>• <strong>Salarié (avec LPP) :</strong> Plafond de cotisation annuel maximal fixé à <strong>CHF 7'258.-</strong> (en 2026).</p>
-                                        <p>• <strong>Indépendant (sans LPP) :</strong> Déduction jusqu'à 20% du gain d'exploitation net, max <strong>CHF 36'288.-</strong>.</p>
-                                        <p>• <strong>Sans activité :</strong> Pas de réduction fiscale sur le 3a (lié) mais le 3b reste totalement possible.</p>
+                                        <p className="font-bold text-fennec-terracotta">{ui.employmentTooltipTitle}</p>
+                                        <p>• <strong>{ui.employmentTooltipSalaried}</strong> {ui.employmentTooltipSalariedDesc.replace('{amount}', "CHF 7'258.-")}</p>
+                                        <p>• <strong>{ui.employmentTooltipIndependent}</strong> {ui.employmentTooltipIndependentDesc.replace('{amount}', "CHF 36'288.-")}</p>
+                                        <p>• <strong>{ui.employmentTooltipUnemployed}</strong> {ui.employmentTooltipUnemployedDesc}</p>
                                       </div>
                                     } />
                                   </div>
@@ -1692,12 +1836,12 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
 
                                 <div className="space-y-1">
                                   <div className="flex items-center space-x-1">
-                                    <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Revenu annuel brut (CHF)</label>
+                                    <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">{ui.incomeLabel}</label>
                                     <FormTooltip content={
                                       <div className="space-y-1.5 text-white">
-                                        <p className="font-bold text-fennec-terracotta font-sans">Progressivité de l'impôt :</p>
-                                        <p>En Suisse, le taux d'imposition augmente de façon progressive avec vos revenus.</p>
-                                        <p>Plus vos revenus sont importants, plus votre économie d'impôt réelle sera élevée en déduisant les cotisations de votre 3e Pilier (souvent entre 22% et 45% de gain fiscal direct !).</p>
+                                        <p className="font-bold text-fennec-terracotta font-sans">{ui.taxTooltipTitle}</p>
+                                        <p>{ui.taxTooltipDesc1}</p>
+                                        <p>{ui.taxTooltipDesc2}</p>
                                       </div>
                                     } />
                                   </div>
@@ -1715,12 +1859,12 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
 
                                 <div className="space-y-1">
                                   <div className="flex items-center space-x-1">
-                                    <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Déjà affilié à un 2ème pilier (LPP) ?</label>
+                                    <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">{ui.hasSecondPillarLabel}</label>
                                     <FormTooltip content={
                                       <div className="space-y-1.5 text-white">
-                                        <p className="font-bold text-fennec-terracotta font-sans">Caisse de pension (LPP) :</p>
-                                        <p>Si vous possédez une caisse de pension par votre employeur ou à titre personnel, votre plafond de cotisation 3a annuel est de <strong>CHF 7'258.-</strong>.</p>
-                                        <p>Si vous n'en possédez pas (indépendant ou sans activité), vous pouvez verser jusqu'à 20% de votre revenu d'activité lucrative net, max <strong>CHF 36'288.-</strong>.</p>
+                                        <p className="font-bold text-fennec-terracotta font-sans">{ui.lppTooltipTitle}</p>
+                                        <p>{ui.lppTooltipDesc1.replace('{amount}', "CHF 7'258.-")}</p>
+                                        <p>{ui.lppTooltipDesc2.replace('{amount}', "CHF 36'288.-")}</p>
                                       </div>
                                     } />
                                   </div>
@@ -1736,7 +1880,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                                             : 'border-fennec-cream/80 text-fennec-dark bg-white hover:bg-fennec-cream/10'
                                         }`}
                                       >
-                                        {val ? 'Oui' : 'Non'}
+                                        {val ? ui.yesLabel : ui.noLabel}
                                       </button>
                                     ))}
                                   </div>
@@ -1806,7 +1950,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                                 animate={{ opacity: 1, y: 0 }}
                                 className="p-4 bg-fennec-cream/25 border border-fennec-cream rounded-2xl space-y-3"
                               >
-                                <span className="text-xs font-bold text-fennec-dark block">Quelle part d'actions visez-vous ?</span>
+                                <span className="text-xs font-bold text-fennec-dark block">{ui.equityPartTitle}</span>
                                 <div className="grid grid-cols-4 gap-2">
                                   {['25%', '50%', '75%', '100%'].map((part) => (
                                     <button
@@ -1842,11 +1986,11 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
                                 <Shield className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  4. Prévoyance & Besoins de couverture
+                                  {ui.step4Title}
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                Déterminez les garanties complémentaires indispensables pour protéger vos bénéficiaires en cas de coup dur.
+                                {ui.step4Subtitle}
                               </p>
                             </div>
 
@@ -1855,8 +1999,8 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                               <div className="p-4 border border-fennec-cream/60 rounded-2xl space-y-3 bg-fennec-cream/5">
                                 <div className="flex justify-between items-center">
                                   <div className="space-y-0.5">
-                                    <span className="text-sm font-bold text-fennec-dark block">Couverture décès complémentaire</span>
-                                    <span className="text-xs text-fennec-dark/60 block">Versement d'un capital garanti à vos proches en cas de décès.</span>
+                                    <span className="text-sm font-bold text-fennec-dark block">{ui.deathCoverageTitle}</span>
+                                    <span className="text-xs text-fennec-dark/60 block">{ui.deathCoverageDesc}</span>
                                   </div>
                                   <div className="flex space-x-1 shrink-0">
                                     {[true, false].map((val) => (
@@ -1870,7 +2014,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                                             : 'bg-white text-fennec-dark border-fennec-cream'
                                         }`}
                                       >
-                                        {val ? 'Oui' : 'Non'}
+                                        {val ? ui.yesLabel : ui.noLabel}
                                       </button>
                                     ))}
                                   </div>
@@ -1882,7 +2026,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                                     animate={{ opacity: 1, height: 'auto' }}
                                     className="pt-2 border-t border-fennec-cream/40"
                                   >
-                                    <label className="text-[10px] font-black uppercase text-fennec-brown block mb-1">Capital décès souhaité (CHF)</label>
+                                    <label className="text-[10px] font-black uppercase text-fennec-brown block mb-1">{ui.deathCapitalLabel}</label>
                                     <input 
                                       type="range"
                                       min="20000"
@@ -1903,11 +2047,11 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
 
                               {/* Disability Coverage */}
                               <div className="p-4 border border-fennec-cream/60 rounded-2xl space-y-2 bg-fennec-cream/5">
-                                <span className="text-sm font-bold text-fennec-dark block">Couverture en cas d'incapacité de gain / invalidité</span>
+                                <span className="text-sm font-bold text-fennec-dark block">{ui.disabilityCoverageTitle}</span>
                                 <div className="grid grid-cols-2 gap-2">
                                   {[
-                                    { id: 'monthly-pension', label: 'Rente mensuelle' },
-                                    { id: 'none', label: 'Aucune' },
+                                    { id: 'monthly-pension', label: ui.monthlyPensionOption },
+                                    { id: 'none', label: ui.disabilityNoneOption },
                                   ].map((opt) => (
                                     <button
                                       key={opt.id}
@@ -1930,7 +2074,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                                     animate={{ opacity: 1, height: 'auto' }}
                                     className="pt-3 border-t border-fennec-cream/40 mt-3"
                                   >
-                                    <label className="text-[10px] font-black uppercase text-fennec-brown block mb-1">Rente mensuelle souhaitée</label>
+                                    <label className="text-[10px] font-black uppercase text-fennec-brown block mb-1">{ui.desiredMonthlyPensionLabel}</label>
                                     <input 
                                       type="range"
                                       min="500"
@@ -2225,7 +2369,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                                           : 'bg-white text-fennec-dark border-fennec-cream'
                                       }`}
                                     >
-                                      {val ? 'Oui' : 'Non'}
+                                      {val ? ui.yesLabel : ui.noLabel}
                                     </button>
                                   ))}
                                 </div>
