@@ -30,11 +30,12 @@ export default function FlagIcon({ code, className = 'w-5 h-5' }: FlagIconProps)
         </svg>
       );
     case 'de':
+     
       return (
         <svg viewBox="0 0 36 36" className={cls} aria-hidden="true">
-          <circle cx="18" cy="18" r="18" fill="#FFCE00" />
+          <circle cx="18" cy="18" r="18" fill="#DD0000" />
           <path d="M0 12h36v-.03A18 18 0 0 0 18 0 18 18 0 0 0 0 11.97Z" fill="#000" />
-          <path d="M0 24h36a18 18 0 0 1-36 0Z" fill="#DD0000" />
+          <path d="M0 24h36a18 18 0 0 1-36 0Z" fill="#FFCE00" />
         </svg>
       );
     case 'en':
