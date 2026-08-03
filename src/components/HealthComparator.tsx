@@ -3534,11 +3534,13 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                             <h4 className="font-display font-bold text-lg text-fennec-dark flex items-center">
                               {caisse.name}
                             </h4>
-                            {caisse.modelType && (
-                              <span className="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-fennec-tan/30 text-fennec-dark border border-fennec-tan/50">
-                                {caisse.modelType === 'telemed' ? 'Télémédecine' : caisse.modelType === 'hmo' ? 'HMO' : caisse.modelType === 'family' ? 'Médecin de famille' : 'Standard'}
-                              </span>
-                            )}
+                            
+{/* MODIFICATION: Display exact model name (realModelName) matching the offer model shown at bottom */}
+{(caisse.realModelName || caisse.modelType) && (
+  <span className="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-fennec-tan/30 text-fennec-dark border border-fennec-tan/50">
+    {caisse.realModelName || (caisse.modelType === 'telemed' ? 'Télémédecine' : caisse.modelType === 'hmo' ? 'HMO' : caisse.modelType === 'family' ? 'Médecin de famille' : 'Standard')}
+  </span>
+)}
                           </div>
                           <p className="text-xs text-fennec-brown font-medium mt-0.5 line-clamp-1 max-w-xs truncate">
                             {caisse.notes}
