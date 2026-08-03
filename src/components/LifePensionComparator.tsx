@@ -211,6 +211,7 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     bothCommitmentDesc: "Solution hybride",
     investmentHorizonLabel: "Horizon de placement",
     estimatedRetirementYear: "retraite estimée en",
+    yearsUnit: "ans",
     step6Title: "6. Déterminez votre profil de risque boursier",
     step6Subtitle: "Si vous choisissez d'allouer une part d'actions (solutions titres), votre tolérance détermine la volatilité maximale acceptable.",
     temperamentLabel: "Votre tempérament face aux fluctuations",
@@ -274,7 +275,7 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     lastNamePlaceholder: "Ex: Rochat",
     emailLabel: "Adresse E-mail *",
     phoneLabel: "Téléphone Mobile Suisse *",
-    errFillRequired: "Veuillez remplir tous les champs obligatoires.",
+    errFillRequired: "{ui.formErrorMsg}",
     errSendingCode: "Erreur lors de l'envoi du code par e-mail.",
     errContactServer: "Impossible de contacter le serveur de vérification.",
     sendingCodeBtn: "Envoi du code e-mail en cours...",
@@ -299,6 +300,107 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     embeddedStat3: "Neutre, indépendant & conforme nLPD",
     embeddedBtn: "Lancer la simulation 3ème Pilier",
     analyzingTitle: "Analyse fiscale & prévoyance...",
+    restartBtn: "Recommencer",
+    pensionTypeLabel: "{ui.pensionTypeLabel}",
+    pillar3aLinked: "Pilier 3a (Lié)",
+    pillar3bFree: "Pilier 3b (Libre)",
+    mixedShort: "Mixte",
+    monthlyPaymentLabel: "Versement mensuel :",
+    contractDurationLabel: "{ui.contractDurationLabel}",
+    yourProfileLabel: "{ui.yourProfileLabel}",
+    profileYoung: "Jeune actif",
+    profileFamily: "Famille",
+    profileSenior: "Sénior",
+    profileIndependent: "Indépendant",
+    majorPriorityLabel: "{ui.majorPriorityLabel}",
+    priorityTaxSaving: "Baisse d'impôt max",
+    priorityHighYield: "Rendement Actions",
+    priorityGuaranteed: "Capital Garanti 100%",
+    hideAdjustments2: "Masquer les ajustements",
+    adjustSlidersDirectly: "Ajuster les curseurs directement",
+    monthlyPaymentShort: "Versement mensuel",
+    contractDurationShort: "Durée contractuelle",
+    priorityFieldLabel: "Priorité",
+    legalLimits3aLabel: "{ui.legalLimits3aLabel}",
+    salariedCapLabel: "{ui.salariedCapLabel}",
+    independentCapLabel: "{ui.independentCapLabel}",
+    yourSimulationLabel: "Votre simulation",
+    pensionWordShort: "Prévoyance",
+    adjustBtn: "Ajuster",
+    officialWarningTitle: "{ui.officialWarningTitle}",
+    officialWarningDesc: "{ui.officialWarningDesc}",
+    estimatedTaxSavingsCardLabel: "Économie fiscale estimée",
+    totalTaxReductionPrefix: "Équivaut à une réduction fiscale totale d'environ",
+    totalTaxReductionSuffix: "sur la durée.",
+    recommendationLabel: "Recommandation",
+    recoMixed: "Optez pour un modèle mixte Actions/Obligations",
+    recoGuaranteed: "Privilégiez la sécurité du capital garanti",
+    recoTaxSaving: "Maximisez votre 3a lié pour l'avantage fiscal",
+    recoDesc: "{ui.recoDesc}",
+    filterSortLabel: "Filtrer & Trier les offres 3e pilier",
+    insurersAvailableLabel: "assureurs disponibles",
+    allInsurersTab: "Tous les assureurs",
+    maxYieldTab: "Rendement max (Actions)",
+    securityCapitalTab: "Sécurité & Capital",
+    highestGuaranteedBadge: "Capital garanti le plus élevé",
+    hideDetailsBtn: "Masquer les détails",
+    techSheetBtn: "Fiche technique",
+    yourProjectionLabel: "Votre Projection",
+    officialRegulationTitle: "Réglementation Officielle AFC & Dépôt Actuariel 2026",
+    certifiedBadge: "CERTIFIÉ SWISS-ACCURACY • 100% FIABLE",
+    savingsLimitsLabel: "Épargne & Plafonds",
+    desiredAnnualPaymentLabel: "{ui.desiredAnnualPaymentLabel}",
+    legalSwissLimitLabel: "{ui.legalSwissLimitLabel}",
+    eligibleAmountLabel: "{ui.eligibleAmountLabel}",
+    exceedsCapPrefix: "⚠️ Le versement dépasse le plafond suisse 3a (",
+    exceedsCapSuffix: "). La simulation a été ajustée de manière légitime.",
+    capStatusSalaried: "Salarié",
+    capStatusIndependent: "Indépendant",
+    feesAndRiskPremiumsLabel: "Frais & Primes de Risque",
+    netAdminFeesLabel: "{ui.netAdminFeesLabel}",
+    cumulativeAdminFeesLabel: "{ui.cumulativeAdminFeesLabel}",
+    monthlyRiskPremiumsLabel: "{ui.monthlyRiskPremiumsLabel}",
+    netSavingsPortionLabel: "{ui.netSavingsPortionLabel}",
+    taxOptimizationLabel: "Optimisation Fiscale & Retrait",
+    combinedMarginalRateLabel: "Taux marginal combiné",
+    taxSavingsPerYearLabel: "{ui.taxSavingsPerYearLabel}",
+    withdrawalTaxRateLabel: "{ui.withdrawalTaxRateLabel}",
+    taxPaidAtWithdrawalLabel: "{ui.taxPaidAtWithdrawalLabel}",
+    actuarialSolvencyNoteLabel: "Note actuarielle de solvabilité",
+    solvencyNotePrefix: "Calculé sur un rendement boursier moyen retenu de",
+    solvencyNoteMiddle: "brut. Le gain fiscal cumulé sur la période est de",
+    solvencyNoteSuffix: "selon le barème officiel de la Confédération.",
+    netRealCapitalPaidLabel: "Capital Net Réel Versé (Payout)",
+    afterTaxDeductionNote: "Après déduction de l'impôt séparé sur le retrait de capital",
+    complianceRegElementsTitle: "Éléments réglementaires de la Prévoyance Individuelle :",
+    pillar3aRegText: "{ui.pillar3aRegText}",
+    pillar3bRegText: "{ui.pillar3bRegText}",
+    simulationDisclaimer: "{ui.simulationDisclaimer}",
+    studyOfferedLabel: "Étude de Prévoyance Offerte",
+    yourStudyLabel: "Votre étude",
+    summaryProjectionLabel: "Projection récapitulative :",
+    monthlySavingsPrefix: "Épargne mensuelle de",
+    monthlySavingsMiddle1: "sur",
+    monthlySavingsMiddle2: "ans. Capital final estimé (fonds) :",
+    monthlySavingsMiddle3: "chez",
+    monthlySavingsMiddle4: ". Gain fiscal moyen cumulé :",
+    monthlySavingsSuffix: "d'économies d'impôts directes !",
+    activityStatusLabel: "Votre statut d'activité",
+    salariedWithLpp: "Salarié(e) (Avec LPP)",
+    independentWithoutLpp: "Indépendant(e) (Sans LPP)",
+    formErrorMsg: "Veuillez remplir tous les champs obligatoires.",
+    submitBtnLabel: "Demander mon étude gratuite",
+    privacyNoteLabel: "{ui.privacyNoteLabel}",
+    simulationSavedTitle: "Simulation enregistrée !",
+    thankYouPrefix: "Merci",
+    thankYouMiddle: "! Votre simulation fiscale pour le 3ème pilier chez",
+    thankYouSuffix: "a bien été transmise à notre conseiller prévoyance.",
+    followUpPrefix: "Nous allons préparer un comparatif de rendement personnalisé intégrant la déduction d'impôt exacte selon le barème fiscal de votre canton pour",
+    followUpMiddle: ". Nous vous recontacterons au",
+    followUpSuffix: "sous 24 heures.",
+    professionShortSalaried: "salarié",
+    professionShortIndependent: "indépendant",
+    closeWindowBtn: "Fermer la fenêtre",
     analyzingDesc: "Fenny évalue votre profil de prévoyance et calcule votre gain fiscal potentiel en comparant les offres de",
     pillar3Label: "Pilier 3a / 3b",
     analyzingDescEnd: " des principaux assureurs suisses.",
@@ -408,6 +510,7 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     bothCommitmentDesc: "Hybridlösung",
     investmentHorizonLabel: "Anlagehorizont",
     estimatedRetirementYear: "geschätzte Pensionierung im Jahr",
+    yearsUnit: "Jahre",
     step6Title: "6. Bestimmen Sie Ihr Risikoprofil",
     step6Subtitle: "Falls Sie einen Aktienanteil wählen, bestimmt Ihre Toleranz die maximale akzeptable Volatilität.",
     temperamentLabel: "Einstellung zu Schwankungen",
@@ -434,7 +537,7 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     abroadOption: "Ja, da ich die Schweiz verlasse",
     abroadOptionDesc: "Endgültiger Wegzug aus der Schweiz.",
     noneOption: "Nein, kein Vorbezug vor der Pensionierung",
-    noneOptionDesc: "Geld bis zum ordentlichen Rentenalter anlegen.",
+    noneOptionDesc: "Mein Erspartes bis zum gesetzlichen Alter weiter wachsen lassen.",
     withdrawalHorizonTitle: "In welchem Zeithorizont ist der Vorbezug geplant?",
     under5Years: "Unter 5 Jahren",
     from5to10Years: "5 bis 10 Jahre",
@@ -496,6 +599,107 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     embeddedStat3: "Neutral, unabhängig & nDSG-konform",
     embeddedBtn: "Simulation 3. Säule starten",
     analyzingTitle: "Steuer- und Vorsorgeanalyse...",
+    restartBtn: "Neu starten",
+    pensionTypeLabel: "Vorsorgeart:",
+    pillar3aLinked: "Säule 3a (gebunden)",
+    pillar3bFree: "Säule 3b (frei)",
+    mixedShort: "Gemischt",
+    monthlyPaymentLabel: "Monatliche Einzahlung:",
+    contractDurationLabel: "Vertragsdauer:",
+    yourProfileLabel: "Ihr Profil:",
+    profileYoung: "Junger Berufstätiger",
+    profileFamily: "Familie",
+    profileSenior: "Senior",
+    profileIndependent: "Selbstständig",
+    majorPriorityLabel: "Hauptpriorität:",
+    priorityTaxSaving: "Max. Steuerersparnis",
+    priorityHighYield: "Aktienrendite",
+    priorityGuaranteed: "100% garantiertes Kapital",
+    hideAdjustments2: "Anpassungen ausblenden",
+    adjustSlidersDirectly: "Regler direkt anpassen",
+    monthlyPaymentShort: "Monatliche Einzahlung",
+    contractDurationShort: "Vertragsdauer",
+    priorityFieldLabel: "Priorität",
+    legalLimits3aLabel: "Gesetzliche Grenzen Säule 3a:",
+    salariedCapLabel: "Maximalbetrag Angestellte 2026:",
+    independentCapLabel: "Maximalbetrag Selbstständige 2026:",
+    yourSimulationLabel: "Ihre Simulation",
+    pensionWordShort: "Vorsorge",
+    adjustBtn: "Anpassen",
+    officialWarningTitle: "Offizieller Hinweis zur 3. Säule:",
+    officialWarningDesc: "Die Bedingungen der 3. Säule werden manuell aktualisiert und können sich geändert haben — prüfen Sie dies stets beim Anbieter.",
+    estimatedTaxSavingsCardLabel: "Geschätzte Steuerersparnis",
+    totalTaxReductionPrefix: "Entspricht einer geschätzten Gesamtsteuerersparnis von rund",
+    totalTaxReductionSuffix: "über die Laufzeit.",
+    recommendationLabel: "Empfehlung",
+    recoMixed: "Wählen Sie ein gemischtes Aktien-/Obligationenmodell",
+    recoGuaranteed: "Setzen Sie auf die Sicherheit des garantierten Kapitals",
+    recoTaxSaving: "Maximieren Sie Ihre gebundene 3a für den Steuervorteil",
+    recoDesc: "3a-Beiträge sind während der Sparphase von der Vermögenssteuer befreit.",
+    filterSortLabel: "Angebote der 3. Säule filtern & sortieren",
+    insurersAvailableLabel: "verfügbare Versicherer",
+    allInsurersTab: "Alle Versicherer",
+    maxYieldTab: "Max. Rendite (Aktien)",
+    securityCapitalTab: "Sicherheit & Kapital",
+    highestGuaranteedBadge: "Höchstes garantiertes Kapital",
+    hideDetailsBtn: "Details ausblenden",
+    techSheetBtn: "Datenblatt",
+    yourProjectionLabel: "Ihre Projektion",
+    officialRegulationTitle: "Offizielle ESTV-Regulierung & Versicherungstechnischer Bericht 2026",
+    certifiedBadge: "ZERTIFIZIERT SWISS-ACCURACY • 100% ZUVERLÄSSIG",
+    savingsLimitsLabel: "Sparen & Obergrenzen",
+    desiredAnnualPaymentLabel: "Gewünschte Jahreseinzahlung:",
+    legalSwissLimitLabel: "Gesetzliche Schweizer Grenze 2026:",
+    eligibleAmountLabel: "Berücksichtigter Betrag (zulässig):",
+    exceedsCapPrefix: "⚠️ Die Einzahlung überschreitet die Schweizer 3a-Grenze (",
+    exceedsCapSuffix: "). Die Simulation wurde entsprechend angepasst.",
+    capStatusSalaried: "Angestellt",
+    capStatusIndependent: "Selbstständig",
+    feesAndRiskPremiumsLabel: "Gebühren & Risikoprämien",
+    netAdminFeesLabel: "Netto-Verwaltungsgebühren:",
+    cumulativeAdminFeesLabel: "Kumulierte Verwaltungsgebühren:",
+    monthlyRiskPremiumsLabel: "Monatliche Risikoprämien:",
+    netSavingsPortionLabel: "Netto-Sparanteil:",
+    taxOptimizationLabel: "Steueroptimierung & Bezug",
+    combinedMarginalRateLabel: "Kombinierter Grenzsteuersatz",
+    taxSavingsPerYearLabel: "Steuerersparnis pro Jahr:",
+    withdrawalTaxRateLabel: "Steuersatz beim Bezug:",
+    taxPaidAtWithdrawalLabel: "Beim Bezug bezahlte Steuer:",
+    actuarialSolvencyNoteLabel: "Versicherungstechnischer Solvenzhinweis",
+    solvencyNotePrefix: "Berechnet auf Basis einer angenommenen durchschnittlichen Börsenrendite von",
+    solvencyNoteMiddle: "brutto. Die kumulierte Steuerersparnis über den Zeitraum beträgt",
+    solvencyNoteSuffix: "gemäss dem offiziellen Bundestarif.",
+    netRealCapitalPaidLabel: "Effektiv ausbezahltes Nettokapital",
+    afterTaxDeductionNote: "Nach Abzug der separaten Kapitalbezugssteuer",
+    complianceRegElementsTitle: "Regulatorische Elemente der individuellen Vorsorge:",
+    pillar3aRegText: "Die Säule 3a (gebundene Vorsorge) steht Personen mit AHV-pflichtigem Einkommen in der Schweiz offen. Die Beiträge sind bis zu den jährlichen Bundesgrenzen von Ihrem steuerbaren Einkommen abzugsfähig. Kapitalbezüge bei der Pensionierung werden separat von anderen Einkünften zu einem reduzierten Satz besteuert.",
+    pillar3bRegText: "Für die Säule 3b (freie Vorsorge) gilt keine gesetzliche Einzahlungsgrenze, ihre Steuerabzüge unterliegen jedoch anderen kantonalen Regelungen.",
+    simulationDisclaimer: "⚠️ Dies ist eine Simulation mit ungefähren Beträgen. Dieser Vergleichsrechner begründet keine Verpflichtung für Le Fennec Malin oder die genannten Versicherungsgesellschaften.",
+    studyOfferedLabel: "Kostenlose Vorsorgeanalyse",
+    yourStudyLabel: "Ihre Analyse",
+    summaryProjectionLabel: "Zusammenfassende Projektion:",
+    monthlySavingsPrefix: "Monatliches Sparen von",
+    monthlySavingsMiddle1: "über",
+    monthlySavingsMiddle2: "Jahre. Geschätztes Endkapital (Fonds):",
+    monthlySavingsMiddle3: "bei",
+    monthlySavingsMiddle4: ". Durchschnittliche kumulierte Steuerersparnis:",
+    monthlySavingsSuffix: "an direkten Steuereinsparungen!",
+    activityStatusLabel: "Ihr Erwerbsstatus",
+    salariedWithLpp: "Angestellt (mit BVG)",
+    independentWithoutLpp: "Selbstständig (ohne BVG)",
+    formErrorMsg: "Bitte füllen Sie alle Pflichtfelder aus.",
+    submitBtnLabel: "Meine kostenlose Analyse anfordern",
+    privacyNoteLabel: "🔒 Ihre Daten sind vertraulich. Strikte nDSG-Konformität. Keine Verpflichtung.",
+    simulationSavedTitle: "Simulation gespeichert!",
+    thankYouPrefix: "Danke",
+    thankYouMiddle: "! Ihre Steuersimulation für die 3. Säule bei",
+    thankYouSuffix: "wurde erfolgreich an unseren Vorsorgeberater übermittelt.",
+    followUpPrefix: "Wir erstellen einen personalisierten Renditevergleich unter Berücksichtigung des genauen Steuerabzugs gemäss dem Steuertarif Ihres Kantons für",
+    followUpMiddle: ". Wir werden Sie unter",
+    followUpSuffix: "innerhalb von 24 Stunden zurückrufen.",
+    professionShortSalaried: "Angestellte",
+    professionShortIndependent: "Selbstständige",
+    closeWindowBtn: "Fenster schliessen",
     analyzingDesc: "Fenny bewertet Ihr Vorsorgeprofil und berechnet Ihr steuerliches Sparpotenzial durch den Vergleich der Angebote der",
     pillar3Label: "Säule 3a / 3b",
     analyzingDescEnd: " wichtigsten Schweizer Versicherer.",
@@ -605,6 +809,7 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     bothCommitmentDesc: "Hybrid solution",
     investmentHorizonLabel: "Investment Horizon",
     estimatedRetirementYear: "estimated retirement in",
+    yearsUnit: "years",
     step6Title: "6. Determine your risk profile",
     step6Subtitle: "If you allocate an equity share, your tolerance determines maximum acceptable volatility.",
     temperamentLabel: "Attitude toward market fluctuations",
@@ -631,7 +836,7 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     abroadOption: "Yes, because I plan to leave Switzerland",
     abroadOptionDesc: "Permanent departure from Switzerland.",
     noneOption: "No early withdrawal planned before retirement",
-    noneOptionDesc: "Let my savings grow until legal retirement age.",
+    noneOptionDesc: "Let my savings grow until the legal retirement age.",
     withdrawalHorizonTitle: "In what timeframe do you expect this withdrawal?",
     under5Years: "Less than 5 years",
     from5to10Years: "5 to 10 years",
@@ -693,6 +898,107 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     embeddedStat3: "Neutral, independent & nDPA compliant",
     embeddedBtn: "Launch Pillar 3 simulation",
     analyzingTitle: "Tax & pension analysis...",
+    restartBtn: "Restart",
+    pensionTypeLabel: "Pension type:",
+    pillar3aLinked: "Pillar 3a (tied)",
+    pillar3bFree: "Pillar 3b (free)",
+    mixedShort: "Mixed",
+    monthlyPaymentLabel: "Monthly payment:",
+    contractDurationLabel: "Contract duration:",
+    yourProfileLabel: "Your profile:",
+    profileYoung: "Young professional",
+    profileFamily: "Family",
+    profileSenior: "Senior",
+    profileIndependent: "Self-employed",
+    majorPriorityLabel: "Main priority:",
+    priorityTaxSaving: "Max tax savings",
+    priorityHighYield: "Equity returns",
+    priorityGuaranteed: "100% guaranteed capital",
+    hideAdjustments2: "Hide adjustments",
+    adjustSlidersDirectly: "Adjust sliders directly",
+    monthlyPaymentShort: "Monthly payment",
+    contractDurationShort: "Contract duration",
+    priorityFieldLabel: "Priority",
+    legalLimits3aLabel: "3a Legal Limits:",
+    salariedCapLabel: "Employee cap 2026:",
+    independentCapLabel: "Self-employed cap 2026:",
+    yourSimulationLabel: "Your simulation",
+    pensionWordShort: "Pension",
+    adjustBtn: "Adjust",
+    officialWarningTitle: "Official 3rd Pillar Notice:",
+    officialWarningDesc: "3rd pillar conditions are updated manually and may have changed — always verify with the provider.",
+    estimatedTaxSavingsCardLabel: "Estimated tax savings",
+    totalTaxReductionPrefix: "Equivalent to a total estimated tax reduction of about",
+    totalTaxReductionSuffix: "over the term.",
+    recommendationLabel: "Recommendation",
+    recoMixed: "Opt for a mixed equity/bond model",
+    recoGuaranteed: "Favor the security of guaranteed capital",
+    recoTaxSaving: "Maximize your tied 3a for the tax advantage",
+    recoDesc: "3a contributions are exempt from wealth tax during the saving phase.",
+    filterSortLabel: "Filter & sort 3rd pillar offers",
+    insurersAvailableLabel: "insurers available",
+    allInsurersTab: "All insurers",
+    maxYieldTab: "Max yield (Equities)",
+    securityCapitalTab: "Security & Capital",
+    highestGuaranteedBadge: "Highest guaranteed capital",
+    hideDetailsBtn: "Hide details",
+    techSheetBtn: "Data sheet",
+    yourProjectionLabel: "Your Projection",
+    officialRegulationTitle: "Official FTA Regulation & 2026 Actuarial Filing",
+    certifiedBadge: "CERTIFIED SWISS-ACCURACY • 100% RELIABLE",
+    savingsLimitsLabel: "Savings & Caps",
+    desiredAnnualPaymentLabel: "Desired annual payment:",
+    legalSwissLimitLabel: "Legal Swiss limit 2026:",
+    eligibleAmountLabel: "Amount retained (eligible):",
+    exceedsCapPrefix: "⚠️ The payment exceeds the Swiss 3a cap (",
+    exceedsCapSuffix: "). The simulation has been adjusted accordingly.",
+    capStatusSalaried: "Employed",
+    capStatusIndependent: "Self-employed",
+    feesAndRiskPremiumsLabel: "Fees & Risk Premiums",
+    netAdminFeesLabel: "Net administrative fees:",
+    cumulativeAdminFeesLabel: "Cumulative admin fees:",
+    monthlyRiskPremiumsLabel: "Monthly risk premiums:",
+    netSavingsPortionLabel: "Net savings portion:",
+    taxOptimizationLabel: "Tax Optimization & Withdrawal",
+    combinedMarginalRateLabel: "Combined marginal rate",
+    taxSavingsPerYearLabel: "Tax savings per year:",
+    withdrawalTaxRateLabel: "Withdrawal tax rate:",
+    taxPaidAtWithdrawalLabel: "Tax paid on withdrawal:",
+    actuarialSolvencyNoteLabel: "Actuarial solvency note",
+    solvencyNotePrefix: "Calculated using an assumed average market return of",
+    solvencyNoteMiddle: "gross. The cumulative tax gain over the period is",
+    solvencyNoteSuffix: "per the official federal schedule.",
+    netRealCapitalPaidLabel: "Actual Net Capital Paid Out",
+    afterTaxDeductionNote: "After deduction of the separate capital withdrawal tax",
+    complianceRegElementsTitle: "Regulatory Elements of Individual Pension Planning:",
+    pillar3aRegText: "Pillar 3a (tied pension) is reserved for people with AHV-liable income in Switzerland. Contributions are deductible from taxable income up to the annual federal caps. Capital withdrawals at retirement are taxed at a reduced rate, separate from other income.",
+    pillar3bRegText: "Pillar 3b (free pension) has no legal payment cap, but its tax deductions are subject to other cantonal rules.",
+    simulationDisclaimer: "⚠️ This is a simulation with approximate amounts. This comparator does not bind Le Fennec Malin or the insurance companies mentioned.",
+    studyOfferedLabel: "Free Pension Study",
+    yourStudyLabel: "Your study",
+    summaryProjectionLabel: "Summary projection:",
+    monthlySavingsPrefix: "Monthly savings of",
+    monthlySavingsMiddle1: "over",
+    monthlySavingsMiddle2: "years. Estimated final capital (funds):",
+    monthlySavingsMiddle3: "with",
+    monthlySavingsMiddle4: ". Average cumulative tax gain:",
+    monthlySavingsSuffix: "in direct tax savings!",
+    activityStatusLabel: "Your employment status",
+    salariedWithLpp: "Employed (with LPP)",
+    independentWithoutLpp: "Self-employed (without LPP)",
+    formErrorMsg: "Please fill in all required fields.",
+    submitBtnLabel: "Request my free study",
+    privacyNoteLabel: "🔒 Your data is confidential. Strict nDPA compliance. No obligation.",
+    simulationSavedTitle: "Simulation saved!",
+    thankYouPrefix: "Thank you",
+    thankYouMiddle: "! Your tax simulation for the 3rd pillar with",
+    thankYouSuffix: "has been sent to our pension advisor.",
+    followUpPrefix: "We will prepare a personalized return comparison incorporating the exact tax deduction according to your canton's tax schedule for",
+    followUpMiddle: ". We will call you back at",
+    followUpSuffix: "within 24 hours.",
+    professionShortSalaried: "employed",
+    professionShortIndependent: "self-employed",
+    closeWindowBtn: "Close window",
     analyzingDesc: "Fenny is assessing your pension profile and calculating your potential tax savings by comparing",
     pillar3Label: "Pillar 3a / 3b",
     analyzingDescEnd: " offers from major Swiss insurers.",
@@ -802,6 +1108,7 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     bothCommitmentDesc: "Soluzione ibrida",
     investmentHorizonLabel: "Orizzonte di investimento",
     estimatedRetirementYear: "pensione stimata nel",
+    yearsUnit: "anni",
     step6Title: "6. Determina il tuo profilo di rischio",
     step6Subtitle: "Se scegli una quota azionaria, la tua tolleranza definisce la volatilità massima accettabile.",
     temperamentLabel: "Atteggiamento verso le oscillazioni",
@@ -828,7 +1135,7 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     abroadOption: "Sì, perché intendo lasciare la Svizzera",
     abroadOptionDesc: "Partenza definitiva dalla Svizzera.",
     noneOption: "No, nessun prelievo prima della pensione",
-    noneOptionDesc: "Lasciar fruttare il risparmio fino all'età legale.",
+    noneOptionDesc: "Lasciar fruttare i miei risparmi fino all'età legale.",
     withdrawalHorizonTitle: "In quale orizzonte temporale stimi questo prelievo?",
     under5Years: "Meno di 5 anni",
     from5to10Years: "Da 5 a 10 anni",
@@ -890,6 +1197,107 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     embeddedStat3: "Neutro, indipendente e conforme alla nLPD",
     embeddedBtn: "Avvia la simulazione 3° Pilastro",
     analyzingTitle: "Analisi fiscale e previdenziale...",
+    restartBtn: "Ricomincia",
+    pensionTypeLabel: "Tipo di previdenza:",
+    pillar3aLinked: "Pilastro 3a (vincolato)",
+    pillar3bFree: "Pilastro 3b (libero)",
+    mixedShort: "Misto",
+    monthlyPaymentLabel: "Versamento mensile:",
+    contractDurationLabel: "Durata del contratto:",
+    yourProfileLabel: "Il tuo profilo:",
+    profileYoung: "Giovane lavoratore",
+    profileFamily: "Famiglia",
+    profileSenior: "Senior",
+    profileIndependent: "Indipendente",
+    majorPriorityLabel: "Priorità principale:",
+    priorityTaxSaving: "Massimo risparmio fiscale",
+    priorityHighYield: "Rendimento azionario",
+    priorityGuaranteed: "Capitale garantito 100%",
+    hideAdjustments2: "Nascondi le regolazioni",
+    adjustSlidersDirectly: "Regola i cursori direttamente",
+    monthlyPaymentShort: "Versamento mensile",
+    contractDurationShort: "Durata contrattuale",
+    priorityFieldLabel: "Priorità",
+    legalLimits3aLabel: "Limiti legali 3° pilastro:",
+    salariedCapLabel: "Massimale dipendenti 2026:",
+    independentCapLabel: "Massimale indipendenti 2026:",
+    yourSimulationLabel: "La tua simulazione",
+    pensionWordShort: "Previdenza",
+    adjustBtn: "Regola",
+    officialWarningTitle: "Avviso ufficiale 3° pilastro:",
+    officialWarningDesc: "Le condizioni del 3° pilastro vengono aggiornate manualmente e potrebbero essere cambiate — verifica sempre con il fornitore.",
+    estimatedTaxSavingsCardLabel: "Risparmio fiscale stimato",
+    totalTaxReductionPrefix: "Equivale a una riduzione fiscale totale stimata di circa",
+    totalTaxReductionSuffix: "sull'intera durata.",
+    recommendationLabel: "Raccomandazione",
+    recoMixed: "Scegli un modello misto azioni/obbligazioni",
+    recoGuaranteed: "Privilegia la sicurezza del capitale garantito",
+    recoTaxSaving: "Massimizza il tuo 3a vincolato per il vantaggio fiscale",
+    recoDesc: "I contributi del 3a sono esenti dall'imposta sulla sostanza durante la fase di risparmio.",
+    filterSortLabel: "Filtra e ordina le offerte del 3° pilastro",
+    insurersAvailableLabel: "assicuratori disponibili",
+    allInsurersTab: "Tutti gli assicuratori",
+    maxYieldTab: "Rendimento max (Azioni)",
+    securityCapitalTab: "Sicurezza e Capitale",
+    highestGuaranteedBadge: "Capitale garantito più alto",
+    hideDetailsBtn: "Nascondi dettagli",
+    techSheetBtn: "Scheda tecnica",
+    yourProjectionLabel: "La tua proiezione",
+    officialRegulationTitle: "Regolamento ufficiale AFC e deposito attuariale 2026",
+    certifiedBadge: "CERTIFICATO SWISS-ACCURACY • 100% AFFIDABILE",
+    savingsLimitsLabel: "Risparmio e massimali",
+    desiredAnnualPaymentLabel: "Versamento annuo desiderato:",
+    legalSwissLimitLabel: "Limite legale svizzero 2026:",
+    eligibleAmountLabel: "Importo trattenuto (idoneo):",
+    exceedsCapPrefix: "⚠️ Il versamento supera il massimale svizzero 3a (",
+    exceedsCapSuffix: "). La simulazione è stata adeguata di conseguenza.",
+    capStatusSalaried: "Dipendente",
+    capStatusIndependent: "Indipendente",
+    feesAndRiskPremiumsLabel: "Costi e premi di rischio",
+    netAdminFeesLabel: "Costi amministrativi netti:",
+    cumulativeAdminFeesLabel: "Costi amministrativi cumulati:",
+    monthlyRiskPremiumsLabel: "Premi di rischio mensili:",
+    netSavingsPortionLabel: "Quota netta di risparmio:",
+    taxOptimizationLabel: "Ottimizzazione fiscale e prelievo",
+    combinedMarginalRateLabel: "Aliquota marginale combinata",
+    taxSavingsPerYearLabel: "Risparmio fiscale annuo:",
+    withdrawalTaxRateLabel: "Aliquota d'imposta sul prelievo:",
+    taxPaidAtWithdrawalLabel: "Imposta pagata al versamento:",
+    actuarialSolvencyNoteLabel: "Nota attuariale di solvibilità",
+    solvencyNotePrefix: "Calcolato su un rendimento di borsa medio stimato del",
+    solvencyNoteMiddle: "lordo. Il risparmio fiscale cumulato nel periodo è di",
+    solvencyNoteSuffix: "secondo la tabella ufficiale della Confederazione.",
+    netRealCapitalPaidLabel: "Capitale netto reale versato",
+    afterTaxDeductionNote: "Dopo la deduzione dell'imposta separata sul prelievo di capitale",
+    complianceRegElementsTitle: "Elementi normativi della previdenza individuale:",
+    pillar3aRegText: "Il pilastro 3a (previdenza vincolata) è riservato alle persone con reddito soggetto all'AVS in Svizzera. I contributi sono deducibili dal reddito imponibile fino ai massimali federali annuali. I prelievi di capitale al pensionamento sono tassati a un'aliquota ridotta, separatamente dagli altri redditi.",
+    pillar3bRegText: "Il pilastro 3b (previdenza libera) non ha un massimale legale di versamento, ma le sue deduzioni fiscali sono soggette ad altre normative cantonali.",
+    simulationDisclaimer: "⚠️ Si tratta di una simulazione con importi approssimativi. Questo comparatore non impegna Le Fennec Malin né le compagnie assicurative citate.",
+    studyOfferedLabel: "Studio previdenziale gratuito",
+    yourStudyLabel: "Il tuo studio",
+    summaryProjectionLabel: "Proiezione riassuntiva:",
+    monthlySavingsPrefix: "Risparmio mensile di",
+    monthlySavingsMiddle1: "per",
+    monthlySavingsMiddle2: "anni. Capitale finale stimato (fondi):",
+    monthlySavingsMiddle3: "presso",
+    monthlySavingsMiddle4: ". Risparmio fiscale medio cumulato:",
+    monthlySavingsSuffix: "di risparmio fiscale diretto!",
+    activityStatusLabel: "Il tuo stato occupazionale",
+    salariedWithLpp: "Dipendente (con LPP)",
+    independentWithoutLpp: "Indipendente (senza LPP)",
+    formErrorMsg: "Compila tutti i campi obbligatori.",
+    submitBtnLabel: "Richiedi il mio studio gratuito",
+    privacyNoteLabel: "🔒 I tuoi dati sono riservati. Rigorosa conformità nLPD. Nessun impegno.",
+    simulationSavedTitle: "Simulazione salvata!",
+    thankYouPrefix: "Grazie",
+    thankYouMiddle: "! La tua simulazione fiscale per il 3° pilastro presso",
+    thankYouSuffix: "è stata trasmessa al nostro consulente previdenziale.",
+    followUpPrefix: "Prepareremo un confronto di rendimento personalizzato che integra la deduzione fiscale esatta secondo la tabella fiscale del tuo cantone per",
+    followUpMiddle: ". Ti ricontatteremo al",
+    followUpSuffix: "entro 24 ore.",
+    professionShortSalaried: "dipendente",
+    professionShortIndependent: "indipendente",
+    closeWindowBtn: "Chiudi finestra",
     analyzingDesc: "Fenny valuta il tuo profilo previdenziale e calcola il tuo potenziale risparmio fiscale confrontando le offerte di",
     pillar3Label: "Pilastro 3a / 3b",
     analyzingDescEnd: " dei principali assicuratori svizzeri.",
@@ -1904,19 +2312,19 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
                                 <TrendingUp className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  3. Quel type de produit souhaitez-vous ?
+                                  {ui.step3Title}
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                Les solutions bancaires privilégient la flexibilité pure, tandis que les assurances combinent couverture décès-invalidité et épargne forcée.
+                                {ui.step3Subtitle}
                               </p>
                             </div>
 
                             <div className="grid grid-cols-1 gap-3">
                               {[
-                                { id: 'pure-savings', label: 'Épargne pure', desc: 'Pas de risque boursier, capital garanti.', icon: PiggyBank },
-                                { id: 'equity-savings', label: 'Épargne en titres (Fonds / ETF)', desc: 'Placement boursier pour dynamiser le rendement sur le long terme.', icon: TrendingUp },
-                                { id: 'mixed', label: 'Formule Mixte (Fonds + Assurance)', desc: 'Combinaison flexible d\'un capital garanti et d\'un investissement actions.', icon: Sparkles },
+                                { id: 'pure-savings', label: ui.pureSavings, desc: ui.pureSavingsDesc, icon: PiggyBank },
+                                { id: 'equity-savings', label: ui.equitySavings, desc: ui.equitySavingsDesc, icon: TrendingUp },
+                                { id: 'mixed', label: ui.mixedProduct, desc: ui.mixedProductDesc, icon: Sparkles },
                               ].map((p) => {
                                 const isSelected = filters.productType === p.id;
                                 const IconComponent = p.icon;
@@ -2097,8 +2505,8 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div className="p-3 border border-fennec-cream/60 rounded-xl flex justify-between items-center">
                                   <div className="space-y-0.5">
-                                    <span className="text-xs font-bold text-fennec-dark block">Libération des primes</span>
-                                    <span className="text-[10px] text-fennec-dark/60 block">L'assureur paie à votre place en cas d'invalidité.</span>
+                                    <span className="text-xs font-bold text-fennec-dark block">{ui.premiumExemptionTitle}</span>
+                                    <span className="text-[10px] text-fennec-dark/60 block">{ui.premiumExemptionDesc}</span>
                                   </div>
                                   <input 
                                     type="checkbox"
@@ -2110,8 +2518,8 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
 
                                 <div className="p-3 border border-fennec-cream/60 rounded-xl flex justify-between items-center">
                                   <div className="space-y-0.5">
-                                    <span className="text-xs font-bold text-fennec-dark block">Personnes à charge</span>
-                                    <span className="text-[10px] text-fennec-dark/60 block">Conjoint ou enfants à charge légale.</span>
+                                    <span className="text-xs font-bold text-fennec-dark block">{ui.dependentsTitle}</span>
+                                    <span className="text-[10px] text-fennec-dark/60 block">{ui.dependentsDesc}</span>
                                   </div>
                                   <input 
                                     type="checkbox"
@@ -2139,22 +2547,22 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
                                 <PiggyBank className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  5. Déterminez votre capacité d'épargne
+                                  {ui.step5Title}
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                Définissez la fréquence, le montant à épargner et la durée souhaitée. Vous pouvez modifier ces valeurs à tout moment.
+                                {ui.step5Subtitle}
                               </p>
                             </div>
 
                             <div className="space-y-4">
                               {/* Frequency selector */}
                               <div className="flex items-center justify-between">
-                                <span className="text-xs font-black uppercase text-fennec-brown tracking-wider">Fréquence de versement</span>
+                                <span className="text-xs font-black uppercase text-fennec-brown tracking-wider">{ui.frequencyLabel}</span>
                                 <div className="flex bg-fennec-cream/45 p-1 rounded-xl">
                                   {[
-                                    { id: 'monthly', label: 'Mensuel' },
-                                    { id: 'yearly', label: 'Annuel' },
+                                    { id: 'monthly', label: ui.monthly },
+                                    { id: 'yearly', label: ui.yearly },
                                   ].map((f) => (
                                     <button
                                       key={f.id}
@@ -2201,12 +2609,12 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                                 return (
                                   <>
                                     <div className="bg-fennec-cream/10 border-2 border-fennec-cream/60 rounded-2xl p-5 text-center">
-                                      <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Versement estimé</span>
+                                      <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">{ui.estimatedSaving}</span>
                                       <span className="font-display text-3xl font-black text-fennec-terracotta block">
-                                        CHF {currentSavingAmount.toLocaleString()}.- <span className="text-sm font-bold text-fennec-dark/60">/ {isYearly ? 'an' : 'mois'}</span>
+                                        CHF {currentSavingAmount.toLocaleString()}.- <span className="text-sm font-bold text-fennec-dark/60">{isYearly ? ui.perYear : ui.perMonth}</span>
                                       </span>
                                       <span className="text-xs text-emerald-700 font-bold block bg-emerald-50 max-w-max mx-auto px-2.5 py-0.5 rounded-full mt-1.5">
-                                        Gain fiscal estimé : ~CHF {Math.round((isYearly ? currentSavingAmount : currentSavingAmount * 12) * 0.22).toLocaleString()}.- / an
+                                        {ui.estimatedTaxSavings} {Math.round((isYearly ? currentSavingAmount : currentSavingAmount * 12) * 0.22).toLocaleString()}.- {ui.perYear}
                                       </span>
                                     </div>
 
@@ -2224,7 +2632,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                                       <div className="flex justify-between text-[10px] font-mono text-fennec-brown/60">
                                         <span>CHF {minAmount.toLocaleString()}.-</span>
                                         <span className="font-bold text-fennec-terracotta">Max: CHF {maxAmount.toLocaleString()}.-</span>
-                                        <span>CHF {maxAmount.toLocaleString()}.- / {isYearly ? 'an' : 'mois'}</span>
+                                        <span>CHF {maxAmount.toLocaleString()}.- {isYearly ? ui.perYear : ui.perMonth}</span>
                                       </div>
                                     </div>
                                   </>
@@ -2233,11 +2641,11 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
 
                               {/* Commitment preference */}
                               <div className="space-y-1.5">
-                                <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Niveau d'engagement contractuel</label>
+                                <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">{ui.commitmentLabel}</label>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                   {[
-                                    { id: 'fixed', label: 'Fixe régulier', desc: 'Prévoyance assurée' },
-                                    { id: 'both', label: 'Les deux', desc: 'Solution hybride' },
+                                    { id: 'fixed', label: ui.fixedRegular, desc: ui.fixedRegularDesc },
+                                    { id: 'both', label: ui.bothCommitment, desc: ui.bothCommitmentDesc },
                                   ].map((c) => (
                                     <button
                                       key={c.id}
@@ -2259,8 +2667,8 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                               {/* Investment Horizon */}
                               <div className="space-y-1">
                                 <div className="flex justify-between items-baseline">
-                                  <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Horizon de placement</label>
-                                  <span className="text-xs font-black text-fennec-terracotta">{filters.investmentHorizon || 25} ans (retraite estimée en {2026 + (filters.investmentHorizon || 25)})</span>
+                                  <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">{ui.investmentHorizonLabel}</label>
+                                  <span className="text-xs font-black text-fennec-terracotta">{filters.investmentHorizon || 25} {ui.yearsUnit} ({ui.estimatedRetirementYear} {2026 + (filters.investmentHorizon || 25)})</span>
                                 </div>
                                 <input 
                                   type="range"
@@ -2290,24 +2698,24 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
                                 <Award className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  6. Déterminez votre profil de risque boursier
+                                  {ui.step6Title}
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                Si vous choisissez d'allouer une part d'actions (solutions titres), votre tolérance détermine la volatilité maximale acceptable.
+                                {ui.step6Subtitle}
                               </p>
                             </div>
 
                             <div className="space-y-4">
                               {/* Risk tolerance select */}
                               <div className="space-y-1.5">
-                                <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Votre tempérament face aux fluctuations</span>
+                                <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">{ui.temperamentLabel}</span>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                   {[
-                                    { id: 'prudent', label: 'Prudent (0-25% actions)', desc: 'Recherche de sécurité, gains modestes.' },
-                                    { id: 'balanced', label: 'Équilibré (25-50% actions)', desc: 'Compromis parfait entre croissance et stabilité.' },
-                                    { id: 'dynamic', label: 'Dynamique (50-75% actions)', desc: 'Prêt à accepter des hausses et baisses modérées.' },
-                                    { id: 'offensive', label: 'Offensif (100% actions)', desc: 'Volatilité maximale acceptée pour un rendement ultime.' },
+                                    { id: 'prudent', label: ui.prudent, desc: ui.prudentDesc },
+                                    { id: 'balanced', label: ui.balanced, desc: ui.balancedDesc },
+                                    { id: 'dynamic', label: ui.dynamic, desc: ui.dynamicDesc },
+                                    { id: 'offensive', label: ui.offensive, desc: ui.offensiveDesc },
                                   ].map((r) => (
                                     <button
                                       key={r.id}
@@ -2328,12 +2736,12 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
 
                               {/* Reaction to drop */}
                               <div className="p-4 border border-fennec-cream rounded-2xl space-y-2 bg-fennec-cream/5">
-                                <span className="text-xs font-bold text-fennec-dark block">Si les marchés chutent de 20% en quelques mois :</span>
+                                <span className="text-xs font-bold text-fennec-dark block">{ui.marketDropTitle}</span>
                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                                   {[
-                                    { id: 'sell', label: 'Je vends tout par peur' },
-                                    { id: 'hold', label: 'Je patiente sagement' },
-                                    { id: 'buy', label: 'J\'en profite pour réinvestir' },
+                                    { id: 'sell', label: ui.sellAll },
+                                    { id: 'hold', label: ui.holdWise },
+                                    { id: 'buy', label: ui.buyMore },
                                   ].map((opt) => (
                                     <button
                                       key={opt.id}
@@ -2354,8 +2762,8 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                               {/* ESG selection */}
                               <div className="p-3 border border-fennec-cream/60 rounded-xl flex justify-between items-center">
                                 <div className="space-y-0.5">
-                                  <span className="text-xs font-bold text-fennec-dark block">Fonds durables / Critères ESG uniquement</span>
-                                  <span className="text-[10px] text-fennec-dark/65 block">Exclure l'armement, le charbon, etc. et privilégier l'éco-responsable.</span>
+                                  <span className="text-xs font-bold text-fennec-dark block">{ui.esgTitle}</span>
+                                  <span className="text-[10px] text-fennec-dark/65 block">{ui.esgDesc}</span>
                                 </div>
                                 <div className="flex space-x-1 shrink-0">
                                   {[true, false].map((val) => (
@@ -2392,21 +2800,21 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
                                 <TrendingUp className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  7. Envisagez-vous un retrait anticipé du capital ?
+                                  {ui.step7Title}
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                En Suisse, la loi autorise le retrait anticipé du Pilier 3a dans des cas bien précis. L'indiquer permet de calibrer la durée d'engagement optimale.
+                                {ui.step7Subtitle}
                               </p>
                             </div>
 
                             <div className="space-y-4">
                               <div className="grid grid-cols-1 gap-2">
                                 {[
-                                  { id: 'residence', label: 'Oui, pour l\'achat de ma résidence principale', desc: 'Acquisition immobilière ou amortissement hypothécaire.' },
-                                  { id: 'independent', label: 'Oui, pour me lancer comme indépendant (LPP)', desc: 'Création d\'entreprise individuelle ou début d\'activité commerciale.' },
-                                  { id: 'abroad', label: 'Oui, car je prévois de quitter la Suisse', desc: 'Départ définitif de la Confédération suisse.' },
-                                  { id: 'none', label: 'Non, aucun projet de retrait avant la retraite', desc: 'Laisser fructifier mon épargne jusqu\'à l\'âge légal.' },
+                                  { id: 'residence', label: ui.residenceOption, desc: ui.residenceOptionDesc },
+                                  { id: 'independent', label: ui.independentOption, desc: ui.independentOptionDesc },
+                                  { id: 'abroad', label: ui.abroadOption, desc: ui.abroadOptionDesc },
+                                  { id: 'none', label: ui.noneOption, desc: ui.noneOptionDesc },
                                 ].map((opt) => {
                                   const isSelected = filters.earlyWithdrawalReason === opt.id;
                                   return (
@@ -2439,12 +2847,12 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                                   animate={{ opacity: 1, height: 'auto' }}
                                   className="p-4 bg-fennec-cream/25 border border-fennec-cream rounded-2xl space-y-2"
                                 >
-                                  <span className="text-xs font-bold text-fennec-dark block">Sous quel horizon estimez-vous ce retrait ?</span>
+                                  <span className="text-xs font-bold text-fennec-dark block">{ui.withdrawalHorizonTitle}</span>
                                   <div className="grid grid-cols-3 gap-2">
                                     {[
-                                      { id: 'short', label: 'Moins de 5 ans' },
-                                      { id: 'medium', label: '5 à 10 ans' },
-                                      { id: 'long', label: 'Plus de 10 ans' },
+                                      { id: 'short', label: ui.under5Years },
+                                      { id: 'medium', label: ui.from5to10Years },
+                                      { id: 'long', label: ui.over10Years },
                                     ].map((h) => (
                                       <button
                                         key={h.id}
@@ -2935,7 +3343,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
 
             {/* 3. PERSISTENT MINI LEGAL FOOTER IN QUIZ */}
             <footer className="w-full text-center py-4 bg-white/50 border-t border-fennec-cream/20 text-[10px] text-fennec-dark/40 font-medium shrink-0">
-              Fenny s'engage : 100% anonyme, conforme à la nLPD suisse, aucune revente de données.
+              {ui.footerCommitment}
             </footer>
           </motion.div>
         ) : (
@@ -2971,36 +3379,36 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                   className="text-xs font-bold text-fennec-terracotta hover:underline flex items-center"
                 >
                   <RefreshCw className="w-3.5 h-3.5 mr-1" />
-                  Recommencer
+                  {ui.restartBtn}
                 </button>
               </div>
 
               {/* Quick Profile Summary Pills */}
               <div className="space-y-2 text-xs">
                 <div className="flex justify-between p-2.5 bg-fennec-cream/10 rounded-xl">
-                  <span className="text-fennec-brown font-medium">Type de prévoyance :</span>
+                  <span className="text-fennec-brown font-medium">{ui.pensionTypeLabel}</span>
                   <span className="font-bold text-fennec-dark capitalize">
-                    {filters.type === '3a' ? 'Pilier 3a (Lié)' : filters.type === '3b' ? 'Pilier 3b (Libre)' : 'Mixte'}
+                    {filters.type === '3a' ? ui.pillar3aLinked : filters.type === '3b' ? ui.pillar3bFree : ui.mixedShort}
                   </span>
                 </div>
                 <div className="flex justify-between p-2.5 bg-fennec-cream/10 rounded-xl">
-                  <span className="text-fennec-brown font-medium">Versement mensuel :</span>
-                  <span className="font-bold text-fennec-dark">CHF {monthlyAmount}.- / mois</span>
+                  <span className="text-fennec-brown font-medium">{ui.monthlyPaymentLabel}</span>
+                  <span className="font-bold text-fennec-dark">CHF {monthlyAmount}.- {ui.perMonth}</span>
                 </div>
                 <div className="flex justify-between p-2.5 bg-fennec-cream/10 rounded-xl">
-                  <span className="text-fennec-brown font-medium">Durée du contrat :</span>
-                  <span className="font-bold text-fennec-dark">{duration} ans</span>
+                  <span className="text-fennec-brown font-medium">{ui.contractDurationLabel}</span>
+                  <span className="font-bold text-fennec-dark">{duration} {ui.yearsUnit}</span>
                 </div>
                 <div className="flex justify-between p-2.5 bg-fennec-cream/10 rounded-xl">
-                  <span className="text-fennec-brown font-medium">Votre profil :</span>
+                  <span className="text-fennec-brown font-medium">{ui.yourProfileLabel}</span>
                   <span className="font-bold text-fennec-dark capitalize">
-                    {filters.profile === 'young' ? 'Jeune actif' : filters.profile === 'family' ? 'Famille' : filters.profile === 'senior' ? 'Sénior' : 'Indépendant'}
+                    {filters.profile === 'young' ? ui.profileYoung : filters.profile === 'family' ? ui.profileFamily : filters.profile === 'senior' ? ui.profileSenior : ui.profileIndependent}
                   </span>
                 </div>
                 <div className="flex justify-between p-2.5 bg-fennec-cream/10 rounded-xl">
-                  <span className="text-fennec-brown font-medium">Priorité majeure :</span>
+                  <span className="text-fennec-brown font-medium">{ui.majorPriorityLabel}</span>
                   <span className="font-bold text-fennec-dark">
-                    {filters.priority === 'tax-saving' ? 'Baisse d\'impôt max' : filters.priority === 'high-yield' ? 'Rendement Actions' : 'Capital Garanti 100%'}
+                    {filters.priority === 'tax-saving' ? ui.priorityTaxSaving : filters.priority === 'high-yield' ? ui.priorityHighYield : ui.priorityGuaranteed}
                   </span>
                 </div>
               </div>
@@ -3011,7 +3419,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                   onClick={() => setShowFiltersInline(!showFiltersInline)}
                   className="w-full text-xs font-bold text-fennec-brown/80 hover:text-fennec-dark flex items-center justify-center p-2 rounded-xl border border-fennec-cream/50 bg-fennec-cream/5 transition-all"
                 >
-                  <span>{showFiltersInline ? 'Masquer les ajustements' : 'Ajuster les curseurs directement'}</span>
+                  <span>{showFiltersInline ? ui.hideAdjustments2 : ui.adjustSlidersDirectly}</span>
                 </button>
               </div>
 
@@ -3024,7 +3432,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                 >
                   <div className="space-y-1">
                     <div className="flex justify-between font-bold">
-                      <span>Versement mensuel</span>
+                      <span>{ui.monthlyPaymentShort}</span>
                       <span className="text-fennec-terracotta">CHF {monthlyAmount}.-</span>
                     </div>
                     <input 
@@ -3040,8 +3448,8 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
 
                   <div className="space-y-1">
                     <div className="flex justify-between font-bold">
-                      <span>Durée contractuelle</span>
-                      <span className="text-fennec-terracotta">{duration} ans</span>
+                      <span>{ui.contractDurationShort}</span>
+                      <span className="text-fennec-terracotta">{duration} {ui.yearsUnit}</span>
                     </div>
                     <input 
                       type="range"
@@ -3055,15 +3463,15 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                   </div>
 
                   <div className="space-y-1">
-                    <label className="font-bold block uppercase tracking-wider text-[10px] text-fennec-brown">Priorité</label>
+                    <label className="font-bold block uppercase tracking-wider text-[10px] text-fennec-brown">{ui.priorityFieldLabel}</label>
                     <select
                       value={filters.priority}
                       onChange={(e) => handleFilterChange('priority', e.target.value as any)}
                       className="w-full bg-white border border-fennec-cream/60 rounded-xl px-2 py-1.5 text-xs text-fennec-dark"
                     >
-                      <option value="tax-saving">Baisse d'impôt max</option>
-                      <option value="high-yield">Rendement Actions/Fonds</option>
-                      <option value="guaranteed">Sécurité capital garanti</option>
+                      <option value="tax-saving">{ui.priorityTaxSaving}</option>
+                      <option value="high-yield">{ui.priorityHighYield}</option>
+                      <option value="guaranteed">{ui.priorityGuaranteed}</option>
                     </select>
                   </div>
                 </motion.div>
@@ -3074,8 +3482,8 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                 <span className="font-bold flex items-center mb-1">
                   <Percent className="w-3.5 h-3.5 mr-1" /> Limites Légales 3a :
                 </span>
-                <p>Plafond salarié 2026 : <strong>CHF 7'258.- / an</strong></p>
-                <p>Plafond indépendant 2026 : <strong>CHF 36'288.- / an</strong></p>
+                <p>{ui.salariedCapLabel} <strong>CHF 7'258.- {ui.perYear}</strong></p>
+                <p>{ui.independentCapLabel} <strong>CHF 36'288.- {ui.perYear}</strong></p>
               </div>
 
             </div>
@@ -3086,9 +3494,9 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
               {/* Mobile Quick Filter Header */}
               <div className="lg:hidden bg-white border border-fennec-cream rounded-2xl p-4 flex items-center justify-between shadow-xs mb-4">
                 <div className="space-y-0.5 text-left">
-                  <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Votre simulation</span>
+                  <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">{ui.yourSimulationLabel}</span>
                   <p className="text-xs font-bold text-fennec-dark">
-                    Prévoyance {filters.type === '3a' ? '3a' : filters.type === '3b' ? '3b' : 'Mixte'} • CHF {monthlyAmount}.-/mois • {duration} ans
+                    {ui.pensionWordShort} {filters.type === '3a' ? '3a' : filters.type === '3b' ? '3b' : ui.mixedShort} • CHF {monthlyAmount}.-{ui.perMonth} • {duration} {ui.yearsUnit}
                   </p>
                 </div>
                 <button
@@ -3101,7 +3509,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                   className="px-3.5 py-2 bg-fennec-cream text-fennec-dark hover:bg-fennec-sand hover:text-fennec-terracotta rounded-xl text-xs font-bold transition-all flex items-center space-x-1 shrink-0 shadow-3xs"
                 >
                   <SlidersHorizontal className="w-3.5 h-3.5" />
-                  <span>Ajuster</span>
+                  <span>{ui.adjustBtn}</span>
                 </button>
               </div>
               
@@ -3128,13 +3536,13 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                   </div>
                   <div>
                     <span className="text-[10px] font-bold text-fennec-brown uppercase block">
-                      Économie fiscale estimée
+                      {ui.estimatedTaxSavingsCardLabel}
                     </span>
                     <span className="text-2xl font-display font-black text-fennec-dark block">
                       CHF {(simulatedResults[0]?.taxSavingsPerYear || 0).toLocaleString()}.- <span className="text-xs font-semibold text-emerald-600">/ an</span>
                     </span>
                     <p className="text-[11px] text-fennec-dark/70 mt-1">
-                      Équivaut à une réduction fiscale totale d'environ <strong>CHF {totalTaxSavingsOverTerm.toLocaleString()}.-</strong> sur la durée.
+                      {ui.totalTaxReductionPrefix} <strong>CHF {totalTaxSavingsOverTerm.toLocaleString()}.-</strong> {ui.totalTaxReductionSuffix}
                     </p>
                   </div>
                 </div>
@@ -3146,14 +3554,14 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                   </div>
                   <div>
                     <span className="text-[10px] font-bold text-fennec-brown uppercase block">
-                      Recommandation
+                      {ui.recommendationLabel}
                     </span>
                     <span className="text-sm font-display font-bold text-fennec-dark block mt-0.5">
                       {filters.priority === 'high-yield' 
-                        ? 'Optez pour un modèle mixte Actions/Obligations' 
+                        ? ui.recoMixed 
                         : filters.priority === 'guaranteed' 
-                        ? 'Privilégiez la sécurité du capital garanti' 
-                        : 'Maximisez votre 3a lié pour l\'avantage fiscal'}
+                        ? ui.recoGuaranteed 
+                        : ui.recoTaxSaving}
                     </span>
                     <p className="text-[11px] text-fennec-dark/70 mt-1">
                       Les cotisations de 3a sont immunisées contre l'impôt sur la fortune durant la phase d'épargne.
@@ -3167,10 +3575,10 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
               <div className="space-y-2.5">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-1 gap-2">
                   <span className="text-[11px] font-bold uppercase text-fennec-brown tracking-wider block">
-                    Filtrer & Trier les offres 3e pilier
+                    {ui.filterSortLabel}
                   </span>
                   <span className="text-[10px] text-fennec-dark/60 block font-bold bg-fennec-cream/20 border border-fennec-cream px-2 py-0.5 rounded-md">
-                    {simulatedResults.length} assureurs disponibles
+                    {simulatedResults.length} {ui.insurersAvailableLabel}
                   </span>
                 </div>
                 
@@ -3184,7 +3592,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                     }`}
                   >
                     <SlidersHorizontal className="w-3.5 h-3.5" />
-                    <span>Tous les assureurs</span>
+                    <span>{ui.allInsurersTab}</span>
                   </button>
                   
                   <button
@@ -3196,7 +3604,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                     }`}
                   >
                     <TrendingUp className="w-3.5 h-3.5 text-emerald-500" />
-                    <span>Rendement max (Actions)</span>
+                    <span>{ui.maxYieldTab}</span>
                   </button>
                   
                   <button
@@ -3208,7 +3616,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                     }`}
                   >
                     <Shield className="w-3.5 h-3.5 text-blue-500" />
-                    <span>Sécurité & Capital</span>
+                    <span>{ui.securityCapitalTab}</span>
                   </button>
                 </div>
               </div>
@@ -3224,7 +3632,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                     badgeContent = (
                       <span className="px-2 py-0.5 bg-blue-50 text-blue-700 border border-blue-100 text-[10px] font-bold rounded-md flex items-center gap-1 shadow-3xs">
                         <Shield className="w-3 h-3 text-blue-600" />
-                        Capital garanti le plus élevé
+                        {ui.highestGuaranteedBadge}
                       </span>
                     );
                   }
@@ -3272,7 +3680,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                         <div className="text-center lg:text-right w-full lg:w-auto border-y lg:border-y-0 lg:border-x border-fennec-cream/20 py-4 lg:py-0 lg:px-6">
                           <div>
                             <span className="text-[10px] font-bold text-fennec-brown uppercase block tracking-wider">
-                              Votre Projection
+                              {ui.yourProjectionLabel}
                             </span>
                             <span className="text-base sm:text-lg font-display font-extrabold text-fennec-dark block">
                               CHF {company.guaranteedSum.toLocaleString()}.-
@@ -3287,7 +3695,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                             className="px-4 py-2 border border-fennec-cream text-fennec-dark hover:bg-fennec-cream/20 font-display font-bold text-[10px] uppercase tracking-wider rounded-full transition-all inline-flex items-center justify-center min-h-[40px] whitespace-nowrap"
                           >
                             <SlidersHorizontal className="w-3.5 h-3.5 mr-1" />
-                            <span>{isExpanded ? 'Masquer les détails' : 'Fiche technique'}</span>
+                            <span>{isExpanded ? ui.hideDetailsBtn : ui.techSheetBtn}</span>
                           </button>
                         </div>
                       </div>
@@ -3306,33 +3714,33 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-fennec-cream/20 pb-3 gap-2">
                                 <h5 className="text-[11px] font-black text-fennec-dark uppercase tracking-wider flex items-center">
                                   <SlidersHorizontal className="w-4 h-4 mr-1.5 text-fennec-terracotta" />
-                                  Réglementation Officielle AFC & Dépôt Actuariel 2026
+                                  {ui.officialRegulationTitle}
                                 </h5>
                                 <span className="text-[9px] font-mono text-fennec-brown bg-white border border-fennec-cream/60 px-2 py-0.5 rounded font-black">
-                                  CERTIFIÉ SWISS-ACCURACY • 100% FIABLE
+                                  {ui.certifiedBadge}
                                 </span>
                               </div>
 
                               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {/* Column 1: Épargne & Limites */}
                                 <div className="bg-white rounded-2xl p-4 border border-fennec-cream/25 space-y-2.5">
-                                  <span className="text-[10px] font-bold text-fennec-brown uppercase block tracking-wider">Épargne & Plafonds</span>
+                                  <span className="text-[10px] font-bold text-fennec-brown uppercase block tracking-wider">{ui.savingsLimitsLabel}</span>
                                   <div className="space-y-1.5 text-xs">
                                     <div className="flex justify-between">
-                                      <span className="text-fennec-dark/65">Versement annuel souhaité:</span>
+                                      <span className="text-fennec-dark/65">{ui.desiredAnnualPaymentLabel}</span>
                                       <span className="font-bold text-fennec-dark">CHF {(monthlyAmount * 12).toLocaleString()}.-</span>
                                     </div>
                                     <div className="flex justify-between">
-                                      <span className="text-fennec-dark/65">Plafond légal suisse 2026:</span>
+                                      <span className="text-fennec-dark/65">{ui.legalSwissLimitLabel}</span>
                                       <span className="font-bold text-fennec-dark">CHF {company.taxDetails?.legalLimit.toLocaleString()}.-</span>
                                     </div>
                                     <div className="flex justify-between pt-1 border-t border-fennec-cream/10">
-                                      <span className="text-fennec-dark font-semibold">Montant retenu (éligible):</span>
+                                      <span className="text-fennec-dark font-semibold">{ui.eligibleAmountLabel}</span>
                                       <span className="font-black text-fennec-terracotta">CHF {company.taxDetails?.allowedContribution.toLocaleString()}.-</span>
                                     </div>
                                     {company.taxDetails?.isCapped && (
                                       <p className="text-[9px] text-amber-700 bg-amber-50 p-2 rounded border border-amber-100 font-bold mt-1 leading-normal">
-                                        ⚠️ Le versement dépasse le plafond suisse 3a ({filters.hasSecondPillar ? "Salarié" : "Indépendant"}). La simulation a été ajustée de manière légitime.
+                                        {ui.exceedsCapPrefix}{filters.hasSecondPillar ? ui.capStatusSalaried : ui.capStatusIndependent}{ui.exceedsCapSuffix}
                                       </p>
                                     )}
                                   </div>
@@ -3340,22 +3748,22 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
 
                                 {/* Column 2: Frais & Primes */}
                                 <div className="bg-white rounded-2xl p-4 border border-fennec-cream/25 space-y-2.5">
-                                  <span className="text-[10px] font-bold text-fennec-brown uppercase block tracking-wider">Frais & Primes de Risque</span>
+                                  <span className="text-[10px] font-bold text-fennec-brown uppercase block tracking-wider">{ui.feesAndRiskPremiumsLabel}</span>
                                   <div className="space-y-1.5 text-xs">
                                     <div className="flex justify-between">
-                                      <span className="text-fennec-dark/65">Frais administratifs nets:</span>
+                                      <span className="text-fennec-dark/65">{ui.netAdminFeesLabel}</span>
                                       <span className="font-bold text-fennec-dark">{company.adminFeesPercent.toFixed(2)}% / an</span>
                                     </div>
                                     <div className="flex justify-between">
-                                      <span className="text-fennec-dark/65">Frais d'admin cumulés:</span>
+                                      <span className="text-fennec-dark/65">{ui.cumulativeAdminFeesLabel}</span>
                                       <span className="font-bold text-fennec-dark">CHF {company.totalAdminFees.toLocaleString()}.-</span>
                                     </div>
                                     <div className="flex justify-between pt-1 border-t border-fennec-cream/10">
-                                      <span className="text-fennec-dark/65">Primes de risque mensuelles:</span>
+                                      <span className="text-fennec-dark/65">{ui.monthlyRiskPremiumsLabel}</span>
                                       <span className="font-bold text-rose-700">CHF {company.riskPremiumMonthly.toFixed(2)}.-</span>
                                     </div>
                                     <div className="flex justify-between">
-                                      <span className="text-fennec-dark font-semibold">Part nette d'épargne:</span>
+                                      <span className="text-fennec-dark font-semibold">{ui.netSavingsPortionLabel}</span>
                                       <span className="font-black text-emerald-600">CHF {company.netSavingsMonthly.toFixed(2)}.- / mois</span>
                                     </div>
                                   </div>
@@ -3363,10 +3771,10 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
 
                                 {/* Column 3: Impôts & Retrait */}
                                 <div className="bg-white rounded-2xl p-4 border border-fennec-cream/25 space-y-2.5">
-                                  <span className="text-[10px] font-bold text-fennec-brown uppercase block tracking-wider">Optimisation Fiscale & Retrait</span>
+                                  <span className="text-[10px] font-bold text-fennec-brown uppercase block tracking-wider">{ui.taxOptimizationLabel}</span>
                                   <div className="space-y-1.5 text-xs">
                                     <div className="flex justify-between">
-                                      <span className="text-fennec-dark/65">Taux marginal combiné ({filters.canton}):</span>
+                                      <span className="text-fennec-dark/65">{ui.combinedMarginalRateLabel} ({filters.canton}):</span>
                                       <span className="font-bold text-fennec-dark">{(company.taxDetails?.marginalTaxRate * 100).toFixed(2)}%</span>
                                     </div>
                                     <div className="flex justify-between">
@@ -3374,11 +3782,11 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                                       <span className="font-black text-emerald-600">CHF {company.taxDetails?.yearlyTaxSavings.toLocaleString()}.-</span>
                                     </div>
                                     <div className="flex justify-between pt-1 border-t border-fennec-cream/10">
-                                      <span className="text-fennec-dark/65">Taux d'impôt sur retrait:</span>
+                                      <span className="text-fennec-dark/65">{ui.withdrawalTaxRateLabel}</span>
                                       <span className="font-bold text-amber-700">{(company.taxDetails?.withdrawalTaxRate * 100).toFixed(2)}%</span>
                                     </div>
                                     <div className="flex justify-between">
-                                      <span className="text-fennec-dark/65">Impôt payé au versement:</span>
+                                      <span className="text-fennec-dark/65">{ui.taxPaidAtWithdrawalLabel}</span>
                                       <span className="font-bold text-red-700">CHF {company.taxDetails?.withdrawalTaxAmount.toLocaleString()}.-</span>
                                     </div>
                                   </div>
@@ -3388,17 +3796,17 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                               {/* Bottom Summary Callout */}
                               <div className="bg-[#1E1916] text-white rounded-2xl p-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                                 <div className="space-y-1 text-left">
-                                  <span className="text-[9px] font-black uppercase text-fennec-cream/60 tracking-widest block">Note actuarielle de solvabilité</span>
+                                  <span className="text-[9px] font-black uppercase text-fennec-cream/60 tracking-widest block">{ui.actuarialSolvencyNoteLabel}</span>
                                   <p className="text-xs text-white/80 leading-relaxed max-w-xl">
-                                    Calculé sur un rendement boursier moyen retenu de <strong>{(company.yieldRateUsed * 100).toFixed(2)}% brut</strong>. Le gain fiscal cumulé sur la période est de <strong>CHF {company.taxDetails?.totalTaxSavingsOverHorizon.toLocaleString()}.-</strong> selon le barème officiel de la Confédération.
+                                    {ui.solvencyNotePrefix} <strong>{(company.yieldRateUsed * 100).toFixed(2)}%</strong> {ui.solvencyNoteMiddle} <strong>CHF {company.taxDetails?.totalTaxSavingsOverHorizon.toLocaleString()}.-</strong> {ui.solvencyNoteSuffix}
                                   </p>
                                 </div>
                                 <div className="text-left md:text-right shrink-0">
-                                  <span className="text-[10px] font-bold text-emerald-400 uppercase block tracking-wider">Capital Net Réel Versé (Payout)</span>
+                                  <span className="text-[10px] font-bold text-emerald-400 uppercase block tracking-wider">{ui.netRealCapitalPaidLabel}</span>
                                   <span className="text-xl font-display font-black text-emerald-300 block">
                                     CHF {company.taxDetails?.projectedCapitalNet.toLocaleString()}.-
                                   </span>
-                                  <span className="text-[9px] text-[#C1B29F] block">Après déduction de l'impôt séparé sur le retrait de capital</span>
+                                  <span className="text-[9px] text-[#C1B29F] block">{ui.afterTaxDeductionNote}</span>
                                 </div>
                               </div>
                             </div>
@@ -3414,7 +3822,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
               <div className="bg-fennec-cream/15 rounded-3xl p-6 border border-fennec-cream/30 space-y-3 text-xs text-fennec-dark/75 leading-relaxed">
                 <h5 className="font-display font-bold text-sm text-fennec-dark uppercase tracking-wide flex items-center">
                   <Shield className="w-4.5 h-4.5 mr-2 text-fennec-tan" />
-                  Éléments réglementaires de la Prévoyance Individuelle :
+                  {ui.complianceRegElementsTitle}
                 </h5>
                 <p>
                   Le pilier 3a (prévoyance liée) est réservé aux personnes ayant un revenu soumis à l'AVS en Suisse. Les cotisations sont déductibles de votre revenu imposable à hauteur des plafonds fédéraux annuels. Les retraits de capital accumulé lors de la retraite font l'objet d'un impôt à taux réduit, séparé des autres revenus.
@@ -3462,10 +3870,10 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
               </div>
               <div>
                 <span className="text-[10px] font-bold text-fennec-terracotta uppercase tracking-wider block">
-                  Étude de Prévoyance Offerte
+                  {ui.studyOfferedLabel}
                 </span>
                 <h4 className="font-display font-extrabold text-xl text-fennec-dark">
-                  Votre étude {selectedAssureur.name}
+                  {ui.yourStudyLabel} {selectedAssureur.name}
                 </h4>
               </div>
             </div>
@@ -3484,17 +3892,17 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
               {!formSubmitted ? (
                 <form onSubmit={handleFormSubmit} className="space-y-4">
                   <div className="p-3.5 bg-emerald-50 rounded-xl border border-emerald-200 text-xs text-emerald-900 leading-normal">
-                    <strong>Projection récapitulative :</strong><br />
-                    Épargne mensuelle de <strong>CHF {monthlyAmount}.-</strong> sur <strong>{duration} ans</strong>. Capital final estimé (fonds) : <strong>CHF {selectedAssureur.expectedSum.toLocaleString()}.-</strong> chez {selectedAssureur.name}. Gain fiscal moyen cumulé : <strong>CHF {((selectedAssureur.taxSavingsPerYear || 0) * duration).toLocaleString()}.-</strong> d'économies d'impôts directes !
+                    <strong>{ui.summaryProjectionLabel}</strong><br />
+                    {ui.monthlySavingsPrefix} <strong>CHF {monthlyAmount}.-</strong> {ui.monthlySavingsMiddle1} <strong>{duration} {ui.yearsUnit}</strong>. {ui.monthlySavingsMiddle2} <strong>CHF {selectedAssureur.expectedSum.toLocaleString()}.-</strong> {ui.monthlySavingsMiddle3} {selectedAssureur.name}. {ui.monthlySavingsMiddle4} <strong>CHF {((selectedAssureur.taxSavingsPerYear || 0) * duration).toLocaleString()}.-</strong> {ui.monthlySavingsSuffix}
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="modal-stagger-item space-y-1.5">
-                      <label className="text-xs font-bold text-fennec-dark block">Prénom *</label>
+                      <label className="text-xs font-bold text-fennec-dark block">{ui.firstNameLabel}</label>
                       <input 
                         type="text" 
                         required
-                        placeholder="Ex: Sophie"
+                        placeholder={ui.firstNamePlaceholder}
                         value={formData.firstName}
                         onChange={(e) => setFormData(prev => ({...prev, firstName: e.target.value}))}
                         onMouseEnter={() => setFenyAdvice(LIFE_ADVICE_MAP.firstName)}
@@ -3505,11 +3913,11 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                       />
                     </div>
                     <div className="modal-stagger-item space-y-1.5">
-                      <label className="text-xs font-bold text-fennec-dark block">Nom de famille *</label>
+                      <label className="text-xs font-bold text-fennec-dark block">{ui.lastNameLabel}</label>
                       <input 
                         type="text" 
                         required
-                        placeholder="Ex: Rochat"
+                        placeholder={ui.lastNamePlaceholder}
                         value={formData.lastName}
                         onChange={(e) => setFormData(prev => ({...prev, lastName: e.target.value}))}
                         onMouseEnter={() => setFenyAdvice(LIFE_ADVICE_MAP.lastName)}
@@ -3522,7 +3930,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                   </div>
 
                   <div className="modal-stagger-item space-y-1.5">
-                    <label className="text-xs font-bold text-fennec-dark block">Adresse E-mail *</label>
+                    <label className="text-xs font-bold text-fennec-dark block">{ui.emailLabel}</label>
                     <input 
                       type="email" 
                       required
@@ -3538,7 +3946,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                   </div>
 
                   <div className="modal-stagger-item space-y-1.5">
-                    <label className="text-xs font-bold text-fennec-dark block">Téléphone Mobile Suisse *</label>
+                    <label className="text-xs font-bold text-fennec-dark block">{ui.phoneLabel}</label>
                     <input 
                       type="tel" 
                       required
@@ -3554,7 +3962,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                   </div>
 
                   <div className="modal-stagger-item space-y-1.5">
-                    <label className="text-xs font-bold text-fennec-dark block">Votre statut d'activité</label>
+                    <label className="text-xs font-bold text-fennec-dark block">{ui.activityStatusLabel}</label>
                     <div className="grid grid-cols-2 gap-2">
                       <button
                         type="button"
@@ -3565,7 +3973,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                             : 'bg-white text-fennec-dark border-fennec-cream/60 hover:bg-fennec-cream/10'
                         }`}
                       >
-                        Salarié(e) (Avec LPP)
+                        {ui.salariedWithLpp}
                       </button>
                       <button
                         type="button"
@@ -3576,7 +3984,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                             : 'bg-white text-fennec-dark border-fennec-cream/60 hover:bg-fennec-cream/10'
                         }`}
                       >
-                        Indépendant(e) (Sans LPP)
+                        {ui.independentWithoutLpp}
                       </button>
                     </div>
                   </div>
@@ -3593,7 +4001,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                       className="w-full py-3.5 bg-fennec-terracotta hover:bg-fennec-dark text-white font-display font-extrabold text-sm rounded-full shadow-md shadow-fennec-terracotta/20 transition-all flex items-center justify-center space-x-2"
                     >
                       <Calculator className="w-4 h-4" />
-                      <span>Demander mon étude gratuite</span>
+                      <span>{ui.submitBtnLabel}</span>
                     </button>
                     <span className="text-[10px] text-fennec-dark/50 text-center block mt-2">
                       🔒 Vos données sont confidentielles. Conformité nLPD stricte. Aucun engagement.
@@ -3606,20 +4014,20 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                     <FileCheck className="w-10 h-10" />
                   </div>
                   <h5 className="font-display font-extrabold text-xl text-emerald-900">
-                    Simulation enregistrée !
+                    {ui.simulationSavedTitle}
                   </h5>
                   <p className="text-sm text-fennec-dark/80 max-w-sm mx-auto">
-                    Merci <strong>{formData.firstName}</strong> ! Votre simulation fiscale pour le 3ème pilier chez <strong>{selectedAssureur.name}</strong> a bien été transmise à notre conseiller prévoyance.
+                    {ui.thankYouPrefix} <strong>{formData.firstName}</strong>{ui.thankYouMiddle} <strong>{selectedAssureur.name}</strong> {ui.thankYouSuffix}
                   </p>
                   <p className="text-xs text-fennec-dark/70 leading-relaxed bg-fennec-cream/10 p-4 rounded-xl border border-fennec-cream/30">
-                    Nous allons préparer un comparatif de rendement personnalisé intégrant la déduction d'impôt exacte selon le barème fiscal de votre canton pour <strong>{formData.profession === 'salaried' ? 'salarié' : 'indépendant'}</strong>. Nous vous recontacterons au <strong>{formData.phone}</strong> sous 24 heures.
+                    {ui.followUpPrefix} <strong>{formData.profession === 'salaried' ? ui.professionShortSalaried : ui.professionShortIndependent}</strong>{ui.followUpMiddle} <strong>{formData.phone}</strong> {ui.followUpSuffix}
                   </p>
                   <div className="pt-4">
                     <button
                       onClick={handleCloseForm}
                       className="px-6 py-2 bg-fennec-dark hover:bg-fennec-terracotta text-white font-display font-bold text-xs rounded-full transition-colors"
                     >
-                      Fermer la fenêtre
+                      {ui.closeWindowBtn}
                     </button>
                   </div>
                 </div>
