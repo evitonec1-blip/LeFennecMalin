@@ -3556,9 +3556,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                             <span className="text-xs font-bold text-fennec-dark/70">
                               {caisse.rating.toFixed(1)} / 6
                             </span>
-                            <span className="text-[10px] text-fennec-brown font-semibold bg-fennec-cream/20 px-1.5 py-0.5 rounded-sm" title="Source : Enquête annuelle indépendante de satisfaction client Comparis / bonus.ch">
-                              Comparis & bonus.ch
-                            </span>
+                            
                           </div>
                         </div>
                       </div>
@@ -3639,8 +3637,9 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                 <p>
                   <strong>Origine des notes de satisfaction client (indices / 6) :</strong> Les notes affichées (exprimées sur l'échelle officielle helvétique de 1 à 6, où 6 est la note maximale) proviennent directement des rapports d'enquêtes représentatifs de satisfaction client publiés de manière indépendante par <strong>Comparis et bonus.ch (enquêtes 2025/2026)</strong>. Ces notes mesurent la rapidité des remboursements, l'amabilité et la clarté des décomptes.
                 </p>
+              
                 <p>
-                  <strong>Calcul rigoureux des Primes par Franchise :</strong> Contrairement aux approximations forfaitaires à pourcentage fixe, les primes affichées intègrent le barème exact des rabais fédéraux maximaux autorisés par l'OFSP selon l'article 93 de l'OAMal. Choisir une franchise plus élevée (comme CHF 2'500) accorde une réduction mensuelle légale forfaitaire de CHF 128.30 (CHF 1'540/an) par rapport à la franchise de base de CHF 300, plafonnée à 70% de la prime standard pour assurer une parfaite fidélité aux valeurs officielles 2026.
+                  <strong>Origine des notes de satisfaction client (indices / 6) :</strong> Les notes affichées (exprimées sur l'échelle officielle helvétique de 1 à 6, où 6 est la note maximale) proviennent directement des rapports d'enquêtes représentatifs de satisfaction client publiés de manière indépendante <strong>(enquêtes 2025/2026)</strong>. Ces notes mesurent la rapidité des remboursements, l'amabilité et la clarté des décomptes.
                 </p>
               </div>
 
