@@ -266,6 +266,65 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     analyzingDescEnd: " pour la région de",
     comparingCompanies: "Compagnies en cours de comparaison :",
     fennyAdvises: "Fenny conseille",
+    potentialSavingsLabel: "Économie potentielle :",
+    upToLabel: "jusqu'à CHF",
+    perYearLabel: "/ an",
+    savingsGapDesc: "{ui.savingsGapDesc}",
+    smartAdviceBadge: "Conseil Malin",
+    cheapestLabel: "Le plus avantageux",
+    netPriceLabel: "Prix total net 2026",
+    notAvailableLabel: "Non disponible",
+    envTaxLabel: "-5.15 CHF déduits (taxe environnementale)",
+    sourceLabel: "Source : OFSP/priminfo, primes 2026",
+    modelLabel: "Modèle :",
+    getOfferBtn: "Obtenir l'offre",
+    unavailableBtn: "Indisponible",
+    complianceTitle: "Conformité Légale LAMal & Transparence :",
+    complianceP1Title: "Prestations de base identiques :",
+    complianceP1Body: "Les prestations de l'assurance obligatoire des soins (AOS) sont définies de manière univoque par la loi fédérale (LAMal). Elles sont strictement identiques auprès de toutes les caisses maladie suisses. Un traitement médical sera remboursé de la même manière, quel que soit l'assureur choisi. Seuls diffèrent la qualité administrative, l'ergonomie des outils de remboursement et l'indice de satisfaction.",
+    complianceP2Title: "Origine des notes de satisfaction client (indices / 6) :",
+    complianceP2Body: "Les notes affichées (exprimées sur l'échelle officielle helvétique de 1 à 6, où 6 est la note maximale) proviennent des enquêtes représentatives de satisfaction client (enquêtes 2025/2026). Ces notes mesurent la rapidité des remboursements, l'amabilité et la clarté des décomptes.",
+    noResultsTitle: "Aucune offre trouvée pour cette combinaison",
+    noResultsDesc: "Aucun tarif officiel n'est répertorié dans le registre fédéral pour le NPA {zip}, la franchise CHF {franchise}.- et le modèle sélectionné.",
+    zipCodeLabel2: "Code Postal (NPA)",
+    modelsLabel2: "Modèles d'assurance ({n}/4)",
+    franchiseLabel2: "Franchise",
+    supplementaryLabel2: "Assurances complémentaires",
+    noneBaseOnly: "Aucune (uniquement base LAMal)",
+    sortResultsLabel: "Trier les résultats",
+    sortCheapest: "Primes les moins chères",
+    sortSatisfaction: "Satisfaction client",
+    sortAlpha: "Ordre alphabétique",
+    yourSimLabel: "Votre simulation",
+    modalIntroText: "Saisissez vos coordonnées pour recevoir votre dossier d'offre complet pour l'assurance obligatoire {insurer} en modèle {model}, Franchise CHF {franchise}.- dans le canton de {canton}.",
+    firstNameLabel2: "Prénom *",
+    firstNamePlaceholder2: "Ex: Marc",
+    lastNameLabel2: "Nom de famille *",
+    lastNamePlaceholder2: "Ex: Bernasconi",
+    emailLabel2: "Adresse E-mail *",
+    phoneLabel2: "Téléphone Mobile Suisse *",
+    callbackLabel: "Quand préférez-vous être rappelé ?",
+    callbackAnytime: "N'importe quand (9h00 - 18h00)",
+    callbackMorning: "Le matin (9h00 - 12h00)",
+    callbackLunch: "Pause déjeuner (12h00 - 14h00)",
+    callbackAfternoon: "L'après-midi (14h00 - 17h00)",
+    callbackEvening: "En fin de journée (17h00 - 19h00)",
+    formErrorLabel: "{ui.formErrorLabel}",
+    submitOfferBtn: "Valider ma demande gratuite",
+    privacyNote2: "{ui.privacyNote2}",
+    successTitle: "Demande transmise avec succès !",
+    successBody: "Félicitations {firstName} ! Votre demande d'offre gratuite a bien été transmise à notre partenaire.",
+    successFollowUp: "Un conseiller agréé indépendant va analyser votre dossier et vous contactera par téléphone d'ici quelques heures (créneau souhaité : {slot}). Votre prime finale est garantie neutre !",
+    slotAnytime: "N'importe quand",
+    slotMorning: "Matinée",
+    slotLunch: "Pause déjeuner",
+    slotAfternoon: "Après-midi",
+    slotEvening: "Soirée",
+    closeFormBtn: "Fermer la fenêtre",
+    modelFamilyLabel2: "Médecin Famille",
+    modelTelemedLabel2: "Télémédecine",
+    modelHmoLabel2: "Réseau HMO",
+    modelStandardLabel2: "Standard",
     constReminderTitle: "Rappel légal :",
     constReminderText: "En Suisse, toutes les caisses maladie proposent les mêmes prestations de base LAMal. Seule la prime mensuelle diffère.",
     chronicLabel: "Maladies chroniques",
@@ -516,6 +575,65 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     analyzingDescEnd: " für die Region",
     comparingCompanies: "Verglichene Versicherer:",
     fennyAdvises: "Fenny empfiehlt",
+    potentialSavingsLabel: "Potenzielle Ersparnis:",
+    upToLabel: "bis zu CHF",
+    perYearLabel: "/ Jahr",
+    savingsGapDesc: "Dies ist die durchschnittliche Differenz in Ihrem Kanton zwischen dem teuersten und dem günstigsten Angebot.",
+    smartAdviceBadge: "Kluger Tipp",
+    cheapestLabel: "Günstigstes Angebot",
+    netPriceLabel: "Nettopreis 2026",
+    notAvailableLabel: "Nicht verfügbar",
+    envTaxLabel: "-5.15 CHF abgezogen (Umweltsteuer)",
+    sourceLabel: "Quelle: BAG/priminfo, Prämien 2026",
+    modelLabel: "Modell:",
+    getOfferBtn: "Angebot erhalten",
+    unavailableBtn: "Nicht verfügbar",
+    complianceTitle: "KVG-Rechtskonformität & Transparenz:",
+    complianceP1Title: "Identische Grundleistungen:",
+    complianceP1Body: "Die Leistungen der obligatorischen Krankenpflegeversicherung (OKP) sind durch das Bundesgesetz (KVG) eindeutig definiert. Sie sind bei allen Schweizer Krankenkassen strikt identisch. Eine medizinische Behandlung wird unabhängig vom gewählten Versicherer gleich erstattet. Unterschiede bestehen nur in der Verwaltungsqualität, der Benutzerfreundlichkeit der Erstattungstools und dem Zufriedenheitsindex.",
+    complianceP2Title: "Herkunft der Kundenzufriedenheitsbewertungen (Indizes / 6):",
+    complianceP2Body: "Die angezeigten Bewertungen (auf der offiziellen Schweizer Skala von 1 bis 6, wobei 6 die Höchstnote ist) stammen aus repräsentativen Kundenzufriedenheitsumfragen (Umfragen 2025/2026). Diese Bewertungen messen die Schnelligkeit der Erstattungen, die Freundlichkeit und die Klarheit der Abrechnungen.",
+    noResultsTitle: "Kein Angebot für diese Kombination gefunden",
+    noResultsDesc: "Im Bundesregister sind für die PLZ {zip}, die Franchise CHF {franchise}.- und das gewählte Modell keine offiziellen Tarife hinterlegt.",
+    zipCodeLabel2: "Postleitzahl (PLZ)",
+    modelsLabel2: "Versicherungsmodelle ({n}/4)",
+    franchiseLabel2: "Franchise",
+    supplementaryLabel2: "Zusatzversicherungen",
+    noneBaseOnly: "Keine (nur KVG-Grundversicherung)",
+    sortResultsLabel: "Ergebnisse sortieren",
+    sortCheapest: "Günstigste Prämien",
+    sortSatisfaction: "Kundenzufriedenheit",
+    sortAlpha: "Alphabetische Reihenfolge",
+    yourSimLabel: "Ihre Simulation",
+    modalIntroText: "Geben Sie Ihre Kontaktdaten ein, um Ihre vollständige Angebotsmappe für die obligatorische Versicherung {insurer} im Modell {model}, Franchise CHF {franchise}.- im Kanton {canton} zu erhalten.",
+    firstNameLabel2: "Vorname *",
+    firstNamePlaceholder2: "z.B. Marc",
+    lastNameLabel2: "Nachname *",
+    lastNamePlaceholder2: "z.B. Bernasconi",
+    emailLabel2: "E-Mail-Adresse *",
+    phoneLabel2: "Schweizer Mobiltelefon *",
+    callbackLabel: "Wann möchten Sie zurückgerufen werden?",
+    callbackAnytime: "Jederzeit (9:00 - 18:00)",
+    callbackMorning: "Morgens (9:00 - 12:00)",
+    callbackLunch: "Mittagspause (12:00 - 14:00)",
+    callbackAfternoon: "Nachmittags (14:00 - 17:00)",
+    callbackEvening: "Abends (17:00 - 19:00)",
+    formErrorLabel: "Bitte füllen Sie alle Pflichtfelder aus.",
+    submitOfferBtn: "Meine kostenlose Anfrage bestätigen",
+    privacyNote2: "🔒 Verschlüsselte Daten. Kein Spam garantiert. nDSG-konform.",
+    successTitle: "Anfrage erfolgreich übermittelt!",
+    successBody: "Herzlichen Glückwunsch {firstName}! Ihre kostenlose Angebotsanfrage wurde erfolgreich an unseren Partner weitergeleitet.",
+    successFollowUp: "Ein zugelassener unabhängiger Berater wird Ihre Unterlagen prüfen und Sie in Kürze telefonisch kontaktieren (gewünschtes Zeitfenster: {slot}). Ihre Endprämie ist neutral garantiert!",
+    slotAnytime: "Jederzeit",
+    slotMorning: "Vormittag",
+    slotLunch: "Mittagspause",
+    slotAfternoon: "Nachmittag",
+    slotEvening: "Abend",
+    closeFormBtn: "Fenster schliessen",
+    modelFamilyLabel2: "Hausarzt",
+    modelTelemedLabel2: "Telemedizin",
+    modelHmoLabel2: "HMO-Netz",
+    modelStandardLabel2: "Standard",
     constReminderTitle: "Rechtlicher Hinweis:",
     constReminderText: "In der Schweiz bieten alle Krankenkassen dieselben KVG-Grundleistungen an. Nur die monatliche Prämie unterscheidet sich.",
     chronicLabel: "Chronische Erkrankungen",
@@ -766,6 +884,65 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     analyzingDescEnd: " in real time for the region",
     comparingCompanies: "Companies being compared:",
     fennyAdvises: "Fenny recommends",
+    potentialSavingsLabel: "Potential savings:",
+    upToLabel: "up to CHF",
+    perYearLabel: "/ year",
+    savingsGapDesc: "This is the average gap observed in your canton between the most expensive and the most competitive offer.",
+    smartAdviceBadge: "Smart Tip",
+    cheapestLabel: "Best value",
+    netPriceLabel: "Net price 2026",
+    notAvailableLabel: "Not available",
+    envTaxLabel: "-CHF 5.15 deducted (environmental tax)",
+    sourceLabel: "Source: FOPH/priminfo, 2026 premiums",
+    modelLabel: "Model:",
+    getOfferBtn: "Get offer",
+    unavailableBtn: "Unavailable",
+    complianceTitle: "LAMal Legal Compliance & Transparency:",
+    complianceP1Title: "Identical basic benefits:",
+    complianceP1Body: "The benefits of compulsory health insurance (OKP) are unambiguously defined by federal law (LAMal). They are strictly identical across all Swiss health insurers. A medical treatment will be reimbursed in the same way regardless of the insurer chosen. Differences only exist in administrative quality, reimbursement tool usability and satisfaction index.",
+    complianceP2Title: "Origin of customer satisfaction ratings (indices / 6):",
+    complianceP2Body: "The ratings shown (on the official Swiss scale of 1 to 6, where 6 is the maximum) come from representative customer satisfaction surveys (2025/2026 surveys). These ratings measure reimbursement speed, friendliness and billing clarity.",
+    noResultsTitle: "No offer found for this combination",
+    noResultsDesc: "No official rate is listed in the federal register for ZIP {zip}, deductible CHF {franchise}.- and the selected model.",
+    zipCodeLabel2: "ZIP Code (NPA)",
+    modelsLabel2: "Insurance models ({n}/4)",
+    franchiseLabel2: "Deductible",
+    supplementaryLabel2: "Supplementary insurance",
+    noneBaseOnly: "None (basic LAMal only)",
+    sortResultsLabel: "Sort results",
+    sortCheapest: "Cheapest premiums",
+    sortSatisfaction: "Customer satisfaction",
+    sortAlpha: "Alphabetical order",
+    yourSimLabel: "Your simulation",
+    modalIntroText: "Enter your contact details to receive your complete offer file for compulsory insurance {insurer} in model {model}, deductible CHF {franchise}.- in the canton of {canton}.",
+    firstNameLabel2: "First name *",
+    firstNamePlaceholder2: "e.g. Marc",
+    lastNameLabel2: "Last name *",
+    lastNamePlaceholder2: "e.g. Bernasconi",
+    emailLabel2: "Email address *",
+    phoneLabel2: "Swiss mobile phone *",
+    callbackLabel: "When do you prefer to be called back?",
+    callbackAnytime: "Anytime (9:00 AM - 6:00 PM)",
+    callbackMorning: "Morning (9:00 AM - 12:00 PM)",
+    callbackLunch: "Lunch break (12:00 - 2:00 PM)",
+    callbackAfternoon: "Afternoon (2:00 - 5:00 PM)",
+    callbackEvening: "Late afternoon (5:00 - 7:00 PM)",
+    formErrorLabel: "Please fill in all required fields.",
+    submitOfferBtn: "Submit my free request",
+    privacyNote2: "🔒 Encrypted data. No spam guaranteed. nFADP compliant.",
+    successTitle: "Request successfully submitted!",
+    successBody: "Congratulations {firstName}! Your free offer request has been successfully forwarded to our partner.",
+    successFollowUp: "A licensed independent advisor will review your file and contact you by phone within a few hours (preferred slot: {slot}). Your final premium is guaranteed neutral!",
+    slotAnytime: "Anytime",
+    slotMorning: "Morning",
+    slotLunch: "Lunch break",
+    slotAfternoon: "Afternoon",
+    slotEvening: "Evening",
+    closeFormBtn: "Close window",
+    modelFamilyLabel2: "Family doctor",
+    modelTelemedLabel2: "Telemedicine",
+    modelHmoLabel2: "HMO network",
+    modelStandardLabel2: "Standard",
     constReminderTitle: "Legal reminder:",
     constReminderText: "In Switzerland, all health insurers offer the same mandatory LAMal benefits. Only the monthly premium differs.",
     chronicLabel: "Chronic conditions",
@@ -1016,6 +1193,65 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     analyzingDescEnd: " per la regione",
     comparingCompanies: "Compagnie in fase di confronto:",
     fennyAdvises: "Fenny consiglia",
+    potentialSavingsLabel: "Risparmio potenziale:",
+    upToLabel: "fino a CHF",
+    perYearLabel: "/ anno",
+    savingsGapDesc: "Questo è il divario medio osservato nel tuo cantone tra l'offerta più cara e quella più competitiva.",
+    smartAdviceBadge: "Consiglio Furbo",
+    cheapestLabel: "Il più vantaggioso",
+    netPriceLabel: "Prezzo netto 2026",
+    notAvailableLabel: "Non disponibile",
+    envTaxLabel: "-CHF 5.15 dedotti (tassa ambientale)",
+    sourceLabel: "Fonte: UFSP/priminfo, premi 2026",
+    modelLabel: "Modello:",
+    getOfferBtn: "Ottieni l'offerta",
+    unavailableBtn: "Non disponibile",
+    complianceTitle: "Conformità LAMal e Trasparenza:",
+    complianceP1Title: "Prestazioni di base identiche:",
+    complianceP1Body: "Le prestazioni dell'assicurazione malattia obbligatoria (AMal) sono definite in modo univoco dalla legge federale (LAMal). Sono strettamente identiche presso tutte le casse malati svizzere. Un trattamento medico sarà rimborsato allo stesso modo indipendentemente dall'assicuratore scelto. Le differenze riguardano solo la qualità amministrativa, l'ergonomia degli strumenti di rimborso e l'indice di soddisfazione.",
+    complianceP2Title: "Origine delle valutazioni di soddisfazione del cliente (indici / 6):",
+    complianceP2Body: "Le valutazioni mostrate (espresse sulla scala ufficiale svizzera da 1 a 6, dove 6 è il punteggio massimo) provengono da sondaggi rappresentativi sulla soddisfazione dei clienti (sondaggi 2025/2026). Queste valutazioni misurano la rapidità dei rimborsi, la cortesia e la chiarezza dei rendiconti.",
+    noResultsTitle: "Nessuna offerta trovata per questa combinazione",
+    noResultsDesc: "Nessuna tariffa ufficiale è registrata nel registro federale per il NPA {zip}, la franchigia CHF {franchise}.- e il modello selezionato.",
+    zipCodeLabel2: "Codice postale (NPA)",
+    modelsLabel2: "Modelli assicurativi ({n}/4)",
+    franchiseLabel2: "Franchigia",
+    supplementaryLabel2: "Assicurazioni complementari",
+    noneBaseOnly: "Nessuna (solo base LAMal)",
+    sortResultsLabel: "Ordina i risultati",
+    sortCheapest: "Premi più economici",
+    sortSatisfaction: "Soddisfazione del cliente",
+    sortAlpha: "Ordine alfabetico",
+    yourSimLabel: "La tua simulazione",
+    modalIntroText: "Inserisci i tuoi dati di contatto per ricevere il dossier completo dell'offerta per l'assicurazione obbligatoria {insurer} nel modello {model}, franchigia CHF {franchise}.- nel cantone di {canton}.",
+    firstNameLabel2: "Nome *",
+    firstNamePlaceholder2: "Es: Marco",
+    lastNameLabel2: "Cognome *",
+    lastNamePlaceholder2: "Es: Bernasconi",
+    emailLabel2: "Indirizzo e-mail *",
+    phoneLabel2: "Cellulare svizzero *",
+    callbackLabel: "Quando preferisci essere richiamato?",
+    callbackAnytime: "In qualsiasi momento (9:00 - 18:00)",
+    callbackMorning: "Mattina (9:00 - 12:00)",
+    callbackLunch: "Pausa pranzo (12:00 - 14:00)",
+    callbackAfternoon: "Pomeriggio (14:00 - 17:00)",
+    callbackEvening: "Tarda giornata (17:00 - 19:00)",
+    formErrorLabel: "Compila tutti i campi obbligatori.",
+    submitOfferBtn: "Invia la mia richiesta gratuita",
+    privacyNote2: "🔒 Dati crittografati. Nessuno spam garantito. Conforme alla nLPD.",
+    successTitle: "Richiesta trasmessa con successo!",
+    successBody: "Congratulazioni {firstName}! La tua richiesta di offerta gratuita è stata trasmessa con successo al nostro partner.",
+    successFollowUp: "Un consulente indipendente abilitato analizzerà il tuo dossier e ti contatterà telefonicamente entro poche ore (fascia oraria preferita: {slot}). Il tuo premio finale è garantito neutro!",
+    slotAnytime: "In qualsiasi momento",
+    slotMorning: "Mattina",
+    slotLunch: "Pausa pranzo",
+    slotAfternoon: "Pomeriggio",
+    slotEvening: "Sera",
+    closeFormBtn: "Chiudi la finestra",
+    modelFamilyLabel2: "Medico di famiglia",
+    modelTelemedLabel2: "Telemedicina",
+    modelHmoLabel2: "Rete HMO",
+    modelStandardLabel2: "Standard",
     constReminderTitle: "Promemoria legale:",
     constReminderText: "In Svizzera, tutte le casse malati offrono le stesse prestazioni di base LAMal. Solo il premio mensile varia.",
     chronicLabel: "Malattie croniche",
@@ -3333,7 +3569,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                   className="space-y-4 pt-2 border-t border-fennec-cream/20 overflow-hidden"
                 >
                   <div className="space-y-1.5 text-left">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-fennec-brown block">Code Postal (NPA)</label>
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-fennec-brown block">{ui.zipCodeLabel2}</label>
                     <input
                       type="text"
                       maxLength={4}
@@ -3365,14 +3601,14 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
 
                   <div className="space-y-1.5">
                     <label className="text-[10px] font-bold uppercase tracking-wider text-fennec-brown block">
-                      Modèles d'assurance ({filters.selectedModels?.length || 4}/4)
+                      {ui.modelsLabel2.replace('{n}', String(filters.selectedModels?.length || 4))}
                     </label>
                     <div className="grid grid-cols-2 gap-1.5">
                       {[
-                        { id: 'family', label: 'Médecin Famille' },
-                        { id: 'telemed', label: 'Télémédecine' },
-                        { id: 'hmo', label: 'Réseau HMO' },
-                        { id: 'standard', label: 'Standard' },
+                        { id: 'family', label: ui.modelFamilyLabel2 },
+                        { id: 'telemed', label: ui.modelTelemedLabel2 },
+                        { id: 'hmo', label: ui.modelHmoLabel2 },
+                        { id: 'standard', label: ui.modelStandardLabel2 },
                       ].map((mOpt) => {
                         const activeList = filters.selectedModels || ['family', 'telemed', 'hmo', 'standard'];
                         const isActive = activeList.includes(mOpt.id);
@@ -3396,7 +3632,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-fennec-brown block">Franchise</label>
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-fennec-brown block">{ui.franchiseLabel2}</label>
                     <select
                       value={filters.franchise}
                       onChange={(e) => handleFilterChange('franchise', Number(e.target.value))}
@@ -3409,13 +3645,13 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-fennec-brown block">Assurances complémentaires</label>
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-fennec-brown block">{ui.supplementaryLabel2}</label>
                     <select
                       value={filters.supplementaryType || 'none'}
                       onChange={(e) => handleFilterChange('supplementaryType', e.target.value as any)}
                       className="w-full bg-white border border-fennec-cream/60 rounded-xl px-2.5 py-1.5 text-xs text-fennec-dark focus:outline-none"
                     >
-                      <option value="none">Aucune (uniquement base LAMal)</option>
+                      <option value="none">{ui.noneBaseOnly}</option>
                       <option value="essential">ESSENTIELLE</option>
                       <option value="confort">CONFORT</option>
                       <option value="premium">PREMIUM</option>
@@ -3423,15 +3659,15 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-fennec-brown block">Trier les résultats</label>
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-fennec-brown block">{ui.sortResultsLabel}</label>
                     <select
                       value={filters.sortBy}
                       onChange={(e) => handleFilterChange('sortBy', e.target.value as any)}
                       className="w-full bg-white border border-fennec-cream/60 rounded-xl px-2.5 py-1.5 text-xs text-fennec-dark focus:outline-none"
                     >
-                      <option value="price">Primes les moins chères</option>
-                      <option value="rating">Satisfaction client</option>
-                      <option value="name">Ordre alphabétique</option>
+                      <option value="price">{ui.sortCheapest}</option>
+                      <option value="rating">{ui.sortSatisfaction}</option>
+                      <option value="name">{ui.sortAlpha}</option>
                     </select>
                   </div>
                 </motion.div>
@@ -3445,7 +3681,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
               {/* Mobile Quick Filter Header */}
               <div className="lg:hidden bg-white border border-fennec-cream rounded-2xl p-4 flex items-center justify-between shadow-xs mb-4">
                 <div className="space-y-0.5 text-left">
-                  <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">Votre simulation</span>
+                  <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">{ui.yourSimLabel}</span>
                   <p className="text-xs font-bold text-fennec-dark">
                     NPA {filters.zipCode} ({filters.canton} - Région {filters.zone}) • {filters.ageCategory === 'adult' ? '26+ ans' : filters.ageCategory === 'young' ? '19-25 ans' : 'Enfant'} • CHF {filters.franchise}.-
                   </p>
@@ -3460,7 +3696,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                   className="px-3.5 py-2 bg-fennec-cream text-fennec-dark hover:bg-fennec-sand hover:text-fennec-terracotta rounded-xl text-xs font-bold transition-all flex items-center space-x-1 shrink-0 shadow-3xs"
                 >
                   <SlidersHorizontal className="w-3.5 h-3.5" />
-                  <span>Ajuster</span>
+                  <span>{ui.adjustBtn}</span>
                 </button>
               </div>
               
@@ -3475,7 +3711,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                     </div>
                     <div>
                       <h4 className="font-display font-bold text-base text-emerald-950">
-                        Économie potentielle : <span className="text-fennec-red font-black">jusqu'à CHF {estimatedSavings}.- / an</span>
+                        {ui.potentialSavingsLabel} <span className="text-fennec-red font-black">{ui.upToLabel} {estimatedSavings}.- {ui.perYearLabel}</span>
                       </h4>
                       <p className="text-xs text-emerald-800/80">
                         C'est l'écart moyen constaté dans votre canton entre l'offre la plus chère et l'offre la plus compétitive.
@@ -3483,7 +3719,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                     </div>
                   </div>
                   <div className="px-4 py-2 bg-emerald-600 text-white rounded-xl font-display font-black text-xs uppercase tracking-wider shadow-xs">
-                    Conseil Malin
+                    {ui.smartAdviceBadge}
                   </div>
                 </div>
               )}
@@ -3494,10 +3730,10 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                   <div className="bg-white border border-fennec-cream rounded-3xl p-8 text-center space-y-3">
                     <AlertCircle className="w-10 h-10 text-fennec-terracotta mx-auto" />
                     <h4 className="font-display font-bold text-lg text-fennec-dark">
-                      Aucune offre trouvée pour cette combinaison
+                      {ui.noResultsTitle}
                     </h4>
                     <p className="text-xs text-fennec-brown max-w-md mx-auto">
-                      Aucun tarif officiel n'est répertorié dans le registre fédéral pour le NPA {filters.zipCode}, la franchise CHF {filters.franchise}.- et le modèle sélectionné.
+                      {ui.noResultsDesc.replace('{zip}', filters.zipCode).replace('{franchise}', String(filters.franchise))}
                     </p>
                     <span className="inline-block text-[10px] text-fennec-dark/60 font-medium bg-fennec-cream/20 px-3 py-1 rounded-full border border-fennec-cream">
                       Source : OFSP/priminfo, primes 2026
@@ -3520,7 +3756,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                       {isCheapest && (
                         <span className="absolute top-0 left-0 bg-fennec-terracotta text-white text-[9px] font-bold uppercase py-1 px-4 rounded-br-2xl shadow-sm tracking-wider flex items-center">
                           <Award className="w-3 h-3 mr-1" />
-                          Le plus avantageux
+                          {ui.cheapestLabel}
                         </span>
                       )}
 
@@ -3538,7 +3774,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
 {/* MODIFICATION: Display exact model name (realModelName) matching the offer model shown at bottom */}
 {(caisse.realModelName || caisse.modelType) && (
   <span className="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-fennec-tan/30 text-fennec-dark border border-fennec-tan/50">
-    {caisse.realModelName || (caisse.modelType === 'telemed' ? 'Télémédecine' : caisse.modelType === 'hmo' ? 'HMO' : caisse.modelType === 'family' ? 'Médecin de famille' : 'Standard')}
+    {caisse.realModelName || (caisse.modelType === 'telemed' ? ui.modelTelemedLabel2 : caisse.modelType === 'hmo' ? ui.modelHmoLabel2 : caisse.modelType === 'family' ? ui.modelFamilyLabel2 : ui.modelStandardLabel2)}
   </span>
 )}
                           </div>
@@ -3567,7 +3803,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                       <div className="text-center sm:text-right shrink-0 space-y-1.5">
                         <div>
                           <span className="text-[10px] font-bold tracking-widest text-fennec-brown uppercase block">
-                            Prix total net 2026
+                            {ui.netPriceLabel}
                           </span>
                           <div className="flex items-baseline justify-center sm:justify-end min-h-[36px]">
                             {caisse.computedPremium > 0 ? (
@@ -3579,13 +3815,13 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               </>
                             ) : (
                               <span className="text-sm font-bold text-fennec-brown/80 bg-fennec-cream/40 px-3 py-1 rounded-lg">
-                                Non disponible
+                                {ui.notAvailableLabel}
                               </span>
                             )}
                           </div>
                           {caisse.computedPremium > 0 && (
                             <span className="text-[10px] text-emerald-700 font-semibold block">
-                              -5.15 CHF déduits (taxe environnementale)
+                              {ui.envTaxLabel}
                             </span>
                           )}
                         </div>
@@ -3593,13 +3829,13 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                         {/* Official OFSP / priminfo Source Notice */}
                         <div className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-md bg-emerald-50 border border-emerald-150 text-[9px] text-emerald-800 font-bold">
                           <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
-                          <span>Source : OFSP/priminfo, primes 2026</span>
+                          <span>{ui.sourceLabel}</span>
                         </div>
 
                         {/* Real retrieved model name */}
                         {caisse.realModelName && (
                           <div className="text-[9px] text-fennec-dark/70 font-mono italic block text-center sm:text-right">
-                            Modèle : {caisse.realModelName}
+                            {ui.modelLabel} {caisse.realModelName}
                           </div>
                         )}
                       </div>
@@ -3617,7 +3853,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                               : 'bg-fennec-cream hover:bg-fennec-sand text-fennec-dark border border-fennec-tan/40'
                           }`}
                         >
-                          <span>{caisse.computedPremium === 0 ? 'Indisponible' : "Obtenir l'offre"}</span>
+                          <span>{caisse.computedPremium === 0 ? ui.unavailableBtn : ui.getOfferBtn}</span>
                           <ChevronRight className="w-4 h-4 ml-1.5" />
                         </button>
                       </div>
@@ -3631,17 +3867,17 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
               <div className="bg-fennec-cream/20 rounded-3xl p-6 border border-fennec-cream/30 space-y-4 text-xs text-fennec-dark/75 leading-relaxed">
                 <h5 className="font-display font-bold text-sm text-fennec-dark uppercase tracking-wide flex items-center">
                   <Shield className="w-4.5 h-4.5 mr-2 text-fennec-tan" />
-                  Conformité Légale LAMal & Transparence :
+                  {ui.complianceTitle}
                 </h5>
                 <p>
-                  <strong>Prestations de base identiques :</strong> Les prestations de l'assurance obligatoire des soins (AOS) sont définies de manière univoque par la loi fédérale (LAMal). Elles sont <strong>strictement identiques</strong> auprès de toutes les caisses maladie suisses. Un traitement médical sera remboursé de la même manière, quel que soit l'assureur choisi. Seuls diffèrent la qualité administrative, l'ergonomie des outils de remboursement et l'indice de satisfaction.
+                  <strong>{ui.complianceP1Title}</strong> {ui.complianceP1Body}
                 </p>
                 <p>
-                  <strong>Origine des notes de satisfaction client (indices / 6) :</strong> Les notes affichées (exprimées sur l'échelle officielle helvétique de 1 à 6, où 6 est la note maximale) proviennent directement des rapports d'enquêtes représentatifs de satisfaction client publiés de manière indépendante par <strong>Comparis et bonus.ch (enquêtes 2025/2026)</strong>. Ces notes mesurent la rapidité des remboursements, l'amabilité et la clarté des décomptes.
+                  
                 </p>
               
                 <p>
-                  <strong>Origine des notes de satisfaction client (indices / 6) :</strong> Les notes affichées (exprimées sur l'échelle officielle helvétique de 1 à 6, où 6 est la note maximale) proviennent directement des rapports d'enquêtes représentatifs de satisfaction client publiés de manière indépendante <strong>(enquêtes 2025/2026)</strong>. Ces notes mesurent la rapidité des remboursements, l'amabilité et la clarté des décomptes.
+                  <strong>{ui.complianceP2Title}</strong> {ui.complianceP2Body}
                 </p>
               </div>
 
@@ -3700,16 +3936,16 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
               {!formSubmitted ? (
                 <form onSubmit={handleFormSubmit} className="space-y-4">
                   <p className="text-xs text-fennec-dark/85 leading-relaxed">
-                    Saisissez vos coordonnées pour recevoir votre dossier d'offre complet pour l'assurance obligatoire <strong>{selectedCaisse.name}</strong> en modèle <strong>{selectedCaisse.realModelName || 'LAMal'}</strong>, Franchise <strong>CHF {filters.franchise}.-</strong> dans le canton de <strong>{filters.canton}</strong>.
+                    {ui.modalIntroText.replace('{insurer}', selectedCaisse.name).replace('{model}', selectedCaisse.realModelName || 'LAMal').replace('{franchise}', String(filters.franchise)).replace('{canton}', filters.canton)}
                   </p>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="modal-stagger-item space-y-1.5">
-                      <label className="text-xs font-bold text-fennec-dark block">Prénom *</label>
+                      <label className="text-xs font-bold text-fennec-dark block">{ui.firstNameLabel2}</label>
                       <input 
                         type="text" 
                         required
-                        placeholder="Ex: Marc"
+                        placeholder={ui.firstNamePlaceholder2}
                         value={formData.firstName}
                         onChange={(e) => setFormData(prev => ({...prev, firstName: e.target.value}))}
                         onMouseEnter={() => setFenyAdvice(HEALTH_ADVICE_MAP.firstName)}
@@ -3720,11 +3956,11 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                       />
                     </div>
                     <div className="modal-stagger-item space-y-1.5">
-                      <label className="text-xs font-bold text-fennec-dark block">Nom de famille *</label>
+                      <label className="text-xs font-bold text-fennec-dark block">{ui.lastNameLabel2}</label>
                       <input 
                         type="text" 
                         required
-                        placeholder="Ex: Bernasconi"
+                        placeholder={ui.lastNamePlaceholder2}
                         value={formData.lastName}
                         onChange={(e) => setFormData(prev => ({...prev, lastName: e.target.value}))}
                         onMouseEnter={() => setFenyAdvice(HEALTH_ADVICE_MAP.lastName)}
@@ -3737,7 +3973,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                   </div>
 
                   <div className="modal-stagger-item space-y-1.5">
-                    <label className="text-xs font-bold text-fennec-dark block">Adresse E-mail *</label>
+                    <label className="text-xs font-bold text-fennec-dark block">{ui.emailLabel2}</label>
                     <input 
                       type="email" 
                       required
@@ -3753,7 +3989,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                   </div>
 
                   <div className="modal-stagger-item space-y-1.5">
-                    <label className="text-xs font-bold text-fennec-dark block">Téléphone Mobile Suisse *</label>
+                    <label className="text-xs font-bold text-fennec-dark block">{ui.phoneLabel2}</label>
                     <input 
                       type="tel" 
                       required
@@ -3769,17 +4005,17 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                   </div>
 
                   <div className="modal-stagger-item space-y-1.5">
-                    <label className="text-xs font-bold text-fennec-dark block">Quand préférez-vous être rappelé ?</label>
+                    <label className="text-xs font-bold text-fennec-dark block">{ui.callbackLabel}</label>
                     <select
                       value={formData.timeSlot}
                       onChange={(e) => setFormData(prev => ({...prev, timeSlot: e.target.value}))}
                       className="w-full bg-white border border-fennec-cream/70 rounded-xl px-3 py-2 text-base md:text-sm text-fennec-dark focus:outline-none focus:border-fennec-tan font-medium"
                     >
-                      <option value="anytime">N'importe quand (9h00 - 18h00)</option>
-                      <option value="morning">Le matin (9h00 - 12h00)</option>
-                      <option value="lunch">Pause déjeuner (12h00 - 14h00)</option>
-                      <option value="afternoon">L'après-midi (14h00 - 17h00)</option>
-                      <option value="evening">En fin de journée (17h00 - 19h00)</option>
+                      <option value="anytime">{ui.callbackAnytime}</option>
+                      <option value="morning">{ui.callbackMorning}</option>
+                      <option value="lunch">{ui.callbackLunch}</option>
+                      <option value="afternoon">{ui.callbackAfternoon}</option>
+                      <option value="evening">{ui.callbackEvening}</option>
                     </select>
                   </div>
 
@@ -3795,7 +4031,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                       className="w-full py-3.5 bg-fennec-terracotta hover:bg-fennec-dark text-white font-display font-extrabold text-sm rounded-full shadow-md shadow-fennec-terracotta/20 transition-all flex items-center justify-center space-x-2"
                     >
                       <PhoneCall className="w-4 h-4" />
-                      <span>Valider ma demande gratuite</span>
+                      <span>{ui.submitOfferBtn}</span>
                     </button>
                     <span className="text-[10px] text-fennec-dark/50 text-center block mt-2">
                       🔒 Données cryptées sécurisées. Aucun spam garanti. Politique nLPD respectée.
@@ -3808,20 +4044,20 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                     <CheckCircle2 className="w-10 h-10" />
                   </div>
                   <h5 className="font-display font-extrabold text-xl text-emerald-900">
-                    Demande transmise avec succès !
+                    {ui.successTitle}
                   </h5>
                   <p className="text-sm text-fennec-dark/80 max-w-sm mx-auto">
-                    Félicitations <strong>{formData.firstName}</strong> ! Votre demande d'offre gratuite a bien été transmise à notre partenaire.
+                    {ui.successBody.replace('{firstName}', formData.firstName)}
                   </p>
                   <p className="text-xs text-fennec-dark/70 leading-relaxed bg-fennec-cream/10 p-4 rounded-xl border border-fennec-cream/30">
-                    Un conseiller agréé indépendant va analyser votre dossier et vous contactera par téléphone d'ici quelques heures (créneau souhaité : {formData.timeSlot === 'anytime' ? 'N\'importe quand' : formData.timeSlot === 'morning' ? 'Matinée' : formData.timeSlot === 'lunch' ? 'Pause déjeuner' : formData.timeSlot === 'afternoon' ? 'Après-midi' : 'Soirée'}). Votre prime finale est garantie neutre !
+                    {ui.successFollowUp.replace('{slot}', formData.timeSlot === 'anytime' ? ui.slotAnytime : formData.timeSlot === 'morning' ? ui.slotMorning : formData.timeSlot === 'lunch' ? ui.slotLunch : formData.timeSlot === 'afternoon' ? ui.slotAfternoon : ui.slotEvening)}
                   </p>
                   <div className="pt-4">
                     <button
                       onClick={handleCloseForm}
                       className="px-6 py-2 bg-fennec-dark hover:bg-fennec-terracotta text-white font-display font-bold text-xs rounded-full transition-colors"
                     >
-                      Fermer la fenêtre
+                      {ui.closeFormBtn}
                     </button>
                   </div>
                 </div>

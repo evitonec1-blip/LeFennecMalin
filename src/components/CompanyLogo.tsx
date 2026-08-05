@@ -291,10 +291,13 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
     case 'sanitas':
       return (
         <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-2 shadow-2xs`}>
-          <svg viewBox="0 0 100 40" className="w-12 h-5">
-            <rect x="5" y="10" width="16" height="16" rx="2" fill="#E2001A" />
-            <path d="M 13,13 V 23 M 9,18 H 17" stroke="white" strokeWidth="3" />
-            <text x="28" y="24" fill="#002F6C" className="text-[14px] font-black" fontFamily="sans-serif">Sanitas</text>
+          <svg viewBox="0 0 120 44" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* Cross symbol */}
+            <rect x="6" y="14" width="22" height="22" rx="3" fill="#009AC7"/>
+            <rect x="14" y="18" width="6" height="14" fill="white"/>
+            <rect x="10" y="22" width="14" height="6" fill="white"/>
+            {/* sanitas wordmark */}
+            <text x="34" y="30" fontFamily="Arial, sans-serif" fontSize="16" fontWeight="700" fill="#009AC7" letterSpacing="-0.3">sanitas</text>
           </svg>
         </div>
       );
