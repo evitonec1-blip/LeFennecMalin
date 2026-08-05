@@ -287,21 +287,16 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
 
     case 'sanitas':
       return (
-        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex items-center justify-center p-1 shadow-2xs`}>
-          <svg viewBox="0 0 140 52" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="sg2" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="#00C49A"/>
-                <stop offset="100%" stopColor="#007A60"/>
-              </linearGradient>
-            </defs>
-            {/* Rounded square icon */}
-            <rect x="4" y="4" width="44" height="44" rx="11" fill="url(#sg2)"/>
-            {/* White cross — Sanitas brand mark */}
-            <rect x="22" y="11" width="8" height="30" rx="3" fill="white"/>
-            <rect x="11" y="22" width="30" height="8" rx="3" fill="white"/>
-            {/* "sanitas" lowercase wordmark in brand green */}
-            <text x="57" y="35" fontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif" fontSize="20" fontWeight="800" fill="#007A60" letterSpacing="-0.5">sanitas</text>
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex items-center justify-center px-3 py-2 shadow-2xs`}>
+          <svg viewBox="0 0 160 60" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* "san" in dark green */}
+            <text x="8" y="44" fontFamily="'Myriad Pro', 'Frutiger', 'Helvetica Neue', Arial, sans-serif" fontSize="38" fontWeight="900" fill="#1A7A3C" letterSpacing="-0.5">san</text>
+            {/* "i" stem in dark green */}
+            <text x="82" y="44" fontFamily="'Myriad Pro', 'Frutiger', 'Helvetica Neue', Arial, sans-serif" fontSize="38" fontWeight="900" fill="#1A7A3C" letterSpacing="-0.5">i</text>
+            {/* dot above "i" in lighter green */}
+            <circle cx="93" cy="13" r="5" fill="#8DC63F"/>
+            {/* "tas" in dark green */}
+            <text x="100" y="44" fontFamily="'Myriad Pro', 'Frutiger', 'Helvetica Neue', Arial, sans-serif" fontSize="38" fontWeight="900" fill="#1A7A3C" letterSpacing="-0.5">tas</text>
           </svg>
         </div>
       );
