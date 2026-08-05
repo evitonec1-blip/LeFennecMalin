@@ -22,8 +22,8 @@ import { ArrowRight, ShieldCheck, HelpCircle, ArrowUpRight, Scale, Sparkles, Che
 import gsap from 'gsap';
 
 import fenyAnalyse from './assets/images/IMG_20260804_161612_upscaled.jpg';
-import fenyWinking from './assets/images/feny_logo_1783331214351.jpg';
-import fenyResults from './assets/images/feny_mascot_compare_1783278062615.jpg';
+import fenyWinking from './assets/images/feny_mascot_avatar_1783245725195.jpg';
+import fenyResults from './assets/images/feny_mascot_compare_1783245694484.jpg';
 
 export default function App() {
   const [currentTab, setCurrentTab] = useState<AppTab>('home');

@@ -15,11 +15,11 @@ import {
   lookupPremium 
 } from '../utils/premiumLookupService';
 import { fetchOfficialPremiums, fetchNpaInfo, NpaLookupResult } from '../services/priminfoService';
-import fenyWinking from '../assets/images/feny_logo_1783331214351.jpg';
+import fenyWinking from '../assets/images/Gemini_Generated_Image_qxhpmlqxhpmlqxhp.png';
 import fenyThinking from '../assets/images/feny_thinking_1783331247759.jpg';
-import fenyAvatar from '../assets/images/feny_mascot_avatar_1783278049191.jpg';
-import fenySavings from '../assets/images/feny_mascot_savings_1783278076816.jpg';
-import fenyCompare from '../assets/images/feny_mascot_compare_1783278062615.jpg';
+import fenyAvatar from '../assets/images/feny_mascot_avatar_1783245725195.jpg';
+import fenySavings from '../assets/images/feny_mascot_savings_1783245711111.jpg';
+import fenyCompare from '../assets/images/feny_mascot_compare_1783245694484.jpg';
 import fenyAnalyse from '../assets/images/feny_analyse_1783331235825.jpg';
 import { 
   Shield, 

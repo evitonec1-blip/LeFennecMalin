@@ -8,11 +8,11 @@ import { ASSUREURS_VIE, getLifeInsuranceEstimate } from '../data';
 import { LifeFilterState, AssureurVie } from '../types';
 import { calculateSwiss3rdPillarSimulation } from '../utils/swissTax';
 import { useLanguage } from '../i18n/LanguageContext';
-import fenyWinking from '../assets/images/feny_logo_1783331214351.jpg';
+import fenyWinking from '../assets/images/Gemini_Generated_Image_qxhpmlqxhpmlqxhp.png';
 import fenyThinking from '../assets/images/feny_thinking_1783331247759.jpg';
-import fenyAvatar from '../assets/images/feny_mascot_avatar_1783278049191.jpg';
-import fenySavings from '../assets/images/feny_mascot_savings_1783278076816.jpg';
-import fenyCompare from '../assets/images/feny_mascot_compare_1783278062615.jpg';
+import fenyAvatar from '../assets/images/feny_mascot_avatar_1783245725195.jpg';
+import fenySavings from '../assets/images/feny_mascot_savings_1783245711111.jpg';
+import fenyCompare from '../assets/images/feny_mascot_compare_1783245694484.jpg';
 import fenyAnalyse from '../assets/images/feny_analyse_1783331235825.jpg';
 import { 
   Shield, 
@@ -1993,12 +1993,12 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                       
                       {/* Scrolling wrapper */}
                       <div className="flex space-x-6 animate-scroll-left w-max">
-                        {['swisslife', 'axa', 'zurich', 'helvetia', 'allianz', 'generali', 'mobiliere', 'baloise'].map((logo, idx) => (
+                        {['swisslife', 'axa', 'zurich', 'helvetia', 'allianz', 'generali', 'mobiliere'].map((logo, idx) => (
                           <div key={`${logo}-${idx}`} className="shrink-0">
                             <CompanyLogo id={logo} className="w-20 h-11 bg-white" />
                           </div>
                         ))}
-                        {['swisslife', 'axa', 'zurich', 'helvetia', 'allianz', 'generali', 'mobiliere', 'baloise'].map((logo, idx) => (
+                        {['swisslife', 'axa', 'zurich', 'helvetia', 'allianz', 'generali', 'mobiliere'].map((logo, idx) => (
                           <div key={`${logo}-dup-${idx}`} className="shrink-0">
                             <CompanyLogo id={logo} className="w-20 h-11 bg-white" />
                           </div>

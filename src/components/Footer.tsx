@@ -8,7 +8,7 @@ import { AppTab } from '../types';
 import { Shield, ExternalLink, Heart, Mail, Phone, Info, X, TrendingUp, Award, Check } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 import LanguageSelector from './LanguageSelector';
-import fenyAvatar from '../assets/images/feny_avatar_1783331224698.jpg';
+import fenyAvatar from '../assets/images/feny_mascot_avatar_1783245725195.jpg';
 
 interface FooterProps {
   onTabChange: (tab: AppTab) => void;

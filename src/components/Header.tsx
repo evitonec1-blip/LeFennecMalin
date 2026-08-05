@@ -8,8 +8,8 @@ import { AppTab } from '../types';
 import { Menu, X, Shield, Award, HelpCircle } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 import LanguageSelector from './LanguageSelector';
-import fenyWinking from '../assets/images/feny_mascot_avatar_1783278049191.jpg';
-import fenyLogo from '../assets/images/feny_logo_1783331214351.jpg';
+import fenyWinking from '../assets/images/feny_mascot_avatar_1783245725195.jpg';
+import fenyLogo from '../assets/images/feny_mascot_avatar_1783245725195.jpg';
 
 interface HeaderProps {
   currentTab: AppTab;

@@ -9,7 +9,7 @@ import { ArrowRight, Sparkles, Activity, Shield, Car, Home, Key, Scale } from 'l
 import gsap from 'gsap';
 import { useLanguage } from '../i18n/LanguageContext';
 import fenyAnalyse from '../assets/images/feny_analyse_1783331235825.jpg';
-import fenyResults from '../assets/images/feny_results_1783331258491.jpg';
+import fenyResults from '../assets/images/feny_mascot_compare_1783245694484.jpg';
 
 interface ProductsGridProps {
   onTabChange: (tab: AppTab) => void;

@@ -61,8 +61,6 @@ const DOMAIN_MAP: Record<string, string> = {
   mobiliere: 'mobiliere.ch',
   'la mobiliere': 'mobiliere.ch',
   'la mobilière': 'mobiliere.ch',
-  baloise: 'baloise.ch',
-  'baloise assurances': 'baloise.ch',
   pax: 'pax.ch',
   retraitepopulaire: 'retraitepopulaire.ch',
   'retraite populaire': 'retraitepopulaire.ch',
@@ -179,7 +177,6 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
     generali: 'https://www.google.com/s2/favicons?sz=128&domain=generali.ch',
     vaudoise: 'https://www.google.com/s2/favicons?sz=128&domain=vaudoise.ch',
     mobiliere: 'https://www.google.com/s2/favicons?sz=128&domain=mobiliere.ch',
-    baloise: 'https://www.google.com/s2/favicons?sz=128&domain=baloise.ch',
   };
 
   useEffect(() => {
@@ -293,19 +290,18 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
         <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex items-center justify-center p-1 shadow-2xs`}>
           <svg viewBox="0 0 140 52" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <linearGradient id="sg1" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="#00B4D8"/>
-                <stop offset="100%" stopColor="#0077A8"/>
+              <linearGradient id="sg2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor="#00C49A"/>
+                <stop offset="100%" stopColor="#007A60"/>
               </linearGradient>
             </defs>
-            {/* Sanitas "S" heart-pulse mark — their actual icon shape */}
-            <path d="M8 26 C8 14 16 8 24 8 C30 8 35 12 37 17 C39 12 44 8 50 8 C58 8 66 14 66 26 C66 34 58 42 37 52 C16 42 8 34 8 26Z" fill="url(#sg1)" opacity="0.15"/>
-            {/* Simplified S letterform in their teal */}
-            <rect x="5" y="5" width="42" height="42" rx="10" fill="url(#sg1)"/>
-            {/* White S shape */}
-            <path d="M20 18 Q20 14 26 14 Q34 14 34 20 Q34 26 22 26 Q14 26 14 33 Q14 38 22 38 Q30 38 34 34" stroke="white" strokeWidth="3.5" strokeLinecap="round" fill="none"/>
-            {/* "sanitas" wordmark */}
-            <text x="55" y="34" fontFamily="'Helvetica Neue', Arial, sans-serif" fontSize="19" fontWeight="800" fill="#0090B8" letterSpacing="-0.5">sanitas</text>
+            {/* Rounded square icon */}
+            <rect x="4" y="4" width="44" height="44" rx="11" fill="url(#sg2)"/>
+            {/* White cross — Sanitas brand mark */}
+            <rect x="22" y="11" width="8" height="30" rx="3" fill="white"/>
+            <rect x="11" y="22" width="30" height="8" rx="3" fill="white"/>
+            {/* "sanitas" lowercase wordmark in brand green */}
+            <text x="57" y="35" fontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif" fontSize="20" fontWeight="800" fill="#007A60" letterSpacing="-0.5">sanitas</text>
           </svg>
         </div>
       );
@@ -537,11 +533,16 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
 
     case 'helvetia':
       return (
-        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-2 shadow-2xs`}>
-          <svg viewBox="0 0 100 45" className="w-12 h-6" fill="none">
-            {/* Helvetia red triangle symbol */}
-            <polygon points="10,35 30,10 50,35" fill="#E2001A" />
-            <text x="55" y="28" fill="#1C1C1C" className="text-[12px] font-black" fontFamily="sans-serif">helvetia</text>
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex items-center justify-center p-1 shadow-2xs`}>
+          <svg viewBox="0 0 130 50" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* Helvetia current logo: red circle with white H + wordmark */}
+            <circle cx="25" cy="25" r="21" fill="#C8102E"/>
+            {/* White H letterform */}
+            <rect x="16" y="13" width="5" height="24" rx="1.5" fill="white"/>
+            <rect x="29" y="13" width="5" height="24" rx="1.5" fill="white"/>
+            <rect x="16" y="22" width="18" height="5" rx="1.5" fill="white"/>
+            {/* "helvetia" wordmark */}
+            <text x="52" y="33" fontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif" fontSize="16" fontWeight="700" fill="#1A1A1A" letterSpacing="-0.3">helvetia</text>
           </svg>
         </div>
       );
@@ -583,20 +584,6 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
         </div>
       );
 
-    case 'baloise':
-    case 'baloise assurances':
-      return (
-        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-2 shadow-2xs`}>
-          <div className="flex items-center space-x-1">
-            {/* Baloise blue and yellow shapes */}
-            <svg viewBox="0 0 30 30" className="w-6 h-6">
-              <polygon points="5,5 25,5 15,25" fill="#002D62" />
-              <polygon points="12,12 28,12 20,28" fill="#FFC72C" opacity="0.85" />
-            </svg>
-            <span className="text-[10px] font-black text-[#002D62] font-display">Baloise</span>
-          </div>
-        </div>
-      );
 
     case 'pax':
       return (

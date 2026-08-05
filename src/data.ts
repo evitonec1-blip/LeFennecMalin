@@ -142,17 +142,6 @@ export const ASSUREURS_VIE: AssureurVie[] = [
     pros: ['Remboursement de bénéfices', 'Élue caisse la plus sympathique de Suisse', 'Idéal pour les couples mariés avec enfants'],
   },
   {
-    id: 'baloise',
-    name: 'Baloise Assurances',
-    rating: 4.3,
-    ratingStars: 4,
-    logo: 'BAL',
-    isPartner: true,
-    supportedTypes: ['3a', '3b', 'mixte', 'deces'],
-    guarantees: ['Garantie d\'épargne progressive', 'Couverture décès simplifiée', 'Fonds sécurisés'],
-    pros: ['Solutions de prévoyance immobilière uniques', 'Combinaison de placements novatrice', 'Excellent service sinistre/invalidité'],
-  },
-  {
     id: 'pax',
     name: 'PAX',
     rating: 4.5,
@@ -452,10 +441,6 @@ export function getLifeInsuranceEstimate(
       adminFeesPercent = 0.85;
       guaranteedRateAnnual = 0.0085;
       break;
-    case 'baloise':
-      adminFeesPercent = 1.10;
-      guaranteedRateAnnual = 0.0065;
-      break;
   }
 
   // 4. Expected yields depend on priority + equity part
@@ -467,7 +452,7 @@ export function getLifeInsuranceEstimate(
   }
 
   // Adjust yield according to company specialties
-  if (['axa', 'zurich', 'baloise'].includes(assureur.id) && priority === 'high-yield') {
+  if (['axa', 'zurich'].includes(assureur.id) && priority === 'high-yield') {
     expectedRateAnnual += 0.003; // AXA & Zurich have slightly better-performing fund selection (+0.3%)
   }
 

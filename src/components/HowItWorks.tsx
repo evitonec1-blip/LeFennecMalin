@@ -8,8 +8,8 @@ import { ArrowRight, FileText, CheckSquare, BarChart3, TrendingDown } from 'luci
 import { useLanguage } from '../i18n/LanguageContext';
 import fenyThinking from '../assets/images/feny_thinking_1783331247759.jpg';
 import fenyAnalyse from '../assets/images/feny_analyse_1783331235825.jpg';
-import fenyAvatar from '../assets/images/feny_avatar_1783331224698.jpg';
-import fenyResults from '../assets/images/feny_results_1783331258491.jpg';
+import fenyAvatar from '../assets/images/feny_mascot_avatar_1783245725195.jpg';
+import fenyResults from '../assets/images/feny_mascot_savings_1783245711111.jpg';
 
 export default function HowItWorks() {
   const { t } = useLanguage();
