@@ -15,11 +15,11 @@ import {
   lookupPremium 
 } from '../utils/premiumLookupService';
 import { fetchOfficialPremiums, fetchNpaInfo, NpaLookupResult } from '../services/priminfoService';
-import fenyWinking from '../assets/images/feny_winking_1783331270164.jpg';
+import fenyWinking from '../assets/images/feny_logo_1783331214351.jpg';
 import fenyThinking from '../assets/images/feny_thinking_1783331247759.jpg';
-import fenyAvatar from '../assets/images/feny_avatar_1783331224698.jpg';
-import fenySavings from '../assets/images/feny_savings_1783249344310.jpg';
-import fenyCompare from '../assets/images/feny_compare_1783249332783.jpg';
+import fenyAvatar from '../assets/images/feny_mascot_avatar_1783278049191.jpg';
+import fenySavings from '../assets/images/feny_mascot_savings_1783278076816.jpg';
+import fenyCompare from '../assets/images/feny_mascot_compare_1783278062615.jpg';
 import fenyAnalyse from '../assets/images/feny_analyse_1783331235825.jpg';
 import { 
   Shield, 
@@ -1719,7 +1719,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
           logo: rp.insurerId,
           basePrice: 0,
           isPartner: false,
-          notes: 'Assureur agréé LAMal (OFSP)',
+          notes: ui.sourceLabel,
         };
 
         // Requirement: "for the prices of the offers you show the prime price i want you to show the total price it means you must cut 5.15 for all prices"
@@ -1807,7 +1807,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
-      setFormError("Veuillez remplir tous les champs obligatoires.");
+      setFormError(ui.formErrorLabel);
       return;
     }
     setFormError(null);
@@ -3594,8 +3594,8 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                     />
                     {/* Real-time details badge */}
                     <div className="text-[9px] text-fennec-dark/70 font-bold mt-1 flex justify-between items-center bg-fennec-cream/25 px-2 py-1 rounded-md">
-                      <span>Canton: <span className="text-fennec-terracotta">{filters.canton}</span></span>
-                      <span>Région: <span className="text-fennec-terracotta">{filters.zone}</span></span>
+                      <span>{ui.cantonResidenceLabel} <span className="text-fennec-terracotta">{filters.canton}</span></span>
+                      <span>{ui.premiumZoneLabel} <span className="text-fennec-terracotta">{filters.zone}</span></span>
                     </div>
                   </div>
 
@@ -3714,7 +3714,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                         {ui.potentialSavingsLabel} <span className="text-fennec-red font-black">{ui.upToLabel} {estimatedSavings}.- {ui.perYearLabel}</span>
                       </h4>
                       <p className="text-xs text-emerald-800/80">
-                        C'est l'écart moyen constaté dans votre canton entre l'offre la plus chère et l'offre la plus compétitive.
+                        {ui.savingsGapDesc}
                       </p>
                     </div>
                   </div>
@@ -3914,10 +3914,10 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
               </div>
               <div>
                 <span className="text-[10px] font-bold text-fennec-terracotta uppercase tracking-wider block">
-                  Offre Gratuite Fenny
+                  {ui.smartAdviceBadge}
                 </span>
                 <h4 className="font-display font-extrabold text-xl text-fennec-dark">
-                  Votre offre {selectedCaisse.name}
+                  {ui.getOfferBtn} {selectedCaisse.name}
                 </h4>
               </div>
             </div>
@@ -4021,7 +4021,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
 
                   {formError && (
                     <div className="p-3 bg-red-50 text-red-700 text-xs font-bold rounded-xl border border-red-200">
-                      Veuillez remplir tous les champs requis.
+                      {ui.formErrorLabel}
                     </div>
                   )}
 
@@ -4034,7 +4034,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                       <span>{ui.submitOfferBtn}</span>
                     </button>
                     <span className="text-[10px] text-fennec-dark/50 text-center block mt-2">
-                      🔒 Données cryptées sécurisées. Aucun spam garanti. Politique nLPD respectée.
+                      {ui.privacyNote2}
                     </span>
                   </div>
                 </form>

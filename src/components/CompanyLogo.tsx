@@ -290,14 +290,22 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
 
     case 'sanitas':
       return (
-        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-2 shadow-2xs`}>
-          <svg viewBox="0 0 120 44" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* Cross symbol */}
-            <rect x="6" y="14" width="22" height="22" rx="3" fill="#009AC7"/>
-            <rect x="14" y="18" width="6" height="14" fill="white"/>
-            <rect x="10" y="22" width="14" height="6" fill="white"/>
-            {/* sanitas wordmark */}
-            <text x="34" y="30" fontFamily="Arial, sans-serif" fontSize="16" fontWeight="700" fill="#009AC7" letterSpacing="-0.3">sanitas</text>
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex items-center justify-center p-1 shadow-2xs`}>
+          <svg viewBox="0 0 140 52" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="sg1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor="#00B4D8"/>
+                <stop offset="100%" stopColor="#0077A8"/>
+              </linearGradient>
+            </defs>
+            {/* Sanitas "S" heart-pulse mark — their actual icon shape */}
+            <path d="M8 26 C8 14 16 8 24 8 C30 8 35 12 37 17 C39 12 44 8 50 8 C58 8 66 14 66 26 C66 34 58 42 37 52 C16 42 8 34 8 26Z" fill="url(#sg1)" opacity="0.15"/>
+            {/* Simplified S letterform in their teal */}
+            <rect x="5" y="5" width="42" height="42" rx="10" fill="url(#sg1)"/>
+            {/* White S shape */}
+            <path d="M20 18 Q20 14 26 14 Q34 14 34 20 Q34 26 22 26 Q14 26 14 33 Q14 38 22 38 Q30 38 34 34" stroke="white" strokeWidth="3.5" strokeLinecap="round" fill="none"/>
+            {/* "sanitas" wordmark */}
+            <text x="55" y="34" fontFamily="'Helvetica Neue', Arial, sans-serif" fontSize="19" fontWeight="800" fill="#0090B8" letterSpacing="-0.5">sanitas</text>
           </svg>
         </div>
       );

@@ -8,11 +8,11 @@ import { ASSUREURS_VIE, getLifeInsuranceEstimate } from '../data';
 import { LifeFilterState, AssureurVie } from '../types';
 import { calculateSwiss3rdPillarSimulation } from '../utils/swissTax';
 import { useLanguage } from '../i18n/LanguageContext';
-import fenyWinking from '../assets/images/feny_winking_1783331270164.jpg';
+import fenyWinking from '../assets/images/feny_logo_1783331214351.jpg';
 import fenyThinking from '../assets/images/feny_thinking_1783331247759.jpg';
-import fenyAvatar from '../assets/images/feny_avatar_1783331224698.jpg';
-import fenySavings from '../assets/images/feny_savings_1783249344310.jpg';
-import fenyCompare from '../assets/images/feny_compare_1783249332783.jpg';
+import fenyAvatar from '../assets/images/feny_mascot_avatar_1783278049191.jpg';
+import fenySavings from '../assets/images/feny_mascot_savings_1783278076816.jpg';
+import fenyCompare from '../assets/images/feny_mascot_compare_1783278062615.jpg';
 import fenyAnalyse from '../assets/images/feny_analyse_1783331235825.jpg';
 import { 
   Shield, 

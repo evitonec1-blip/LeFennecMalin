@@ -21,9 +21,9 @@ import CookieConsent from './components/CookieConsent';
 import { ArrowRight, ShieldCheck, HelpCircle, ArrowUpRight, Scale, Sparkles, CheckCircle, Calendar } from 'lucide-react';
 import gsap from 'gsap';
 
-import fenyAnalyse from './assets/images/feny_analyse_1783331235825.jpg';
-import fenyWinking from './assets/images/feny_winking_1783331270164.jpg';
-import fenyResults from './assets/images/feny_results_1783331258491.jpg';
+import fenyAnalyse from './assets/images/IMG_20260804_161612_upscaled.jpg';
+import fenyWinking from './assets/images/feny_logo_1783331214351.jpg';
+import fenyResults from './assets/images/feny_mascot_compare_1783278062615.jpg';
 
 export default function App() {
   const [currentTab, setCurrentTab] = useState<AppTab>('home');
