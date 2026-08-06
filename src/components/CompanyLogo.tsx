@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import sanitasLogo from '../assets/images/logos/sanitas.png';
 
 interface CompanyLogoProps {
   id: string;
@@ -288,14 +289,7 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
     case 'sanitas':
       return (
         <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex items-center justify-center px-3 py-2 shadow-2xs`}>
-          <svg viewBox="0 0 160 60" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* "sani" in dark green */}
-            <text x="8" y="44" fontFamily="'Myriad Pro', 'Frutiger', 'Helvetica Neue', Arial, sans-serif" fontSize="38" fontWeight="900" fill="#00754A" letterSpacing="-0.5">sani</text>
-            {/* dot above "i" in dark green */}
-            <circle cx="93" cy="13" r="5" fill="#00754A"/>
-            {/* "tas" in bright light green */}
-            <text x="100" y="44" fontFamily="'Myriad Pro', 'Frutiger', 'Helvetica Neue', Arial, sans-serif" fontSize="38" fontWeight="900" fill="#6CB33F" letterSpacing="-0.5">tas</text>
-          </svg>
+          <img src={sanitasLogo} alt="Sanitas" className="w-full h-full object-contain" />
         </div>
       );
 
