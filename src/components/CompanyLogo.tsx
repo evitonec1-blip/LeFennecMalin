@@ -288,7 +288,7 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
 
     case 'sanitas':
       return (
-        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex items-center justify-center px-3 py-2 shadow-2xs`}>
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex items-center justify-center p-0.5 shadow-2xs overflow-hidden`}>
           <img src={sanitasLogo} alt="Sanitas" className="w-full h-full object-contain" />
         </div>
       );
