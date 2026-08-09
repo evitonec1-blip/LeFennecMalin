@@ -117,6 +117,16 @@ export function resolveBrandKey(rawId: string): string {
   if (clean.includes('helsana')) return 'helsana';
   if (clean.includes('swica')) return 'swica';
   if (clean.includes('visana')) return 'visana';
+  if (clean.includes('pax')) return 'pax';
+  if (clean.includes('retraite populaire') || clean.includes('retraitepopulaire')) return 'retraitepopulaire';
+  if (clean.includes('vaudoise')) return 'vaudoise';
+  if (clean.includes('mobiliere') || clean.includes('mobilière') || clean.includes('mobilier')) return 'mobiliere';
+  if (clean.includes('swisslife') || clean.includes('swiss life')) return 'swisslife';
+  if (clean.includes('allianz')) return 'allianz';
+  if (clean.includes('generali')) return 'generali';
+  if (clean.includes('helvetia')) return 'helvetia';
+  if (clean.includes('zurich')) return 'zurich';
+  if (clean.includes('axa')) return 'axa';
   if (clean.includes('sanitas')) return 'sanitas';
   if (clean.includes('concordia')) return 'concordia';
   if (clean.includes('kpt') || clean.includes('cpt')) return 'kpt';
@@ -176,8 +186,10 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
     helvetia: 'https://www.google.com/s2/favicons?sz=128&domain=helvetia.ch',
     allianz: 'https://www.google.com/s2/favicons?sz=128&domain=allianz.ch',
     generali: 'https://www.google.com/s2/favicons?sz=128&domain=generali.ch',
-    vaudoise: 'https://www.google.com/s2/favicons?sz=128&domain=vaudoise.ch',
-    mobiliere: 'https://www.google.com/s2/favicons?sz=128&domain=mobiliere.ch',
+    vaudoise: 'https://logo.clearbit.com/vaudoise.ch',
+    mobiliere: 'https://logo.clearbit.com/mobiliere.ch',
+    pax: 'https://logo.clearbit.com/pax.ch',
+    retraitepopulaire: 'https://logo.clearbit.com/retraitepopulaire.ch',
   };
 
   useEffect(() => {

@@ -2062,7 +2062,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-[#FAF8F5] overflow-y-auto flex flex-col justify-between font-sans"
+            className="fixed inset-0 z-[100] bg-[#FAF8F5] overflow-y-auto flex flex-col font-sans"
           >
             {/* 1. TOP PROGRESS NAVIGATION BAR */}
             <header className="w-full bg-white border-b border-fennec-cream/40 px-6 py-4 flex items-center justify-between sticky top-0 z-30 shadow-3xs">
@@ -2106,7 +2106,7 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
             </header>
 
             {/* 2. MAIN IMMERSIVE CONTAINER (aligned higher up for improved UI/UX) */}
-            <div className="flex-grow flex items-start justify-center p-4 md:p-8 pt-2 sm:pt-4 md:pt-6 overflow-y-auto">
+            <div className="flex items-start justify-center p-4 md:p-8 pt-2 sm:pt-4 md:pt-6">
               {isAnalyzing ? (
                 /* SMOOTH FINAL LOADING/ANALYSIS FLOW WITH REAL ANALYSING & LOGO CAROUSEL */
                 <div className="max-w-2xl mx-auto p-6 text-center space-y-6 animate-in fade-in duration-300">
@@ -2214,8 +2214,8 @@ export default function HealthComparator({ isEmbedded = false, onStartQuiz }: He
                   </div>
 
                   {/* Question Right Panel */}
-                  <div className="lg:col-span-7 bg-white rounded-3xl border border-fennec-cream/80 shadow-md p-6 md:p-10 w-full min-h-[380px] flex flex-col justify-between">
-                    <div ref={stepContainerRef} className="flex-grow flex flex-col justify-center">
+                  <div className="lg:col-span-7 bg-white rounded-3xl border border-fennec-cream/80 shadow-md p-6 md:p-10 w-full flex flex-col gap-6">
+                    <div ref={stepContainerRef} className="flex flex-col">
                       <AnimatePresence mode="wait">
                         
                         {/* STEP 1: NPA (Code Postal) */}
