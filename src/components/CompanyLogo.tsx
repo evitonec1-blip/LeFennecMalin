@@ -6,6 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import sanitasLogo from '../assets/images/logos/sanitas.png';
 import paxLogo from '../assets/images/logos/pax.png';
+import retraitepopulaireLogo from '../assets/images/logos/retraitepopulaire.png';
 
 interface CompanyLogoProps {
   id: string;
@@ -593,7 +594,7 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
 
     case 'pax':
       return (
-        <div className={`${className} bg-[#3D008C] rounded-2xl flex items-center justify-center p-1 shadow-2xs overflow-hidden`}>
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex items-center justify-center p-1 shadow-2xs overflow-hidden`}>
           <img src={paxLogo} alt="PAX" className="w-full h-full object-contain" />
         </div>
       );
@@ -601,9 +602,8 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
     case 'retraitepopulaire':
     case 'retraite populaire':
       return (
-        <div className={`${className} bg-[#00549F] rounded-2xl flex flex-col items-center justify-center p-2 text-white shadow-2xs`}>
-          <span className="text-[9px] font-black leading-tight uppercase text-center font-display">Retraite</span>
-          <span className="text-[9px] font-bold leading-none uppercase text-center text-amber-300">Populaire</span>
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex items-center justify-center p-1 shadow-2xs overflow-hidden`}>
+          <img src={retraitepopulaireLogo} alt="Retraites Populaires" className="w-full h-full object-contain" />
         </div>
       );
 
