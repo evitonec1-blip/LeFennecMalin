@@ -2012,8 +2012,8 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                 /* MAIN QUESTION + MASCOT GRID */
                 <div className="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start py-6">
                   
-                  {/* Mascot Left Panel */}
-                  <div className="lg:col-span-5 flex flex-col items-center lg:items-end space-y-4">
+                  {/* Mascot Left Panel — hidden on mobile */}
+                  <div className="hidden lg:flex lg:col-span-5 flex-col items-end space-y-4">
                     
                     {/* Floating Speech Bubble */}
                     {fenyAdvice && (

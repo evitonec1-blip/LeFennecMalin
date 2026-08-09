@@ -188,8 +188,8 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
     generali: 'https://www.google.com/s2/favicons?sz=128&domain=generali.ch',
     vaudoise: 'https://logo.clearbit.com/vaudoise.ch',
     mobiliere: 'https://logo.clearbit.com/mobiliere.ch',
-    pax: 'https://logo.clearbit.com/pax.ch',
-    retraitepopulaire: 'https://logo.clearbit.com/retraitepopulaire.ch',
+    pax: null,
+    retraitepopulaire: null,
   };
 
   useEffect(() => {
@@ -198,9 +198,15 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
 
   let imgSrc: string | null = null;
 
-  if (retryState === 0) {
-    if (specialUrls[normId]) {
-      imgSrc = specialUrls[normId];
+  // If the company is explicitly set to null in specialUrls, skip image entirely → go to SVG
+  const hasSpecialEntry = normId in specialUrls;
+  const specialUrl = specialUrls[normId];
+
+  if (hasSpecialEntry && specialUrl === null) {
+    // fall through to SVG switch below
+  } else if (retryState === 0) {
+    if (hasSpecialEntry && specialUrl) {
+      imgSrc = specialUrl;
     } else if (domain) {
       imgSrc = `https://www.google.com/s2/favicons?sz=128&domain=${domain}`;
     }
