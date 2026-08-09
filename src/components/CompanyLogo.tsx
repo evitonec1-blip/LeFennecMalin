@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import sanitasLogo from '../assets/images/logos/sanitas.png';
+import paxLogo from '../assets/images/logos/pax.png';
 
 interface CompanyLogoProps {
   id: string;
@@ -592,9 +593,8 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
 
     case 'pax':
       return (
-        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-2 shadow-2xs`}>
-          <span className="text-sm font-black text-[#0B2545] font-display tracking-widest leading-none">PAX</span>
-          <span className="text-[6px] font-bold text-amber-600 mt-0.5 tracking-wider uppercase">Prévoyance</span>
+        <div className={`${className} bg-[#3D008C] rounded-2xl flex items-center justify-center p-1 shadow-2xs overflow-hidden`}>
+          <img src={paxLogo} alt="PAX" className="w-full h-full object-contain" />
         </div>
       );
 
