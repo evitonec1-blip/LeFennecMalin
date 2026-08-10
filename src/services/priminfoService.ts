@@ -83,7 +83,10 @@ async function getClientPremiumsDb(): Promise<Record<string, { premium: number; 
     return clientPremiumsDbCache;
   }
   try {
-    const res = await fetch("/premiums_2026.json");
+    const res = await fetch("/premiums_2026.json", {
+      headers: { "Accept": "application/json" },
+      cache: "force-cache"
+    });
     if (!res.ok) {
       throw new Error(`Failed to load premiums_2026.json (status ${res.status})`);
     }
@@ -110,7 +113,10 @@ let clientNpaMapCache: Record<string, NpaRegionEntry[]> | null = null;
 
 async function getClientNpaMap(): Promise<Record<string, NpaRegionEntry[]>> {
   if (clientNpaMapCache) return clientNpaMapCache;
-  const res = await fetch('/npa_to_region.json');
+  const res = await fetch('/npa_to_region.json', {
+    headers: { "Accept": "application/json" },
+    cache: "force-cache"
+  });
   if (!res.ok) {
     throw new Error(`Failed to load npa_to_region.json (status ${res.status})`);
   }

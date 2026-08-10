@@ -16,10 +16,6 @@ const __dirname = path.dirname(__filename_esm);
 // Load environment variables
 dotenv.config();
 
-console.log(`[Startup Check] Environment status:
-- PRIMINFO_API_KEY is ${process.env.PRIMINFO_API_KEY ? "DEFINED" : "MISSING"}
-- SWISS_API_KEY is ${process.env.SWISS_API_KEY ? "DEFINED" : "MISSING"}
-- VERCEL environment is ${process.env.VERCEL ? "TRUE" : "FALSE"}`);
 
 const app = express();
 
@@ -145,7 +141,6 @@ app.post("/api/send-verification-code", async (req, res) => {
     // Also create a signed token (works across serverless instances)
     const verificationToken = signVerificationToken(cleanEmail, generatedCode, expiresAt);
 
-    console.log(`[Verification] Code generated for ${cleanEmail}: ${generatedCode}`);
 
     // Get logo data
     const logoData = getLogoData();
@@ -205,7 +200,6 @@ app.post("/api/send-verification-code", async (req, res) => {
           html: htmlBody,
           attachments
         });
-        console.log(`[Verification] Email successfully sent to ${cleanEmail}`);
       } catch (mailErr: any) {
         console.error(`[Verification] SMTP failed to send email to ${cleanEmail}:`, mailErr.message);
       }
@@ -814,7 +808,6 @@ Gain fiscal total estimé : ${totalTaxSavings ? `CHF ${totalTaxSavings.toLocaleS
     const smtpPass = process.env.SMTP_PASS;
 
     if (smtpHost && smtpUser && smtpPass) {
-      console.log(`[SMTP] Sending lead emails... Admin: ${recipientEmail}, Prospect: ${lead.email}`);
 
       const transporter = nodemailer.createTransport({
         host: smtpHost,
@@ -841,7 +834,6 @@ Gain fiscal total estimé : ${totalTaxSavings ? `CHF ${totalTaxSavings.toLocaleS
         html: htmlBody,
         attachments
       });
-      console.log(`[SMTP] Admin lead email sent to ${recipientEmail}`);
 
       // 2. Send User Confirmation Email (if valid prospect email provided)
       if (lead.email && lead.email.toLowerCase() !== recipientEmail.toLowerCase()) {
@@ -854,7 +846,6 @@ Gain fiscal total estimé : ${totalTaxSavings ? `CHF ${totalTaxSavings.toLocaleS
             html: userConfirmationHtml,
             attachments
           });
-          console.log(`[SMTP] Prospect confirmation email sent to ${lead.email}`);
         } catch (userErr: any) {
           console.error(`[SMTP] Failed sending prospect confirmation:`, userErr.message);
         }
@@ -936,7 +927,6 @@ function loadNpaToRegionMap() {
           });
         }
       }
-      console.log(`[Server] Loaded ${Object.keys(npaMap).length} NPAs from ${existingPath}`);
     } catch (err) {
       console.error("[Server] Error loading npa_to_region_2026.csv:", err);
     }
@@ -971,13 +961,11 @@ async function loadPremiums() {
     return premiumsDb;
   }
 
-  console.log(`[Server] Loading local official 2026 premiums database from ${existingPath}...`);
   const raw = fs.readFileSync(existingPath, "utf-8");
 
   try {
     premiumsDb = JSON.parse(raw);
     premiumsLoadError = null;
-    console.log(`[Server] Successfully loaded ${Object.keys(premiumsDb).length} premium records.`);
   } catch (parseErr: any) {
     premiumsLoadError = `premiums_2026.json at ${existingPath} is not valid JSON (file length: ${raw.length} chars): ${parseErr.message}`;
     console.error(`[Server] ${premiumsLoadError}`);
@@ -1058,7 +1046,6 @@ app.get("/api/priminfo/praemien", async (req, res) => {
     }
 
     const { zipCode, franchise, ageCategory, yob, accident, locality, region: customRegion } = req.query;
-    console.log("[Priminfo API] Processing proxy request for Swiss open data...");
 
     if (!zipCode) {
       return res.status(400).json({ error: "zipCode is required" });
@@ -1154,7 +1141,6 @@ app.get("/api/priminfo/praemien", async (req, res) => {
     // Sort by monthly premium ascending
     results.sort((a, b) => a.premium - b.premium);
 
-    console.log(`[PremiumLookup] Resolved ${results.length} official records for ZIP ${cleanZip} (${canton}, Region: ${region}, Franchise: ${cleanFranchise}, Category: ${cleanAgeCategory}, Accident: ${cleanAccident})`);
     res.json({
       success: true,
       source: "Source : OFSP/priminfo, primes 2026",
@@ -1223,7 +1209,6 @@ export { app };
 // Serve frontend assets & mount Vite middleware in development
 async function startServer() {
   if (process.env.NODE_ENV !== "production") {
-    console.log("[Server] Running in DEVELOPMENT mode. Mounting Vite Dev Server...");
     const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
@@ -1231,7 +1216,6 @@ async function startServer() {
     });
     app.use(vite.middlewares);
   } else {
-    console.log("[Server] Running in PRODUCTION mode. Serving prebuilt static assets...");
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath, { 
       setHeaders: (res, filePath) => {
@@ -1246,7 +1230,6 @@ async function startServer() {
   }
 
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`[Server] Core running successfully on http://0.0.0.0:${PORT}`);
   });
 }
 
