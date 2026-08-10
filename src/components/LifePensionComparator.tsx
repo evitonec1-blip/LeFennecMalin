@@ -1497,6 +1497,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
   const [verificationCodeInput, setVerificationCodeInput] = useState<string>('');
   const [verificationError, setVerificationError] = useState<string | null>(null);
   const [isSendingCode, setIsSendingCode] = useState<boolean>(false);
+  const [verificationToken, setVerificationToken] = useState<string | null>(null);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
@@ -3182,6 +3183,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                                         setIsSendingCode(false);
                                         return;
                                       }
+                                      if (data.verificationToken) setVerificationToken(data.verificationToken);
                                       
                                       // Log lead as pre-verify
                                       fetch('/api/submit-lead', {
@@ -3250,7 +3252,8 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                                         headers: { 'Content-Type': 'application/json' },
                                         body: JSON.stringify({
                                           email: formData.email,
-                                          code: verificationCodeInput
+                                          code: verificationCodeInput,
+                                          verificationToken
                                         })
                                       });
                                       const data = await res.json();

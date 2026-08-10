@@ -4,6 +4,8 @@ import path from "path";
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
 import fs from "fs";
+import zlib from "zlib";
+import crypto from "crypto";
 import { fileURLToPath } from "url";
 import { getInsurerDisplayName, getInsurerModelFallbackName, translateModelNameToFrench, lookupPremium, getAgeCategoryFromYob, ACTIVE_INSURER_IDS } from "./src/utils/premiumLookupService.js";
 
@@ -20,6 +22,25 @@ console.log(`[Startup Check] Environment status:
 - VERCEL environment is ${process.env.VERCEL ? "TRUE" : "FALSE"}`);
 
 const app = express();
+
+// Gzip compression for all responses (critical for 10MB premiums_2026.json)
+app.use((req, res, next) => {
+  const ae = req.headers["accept-encoding"] || "";
+  if (!ae.includes("gzip")) return next();
+  const _json = res.json.bind(res);
+  res.json = (body: any) => {
+    const str = JSON.stringify(body);
+    if (str.length < 1024) return _json(body);
+    res.setHeader("Content-Encoding", "gzip");
+    res.setHeader("Content-Type", "application/json");
+    zlib.gzip(Buffer.from(str), (err, buf) => {
+      if (err) return _json(body);
+      res.end(buf);
+    });
+    return res;
+  };
+  next();
+});
 
 const PORT = 3000;
 
@@ -38,7 +59,38 @@ app.use((req, res, next) => {
 });
 
 
-// Verification code storage (in-memory map)
+// ─── Verification code storage ────────────────────────────────────────────────
+// On Vercel (serverless), every request may hit a fresh instance — an in-memory
+// Map is wiped between invocations, making verification always fail.
+// Fix: encode the code + expiry into a signed HMAC token returned to the client,
+// then verify the signature server-side. No shared state needed.
+
+const VERIFICATION_SECRET = process.env.VERIFICATION_SECRET || "fennec-local-dev-secret-change-in-prod";
+
+function signVerificationToken(email: string, code: string, expiresAt: number): string {
+  const payload = `${email}|${code}|${expiresAt}`;
+  const sig = crypto.createHmac("sha256", VERIFICATION_SECRET).update(payload).digest("hex");
+  return Buffer.from(`${payload}|${sig}`).toString("base64url");
+}
+
+function verifyVerificationToken(token: string): { email: string; code: string; expiresAt: number } | null {
+  try {
+    const decoded = Buffer.from(token, "base64url").toString("utf8");
+    const parts = decoded.split("|");
+    if (parts.length !== 4) return null;
+    const [email, code, expiresAtStr, sig] = parts;
+    const expiresAt = parseInt(expiresAtStr, 10);
+    const payload = `${email}|${code}|${expiresAt}`;
+    const expectedSig = crypto.createHmac("sha256", VERIFICATION_SECRET).update(payload).digest("hex");
+    if (sig !== expectedSig) return null;
+    if (Date.now() > expiresAt) return null;
+    return { email, code, expiresAt };
+  } catch {
+    return null;
+  }
+}
+
+// Legacy in-memory fallback (only used if token not provided — keeps backwards compat)
 const verificationCodes = new Map<string, { code: string; expiresAt: number; phone?: string; firstName?: string; lastName?: string }>();
 
 // Helper to get Fennec logo buffer and base64 URI across Vercel/Node environments
@@ -81,6 +133,7 @@ app.post("/api/send-verification-code", async (req, res) => {
     const generatedCode = Math.floor(1000 + Math.random() * 9000).toString();
     const expiresAt = Date.now() + 10 * 60 * 1000; // 10 minutes expiry
 
+    // Store in-memory (works for long-running servers)
     verificationCodes.set(cleanEmail, {
       code: generatedCode,
       expiresAt,
@@ -88,6 +141,9 @@ app.post("/api/send-verification-code", async (req, res) => {
       firstName,
       lastName
     });
+
+    // Also create a signed token (works across serverless instances)
+    const verificationToken = signVerificationToken(cleanEmail, generatedCode, expiresAt);
 
     console.log(`[Verification] Code generated for ${cleanEmail}: ${generatedCode}`);
 
@@ -160,6 +216,7 @@ app.post("/api/send-verification-code", async (req, res) => {
     return res.json({ 
       success: true, 
       message: `Code de vérification envoyé à ${cleanEmail}`,
+      verificationToken,
       devCodeNotice: !smtpHost ? generatedCode : undefined
     });
   } catch (error: any) {
@@ -171,7 +228,7 @@ app.post("/api/send-verification-code", async (req, res) => {
 // API endpoint to verify code
 app.post("/api/verify-code", async (req, res) => {
   try {
-    const { email, code } = req.body;
+    const { email, code, verificationToken } = req.body;
 
     if (!email || !code) {
       return res.status(400).json({ error: "L'adresse e-mail et le code sont obligatoires." });
@@ -180,6 +237,22 @@ app.post("/api/verify-code", async (req, res) => {
     const cleanEmail = String(email).trim().toLowerCase();
     const cleanCode = String(code).trim();
 
+    // Primary: verify via signed token (works on serverless — no shared state needed)
+    if (verificationToken) {
+      const tokenData = verifyVerificationToken(String(verificationToken));
+      if (!tokenData) {
+        return res.status(400).json({ success: false, error: "Ce code a expiré ou est invalide. Veuillez demander un nouveau code." });
+      }
+      if (tokenData.email !== cleanEmail) {
+        return res.status(400).json({ success: false, error: "L'adresse e-mail ne correspond pas." });
+      }
+      if (tokenData.code !== cleanCode) {
+        return res.status(400).json({ success: false, error: "Code de vérification incorrect. Veuillez vérifier votre e-mail." });
+      }
+      return res.json({ success: true, verified: true });
+    }
+
+    // Fallback: in-memory map (works on long-running servers)
     const record = verificationCodes.get(cleanEmail);
 
     if (!record) {
@@ -204,9 +277,7 @@ app.post("/api/verify-code", async (req, res) => {
       });
     }
 
-    // Code verified! Remove code from store
     verificationCodes.delete(cleanEmail);
-
     return res.json({ success: true, verified: true });
   } catch (error: any) {
     console.error("[VerifyCodeError]", error);
@@ -873,7 +944,8 @@ function loadNpaToRegionMap() {
   return npaMap;
 }
 
-loadNpaToRegionMap();
+// Warm up NPA map in background — non-blocking, avoids cold-start latency spike
+setImmediate(() => loadNpaToRegionMap());
 
 let premiumsDb: Record<string, { premium: number; modelName: string }> = {};
 let premiumsLoadError: string | null = null;
@@ -1161,7 +1233,13 @@ async function startServer() {
   } else {
     console.log("[Server] Running in PRODUCTION mode. Serving prebuilt static assets...");
     const distPath = path.join(process.cwd(), 'dist');
-    app.use(express.static(distPath));
+    app.use(express.static(distPath, { 
+      setHeaders: (res, filePath) => {
+        if (filePath.endsWith('.json')) {
+          res.setHeader('Cache-Control', 'public, max-age=3600');
+        }
+      }
+    }));
     app.get('*', (req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));
     });
