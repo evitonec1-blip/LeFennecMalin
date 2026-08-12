@@ -1734,7 +1734,7 @@ const LIFE_ADVICE_MAP = {
 
 export default function LifePensionComparator({ isEmbedded = false, onStartQuiz }: LifePensionComparatorProps) {
   const { language } = useLanguage();
-  const ui = LIFE_UI_TEXTS[language] || LIFE_UI_TEXTS.fr;
+  const ui = { ...LIFE_UI_TEXTS.fr, ...(LIFE_UI_TEXTS[language] || {}) };
 
   // 1. Core State with comprehensive Swiss 3rd pillar questions
   const [filters, setFilters] = useState<LifeFilterState>({
@@ -1973,7 +1973,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
   // Set Feny advice automatically based on active step in quiz mode
   useEffect(() => {
     if (quizMode) {
-      const adviceMap = LIFE_ADVICE_MAPS[language] || LIFE_ADVICE_MAPS.fr;
+      const adviceMap = { ...LIFE_ADVICE_MAPS.fr, ...(LIFE_ADVICE_MAPS[language] || {}) };
       if (currentStep === 1) setFenyAdvice(adviceMap.type);
       else if (currentStep === 2) setFenyAdvice(adviceMap.personal);
       else if (currentStep === 3) setFenyAdvice(adviceMap.product);

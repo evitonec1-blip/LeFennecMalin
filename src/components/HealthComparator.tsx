@@ -1546,7 +1546,7 @@ const HEALTH_ADVICE_MAP = {
 
 export default function HealthComparator({ isEmbedded = false, onStartQuiz }: HealthComparatorProps) {
   const { language } = useLanguage();
-  const ui = HEALTH_UI_TEXTS[language] || HEALTH_UI_TEXTS.fr;
+  const ui = { ...HEALTH_UI_TEXTS.fr, ...(HEALTH_UI_TEXTS[language] || {}) };
 
   // 1. Core State
   const [filters, setFilters] = useState<HealthFilterState>({
