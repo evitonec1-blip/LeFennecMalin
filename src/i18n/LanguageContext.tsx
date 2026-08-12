@@ -42,7 +42,8 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const t = (key: keyof typeof translations['fr'], fallback?: string): string => {
     const langDict = translations[language] || translations.fr;
-    return langDict[key] || translations.fr[key] || fallback || key;
+    if (Object.prototype.hasOwnProperty.call(langDict, key) && langDict[key]) return langDict[key];
+    return translations.fr[key] || fallback || key;
   };
 
   const currentLanguageInfo = LANGUAGES.find((l) => l.code === language) || LANGUAGES[0];

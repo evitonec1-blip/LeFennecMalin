@@ -65,6 +65,22 @@ export default function CookieConsent() {
       decline: "Rifiuta",
       accept: "Accetta tutti",
       guarantee: "Garantito 100% anonimo e sicuro"
+    },
+    es: {
+      title: "Respeto de tu privacidad",
+      subtitle: "Conformidad nLPD & RGPD",
+      body: "Le Fennec Malin utiliza cookies esenciales para el funcionamiento de nuestros comparadores de seguros y estadísticas anónimas para mejorar tu experiencia. Ningún dato es revendido a terceros.",
+      decline: "Rechazar",
+      accept: "Aceptar todo",
+      guarantee: "Garantizado 100% anónimo y seguro"
+    },
+    pt: {
+      title: "Respeito pela sua privacidade",
+      subtitle: "Conformidade nLPD & RGPD",
+      body: "Le Fennec Malin utiliza cookies essenciais para o funcionamento dos nossos comparadores de seguros e estatísticas anónimas para melhorar a sua experiência. Nenhum dado é revendido a terceiros.",
+      decline: "Recusar",
+      accept: "Aceitar tudo",
+      guarantee: "Garantido 100% anónimo e seguro"
     }
   }[language] || {
     title: "Respect de votre vie privée",

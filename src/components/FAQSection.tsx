@@ -327,6 +327,68 @@ export default function FAQSection() {
           )
         }
       ]
+    },
+    es: {
+      tag: "Tus Preguntas",
+      title: "Fenny te responde con claridad y transparencia",
+      subtitle: "Las preguntas más frecuentes sobre el funcionamiento de los seguros suizos explicadas por nuestro fennec.",
+      faqs: [
+        {
+          question: "¿Cuál es la diferencia entre el seguro de enfermedad obligatorio (LAMal) y el complementario (LCA)?",
+          answer: (<div className="space-y-2 text-sm text-fennec-dark/80 leading-relaxed"><p>El <strong>seguro obligatorio (LAMal)</strong> es obligatorio para todos los residentes en Suiza y garantiza las mismas prestaciones por ley.</p><p>Los <strong>seguros complementarios (LCA)</strong> son opcionales y cubren cuidados extra (dentista, medicina alternativa, habitación privada).</p></div>)
+        },
+        {
+          question: "¿Cómo puedo ahorrar en las primas del seguro de enfermedad en Suiza?",
+          answer: (<div className="space-y-2 text-sm text-fennec-dark/80 leading-relaxed"><p>Cuatro consejos principales:</p><ul className="list-disc pl-5 space-y-1"><li><strong>Aumentar la franquicia:</strong> Pasar de CHF 300 a CHF 2'500 reduce considerablemente la prima mensual.</li><li><strong>Elegir modelos alternativos:</strong> Telmed, Médico de Familia o HMO.</li><li><strong>Excluir la cobertura de accidentes:</strong> Si trabajas más de 8 horas/semana con el mismo empleador.</li><li><strong>Solicitar subsidios cantonales:</strong> Según tus ingresos.</li></ul></div>)
+        },
+        {
+          question: "¿Qué es el 3er Pilar y por qué se recomienda?",
+          answer: (<div className="space-y-2 text-sm text-fennec-dark/80 leading-relaxed"><p>El 1er y 2º pilar cubren generalmente solo el 60% del último salario en la jubilación.</p><p>El <strong>3er pilar (previsión privada)</strong> llena esta brecha ofreciendo ventajas fiscales inmediatas.</p></div>)
+        },
+        {
+          question: "¿Cuál es la diferencia entre el pilar 3a (vinculado) y el pilar 3b (libre)?",
+          answer: (<div className="space-y-2 text-sm text-fennec-dark/80 leading-relaxed"><p>El <strong>Pilar 3a</strong> ofrece deducciones fiscales completas pero los fondos están vinculados hasta la jubilación.</p><p>El <strong>Pilar 3b</strong> es flexible y se puede retirar en cualquier momento.</p></div>)
+        },
+        {
+          question: "¿Cuáles son los límites máximos de deducción fiscal para el 3er pilar 3a en 2025 / 2026?",
+          answer: (<div className="space-y-2 text-sm text-fennec-dark/80 leading-relaxed"><p>Para asalariados con fondo de pensiones: <strong>CHF 7'258.- al año</strong>.</p><p>Para autónomos sin fondo de pensiones: hasta <strong>CHF 36'288.- al año</strong>.</p></div>)
+        },
+        {
+          question: "¿Los servicios de Le Fennec Malin son realmente gratuitos al 100%?",
+          answer: (<div className="space-y-2 text-sm text-fennec-dark/80 leading-relaxed"><p><strong>¡Sí, absolutamente!</strong> El uso del sitio y las simulaciones son gratuitos al 100% y sin costes ocultos.</p></div>)
+        }
+      ]
+    },
+    pt: {
+      tag: "As Suas Perguntas",
+      title: "Fenny responde-lhe com clareza e transparência",
+      subtitle: "As perguntas mais frequentes sobre o funcionamento dos seguros suíços explicadas pelo nosso fennec.",
+      faqs: [
+        {
+          question: "Qual é a diferença entre o seguro de saúde obrigatório (LAMal) e o complementar (LCA)?",
+          answer: (<div className="space-y-2 text-sm text-fennec-dark/80 leading-relaxed"><p>O <strong>seguro obrigatório (LAMal)</strong> é obrigatório para todos os residentes na Suíça e garante as mesmas prestações por lei.</p><p>Os <strong>seguros complementares (LCA)</strong> são opcionais e cobrem cuidados extra (dentista, medicina alternativa, quarto privado).</p></div>)
+        },
+        {
+          question: "Como posso poupar nos prémios do seguro de saúde na Suíça?",
+          answer: (<div className="space-y-2 text-sm text-fennec-dark/80 leading-relaxed"><p>Quatro conselhos principais:</p><ul className="list-disc pl-5 space-y-1"><li><strong>Aumentar a franquia:</strong> Passar de CHF 300 para CHF 2'500 reduz consideravelmente o prémio mensal.</li><li><strong>Escolher modelos alternativos:</strong> Telmed, Médico de Família ou HMO.</li><li><strong>Excluir a cobertura de acidentes:</strong> Se trabalhar mais de 8 horas/semana com o mesmo empregador.</li><li><strong>Solicitar subsídios cantonais:</strong> Consoante os seus rendimentos.</li></ul></div>)
+        },
+        {
+          question: "O que é o 3º Pilar e por que é recomendado?",
+          answer: (<div className="space-y-2 text-sm text-fennec-dark/80 leading-relaxed"><p>O 1º e 2º pilar cobrem geralmente apenas 60% do último salário na reforma.</p><p>O <strong>3º pilar (previdência privada)</strong> preenche esta lacuna oferecendo vantagens fiscais imediatas.</p></div>)
+        },
+        {
+          question: "Qual é a diferença entre o pilar 3a (vinculado) e o pilar 3b (livre)?",
+          answer: (<div className="space-y-2 text-sm text-fennec-dark/80 leading-relaxed"><p>O <strong>Pilar 3a</strong> oferece deduções fiscais completas mas os fundos estão vinculados até à reforma.</p><p>O <strong>Pilar 3b</strong> é flexível e pode ser levantado a qualquer momento.</p></div>)
+        },
+        {
+          question: "Quais são os limites máximos de dedução fiscal para o 3º pilar 3a em 2025 / 2026?",
+          answer: (<div className="space-y-2 text-sm text-fennec-dark/80 leading-relaxed"><p>Para assalariados com fundo de pensões: <strong>CHF 7'258.- por ano</strong>.</p><p>Para independentes sem fundo de pensões: até <strong>CHF 36'288.- por ano</strong>.</p></div>)
+        },
+        {
+          question: "Os serviços do Le Fennec Malin são realmente gratuitos a 100%?",
+          answer: (<div className="space-y-2 text-sm text-fennec-dark/80 leading-relaxed"><p><strong>Sim, absolutamente!</strong> A utilização do site e as simulações são gratuitas a 100% e sem custos ocultos.</p></div>)
+        }
+      ]
     }
   }[language] || {
     tag: "Vos Questions",
