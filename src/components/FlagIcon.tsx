@@ -5,6 +5,8 @@
 
 import React from 'react';
 import { Language } from '../i18n/translations';
+import esFlagImg from '../assets/images/flags/es.png';
+import ptFlagImg from '../assets/images/flags/pt.png';
 
 interface FlagIconProps {
   code: Language;
@@ -58,19 +60,9 @@ export default function FlagIcon({ code, className = 'w-5 h-5' }: FlagIconProps)
         </svg>
       );
     case 'es':
-      return (
-        <svg viewBox="0 0 36 36" className={cls} aria-hidden="true">
-          <circle cx="18" cy="18" r="18" fill="#AA151B" />
-          <rect x="0" y="10" width="36" height="16" fill="#F1BF00" />
-        </svg>
-      );
+      return <img src={esFlagImg} alt="ES" className={`${common} ${className}`} />;
     case 'pt':
-      return (
-        <svg viewBox="0 0 36 36" className={cls} aria-hidden="true">
-          <circle cx="18" cy="18" r="18" fill="#FF0000" />
-          <path d="M0 18a18 18 0 0 1 13-17.2v34.4A18 18 0 0 1 0 18Z" fill="#006600" />
-        </svg>
-      );
+      return <img src={ptFlagImg} alt="PT" className={`${common} ${className}`} />;
     default:
       return null;
   }
