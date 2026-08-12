@@ -61,17 +61,14 @@ export default function FlagIcon({ code, className = 'w-5 h-5' }: FlagIconProps)
       return (
         <svg viewBox="0 0 36 36" className={cls} aria-hidden="true">
           <circle cx="18" cy="18" r="18" fill="#AA151B" />
-          <path d="M0 12h36v12H0z" fill="#F1BF00" />
+          <rect x="0" y="10" width="36" height="16" fill="#F1BF00" />
         </svg>
       );
     case 'pt':
       return (
         <svg viewBox="0 0 36 36" className={cls} aria-hidden="true">
-          <circle cx="18" cy="18" r="18" fill="#006600" />
-          <path d="M14 18a18 18 0 0 0 22 0 18 18 0 0 0-22 0Z" fill="#FF0000" />
-          <circle cx="14" cy="18" r="7" fill="#FF0000" />
-          <circle cx="14" cy="18" r="5" fill="#FFFF00" />
-          <circle cx="14" cy="18" r="3.5" fill="#003399" />
+          <circle cx="18" cy="18" r="18" fill="#FF0000" />
+          <path d="M0 18a18 18 0 0 1 13-17.2v34.4A18 18 0 0 1 0 18Z" fill="#006600" />
         </svg>
       );
     default:
