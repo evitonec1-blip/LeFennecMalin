@@ -57,6 +57,23 @@ export default function FlagIcon({ code, className = 'w-5 h-5' }: FlagIconProps)
           <path d="M36 18a18 18 0 0 1-12 16.97V1.03A18 18 0 0 1 36 18Z" fill="#CE2B37" />
         </svg>
       );
+    case 'es':
+      return (
+        <svg viewBox="0 0 36 36" className={cls} aria-hidden="true">
+          <circle cx="18" cy="18" r="18" fill="#AA151B" />
+          <path d="M0 12h36v12H0z" fill="#F1BF00" />
+        </svg>
+      );
+    case 'pt':
+      return (
+        <svg viewBox="0 0 36 36" className={cls} aria-hidden="true">
+          <circle cx="18" cy="18" r="18" fill="#006600" />
+          <path d="M14 18a18 18 0 0 0 22 0 18 18 0 0 0-22 0Z" fill="#FF0000" />
+          <circle cx="14" cy="18" r="7" fill="#FF0000" />
+          <circle cx="14" cy="18" r="5" fill="#FFFF00" />
+          <circle cx="14" cy="18" r="3.5" fill="#003399" />
+        </svg>
+      );
     default:
       return null;
   }
