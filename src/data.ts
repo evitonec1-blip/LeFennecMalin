@@ -423,39 +423,39 @@ export function getLifeInsuranceEstimate(
       break;
     case 'zurich':
       adminFeesPercent = 1.00;
-      guaranteedRateAnnual = 0.0060;
+      guaranteedRateAnnual = 0.0062;
       break;
     case 'helvetia':
-      adminFeesPercent = 1.15;
-      guaranteedRateAnnual = 0.0085;
+      adminFeesPercent = 1.18;
+      guaranteedRateAnnual = 0.0078;
       break;
     case 'allianz':
-      adminFeesPercent = 1.25;
+      adminFeesPercent = 1.27;
       guaranteedRateAnnual = 0.0055;
       break;
     case 'generali':
-      adminFeesPercent = 1.20;
+      adminFeesPercent = 1.22;
       guaranteedRateAnnual = 0.0040;
       break;
     case 'mobiliere':
-      adminFeesPercent = 0.85;
-      guaranteedRateAnnual = 0.0085;
+      adminFeesPercent = 0.88;
+      guaranteedRateAnnual = 0.0091;
       break;
     case 'pax':
-      adminFeesPercent = 0.90;
-      guaranteedRateAnnual = 0.0070;
+      adminFeesPercent = 0.92;
+      guaranteedRateAnnual = 0.0073;
       break;
     case 'retraitepopulaire':
       adminFeesPercent = 0.80;
-      guaranteedRateAnnual = 0.0095;
+      guaranteedRateAnnual = 0.0097;
       break;
     case 'vaudoise':
-      adminFeesPercent = 1.10;
-      guaranteedRateAnnual = 0.0065;
+      adminFeesPercent = 1.13;
+      guaranteedRateAnnual = 0.0067;
       break;
     case 'groupemutuel':
-      adminFeesPercent = 1.30;
-      guaranteedRateAnnual = 0.0045;
+      adminFeesPercent = 1.33;
+      guaranteedRateAnnual = 0.0043;
       break;
   }
 
@@ -469,39 +469,17 @@ export function getLifeInsuranceEstimate(
 
   // Adjust yield according to company specialties and fund performance history
   switch (assureur.id) {
-    case 'axa':
-      expectedRateAnnual += priority === 'high-yield' ? 0.0030 : 0.0010;
-      break;
-    case 'zurich':
-      expectedRateAnnual += priority === 'high-yield' ? 0.0025 : 0.0008;
-      break;
-    case 'swisslife':
-      expectedRateAnnual += 0.0005;
-      break;
-    case 'mobiliere':
-      expectedRateAnnual += 0.0015;
-      break;
-    case 'retraitepopulaire':
-      expectedRateAnnual += priority === 'guaranteed' ? 0.0020 : -0.0005;
-      break;
-    case 'pax':
-      expectedRateAnnual += 0.0010;
-      break;
-    case 'helvetia':
-      expectedRateAnnual += 0.0005;
-      break;
-    case 'generali':
-      expectedRateAnnual += priority === 'high-yield' ? 0.0020 : -0.0010;
-      break;
-    case 'allianz':
-      expectedRateAnnual += priority === 'high-yield' ? 0.0010 : -0.0005;
-      break;
-    case 'vaudoise':
-      expectedRateAnnual += -0.0005;
-      break;
-    case 'groupemutuel':
-      expectedRateAnnual += -0.0010;
-      break;
+    case 'swisslife':      expectedRateAnnual += 0.0005; break;
+    case 'axa':            expectedRateAnnual += 0.0032; break;
+    case 'zurich':         expectedRateAnnual += 0.0026; break;
+    case 'helvetia':       expectedRateAnnual += 0.0008; break;
+    case 'allianz':        expectedRateAnnual += 0.0011; break;
+    case 'generali':       expectedRateAnnual += 0.0019; break;
+    case 'mobiliere':      expectedRateAnnual += 0.0017; break;
+    case 'pax':            expectedRateAnnual += 0.0013; break;
+    case 'retraitepopulaire': expectedRateAnnual += priority === 'guaranteed' ? 0.0022 : -0.0004; break;
+    case 'vaudoise':       expectedRateAnnual += -0.0006; break;
+    case 'groupemutuel':   expectedRateAnnual += -0.0012; break;
   }
 
   // 5. Monthly compounding calculations for exact financial mathematical ledger accuracy
