@@ -18,6 +18,7 @@ import LegalSection from './components/LegalSection';
 import HealthComparator from './components/HealthComparator';
 import LifePensionComparator from './components/LifePensionComparator';
 import CookieConsent from './components/CookieConsent';
+import NotFound from './components/NotFound';
 import { ArrowRight, ShieldCheck, HelpCircle, ArrowUpRight, Scale, Sparkles, CheckCircle, Calendar } from 'lucide-react';
 import gsap from 'gsap';
 
@@ -474,6 +475,10 @@ export default function App() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <LegalSection mode="privacy" />
           </div>
+        )}
+
+        {!['home','about','faq','legal','privacy','health-comparator','life-comparator'].includes(currentTab) && (
+          <NotFound onGoHome={() => setCurrentTab('home')} />
         )}
 
       </main>
