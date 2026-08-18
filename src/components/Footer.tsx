@@ -499,12 +499,12 @@ export default function Footer({ onTabChange }: FooterProps) {
           <span>
             {fc.made_by}{' '}
             <a
-              href="https://evitonec.vercel.app/"
+              href="https://www.leadsempire.ch/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-fennec-sand hover:text-white transition-colors underline font-medium"
             >
-              evitonec
+            leadsempire
             </a>
           </span>
         </div>
