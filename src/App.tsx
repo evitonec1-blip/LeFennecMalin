@@ -100,7 +100,11 @@ export default function App() {
       document.querySelectorAll('script[data-global-seo="true"]').forEach(el => el.remove());
     };
   }, [currentTab]);
+
+  // Intro animation for header & hero on first mount
+  useEffect(() => {
     const tl = gsap.timeline();
+    
     
     // Select header & hero elements
     gsap.set('.hero-animate', { opacity: 0, y: 35 });
