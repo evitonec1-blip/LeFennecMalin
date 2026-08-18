@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Block API routes from indexing
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://le-fennec-malin.vercel.app/sitemap.xml

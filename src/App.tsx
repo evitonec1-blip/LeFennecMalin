@@ -13,6 +13,28 @@ import TrustStrip from './components/TrustStrip';
 import HowItWorks from './components/HowItWorks';
 import ProductsGrid from './components/ProductsGrid';
 import AboutSection from './components/AboutSection';
+import AssuranceMaladie from './seo/pages/AssuranceMaladie';
+import TroisiemePilier from './seo/pages/TroisiemePilier';
+import ComparateurAssuranceSuisse from './seo/pages/ComparateurAssuranceSuisse';
+import { organizationSchema, websiteSchema } from './seo/components/SEOHead';
+
+// Resolve initial tab from URL path
+function tabFromPath(path: string): AppTab | 'seo-maladie' | 'seo-pilier' | 'seo-comparateur' | null {
+  if (path === '/assurance-maladie/' || path === '/assurance-maladie') return 'seo-maladie';
+  if (path === '/assurance-maladie/comparateur/' || path === '/assurance-maladie/comparateur') return 'seo-maladie';
+  if (path === '/3eme-pilier/' || path === '/3eme-pilier') return 'seo-pilier';
+  if (path === '/3eme-pilier/comparateur/' || path === '/3eme-pilier/comparateur') return 'seo-pilier';
+  if (path === '/comparateur-assurance-suisse/' || path === '/comparateur-assurance-suisse') return 'seo-comparateur';
+  if (path === '/a-propos/' || path === '/a-propos') return 'about';
+  if (path === '/faq/' || path === '/faq') return 'faq';
+  return null;
+}
+
+function pushURL(path: string) {
+  if (window.location.pathname !== path) {
+    window.history.pushState({}, '', path);
+  }
+}
 import FAQSection from './components/FAQSection';
 import LegalSection from './components/LegalSection';
 import HealthComparator from './components/HealthComparator';
@@ -27,14 +49,57 @@ import fenyWinking from './assets/images/feny_mascot_avatar_1783245725195.jpg';
 import fenyResults from './assets/images/feny_mascot_compare_1783245694484.jpg';
 
 export default function App() {
-  const [currentTab, setCurrentTab] = useState<AppTab>('home');
+  type ExtendedTab = AppTab | 'seo-maladie' | 'seo-pilier' | 'seo-comparateur';
+  
+  // Initialize from URL path
+  const [currentTab, setCurrentTab] = useState<ExtendedTab>(() => {
+    const fromPath = tabFromPath(window.location.pathname);
+    return (fromPath as ExtendedTab) || 'home';
+  });
   const [activeVertical, setActiveVertical] = useState<'health' | 'life'>('health');
   const { t } = useLanguage();
+
+  // Sync URL when tab changes
+  const setTab = (tab: ExtendedTab) => {
+    setTab(tab);
+    const urlMap: Partial<Record<ExtendedTab, string>> = {
+      'seo-maladie': '/assurance-maladie/',
+      'seo-pilier': '/3eme-pilier/',
+      'seo-comparateur': '/comparateur-assurance-suisse/',
+      'about': '/a-propos/',
+      'faq': '/faq/',
+      'home': '/',
+    };
+    pushURL(urlMap[tab] || '/');
+  };
+
+  // Handle browser back/forward
+  useEffect(() => {
+    const onPop = () => {
+      const fromPath = tabFromPath(window.location.pathname);
+      setTab((fromPath as ExtendedTab) || 'home');
+    };
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
   
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // Stagger reveal of page content on mount
+  // Inject global structured data on homepage
   useEffect(() => {
+    if (currentTab === 'home') {
+      [organizationSchema, websiteSchema].forEach(schema => {
+        const s = document.createElement('script');
+        s.type = 'application/ld+json';
+        s.setAttribute('data-global-seo', 'true');
+        s.textContent = JSON.stringify(schema);
+        document.head.appendChild(s);
+      });
+    }
+    return () => {
+      document.querySelectorAll('script[data-global-seo="true"]').forEach(el => el.remove());
+    };
+  }, [currentTab]);
     const tl = gsap.timeline();
     
     // Select header & hero elements
@@ -80,9 +145,9 @@ export default function App() {
   const handleCtaClick = (vertical: 'health' | 'life') => {
     setActiveVertical(vertical);
     if (vertical === 'health') {
-      setCurrentTab('health-comparator');
+      setTab('health-comparator');
     } else {
-      setCurrentTab('life-comparator');
+      setTab('life-comparator');
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -477,8 +542,30 @@ export default function App() {
           </div>
         )}
 
-        {!['home','about','faq','legal','privacy','health-comparator','life-comparator'].includes(currentTab) && (
-          <NotFound onGoHome={() => setCurrentTab('home')} />
+        {currentTab === 'seo-maladie' && (
+          <AssuranceMaladie
+            onStartComparison={() => setTab('health-comparator' as ExtendedTab)}
+            onGoHome={() => setTab('home')}
+          />
+        )}
+
+        {currentTab === 'seo-pilier' && (
+          <TroisiemePilier
+            onStartComparison={() => setTab('life-comparator' as ExtendedTab)}
+            onGoHome={() => setTab('home')}
+          />
+        )}
+
+        {currentTab === 'seo-comparateur' && (
+          <ComparateurAssuranceSuisse
+            onStartHealth={() => setTab('health-comparator' as ExtendedTab)}
+            onStartLife={() => setTab('life-comparator' as ExtendedTab)}
+            onGoHome={() => setTab('home')}
+          />
+        )}
+
+        {!['home','about','faq','legal','privacy','health-comparator','life-comparator','seo-maladie','seo-pilier','seo-comparateur'].includes(currentTab) && (
+          <NotFound onGoHome={() => setTab('home')} />
         )}
 
       </main>
@@ -491,7 +578,7 @@ export default function App() {
         <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white/95 backdrop-blur-md border-t border-fennec-cream/50 px-3 py-2.5 shadow-2xl grid grid-cols-2 gap-2.5 pb-safe-bottom">
           <button
             onClick={() => {
-              setCurrentTab('health-comparator');
+              setTab('health-comparator');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             className="w-full min-w-0 py-3 px-2 bg-fennec-red hover:bg-red-600 text-white font-display font-extrabold text-[11px] rounded-xl flex items-center justify-center space-x-1.5 shadow-md shadow-fennec-red/20 transition-all active:scale-95"
@@ -501,7 +588,7 @@ export default function App() {
           </button>
           <button
             onClick={() => {
-              setCurrentTab('life-comparator');
+              setTab('life-comparator');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             className="w-full min-w-0 py-3 px-2 bg-fennec-dark hover:bg-fennec-terracotta text-white font-display font-extrabold text-[11px] rounded-xl flex items-center justify-center space-x-1.5 shadow-md shadow-fennec-dark/20 transition-all active:scale-95"
