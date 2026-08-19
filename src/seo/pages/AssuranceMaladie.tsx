@@ -139,9 +139,9 @@ export default function AssuranceMaladie({ onStartComparison, onGoHome }: Props)
               { label: 'Valais', slug: 'valais' },
               { label: 'Jura', slug: 'jura' },
             ].map(c => (
-              <div key={c.slug} className="bg-fennec-cream/40 rounded-xl p-3 text-center text-sm font-display font-bold text-fennec-dark hover:bg-fennec-cream/70 transition-colors cursor-default">
-                {c.label}
-              </div>
+              <a key={c.slug} href={`/assurance-maladie/${c.slug}/`} className="bg-fennec-cream/40 rounded-xl p-3 text-center text-sm font-display font-bold text-fennec-dark hover:bg-fennec-cream/70 transition-colors">
+                Assurance maladie {c.label}
+              </a>
             ))}
           </div>
         </div>

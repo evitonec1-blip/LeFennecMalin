@@ -16,15 +16,21 @@ import AboutSection from './components/AboutSection';
 import AssuranceMaladie from './seo/pages/AssuranceMaladie';
 import TroisiemePilier from './seo/pages/TroisiemePilier';
 import ComparateurAssuranceSuisse from './seo/pages/ComparateurAssuranceSuisse';
+import CantonPage, { CantonSlug, isCantonSlug } from './seo/pages/CantonPage';
 import { organizationSchema, websiteSchema } from './seo/components/SEOHead';
 
 // Resolve initial tab from URL path
-function tabFromPath(path: string): AppTab | 'seo-maladie' | 'seo-pilier' | 'seo-comparateur' | null {
+type SeoCantonTab = `seo-canton:${CantonSlug}`;
+type SeoTab = 'seo-maladie' | 'seo-pilier' | 'seo-comparateur' | SeoCantonTab;
+
+function tabFromPath(path: string): AppTab | SeoTab | null {
   if (path === '/assurance-maladie/' || path === '/assurance-maladie') return 'seo-maladie';
   if (path === '/assurance-maladie/comparateur/' || path === '/assurance-maladie/comparateur') return 'seo-maladie';
   if (path === '/3eme-pilier/' || path === '/3eme-pilier') return 'seo-pilier';
   if (path === '/3eme-pilier/comparateur/' || path === '/3eme-pilier/comparateur') return 'seo-pilier';
   if (path === '/comparateur-assurance-suisse/' || path === '/comparateur-assurance-suisse') return 'seo-comparateur';
+  const cantonMatch = path.match(/^\/assurance-maladie\/([^/]+)\/?$/);
+  if (cantonMatch && isCantonSlug(cantonMatch[1])) return `seo-canton:${cantonMatch[1]}`;
   if (path === '/a-propos/' || path === '/a-propos') return 'about';
   if (path === '/faq/' || path === '/faq') return 'faq';
   return null;
@@ -49,7 +55,7 @@ import fenyWinking from './assets/images/feny_mascot_avatar_1783245725195.jpg';
 import fenyResults from './assets/images/feny_mascot_compare_1783245694484.jpg';
 
 export default function App() {
-  type ExtendedTab = AppTab | 'seo-maladie' | 'seo-pilier' | 'seo-comparateur';
+  type ExtendedTab = AppTab | SeoTab;
   
   // Initialize from URL path
   const [currentTab, setCurrentTab] = useState<ExtendedTab>(() => {
@@ -70,7 +76,8 @@ export default function App() {
       'faq': '/faq/',
       'home': '/',
     };
-    pushURL(urlMap[tab] || '/');
+    const canton = tab.startsWith('seo-canton:') ? tab.slice('seo-canton:'.length) : null;
+    pushURL(canton && isCantonSlug(canton) ? `/assurance-maladie/${canton}/` : urlMap[tab] || '/');
   };
 
   // Handle browser back/forward
@@ -567,7 +574,18 @@ export default function App() {
           />
         )}
 
-        {!['home','about','faq','legal','privacy','health-comparator','life-comparator','seo-maladie','seo-pilier','seo-comparateur'].includes(currentTab) && (
+        {currentTab.startsWith('seo-canton:') && (() => {
+          const canton = currentTab.slice('seo-canton:'.length);
+          return isCantonSlug(canton) ? (
+            <CantonPage
+              canton={canton}
+              onStartComparison={() => setTab('health-comparator')}
+              onGoHome={() => setTab('home')}
+            />
+          ) : null;
+        })()}
+
+        {!['home','about','faq','legal','privacy','health-comparator','life-comparator','seo-maladie','seo-pilier','seo-comparateur'].includes(currentTab) && !currentTab.startsWith('seo-canton:') && (
           <NotFound onGoHome={() => setTab('home')} />
         )}
 

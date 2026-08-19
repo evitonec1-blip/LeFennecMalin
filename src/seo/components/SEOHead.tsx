@@ -63,11 +63,14 @@ export default function SEOHead({
     setMeta('meta[property="og:description"]', 'property=og:description', ogDescription || description);
     setMeta('meta[property="og:url"]', 'property=og:url', fullCanonical);
     setMeta('meta[property="og:image"]', 'property=og:image', ogImage);
+    setMeta('meta[property="og:type"]', 'property=og:type', 'website');
+    setMeta('meta[property="og:site_name"]', 'property=og:site_name', 'Le Fennec Malin');
 
     // Twitter
     setMeta('meta[name="twitter:title"]', 'name=twitter:title', ogTitle || title);
     setMeta('meta[name="twitter:description"]', 'name=twitter:description', ogDescription || description);
     setMeta('meta[name="twitter:image"]', 'name=twitter:image', ogImage);
+    setMeta('meta[name="twitter:card"]', 'name=twitter:card', 'summary_large_image');
 
     // Structured data
     const existingLD = document.querySelectorAll('script[data-seo="true"]');
@@ -88,7 +91,7 @@ export default function SEOHead({
       // Cleanup structured data on unmount
       document.querySelectorAll('script[data-seo="true"]').forEach(el => el.remove());
     };
-  }, [title, description, canonical, ogTitle, ogDescription, ogImage, noindex]);
+  }, [title, description, canonical, ogTitle, ogDescription, ogImage, structuredData, noindex]);
 
   return null;
 }
