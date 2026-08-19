@@ -61,7 +61,7 @@ export default function App() {
 
   // Sync URL when tab changes
   const setTab = (tab: ExtendedTab) => {
-    setTab(tab);
+    setCurrentTab(tab);
     const urlMap: Partial<Record<ExtendedTab, string>> = {
       'seo-maladie': '/assurance-maladie/',
       'seo-pilier': '/3eme-pilier/',
@@ -104,7 +104,6 @@ export default function App() {
   // Intro animation for header & hero on first mount
   useEffect(() => {
     const tl = gsap.timeline();
-    
     
     // Select header & hero elements
     gsap.set('.hero-animate', { opacity: 0, y: 35 });
@@ -160,7 +159,7 @@ export default function App() {
     <div className="min-h-screen w-full overflow-x-hidden bg-[#FDFBF9] flex flex-col justify-between font-sans selection:bg-fennec-tan/20">
       
       {/* Header Navigation */}
-      <Header currentTab={currentTab} onTabChange={setCurrentTab} />
+      <Header currentTab={currentTab} onTabChange={setTab} />
 
       {/* Main Content Area */}
       <main ref={contentRef} className={`flex-grow ${(currentTab === 'home' || currentTab === 'about' || currentTab === 'faq') ? 'pb-24 md:pb-0' : ''}`}>
@@ -470,7 +469,7 @@ export default function App() {
 
             {/* 7. ALL PRODUCTS GRID */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <ProductsGrid onTabChange={setCurrentTab} />
+              <ProductsGrid onTabChange={setTab} />
             </section>
 
             {/* 8. LONG FORM SEO CONTENT BLOCKS */}
@@ -511,14 +510,14 @@ export default function App() {
         {currentTab === 'health-comparator' && (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
             <HealthComparator />
-            <ProductsGrid onTabChange={setCurrentTab} />
+            <ProductsGrid onTabChange={setTab} />
           </div>
         )}
 
         {currentTab === 'life-comparator' && (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
             <LifePensionComparator />
-            <ProductsGrid onTabChange={setCurrentTab} />
+            <ProductsGrid onTabChange={setTab} />
           </div>
         )}
 
@@ -575,7 +574,7 @@ export default function App() {
       </main>
 
       {/* Footer Navigation */}
-      <Footer onTabChange={setCurrentTab} />
+      <Footer onTabChange={setTab} />
 
       {/* Sticky Bottom Mobile Bar for phone users */}
       {(currentTab === 'home' || currentTab === 'about' || currentTab === 'faq') && (

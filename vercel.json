@@ -1,4 +1,13 @@
 {
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "destination": "https://www.lefennecmalin.ch/:path*",
+      "permanent": true,
+      "has": [{ "type": "host", "value": "lefennecmalin.ch" }]
+    }
+  ],
   "functions": {
     "api/index.ts": {
       "includeFiles": "public/**"

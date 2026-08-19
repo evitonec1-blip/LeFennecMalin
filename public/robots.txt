@@ -5,4 +5,4 @@ Allow: /
 Disallow: /api/
 
 # Sitemap
-Sitemap: https://le-fennec-malin.vercel.app/sitemap.xml
+Sitemap: https://www.lefennecmalin.ch/sitemap.xml

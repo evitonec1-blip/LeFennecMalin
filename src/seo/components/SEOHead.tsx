@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { SITE_URL } from '../site';
 
 interface SEOHeadProps {
   title: string;
@@ -11,7 +12,7 @@ interface SEOHeadProps {
   noindex?: boolean;
 }
 
-const BASE_URL = 'https://le-fennec-malin.vercel.app';
+const BASE_URL = SITE_URL;
 const DEFAULT_IMAGE = `${BASE_URL}/fennec-avatar.jpg`;
 
 export default function SEOHead({
