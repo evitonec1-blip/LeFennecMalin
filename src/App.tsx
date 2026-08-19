@@ -27,6 +27,8 @@ function tabFromPath(path: string): AppTab | 'seo-maladie' | 'seo-pilier' | 'seo
   if (path === '/comparateur-assurance-suisse/' || path === '/comparateur-assurance-suisse') return 'seo-comparateur';
   if (path === '/a-propos/' || path === '/a-propos') return 'about';
   if (path === '/faq/' || path === '/faq') return 'faq';
+  if (path === '/article-45-lsa/' || path === '/article-45-lsa') return 'article-45-lsa';
+  if (path === '/qualifications-intermediaire/' || path === '/qualifications-intermediaire') return 'qualifications-intermediaire';
   return null;
 }
 
@@ -37,6 +39,8 @@ function pushURL(path: string) {
 }
 import FAQSection from './components/FAQSection';
 import LegalSection from './components/LegalSection';
+import Article45Lsa from './components/Article45Lsa';
+import QualificationsIntermediaire from './components/QualificationsIntermediaire';
 import HealthComparator from './components/HealthComparator';
 import LifePensionComparator from './components/LifePensionComparator';
 import CookieConsent from './components/CookieConsent';
@@ -68,6 +72,8 @@ export default function App() {
       'seo-comparateur': '/comparateur-assurance-suisse/',
       'about': '/a-propos/',
       'faq': '/faq/',
+      'article-45-lsa': '/article-45-lsa/',
+      'qualifications-intermediaire': '/qualifications-intermediaire/',
       'home': '/',
     };
     pushURL(urlMap[tab] || '/');
@@ -545,6 +551,18 @@ export default function App() {
           </div>
         )}
 
+        {currentTab === 'article-45-lsa' && (
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <Article45Lsa onGoBack={() => setTab('home')} onTabChange={setTab} />
+          </div>
+        )}
+
+        {currentTab === 'qualifications-intermediaire' && (
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <QualificationsIntermediaire onGoBack={() => setTab('home')} onTabChange={setTab} />
+          </div>
+        )}
+
         {currentTab === 'seo-maladie' && (
           <AssuranceMaladie
             onStartComparison={() => setTab('health-comparator' as ExtendedTab)}
@@ -567,7 +585,7 @@ export default function App() {
           />
         )}
 
-        {!['home','about','faq','legal','privacy','health-comparator','life-comparator','seo-maladie','seo-pilier','seo-comparateur'].includes(currentTab) && (
+        {!['home','about','faq','legal','privacy','article-45-lsa','qualifications-intermediaire','health-comparator','life-comparator','seo-maladie','seo-pilier','seo-comparateur'].includes(currentTab) && (
           <NotFound onGoHome={() => setTab('home')} />
         )}
 

@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import { AppTab } from '../types';
-import { Shield, ExternalLink, Heart, Mail, Phone, Info, X, TrendingUp, Award, Check } from 'lucide-react';
+import { Shield, ExternalLink, Heart, Mail, Info, X, TrendingUp, Award, Check, Scale, UserCheck } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 import LanguageSelector from './LanguageSelector';
 import fenyAvatar from '../assets/images/feny_mascot_avatar_1783245725195.jpg';
@@ -42,6 +42,8 @@ export default function Footer({ onTabChange }: FooterProps) {
       col4_l2: "Vos questions fréquentes (FAQ)",
       col4_l3: "Mentions Légales",
       col4_l4: "Politique de Confidentialité",
+      col4_l5: "Article 45 LSA",
+      col4_l6: "Qualifications de l’intermédiaire",
       compliance_title: "Avis de conformité et neutralité suisse :",
       compliance_p1: "Le Fennec Malin (lefennecmalin.ch) est un comparateur d'assurances 100% neutre et indépendant. Les calculs de primes maladie obligatoires sont simulés sur la base des barèmes officiels approuvés par l'Office Fédéral de la Santé Publique (OFSP) et fournis par priminfo.admin.ch.",
       compliance_p2: "Conformément à la loi fédérale sur l'assurance-maladie (LAMal), les prestations de base de l'assurance obligatoire sont strictement identiques d'un assureur à l'autre. Seules les primes mensuelles et le service de remboursement diffèrent.",
@@ -85,6 +87,8 @@ export default function Footer({ onTabChange }: FooterProps) {
       col4_l2: "Häufige Fragen (FAQ)",
       col4_l3: "Impressum",
       col4_l4: "Datenschutzerklärung",
+      col4_l5: "Artikel 45 VAG",
+      col4_l6: "Qualifikationen des Vermittlers",
       compliance_title: "Schweizer Konformität & Neutralität:",
       compliance_p1: "Le Fennec Malin (lefennecmalin.ch) ist ein 100% neutraler und unabhängiger Versicherungsvergleich. Die Berechnungen der Grundversicherungsprämien basieren auf den offiziellen BAG-Tarifen (priminfo.admin.ch).",
       compliance_p2: "Gemäß KVG-Gesetz sind die Leistungen der Grundversicherung bei allen Krankenkassen exakt identisch. Nur die Monatsprämien unterscheiden sich.",
@@ -128,6 +132,8 @@ export default function Footer({ onTabChange }: FooterProps) {
       col4_l2: "Frequently asked questions (FAQ)",
       col4_l3: "Legal Notice",
       col4_l4: "Privacy Policy",
+      col4_l5: "Article 45 ISA",
+      col4_l6: "Intermediary Qualifications",
       compliance_title: "Swiss Neutrality & Compliance Statement:",
       compliance_p1: "Le Fennec Malin (lefennecmalin.ch) is a 100% neutral and independent comparison platform. Basic health insurance simulations use official FOPH rates from priminfo.admin.ch.",
       compliance_p2: "Under Swiss federal health law (LAMal/KVG), basic health coverage benefits are strictly identical across all providers.",
@@ -171,6 +177,8 @@ export default function Footer({ onTabChange }: FooterProps) {
       col4_l2: "Domande frequenti (FAQ)",
       col4_l3: "Note Legali",
       col4_l4: "Informativa sulla Privacy",
+      col4_l5: "Articolo 45 LSA",
+      col4_l6: "Qualifiche dell'intermediario",
       compliance_title: "Dichiarazione di conformità e neutralità svizzera:",
       compliance_p1: "Le Fennec Malin è un comparatore 100% neutrale e indipendente. I calcoli delle simulazioni si basano sui dati ufficiali UFSP e Priminfo.",
       compliance_p2: "In base alla legge LAMal, le prestazioni di base sono identiche per tutte le casse malati.",
@@ -214,6 +222,8 @@ export default function Footer({ onTabChange }: FooterProps) {
       col4_l2: "Preguntas frecuentes (FAQ)",
       col4_l3: "Aviso Legal",
       col4_l4: "Política de Privacidad",
+      col4_l5: "Artículo 45 LSA",
+      col4_l6: "Cualificaciones del intermediario",
       compliance_title: "Declaración de conformidad y neutralidad suiza:",
       compliance_p1: "Le Fennec Malin es un comparador 100% neutral e independiente. Los cálculos de las simulaciones se basan en los datos oficiales OFSP y Priminfo.",
       compliance_p2: "Según la ley LAMal, las prestaciones básicas son idénticas para todas las cajas de salud.",
@@ -257,6 +267,8 @@ export default function Footer({ onTabChange }: FooterProps) {
       col4_l2: "Perguntas frequentes (FAQ)",
       col4_l3: "Aviso Legal",
       col4_l4: "Política de Privacidade",
+      col4_l5: "Artigo 45 LSA",
+      col4_l6: "Qualificações do intermediário",
       compliance_title: "Declaração de conformidade e neutralidade suíça:",
       compliance_p1: "Le Fennec Malin é um comparador 100% neutro e independente. Os cálculos das simulações baseiam-se nos dados oficiais OFSP e Priminfo.",
       compliance_p2: "Segundo a lei LAMal, as prestações básicas são idênticas para todas as caixas de saúde.",
@@ -300,6 +312,8 @@ export default function Footer({ onTabChange }: FooterProps) {
     col4_l2: "Vos questions fréquentes (FAQ)",
     col4_l3: "Mentions Légales",
     col4_l4: "Politique de Confidentialité",
+    col4_l5: "Article 45 LSA",
+    col4_l6: "Qualifications de l’intermédiaire",
     compliance_title: "Avis de conformité :",
     compliance_p1: "",
     compliance_p2: "",
@@ -343,10 +357,6 @@ export default function Footer({ onTabChange }: FooterProps) {
               <div className="flex items-center">
                 <Mail className="w-4 h-4 mr-2 text-fennec-sand" />
                 <span>contact@lefennecmalin.ch</span>
-              </div>
-              <div className="flex items-center">
-                <Phone className="w-4 h-4 mr-2 text-fennec-sand" />
-                <span>+41 (0) 21 588 05 20</span>
               </div>
             </div>
           </div>
@@ -435,6 +445,16 @@ export default function Footer({ onTabChange }: FooterProps) {
                   {fc.col4_l4}
                 </button>
               </li>
+              <li>
+                <button onClick={() => handleNavClick('article-45-lsa')} className="hover:text-white hover:underline transition-colors text-left cursor-pointer font-semibold text-fennec-tan">
+                  {fc.col4_l5}
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleNavClick('qualifications-intermediaire')} className="hover:text-white hover:underline transition-colors text-left cursor-pointer font-semibold text-fennec-sand">
+                  {fc.col4_l6}
+                </button>
+              </li>
             </ul>
           </div>
 
@@ -485,6 +505,14 @@ export default function Footer({ onTabChange }: FooterProps) {
             <span>•</span>
             <button onClick={() => handleNavClick('privacy')} className="hover:text-white transition-colors cursor-pointer">
               {t('privacy_policy')}
+            </button>
+            <span>•</span>
+            <button onClick={() => handleNavClick('article-45-lsa')} className="hover:text-white transition-colors cursor-pointer">
+              {fc.col4_l5}
+            </button>
+            <span>•</span>
+            <button onClick={() => handleNavClick('qualifications-intermediaire')} className="hover:text-white transition-colors cursor-pointer">
+              {fc.col4_l6}
             </button>
           </div>
         </div>

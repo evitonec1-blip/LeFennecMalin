@@ -10,7 +10,9 @@ export type AppTab =
   | 'about'
   | 'faq'
   | 'legal'
-  | 'privacy';
+  | 'privacy'
+  | 'article-45-lsa'
+  | 'qualifications-intermediaire';
 
 export interface CaisseMaladie {
   id: string;

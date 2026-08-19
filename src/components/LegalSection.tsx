@@ -220,8 +220,7 @@ export default function LegalSection({ mode }: LegalSectionProps) {
             <p className="text-justify">{c.s1_desc}</p>
             <p className="font-mono text-xs text-fennec-brown">
               CHE-272.095.360<br />
-              Email : contact@lefennecmalin.ch<br />
-              Tel : +41 (0) 21 588 05 20
+              Email : contact@lefennecmalin.ch
             </p>
           </section>
 
