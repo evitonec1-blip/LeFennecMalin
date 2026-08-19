@@ -431,33 +431,84 @@ export default function Footer({ onTabChange }: FooterProps) {
                 </button>
               </li>
               <li>
+                <button onClick={() => handleNavClick('methodologie')} className="hover:text-white hover:underline transition-colors text-left cursor-pointer">
+                  Méthodologie & Sources OFSP
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleNavClick('comment-fonctionne-le-comparateur')} className="hover:text-white hover:underline transition-colors text-left cursor-pointer">
+                  Comment ça fonctionne
+                </button>
+              </li>
+              <li>
                 <button onClick={() => handleNavClick('faq')} className="hover:text-white hover:underline transition-colors text-left cursor-pointer">
                   {fc.col4_l2}
                 </button>
               </li>
               <li>
-                <button onClick={() => handleNavClick('legal')} className="hover:text-white hover:underline transition-colors text-left cursor-pointer">
-                  {fc.col4_l3}
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNavClick('privacy')} className="hover:text-white hover:underline transition-colors text-left cursor-pointer">
-                  {fc.col4_l4}
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNavClick('article-45-lsa')} className="hover:text-white hover:underline transition-colors text-left cursor-pointer font-semibold text-fennec-tan">
+                <button onClick={() => handleNavClick('article-45-lsa')} className="hover:text-white hover:underline transition-colors text-left cursor-pointer">
                   {fc.col4_l5}
                 </button>
               </li>
               <li>
-                <button onClick={() => handleNavClick('qualifications-intermediaire')} className="hover:text-white hover:underline transition-colors text-left cursor-pointer font-semibold text-fennec-sand">
+                <button onClick={() => handleNavClick('qualifications-intermediaire')} className="hover:text-white hover:underline transition-colors text-left cursor-pointer">
                   {fc.col4_l6}
                 </button>
               </li>
             </ul>
           </div>
 
+        </div>
+
+        {/* SEO Cross-Links Section: Swiss Cantons & Other Insurances */}
+        <div className="py-8 border-b border-white/10 space-y-6 text-xs text-fennec-cream/70">
+          <div>
+            <span className="font-display font-bold text-white uppercase text-[11px] tracking-wider block mb-3">
+              🇨🇭 Primes d'assurance maladie par canton :
+            </span>
+            <div className="flex flex-wrap gap-x-4 gap-y-2">
+              <button onClick={() => handleNavClick('canton-geneve')} className="hover:text-white hover:underline cursor-pointer">Genève (GE)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-vaud')} className="hover:text-white hover:underline cursor-pointer">Vaud (VD)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-fribourg')} className="hover:text-white hover:underline cursor-pointer">Fribourg (FR)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-neuchatel')} className="hover:text-white hover:underline cursor-pointer">Neuchâtel (NE)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-valais')} className="hover:text-white hover:underline cursor-pointer">Valais (VS)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-jura')} className="hover:text-white hover:underline cursor-pointer">Jura (JU)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-berne')} className="hover:text-white hover:underline cursor-pointer">Berne (BE)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-zurich')} className="hover:text-white hover:underline cursor-pointer">Zurich (ZH)</button>
+            </div>
+          </div>
+
+          <div>
+            <span className="font-display font-bold text-white uppercase text-[11px] tracking-wider block mb-3">
+              🛡️ Tous nos comparateurs d'assurances en Suisse :
+            </span>
+            <div className="flex flex-wrap gap-x-4 gap-y-2">
+              <button onClick={() => handleNavClick('seo-maladie')} className="hover:text-white hover:underline cursor-pointer">Assurance Maladie LAMal</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('seo-pilier')} className="hover:text-white hover:underline cursor-pointer">3ème Pilier (3a / 3b)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('category-assurance-auto')} className="hover:text-white hover:underline cursor-pointer">Assurance Auto & Casco</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('category-assurance-menage')} className="hover:text-white hover:underline cursor-pointer">Assurance Ménage</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('category-assurance-rc')} className="hover:text-white hover:underline cursor-pointer">RC Privée</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('category-assurance-vie')} className="hover:text-white hover:underline cursor-pointer">Assurance Vie & Décès</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('category-protection-juridique')} className="hover:text-white hover:underline cursor-pointer">Protection Juridique</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('category-assurance-voyage')} className="hover:text-white hover:underline cursor-pointer">Assurance Voyage</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('category-assurance-animaux')} className="hover:text-white hover:underline cursor-pointer">Assurance Animaux</button>
+            </div>
+          </div>
         </div>
 
         {/* Regulatory & Swiss Footnotes */}

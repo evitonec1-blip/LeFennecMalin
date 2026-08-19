@@ -2,41 +2,227 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
+  <!-- Core Commercial Pages -->
   <url>
     <loc>https://www.lefennecmalin.ch/</loc>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <priority>1.00</priority>
     <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/"/>
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/assurance-maladie/</loc>
+    <loc>https://www.lefennecmalin.ch/comparateur-assurance-suisse/</loc>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/comparateur-assurance-suisse/"/>
   </url>
 
+  <!-- Health Insurance & LAMal Cluster -->
+  <url>
+    <loc>https://www.lefennecmalin.ch/assurance-maladie/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/assurance-maladie/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/assurance-maladie/comparateur/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/assurance-maladie/comparateur/"/>
+  </url>
+
+  <!-- Priority Canton Pages -->
+  <url>
+    <loc>https://www.lefennecmalin.ch/assurance-maladie/geneve/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/assurance-maladie/geneve/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/assurance-maladie/vaud/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/assurance-maladie/vaud/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/assurance-maladie/fribourg/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/assurance-maladie/fribourg/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/assurance-maladie/neuchatel/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/assurance-maladie/neuchatel/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/assurance-maladie/valais/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/assurance-maladie/valais/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/assurance-maladie/jura/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/assurance-maladie/jura/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/assurance-maladie/berne/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/assurance-maladie/berne/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/assurance-maladie/zurich/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/assurance-maladie/zurich/"/>
+  </url>
+
+  <!-- 3rd Pillar & Life Pension -->
   <url>
     <loc>https://www.lefennecmalin.ch/3eme-pilier/</loc>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/3eme-pilier/"/>
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/comparateur-assurance-suisse/</loc>
+    <loc>https://www.lefennecmalin.ch/3eme-pilier/comparateur/</loc>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/3eme-pilier/comparateur/"/>
   </url>
 
+  <!-- Core Insurance Clusters -->
+  <url>
+    <loc>https://www.lefennecmalin.ch/assurance-auto/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/assurance-auto/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/assurance-menage/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/assurance-menage/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/assurance-rc/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/assurance-rc/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/assurance-vie/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/assurance-vie/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/assurance-voyage/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/assurance-voyage/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/protection-juridique/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/protection-juridique/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/assurance-animaux/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/assurance-animaux/"/>
+  </url>
+
+  <!-- Trust, E-E-A-T & Methodology -->
   <url>
     <loc>https://www.lefennecmalin.ch/a-propos/</loc>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.70</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/a-propos/"/>
   </url>
 
   <url>
     <loc>https://www.lefennecmalin.ch/faq/</loc>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/faq/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/methodologie/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/methodologie/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/comment-fonctionne-le-comparateur/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/comment-fonctionne-le-comparateur/"/>
+  </url>
+
+  <!-- Legal & Regulatory -->
+  <url>
+    <loc>https://www.lefennecmalin.ch/article-45-lsa/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/article-45-lsa/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/qualifications-intermediaire/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/qualifications-intermediaire/"/>
   </url>
 
 </urlset>

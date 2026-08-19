@@ -1534,6 +1534,7 @@ const CANTON_DEFAULT_ZIPS: Record<string, { zip: string; zone: number }> = {
 
 interface HealthComparatorProps {
   isEmbedded?: boolean;
+  initialCanton?: string;
   onStartQuiz?: () => void;
 }
 
@@ -1544,15 +1545,19 @@ const HEALTH_ADVICE_MAP = {
   phone: "Numéro de téléphone suisse pour valider la demande.",
 };
 
-export default function HealthComparator({ isEmbedded = false, onStartQuiz }: HealthComparatorProps) {
+export default function HealthComparator({ isEmbedded = false, initialCanton, onStartQuiz }: HealthComparatorProps) {
   const { language } = useLanguage();
   const ui = { ...HEALTH_UI_TEXTS.fr, ...(HEALTH_UI_TEXTS[language] || {}) };
 
+  const startCanton = initialCanton && CANTON_DEFAULT_ZIPS[initialCanton] ? initialCanton : 'GE';
+  const startZip = CANTON_DEFAULT_ZIPS[startCanton]?.zip || '1201';
+  const startZone = CANTON_DEFAULT_ZIPS[startCanton]?.zone || 1;
+
   // 1. Core State
   const [filters, setFilters] = useState<HealthFilterState>({
-    canton: 'GE',
-    zipCode: '1201',
-    zone: 1,
+    canton: startCanton,
+    zipCode: startZip,
+    zone: startZone,
     ageCategory: 'adult',
     franchise: 2500,
     model: 'all',

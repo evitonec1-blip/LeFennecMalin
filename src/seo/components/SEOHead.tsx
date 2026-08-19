@@ -98,21 +98,45 @@ export const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Le Fennec Malin',
+  legalName: 'Le Fennec Malin',
   url: BASE_URL,
   logo: `${BASE_URL}/fennec-logo.jpg`,
-  description: 'Comparateur d\'assurances suisse indépendant — assurance maladie, 3ème pilier, prévoyance.',
-  areaServed: { '@type': 'Country', name: 'Switzerland' },
-  foundingLocation: { '@type': 'Place', name: 'Suisse' },
+  image: `${BASE_URL}/fennec-avatar.jpg`,
+  description: 'Comparateur d\'assurances suisse indépendant — assurance maladie (LAMal/LCA), 3ème pilier, auto, ménage et prévoyance.',
+  areaServed: {
+    '@type': 'Country',
+    name: 'Switzerland',
+    identifier: 'CH'
+  },
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'CH'
+  },
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer support',
+    email: 'contact@lefennecmalin.ch',
+    availableLanguage: ['French', 'German', 'English', 'Italian']
+  },
+  taxID: 'CHE-272.095.360',
+  knowsAbout: [
+    'Assurance Maladie Suisse LAMal',
+    'Assurance Complémentaire LCA',
+    '3ème Pilier Suisse 3a et 3b',
+    'Assurance Auto Casco Suisse',
+    'Assurance Ménage & RC Privée'
+  ]
 };
 
 export const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'Le Fennec Malin',
+  alternateName: 'LeFennecMalin.ch',
   url: BASE_URL,
   potentialAction: {
     '@type': 'SearchAction',
-    target: `${BASE_URL}/?q={search_term_string}`,
+    target: `${BASE_URL}/comparateur-assurance-suisse/?q={search_term_string}`,
     'query-input': 'required name=search_term_string',
   },
 };
@@ -141,3 +165,25 @@ export function faqSchema(faqs: { question: string; answer: string }[]) {
     })),
   };
 }
+
+export function financialServiceSchema(name: string, description: string, url: string) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FinancialService',
+    name,
+    description,
+    url: url.startsWith('http') ? url : `${BASE_URL}${url}`,
+    provider: {
+      '@type': 'Organization',
+      name: 'Le Fennec Malin',
+      url: BASE_URL,
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'Switzerland',
+    },
+    serviceType: 'Insurance Comparison',
+    isAccessibleForFree: true,
+  };
+}
+

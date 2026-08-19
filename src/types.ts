@@ -12,7 +12,27 @@ export type AppTab =
   | 'legal'
   | 'privacy'
   | 'article-45-lsa'
-  | 'qualifications-intermediaire';
+  | 'qualifications-intermediaire'
+  | 'methodologie'
+  | 'comment-fonctionne-le-comparateur'
+  | 'seo-maladie'
+  | 'seo-pilier'
+  | 'seo-comparateur'
+  | 'canton-geneve'
+  | 'canton-vaud'
+  | 'canton-fribourg'
+  | 'canton-neuchatel'
+  | 'canton-valais'
+  | 'canton-jura'
+  | 'canton-berne'
+  | 'canton-zurich'
+  | 'category-assurance-auto'
+  | 'category-assurance-menage'
+  | 'category-assurance-rc'
+  | 'category-assurance-vie'
+  | 'category-assurance-voyage'
+  | 'category-protection-juridique'
+  | 'category-assurance-animaux';
 
 export interface CaisseMaladie {
   id: string;

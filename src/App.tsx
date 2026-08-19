@@ -16,21 +16,86 @@ import AboutSection from './components/AboutSection';
 import AssuranceMaladie from './seo/pages/AssuranceMaladie';
 import TroisiemePilier from './seo/pages/TroisiemePilier';
 import ComparateurAssuranceSuisse from './seo/pages/ComparateurAssuranceSuisse';
+import CantonPage from './seo/pages/CantonPage';
+import InsuranceCategoryPage from './seo/pages/InsuranceCategoryPage';
+import MethodologyPage from './seo/pages/MethodologyPage';
+import HowItWorksPage from './seo/pages/HowItWorksPage';
+import { CANTONS_SEO_DATA } from './seo/data/cantonsData';
+import { CATEGORIES_SEO_DATA } from './seo/data/categoriesData';
 import { organizationSchema, websiteSchema } from './seo/components/SEOHead';
 
 // Resolve initial tab from URL path
-function tabFromPath(path: string): AppTab | 'seo-maladie' | 'seo-pilier' | 'seo-comparateur' | null {
-  if (path === '/assurance-maladie/' || path === '/assurance-maladie') return 'seo-maladie';
-  if (path === '/assurance-maladie/comparateur/' || path === '/assurance-maladie/comparateur') return 'seo-maladie';
-  if (path === '/3eme-pilier/' || path === '/3eme-pilier') return 'seo-pilier';
-  if (path === '/3eme-pilier/comparateur/' || path === '/3eme-pilier/comparateur') return 'seo-pilier';
-  if (path === '/comparateur-assurance-suisse/' || path === '/comparateur-assurance-suisse') return 'seo-comparateur';
-  if (path === '/a-propos/' || path === '/a-propos') return 'about';
-  if (path === '/faq/' || path === '/faq') return 'faq';
-  if (path === '/article-45-lsa/' || path === '/article-45-lsa') return 'article-45-lsa';
-  if (path === '/qualifications-intermediaire/' || path === '/qualifications-intermediaire') return 'qualifications-intermediaire';
+function tabFromPath(path: string): AppTab | null {
+  const clean = path.endsWith('/') && path.length > 1 ? path : `${path}/`;
+  
+  if (clean === '/' || path === '') return 'home';
+  if (clean === '/assurance-maladie/' || clean === '/assurance-maladie/comparateur/') return 'seo-maladie';
+  if (clean === '/3eme-pilier/' || clean === '/3eme-pilier/comparateur/') return 'seo-pilier';
+  if (clean === '/comparateur-assurance-suisse/') return 'seo-comparateur';
+  
+  // Canton hubs
+  if (clean === '/assurance-maladie/geneve/') return 'canton-geneve';
+  if (clean === '/assurance-maladie/vaud/') return 'canton-vaud';
+  if (clean === '/assurance-maladie/fribourg/') return 'canton-fribourg';
+  if (clean === '/assurance-maladie/neuchatel/') return 'canton-neuchatel';
+  if (clean === '/assurance-maladie/valais/') return 'canton-valais';
+  if (clean === '/assurance-maladie/jura/') return 'canton-jura';
+  if (clean === '/assurance-maladie/berne/') return 'canton-berne';
+  if (clean === '/assurance-maladie/zurich/') return 'canton-zurich';
+
+  // Category hubs
+  if (clean === '/assurance-auto/') return 'category-assurance-auto';
+  if (clean === '/assurance-menage/') return 'category-assurance-menage';
+  if (clean === '/assurance-rc/') return 'category-assurance-rc';
+  if (clean === '/assurance-vie/') return 'category-assurance-vie';
+  if (clean === '/assurance-voyage/') return 'category-assurance-voyage';
+  if (clean === '/protection-juridique/') return 'category-protection-juridique';
+  if (clean === '/assurance-animaux/') return 'category-assurance-animaux';
+
+  // Trust & Legal
+  if (clean === '/a-propos/') return 'about';
+  if (clean === '/faq/') return 'faq';
+  if (clean === '/methodologie/') return 'methodologie';
+  if (clean === '/comment-fonctionne-le-comparateur/') return 'comment-fonctionne-le-comparateur';
+  if (clean === '/article-45-lsa/') return 'article-45-lsa';
+  if (clean === '/qualifications-intermediaire/') return 'qualifications-intermediaire';
+  if (clean === '/mentions-legales/') return 'legal';
+  if (clean === '/confidentialite/') return 'privacy';
+
   return null;
 }
+
+const TAB_TO_URL: Record<AppTab, string> = {
+  'home': '/',
+  'health-comparator': '/assurance-maladie/comparateur/',
+  'life-comparator': '/3eme-pilier/comparateur/',
+  'about': '/a-propos/',
+  'faq': '/faq/',
+  'legal': '/mentions-legales/',
+  'privacy': '/confidentialite/',
+  'article-45-lsa': '/article-45-lsa/',
+  'qualifications-intermediaire': '/qualifications-intermediaire/',
+  'methodologie': '/methodologie/',
+  'comment-fonctionne-le-comparateur': '/comment-fonctionne-le-comparateur/',
+  'seo-maladie': '/assurance-maladie/',
+  'seo-pilier': '/3eme-pilier/',
+  'seo-comparateur': '/comparateur-assurance-suisse/',
+  'canton-geneve': '/assurance-maladie/geneve/',
+  'canton-vaud': '/assurance-maladie/vaud/',
+  'canton-fribourg': '/assurance-maladie/fribourg/',
+  'canton-neuchatel': '/assurance-maladie/neuchatel/',
+  'canton-valais': '/assurance-maladie/valais/',
+  'canton-jura': '/assurance-maladie/jura/',
+  'canton-berne': '/assurance-maladie/berne/',
+  'canton-zurich': '/assurance-maladie/zurich/',
+  'category-assurance-auto': '/assurance-auto/',
+  'category-assurance-menage': '/assurance-menage/',
+  'category-assurance-rc': '/assurance-rc/',
+  'category-assurance-vie': '/assurance-vie/',
+  'category-assurance-voyage': '/assurance-voyage/',
+  'category-protection-juridique': '/protection-juridique/',
+  'category-assurance-animaux': '/assurance-animaux/',
+};
 
 function pushURL(path: string) {
   if (window.location.pathname !== path) {
@@ -53,37 +118,43 @@ import fenyWinking from './assets/images/feny_mascot_avatar_1783245725195.jpg';
 import fenyResults from './assets/images/feny_mascot_compare_1783245694484.jpg';
 
 export default function App() {
-  type ExtendedTab = AppTab | 'seo-maladie' | 'seo-pilier' | 'seo-comparateur';
-  
   // Initialize from URL path
-  const [currentTab, setCurrentTab] = useState<ExtendedTab>(() => {
+  const [currentTab, setCurrentTab] = useState<AppTab>(() => {
     const fromPath = tabFromPath(window.location.pathname);
-    return (fromPath as ExtendedTab) || 'home';
+    return fromPath || 'home';
   });
+  const [selectedCantonPreset, setSelectedCantonPreset] = useState<string | undefined>(undefined);
   const [activeVertical, setActiveVertical] = useState<'health' | 'life'>('health');
   const { t } = useLanguage();
 
   // Sync URL when tab changes
-  const setTab = (tab: ExtendedTab) => {
+  const setTab = (tab: AppTab) => {
     setCurrentTab(tab);
-    const urlMap: Partial<Record<ExtendedTab, string>> = {
-      'seo-maladie': '/assurance-maladie/',
-      'seo-pilier': '/3eme-pilier/',
-      'seo-comparateur': '/comparateur-assurance-suisse/',
-      'about': '/a-propos/',
-      'faq': '/faq/',
-      'article-45-lsa': '/article-45-lsa/',
-      'qualifications-intermediaire': '/qualifications-intermediaire/',
-      'home': '/',
-    };
-    pushURL(urlMap[tab] || '/');
+    pushURL(TAB_TO_URL[tab] || '/');
+  };
+
+  const navigateToUrl = (url: string) => {
+    const tab = tabFromPath(url);
+    if (tab) {
+      setTab(tab);
+    } else {
+      window.location.href = url;
+    }
+  };
+
+  const startHealthWithCanton = (cantonCode?: string) => {
+    if (cantonCode) {
+      setSelectedCantonPreset(cantonCode);
+    }
+    setTab('health-comparator');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // Handle browser back/forward
   useEffect(() => {
     const onPop = () => {
       const fromPath = tabFromPath(window.location.pathname);
-      setTab((fromPath as ExtendedTab) || 'home');
+      setCurrentTab(fromPath || 'home');
     };
     window.addEventListener('popstate', onPop);
     return () => window.removeEventListener('popstate', onPop);
@@ -515,7 +586,7 @@ export default function App() {
         {/* SUB-PAGES ACCORDING TO USER'S SELECTED NAVIGATION TABS */}
         {currentTab === 'health-comparator' && (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
-            <HealthComparator />
+            <HealthComparator initialCanton={selectedCantonPreset} />
             <ProductsGrid onTabChange={setTab} />
           </div>
         )}
@@ -537,6 +608,20 @@ export default function App() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <FAQSection />
           </div>
+        )}
+
+        {currentTab === 'methodologie' && (
+          <MethodologyPage
+            onStartComparison={() => setTab('health-comparator')}
+            onGoHome={() => setTab('home')}
+          />
+        )}
+
+        {currentTab === 'comment-fonctionne-le-comparateur' && (
+          <HowItWorksPage
+            onStartComparison={() => setTab('health-comparator')}
+            onGoHome={() => setTab('home')}
+          />
         )}
 
         {currentTab === 'legal' && (
@@ -565,27 +650,151 @@ export default function App() {
 
         {currentTab === 'seo-maladie' && (
           <AssuranceMaladie
-            onStartComparison={() => setTab('health-comparator' as ExtendedTab)}
+            onStartComparison={() => setTab('health-comparator')}
             onGoHome={() => setTab('home')}
           />
         )}
 
         {currentTab === 'seo-pilier' && (
           <TroisiemePilier
-            onStartComparison={() => setTab('life-comparator' as ExtendedTab)}
+            onStartComparison={() => setTab('life-comparator')}
             onGoHome={() => setTab('home')}
           />
         )}
 
         {currentTab === 'seo-comparateur' && (
           <ComparateurAssuranceSuisse
-            onStartHealth={() => setTab('health-comparator' as ExtendedTab)}
-            onStartLife={() => setTab('life-comparator' as ExtendedTab)}
+            onStartHealth={() => setTab('health-comparator')}
+            onStartLife={() => setTab('life-comparator')}
             onGoHome={() => setTab('home')}
           />
         )}
 
-        {!['home','about','faq','legal','privacy','article-45-lsa','qualifications-intermediaire','health-comparator','life-comparator','seo-maladie','seo-pilier','seo-comparateur'].includes(currentTab) && (
+        {/* Canton Pages */}
+        {currentTab === 'canton-geneve' && CANTONS_SEO_DATA.geneve && (
+          <CantonPage
+            data={CANTONS_SEO_DATA.geneve}
+            onStartComparison={startHealthWithCanton}
+            onGoHome={() => setTab('home')}
+            onGoHealthHub={() => setTab('seo-maladie')}
+          />
+        )}
+        {currentTab === 'canton-vaud' && CANTONS_SEO_DATA.vaud && (
+          <CantonPage
+            data={CANTONS_SEO_DATA.vaud}
+            onStartComparison={startHealthWithCanton}
+            onGoHome={() => setTab('home')}
+            onGoHealthHub={() => setTab('seo-maladie')}
+          />
+        )}
+        {currentTab === 'canton-fribourg' && CANTONS_SEO_DATA.fribourg && (
+          <CantonPage
+            data={CANTONS_SEO_DATA.fribourg}
+            onStartComparison={startHealthWithCanton}
+            onGoHome={() => setTab('home')}
+            onGoHealthHub={() => setTab('seo-maladie')}
+          />
+        )}
+        {currentTab === 'canton-neuchatel' && CANTONS_SEO_DATA.neuchatel && (
+          <CantonPage
+            data={CANTONS_SEO_DATA.neuchatel}
+            onStartComparison={startHealthWithCanton}
+            onGoHome={() => setTab('home')}
+            onGoHealthHub={() => setTab('seo-maladie')}
+          />
+        )}
+        {currentTab === 'canton-valais' && CANTONS_SEO_DATA.valais && (
+          <CantonPage
+            data={CANTONS_SEO_DATA.valais}
+            onStartComparison={startHealthWithCanton}
+            onGoHome={() => setTab('home')}
+            onGoHealthHub={() => setTab('seo-maladie')}
+          />
+        )}
+        {currentTab === 'canton-jura' && CANTONS_SEO_DATA.jura && (
+          <CantonPage
+            data={CANTONS_SEO_DATA.jura}
+            onStartComparison={startHealthWithCanton}
+            onGoHome={() => setTab('home')}
+            onGoHealthHub={() => setTab('seo-maladie')}
+          />
+        )}
+        {currentTab === 'canton-berne' && CANTONS_SEO_DATA.berne && (
+          <CantonPage
+            data={CANTONS_SEO_DATA.berne}
+            onStartComparison={startHealthWithCanton}
+            onGoHome={() => setTab('home')}
+            onGoHealthHub={() => setTab('seo-maladie')}
+          />
+        )}
+        {currentTab === 'canton-zurich' && CANTONS_SEO_DATA.zurich && (
+          <CantonPage
+            data={CANTONS_SEO_DATA.zurich}
+            onStartComparison={startHealthWithCanton}
+            onGoHome={() => setTab('home')}
+            onGoHealthHub={() => setTab('seo-maladie')}
+          />
+        )}
+
+        {/* Category Pages */}
+        {currentTab === 'category-assurance-auto' && CATEGORIES_SEO_DATA['assurance-auto'] && (
+          <InsuranceCategoryPage
+            data={CATEGORIES_SEO_DATA['assurance-auto']}
+            onStartComparison={() => setTab('health-comparator')}
+            onGoHome={() => setTab('home')}
+            onNavigate={navigateToUrl}
+          />
+        )}
+        {currentTab === 'category-assurance-menage' && CATEGORIES_SEO_DATA['assurance-menage'] && (
+          <InsuranceCategoryPage
+            data={CATEGORIES_SEO_DATA['assurance-menage']}
+            onStartComparison={() => setTab('health-comparator')}
+            onGoHome={() => setTab('home')}
+            onNavigate={navigateToUrl}
+          />
+        )}
+        {currentTab === 'category-assurance-rc' && CATEGORIES_SEO_DATA['assurance-rc'] && (
+          <InsuranceCategoryPage
+            data={CATEGORIES_SEO_DATA['assurance-rc']}
+            onStartComparison={() => setTab('health-comparator')}
+            onGoHome={() => setTab('home')}
+            onNavigate={navigateToUrl}
+          />
+        )}
+        {currentTab === 'category-assurance-vie' && CATEGORIES_SEO_DATA['assurance-vie'] && (
+          <InsuranceCategoryPage
+            data={CATEGORIES_SEO_DATA['assurance-vie']}
+            onStartComparison={() => setTab('life-comparator')}
+            onGoHome={() => setTab('home')}
+            onNavigate={navigateToUrl}
+          />
+        )}
+        {currentTab === 'category-assurance-voyage' && CATEGORIES_SEO_DATA['assurance-voyage'] && (
+          <InsuranceCategoryPage
+            data={CATEGORIES_SEO_DATA['assurance-voyage']}
+            onStartComparison={() => setTab('health-comparator')}
+            onGoHome={() => setTab('home')}
+            onNavigate={navigateToUrl}
+          />
+        )}
+        {currentTab === 'category-protection-juridique' && CATEGORIES_SEO_DATA['protection-juridique'] && (
+          <InsuranceCategoryPage
+            data={CATEGORIES_SEO_DATA['protection-juridique']}
+            onStartComparison={() => setTab('health-comparator')}
+            onGoHome={() => setTab('home')}
+            onNavigate={navigateToUrl}
+          />
+        )}
+        {currentTab === 'category-assurance-animaux' && CATEGORIES_SEO_DATA['assurance-animaux'] && (
+          <InsuranceCategoryPage
+            data={CATEGORIES_SEO_DATA['assurance-animaux']}
+            onStartComparison={() => setTab('health-comparator')}
+            onGoHome={() => setTab('home')}
+            onNavigate={navigateToUrl}
+          />
+        )}
+
+        {!TAB_TO_URL[currentTab] && (
           <NotFound onGoHome={() => setTab('home')} />
         )}
 

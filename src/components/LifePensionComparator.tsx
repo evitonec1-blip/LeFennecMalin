@@ -1645,8 +1645,6 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     selectBtn: "Seleccionar",
     step10Title: "Datos personales",
     step10Subtitle: "Estos datos permiten aplicar los baremos legales precisos y estimar tus riesgos.",
-    genderLabel: "Sexo legal *",
-    yearsOld: "años",
     seniority: "antigüedad",
   },
 
@@ -1938,7 +1936,6 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     selectBtn: "Selecionar",
     step10Title: "Dados pessoais",
     step10Subtitle: "Estes dados permitem aplicar os baremos legais precisos e estimar os seus riscos.",
-    yearsOld: "anos",
   }
 };
 

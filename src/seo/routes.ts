@@ -1,0 +1,445 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { SITE_URL } from './site';
+
+export interface RouteMetadata {
+  path: string;
+  title: string;
+  description: string;
+  h1: string;
+  canonical: string;
+  category: 'core' | 'health' | 'canton' | 'insurance' | 'pension' | 'guide' | 'insurer' | 'trust' | 'legal';
+  priority: number;
+  changefreq: 'daily' | 'weekly' | 'monthly' | 'yearly';
+  keywords?: string[];
+  lastModified?: string;
+  parentPath?: string;
+  breadcrumbLabel: string;
+}
+
+export const SEO_ROUTES: Record<string, RouteMetadata> = {
+  // Core
+  '/': {
+    path: '/',
+    title: "Le Fennec Malin — Comparateur d'Assurances Suisse 🇨🇭 100% Neutre",
+    description: "Comparez gratuitement les assurances maladie (LAMal), 3ème pilier, auto, ménage et prévoyance en Suisse. Données officielles OFSP 2026. Calculez vos économies en 2 minutes.",
+    h1: "Comparateur d’assurances en Suisse",
+    canonical: `${SITE_URL}/`,
+    category: 'core',
+    priority: 1.0,
+    changefreq: 'weekly',
+    keywords: ["comparateur assurance suisse", "comparatif assurance suisse", "comparer assurance suisse", "assurance maladie suisse"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Accueil',
+  },
+  '/comparateur-assurance-suisse/': {
+    path: '/comparateur-assurance-suisse/',
+    title: "Comparateur Assurance Suisse 2026 — Devis Gratuit & Neutre | Le Fennec Malin",
+    description: "Comparatif indépendant de toutes les assurances en Suisse : LAMal, 3e pilier, auto, ménage, RC, juridique. Trouvez la meilleure offre en toute transparence.",
+    h1: "Comparateur d'assurances en Suisse — Comparatif 2026",
+    canonical: `${SITE_URL}/comparateur-assurance-suisse/`,
+    category: 'core',
+    priority: 0.95,
+    changefreq: 'weekly',
+    keywords: ["comparateur assurance suisse", "comparatif assurance suisse", "comparer assurance suisse", "courtier assurance suisse neutre"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Comparateur Suisse',
+    parentPath: '/',
+  },
+
+  // Health / LAMal Core
+  '/assurance-maladie/': {
+    path: '/assurance-maladie/',
+    title: "Comparateur Assurance Maladie Suisse 2026 — LAMal | Le Fennec Malin",
+    description: "Comparez les primes des 37 caisses maladie agréées OFSP 2026. Barèmes officiels Priminfo, simulateur de franchises et modèles (Telmed, HMO, Médecin). Économisez jusqu'à CHF 3'000/an.",
+    h1: "Comparateur d'assurance maladie suisse (LAMal)",
+    canonical: `${SITE_URL}/assurance-maladie/`,
+    category: 'health',
+    priority: 0.95,
+    changefreq: 'weekly',
+    keywords: ["assurance maladie suisse", "comparateur assurance maladie", "comparateur LAMal", "caisse maladie comparatif", "primes maladie 2026"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Assurance Maladie',
+    parentPath: '/',
+  },
+  '/assurance-maladie/comparateur/': {
+    path: '/assurance-maladie/comparateur/',
+    title: "Calculateur de Primes LAMal 2026 — Simulateur Maladie Suisse | Le Fennec Malin",
+    description: "Calculez votre prime exacte d'assurance maladie 2026 selon votre canton, NPA, âge et franchise. Données certifiées OFSP sans engagement.",
+    h1: "Simulateur et comparateur officiel de primes LAMal 2026",
+    canonical: `${SITE_URL}/assurance-maladie/comparateur/`,
+    category: 'health',
+    priority: 0.9,
+    changefreq: 'weekly',
+    keywords: ["calculateur prime maladie", "simulateur lamal 2026", "comparateur caisse maladie officiel"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Calculateur Primes',
+    parentPath: '/assurance-maladie/',
+  },
+
+  // Canton Landing Pages (Priority Romandie + Key Cantons)
+  '/assurance-maladie/geneve/': {
+    path: '/assurance-maladie/geneve/',
+    title: "Assurance Maladie Genève (GE) 2026 — Comparatif Primes LAMal & Caisses",
+    description: "Comparez les primes d'assurance maladie 2026 dans le canton de Genève (GE). Régions de primes, caisses les moins chères (Assura, CSS, Helsana), subsides d'assurance maladie du SAM.",
+    h1: "Assurance maladie dans le canton de Genève (GE)",
+    canonical: `${SITE_URL}/assurance-maladie/geneve/`,
+    category: 'canton',
+    priority: 0.85,
+    changefreq: 'weekly',
+    keywords: ["assurance maladie geneve", "comparateur assurance maladie geneve", "prime assurance maladie geneve", "caisse maladie geneve pas cher", "subside sam geneve"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Genève (GE)',
+    parentPath: '/assurance-maladie/',
+  },
+  '/assurance-maladie/vaud/': {
+    path: '/assurance-maladie/vaud/',
+    title: "Assurance Maladie Vaud (VD) 2026 — Comparatif Primes & Caisses Lausanne",
+    description: "Comparez les primes d'assurance maladie 2026 dans le canton de Vaud (VD). Régions 1 et 2, subside cantonal OVAM, choix de franchise et modèles Telmed/Médecin de famille.",
+    h1: "Assurance maladie dans le canton de Vaud (VD)",
+    canonical: `${SITE_URL}/assurance-maladie/vaud/`,
+    category: 'canton',
+    priority: 0.85,
+    changefreq: 'weekly',
+    keywords: ["assurance maladie vaud", "comparateur assurance maladie vaud", "prime assurance maladie vaud", "caisse maladie lausanne", "subside ovam vaud"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Vaud (VD)',
+    parentPath: '/assurance-maladie/',
+  },
+  '/assurance-maladie/fribourg/': {
+    path: '/assurance-maladie/fribourg/',
+    title: "Assurance Maladie Fribourg (FR) 2026 — Comparateur Primes & Caisses",
+    description: "Comparez les primes d'assurance maladie 2026 dans le canton de Fribourg (FR). Tarifs régionaux, subsides cantonaux ECAS, caisses recommandées et astuces d'économies.",
+    h1: "Assurance maladie dans le canton de Fribourg (FR)",
+    canonical: `${SITE_URL}/assurance-maladie/fribourg/`,
+    category: 'canton',
+    priority: 0.8,
+    changefreq: 'weekly',
+    keywords: ["assurance maladie fribourg", "comparateur assurance maladie fribourg", "prime assurance maladie fr", "caisse maladie fribourg"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Fribourg (FR)',
+    parentPath: '/assurance-maladie/',
+  },
+  '/assurance-maladie/neuchatel/': {
+    path: '/assurance-maladie/neuchatel/',
+    title: "Assurance Maladie Neuchâtel (NE) 2026 — Comparatif & Primes LAMal",
+    description: "Comparez les caisses maladie dans le canton de Neuchâtel (NE). Primes officielles OFSP 2026, modèles alternatifs et demande de subsides à l'OCAS.",
+    h1: "Assurance maladie dans le canton de Neuchâtel (NE)",
+    canonical: `${SITE_URL}/assurance-maladie/neuchatel/`,
+    category: 'canton',
+    priority: 0.8,
+    changefreq: 'weekly',
+    keywords: ["assurance maladie neuchatel", "comparateur assurance maladie neuchatel", "prime assurance maladie ne", "caisse maladie neuchatel"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Neuchâtel (NE)',
+    parentPath: '/assurance-maladie/',
+  },
+  '/assurance-maladie/valais/': {
+    path: '/assurance-maladie/valais/',
+    title: "Assurance Maladie Valais (VS) 2026 — Comparatif Primes & Caisses Sion",
+    description: "Comparez les primes maladie dans le canton du Valais (VS). Analyse des coûts de santé régionaux, primes moyennes avantageuses et subsides CCVs.",
+    h1: "Assurance maladie dans le canton du Valais (VS)",
+    canonical: `${SITE_URL}/assurance-maladie/valais/`,
+    category: 'canton',
+    priority: 0.8,
+    changefreq: 'weekly',
+    keywords: ["assurance maladie valais", "comparateur assurance maladie valais", "prime assurance maladie vs", "caisse maladie sion"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Valais (VS)',
+    parentPath: '/assurance-maladie/',
+  },
+  '/assurance-maladie/jura/': {
+    path: '/assurance-maladie/jura/',
+    title: "Assurance Maladie Jura (JU) 2026 — Primes LAMal & Caisses Delémont",
+    description: "Comparez les primes d'assurance maladie dans le canton du Jura (JU). Barèmes officiels 2026, conseils de franchise et subsides cantonaux.",
+    h1: "Assurance maladie dans le canton du Jura (JU)",
+    canonical: `${SITE_URL}/assurance-maladie/jura/`,
+    category: 'canton',
+    priority: 0.8,
+    changefreq: 'weekly',
+    keywords: ["assurance maladie jura", "comparateur assurance maladie jura", "prime assurance maladie ju", "caisse maladie delemont"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Jura (JU)',
+    parentPath: '/assurance-maladie/',
+  },
+  '/assurance-maladie/berne/': {
+    path: '/assurance-maladie/berne/',
+    title: "Assurance Maladie Berne (BE) 2026 — Comparatif Bilingue & Primes",
+    description: "Comparez les primes d'assurance maladie dans le canton de Berne (BE) et Jura bernois. Régions de primes 1, 2 et 3, caisses agréées et subsides ASB.",
+    h1: "Assurance maladie dans le canton de Berne (BE)",
+    canonical: `${SITE_URL}/assurance-maladie/berne/`,
+    category: 'canton',
+    priority: 0.8,
+    changefreq: 'weekly',
+    keywords: ["assurance maladie berne", "krankenkasse bern", "comparateur assurance maladie berne", "primes maladie be"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Berne (BE)',
+    parentPath: '/assurance-maladie/',
+  },
+  '/assurance-maladie/zurich/': {
+    path: '/assurance-maladie/zurich/',
+    title: "Assurance Maladie Zurich (ZH) 2026 — Primes LAMal & Krankenkassenvergleich",
+    description: "Comparez les primes d'assurance maladie dans le canton de Zurich (ZH). Barèmes 2026, modèles HMO/Telmed populaires et subsides SVA Zürich.",
+    h1: "Assurance maladie dans le canton de Zurich (ZH)",
+    canonical: `${SITE_URL}/assurance-maladie/zurich/`,
+    category: 'canton',
+    priority: 0.8,
+    changefreq: 'weekly',
+    keywords: ["assurance maladie zurich", "krankenkassenvergleich zurich", "primes lamal zurich"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Zurich (ZH)',
+    parentPath: '/assurance-maladie/',
+  },
+
+  // Other Insurance Clusters
+  '/3eme-pilier/': {
+    path: '/3eme-pilier/',
+    title: "Comparateur 3ème Pilier Suisse 2026 — Pilier 3a & 3b Fiscalité | Le Fennec Malin",
+    description: "Optimisez vos impôts et préparez votre retraite avec le comparateur 3ème pilier Suisse (3a et 3b). Plafonds déductibles 2025/2026, rendements et simulateur d'épargne.",
+    h1: "Comparateur 3ème pilier en Suisse (Pilier 3a & 3b)",
+    canonical: `${SITE_URL}/3eme-pilier/`,
+    category: 'pension',
+    priority: 0.9,
+    changefreq: 'weekly',
+    keywords: ["comparateur 3eme pilier", "pilier 3a comparatif", "3eme pilier suisse impots", "meilleur 3eme pilier bancaire ou assurance"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: '3ème Pilier',
+    parentPath: '/',
+  },
+  '/3eme-pilier/comparateur/': {
+    path: '/3eme-pilier/comparateur/',
+    title: "Simulateur 3ème Pilier 3a 2026 — Calcul Économies d'Impôt | Le Fennec Malin",
+    description: "Simulez le capital retraite et les déductions fiscales de votre 3ème pilier A en Suisse. Comparatif rendement bancaire vs compte titres.",
+    h1: "Simulateur et comparateur 3ème pilier 3a & 3b",
+    canonical: `${SITE_URL}/3eme-pilier/comparateur/`,
+    category: 'pension',
+    priority: 0.85,
+    changefreq: 'weekly',
+    keywords: ["simulateur 3eme pilier", "calcul economie impot 3a", "comparatif 3a suisse"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Simulateur 3e Pilier',
+    parentPath: '/3eme-pilier/',
+  },
+  '/assurance-auto/': {
+    path: '/assurance-auto/',
+    title: "Comparateur Assurance Auto Suisse 2026 — RC, Casco & Devis Gratuit",
+    description: "Comparez les assurances auto en Suisse : RC obligatoire, Casco partielle et Casco complète. Trouvez l'assurance voiture la moins chère adaptée à votre véhicule.",
+    h1: "Comparateur assurance auto en Suisse",
+    canonical: `${SITE_URL}/assurance-auto/`,
+    category: 'insurance',
+    priority: 0.85,
+    changefreq: 'weekly',
+    keywords: ["comparateur assurance auto suisse", "assurance voiture comparatif", "casco complete suisse", "casco partielle", "assurance jeune conducteur suisse"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Assurance Auto',
+    parentPath: '/',
+  },
+  '/assurance-menage/': {
+    path: '/assurance-menage/',
+    title: "Comparateur Assurance Ménage Suisse 2026 — Inventaire du Ménage & Dégâts d'Eau",
+    description: "Comparez les assurances ménage (habitation) en Suisse. Couverture incendie, dégâts d'eau, vol et bris de glace au meilleur tarif suisse.",
+    h1: "Comparateur assurance ménage en Suisse",
+    canonical: `${SITE_URL}/assurance-menage/`,
+    category: 'insurance',
+    priority: 0.85,
+    changefreq: 'weekly',
+    keywords: ["comparateur assurance menage", "assurance habitation suisse", "assurance inventaire menage", "assurance menage pas cher"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Assurance Ménage',
+    parentPath: '/',
+  },
+  '/assurance-rc/': {
+    path: '/assurance-rc/',
+    title: "Comparateur Assurance RC Privée Suisse 2026 — Responsabilité Civile",
+    description: "Comparez les assurances Responsabilité Civile privée (RC) en Suisse. Protection contre les dommages causés à des tiers, locataires et propriétaires d'animaux.",
+    h1: "Comparateur assurance responsabilité civile privée (RC)",
+    canonical: `${SITE_URL}/assurance-rc/`,
+    category: 'insurance',
+    priority: 0.85,
+    changefreq: 'weekly',
+    keywords: ["comparateur rc privee", "assurance responsabilite civile suisse", "meilleure rc privee suisse", "prix assurance rc"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'RC Privée',
+    parentPath: '/',
+  },
+  '/assurance-vie/': {
+    path: '/assurance-vie/',
+    title: "Comparateur Assurance Vie Suisse 2026 — Décès & Rente Invalidité",
+    description: "Protégez vos proches avec une assurance vie en Suisse : capital décès, couverture invalidité ou assurance vie liée au 3e pilier (3a/3b).",
+    h1: "Comparateur assurance vie et prévoyance décès en Suisse",
+    canonical: `${SITE_URL}/assurance-vie/`,
+    category: 'insurance',
+    priority: 0.8,
+    changefreq: 'weekly',
+    keywords: ["assurance vie suisse", "comparateur assurance vie", "assurance deces comparatif", "rente invalidite suisse"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Assurance Vie',
+    parentPath: '/',
+  },
+  '/assurance-voyage/': {
+    path: '/assurance-voyage/',
+    title: "Comparateur Assurance Voyage Suisse 2026 — Annulation & Assistance Médicale",
+    description: "Comparez les assurances voyage et assistance à l'étranger en Suisse : frais d'annulation, rapatriement médical, bagages et couverture mondiale.",
+    h1: "Comparateur assurance voyage et annulation en Suisse",
+    canonical: `${SITE_URL}/assurance-voyage/`,
+    category: 'insurance',
+    priority: 0.8,
+    changefreq: 'weekly',
+    keywords: ["assurance voyage suisse", "comparateur assurance voyage", "assurance annulation voyage", "assistance medicale etranger"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Assurance Voyage',
+    parentPath: '/',
+  },
+  '/protection-juridique/': {
+    path: '/protection-juridique/',
+    title: "Comparateur Protection Juridique Suisse 2026 — Privée & Circulation",
+    description: "Comparez les protections juridiques en Suisse : litiges du travail, droit du bail, droit des contrats et circulation routière avec prise en charge des frais d'avocat.",
+    h1: "Comparateur protection juridique en Suisse",
+    canonical: `${SITE_URL}/protection-juridique/`,
+    category: 'insurance',
+    priority: 0.8,
+    changefreq: 'weekly',
+    keywords: ["protection juridique suisse", "comparateur protection juridique", "protection juridique privee", "protection juridique circulation"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Protection Juridique',
+    parentPath: '/',
+  },
+  '/assurance-animaux/': {
+    path: '/assurance-animaux/',
+    title: "Comparateur Assurance Chien & Chat Suisse 2026 — Frais Vétérinaires",
+    description: "Comparez les assurances pour animaux de compagnie en Suisse. Couverture des frais vétérinaires, chirurgies, vaccins et maladies pour chiens et chats.",
+    h1: "Comparateur assurance animaux de compagnie (Chien & Chat)",
+    canonical: `${SITE_URL}/assurance-animaux/`,
+    category: 'insurance',
+    priority: 0.8,
+    changefreq: 'weekly',
+    keywords: ["assurance chien suisse", "assurance chat suisse", "comparateur assurance animaux", "frais veterinaire remboursement"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Assurance Animaux',
+    parentPath: '/',
+  },
+
+  // E-E-A-T / Trust / Methodology / Legal
+  '/a-propos/': {
+    path: '/a-propos/',
+    title: "À Propos de Le Fennec Malin — Comparateur Suisse Neutre & Indépendant",
+    description: "Découvrez la mission de Le Fennec Malin, notre mascotte Fenny et nos engagements pour la transparence et l'indépendance de l'information d'assurance en Suisse.",
+    h1: "À propos de Le Fennec Malin et de nos engagements",
+    canonical: `${SITE_URL}/a-propos/`,
+    category: 'trust',
+    priority: 0.7,
+    changefreq: 'monthly',
+    keywords: ["a propos le fennec malin", "comparateur suisse independant", "fenny mascotte assurance"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'À Propos',
+    parentPath: '/',
+  },
+  '/faq/': {
+    path: '/faq/',
+    title: "Foire Aux Questions (FAQ) Assurance Suisse 2026 | Le Fennec Malin",
+    description: "Toutes les réponses à vos questions sur les assurances en Suisse : primes LAMal, délais de résiliation, franchises, 3e pilier et modèle Telmed.",
+    h1: "Foire aux questions fréquentes sur les assurances en Suisse",
+    canonical: `${SITE_URL}/faq/`,
+    category: 'trust',
+    priority: 0.75,
+    changefreq: 'monthly',
+    keywords: ["faq assurance suisse", "questions assurance maladie", "resiliation lamal date", "fonctionnement franchise suisse"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'FAQ',
+    parentPath: '/',
+  },
+  '/methodologie/': {
+    path: '/methodologie/',
+    title: "Méthodologie & Sources Officielles de Calcul | Le Fennec Malin",
+    description: "Transparence totale sur nos calculs de primes d'assurance : sources officielles OFSP / Priminfo, algorithme de classement neutre et sans conflit d'intérêt.",
+    h1: "Notre méthodologie de calcul et nos sources de données",
+    canonical: `${SITE_URL}/methodologie/`,
+    category: 'trust',
+    priority: 0.7,
+    changefreq: 'monthly',
+    keywords: ["methodologie calcul primes", "source priminfo ofsp", "neutralite comparateur assurance suisse"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Méthodologie',
+    parentPath: '/',
+  },
+  '/comment-fonctionne-le-comparateur/': {
+    path: '/comment-fonctionne-le-comparateur/',
+    title: "Comment Fonctionne le Comparateur d'Assurances ? | Le Fennec Malin",
+    description: "Guide étape par étape sur le fonctionnement du comparateur d'assurances Le Fennec Malin : simulation instantanée, neutralité tarifaire et mise en relation sécurisée.",
+    h1: "Comment fonctionne notre comparateur d'assurances ?",
+    canonical: `${SITE_URL}/comment-fonctionne-le-comparateur/`,
+    category: 'trust',
+    priority: 0.7,
+    changefreq: 'monthly',
+    keywords: ["fonctionnement comparateur assurance", "comparaison primes gratuite suisse", "etape devis assurance"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Comment ça marche',
+    parentPath: '/',
+  },
+  '/article-45-lsa/': {
+    path: '/article-45-lsa/',
+    title: "Article 45 LSA — Obligations Légales d'Information | Le Fennec Malin",
+    description: "Texte officiel intégral des articles 45, 45a et 45b de la Loi fédérale sur la surveillance des entreprises d'assurance (LSA) en Suisse. Transparence et conformité FINMA.",
+    h1: "Article 45 LSA : Loi sur la surveillance des assurances",
+    canonical: `${SITE_URL}/article-45-lsa/`,
+    category: 'legal',
+    priority: 0.6,
+    changefreq: 'yearly',
+    keywords: ["article 45 lsa", "obligation information intermediaire suisse", "loi surveillance assurance fedlex"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Article 45 LSA',
+    parentPath: '/',
+  },
+  '/qualifications-intermediaire/': {
+    path: '/qualifications-intermediaire/',
+    title: "Qualifications de l'Intermédiaire & Registre FINMA | Le Fennec Malin",
+    description: "Information essentielle sur les qualifications, l'immatriculation et les accréditations des intermédiaires d'assurance en Suisse. Accès direct au registre public officiel FINMA.",
+    h1: "Qualifications et agrément des intermédiaires d'assurance",
+    canonical: `${SITE_URL}/qualifications-intermediaire/`,
+    category: 'legal',
+    priority: 0.6,
+    changefreq: 'yearly',
+    keywords: ["qualifications intermediaire assurance", "registre public finma", "verification courtier assurance suisse"],
+    lastModified: '2026-08-19',
+    breadcrumbLabel: 'Qualifications Intermédiaire',
+    parentPath: '/',
+  },
+};
+
+/**
+ * Helper to get route metadata by URL path.
+ * Supports exact matching and normalizes trailing slashes.
+ */
+export function getRouteMetadata(pathname: string): RouteMetadata | null {
+  const normalized = pathname.endsWith('/') ? pathname : `${pathname}/`;
+  return SEO_ROUTES[normalized] || SEO_ROUTES[pathname] || null;
+}
+
+/**
+ * Generate XML Sitemap string dynamically.
+ */
+export function generateSitemapXML(): string {
+  const entries = Object.values(SEO_ROUTES)
+    .map(route => {
+      return `  <url>
+    <loc>${route.canonical}</loc>
+    <lastmod>${route.lastModified || '2026-08-19'}</lastmod>
+    <changefreq>${route.changefreq}</changefreq>
+    <priority>${route.priority.toFixed(2)}</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="${route.canonical}"/>
+  </url>`;
+    })
+    .join('\n\n');
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+${entries}
+
+</urlset>
+`;
+}
