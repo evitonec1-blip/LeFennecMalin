@@ -2,6 +2,7 @@ import React from 'react';
 import { TrendingUp, CheckCircle, ArrowRight, HelpCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import SEOHead, { breadcrumbSchema, faqSchema, organizationSchema } from '../components/SEOHead';
 import Breadcrumb from '../components/Breadcrumb';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 interface Props {
   onStartComparison: () => void;
@@ -33,6 +34,7 @@ const FAQS = [
 
 export default function TroisiemePilier({ onStartComparison, onGoHome }: Props) {
   const [openFaq, setOpenFaq] = React.useState<number | null>(null);
+  const { language } = useLanguage();
 
   const structured = [
     organizationSchema,
@@ -46,9 +48,8 @@ export default function TroisiemePilier({ onStartComparison, onGoHome }: Props) 
   return (
     <>
       <SEOHead
-        title="Comparateur 3ème Pilier Suisse 2026 — Pilier 3a & 3b | Le Fennec Malin"
-        description="Comparez les offres du 3ème pilier suisse (3a lié et 3b libre). Économisez jusqu'à CHF 3'000 d'impôts par an. Simulation gratuite, données actuarielles AFC 2026."
-        canonical="/3eme-pilier/"
+        tab="seo-pilier"
+        language={language}
         structuredData={structured}
       />
 

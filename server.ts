@@ -7,7 +7,8 @@ import fs from "fs";
 import zlib from "zlib";
 import crypto from "crypto";
 import { fileURLToPath } from "url";
-import { getInsurerDisplayName, getInsurerModelFallbackName, translateModelNameToFrench, lookupPremium, getAgeCategoryFromYob, ACTIVE_INSURER_IDS } from "./src/utils/premiumLookupService.js";
+import { getInsurerDisplayName, getInsurerModelFallbackName, translateModelNameToFrench, lookupPremium, getAgeCategoryFromYob, getRegionCode, ACTIVE_INSURER_IDS } from "./src/utils/premiumLookupService.js";
+import { resolveZipCode } from "./src/utils/swissZipCodes.js";
 
 // Polyfill __filename and __dirname for ESM environments
 const __filename_esm = fileURLToPath(import.meta.url);
@@ -990,9 +991,18 @@ app.get("/api/priminfo/npa-lookup", (req, res) => {
 
   const entries = npaMap[npaStr];
   if (!entries || entries.length === 0) {
-    // NPA not found in the official OFSP npa_to_region file.
-    // We do NOT guess a canton/region from a ZIP-range heuristic —
-    // an incorrect guess would mean a wrong premium region and wrong prices.
+    const fallback = resolveZipCode(npaStr);
+    if (fallback) {
+      return res.json({
+        success: true,
+        ambiguous: false,
+        npa: npaStr,
+        locality: fallback.city,
+        canton: fallback.canton,
+        premium_region: String(fallback.zone),
+        premium_region_code: getRegionCode(fallback.canton, fallback.zone)
+      });
+    }
     return res.status(404).json({
       error: "Ce code postal n'a pas été trouvé dans le fichier officiel OFSP des régions de primes.",
       npa: npaStr
@@ -1008,7 +1018,11 @@ app.get("/api/priminfo/npa-lookup", (req, res) => {
       success: true,
       ambiguous: true,
       npa: npaStr,
-      message: `Le code postal ${npaStr} correspond à plusieurs localités ou régions de primes. Veuillez préciser votre localité.`,
+      locality: entries[0].locality,
+      canton: entries[0].canton,
+      premium_region: entries[0].premium_region,
+      premium_region_code: `PR-REG CH${entries[0].premium_region}`,
+      message: `Le code postal ${npaStr} correspond à plusieurs localités ou régions de primes.`,
       localities: entries.map(e => ({
         locality: e.locality,
         canton: e.canton,
@@ -1064,7 +1078,7 @@ app.get("/api/priminfo/praemien", async (req, res) => {
     
     const cleanAccident = accident === "0" ? false : true;
 
-    // Resolve canton and region strictly from the official npa_to_region data.
+    // Resolve canton and region strictly from the official npa_to_region data or fallback
     let canton = "";
     let region = "";
 
@@ -1076,25 +1090,18 @@ app.get("/api/priminfo/praemien", async (req, res) => {
       if (locality) {
         const foundLoc = npaEntries.find(e => e.locality.toLowerCase() === String(locality).toLowerCase());
         if (foundLoc) matched = foundLoc;
-      } else if (npaEntries.length > 1) {
-        const distinctRegions = new Set(npaEntries.map(e => `${e.canton}_${e.premium_region}`));
-        if (distinctRegions.size > 1) {
-          return res.status(409).json({
-            error: "Ce code postal correspond à plusieurs régions de primes. Veuillez préciser la localité.",
-            ambiguous: true,
-            localities: npaEntries.map(e => ({ locality: e.locality, canton: e.canton, premium_region: e.premium_region }))
-          });
-        }
       }
       canton = matched.canton;
-      // Use the real premium region straight from the official file — do NOT
-      // re-derive it through the ZIP-range heuristic, which would discard the
-      // exact official value we just looked up.
       region = `PR-REG CH${matched.premium_region}`;
+    } else {
+      const fallback = resolveZipCode(cleanZip);
+      if (fallback) {
+        canton = fallback.canton;
+        region = getRegionCode(fallback.canton, fallback.zone);
+      }
     }
 
     if (!canton || !region) {
-      // NPA not found in the official file: report it rather than guessing.
       return res.status(404).json({ error: "Code postal non trouvé dans le fichier officiel OFSP des régions de primes." });
     }
 

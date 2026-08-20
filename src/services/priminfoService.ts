@@ -13,8 +13,10 @@ import {
   getInsurerModelFallbackName, 
   translateModelNameToFrench,
   lookupPremium,
+  getRegionCode,
   ACTIVE_INSURER_IDS
 } from '../utils/premiumLookupService';
+import { resolveZipCode } from '../utils/swissZipCodes';
 
 export interface PriminfoQuery {
   zipCode: string;
@@ -47,14 +49,31 @@ export interface NpaLookupResult {
 
 export async function fetchNpaInfo(npa: string): Promise<NpaLookupResult | null> {
   if (!npa || npa.trim().length !== 4) return null;
+  const cleanNpa = npa.trim();
   try {
-    const res = await fetch(`/api/priminfo/npa-lookup?npa=${encodeURIComponent(npa.trim())}`);
-    if (!res.ok) return null;
-    return await res.json();
+    const res = await fetch(`/api/priminfo/npa-lookup?npa=${encodeURIComponent(cleanNpa)}`);
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.success) return data;
+    }
   } catch (err) {
     console.error('[PriminfoService] NPA lookup error:', err);
-    return null;
   }
+
+  // Robust client-side fallback
+  const zipInfo = resolveZipCode(cleanNpa);
+  if (zipInfo) {
+    return {
+      success: true,
+      ambiguous: false,
+      npa: zipInfo.zip,
+      locality: zipInfo.city,
+      canton: zipInfo.canton,
+      premium_region: String(zipInfo.zone),
+      premium_region_code: getRegionCode(zipInfo.canton, zipInfo.zone)
+    };
+  }
+  return null;
 }
 
 export interface PremiumOffer {
@@ -134,29 +153,39 @@ async function getClientNpaMap(): Promise<Record<string, NpaRegionEntry[]>> {
 async function queryLocalCache(query: PriminfoQuery): Promise<PremiumOffer[]> {
   const { zipCode, franchise, ageCategory, accidentCoverage, locality } = query;
 
-  let canton: string;
-  let region: string;
+  let canton: string = '';
+  let region: string = '';
 
   try {
     const npaMap = await getClientNpaMap();
-    const entries = npaMap[zipCode.trim()];
-    if (!entries || entries.length === 0) {
-      console.warn(`[PriminfoService] NPA ${zipCode} not found in official npa_to_region.json — no fabricated fallback used.`);
-      return [];
+    const cleanNpa = zipCode.trim();
+    const entries = npaMap[cleanNpa];
+    if (entries && entries.length > 0) {
+      let matched = entries[0];
+      if (locality) {
+        const found = entries.find(e => e.locality.toLowerCase() === locality.toLowerCase());
+        if (found) matched = found;
+      }
+      canton = matched.canton;
+      region = matched.premium_region_code || `PR-REG CH${matched.premium_region}`;
+    } else {
+      const fallback = resolveZipCode(cleanNpa);
+      if (fallback) {
+        canton = fallback.canton;
+        region = getRegionCode(fallback.canton, fallback.zone);
+      }
     }
-    let matched = entries[0];
-    if (locality) {
-      const found = entries.find(e => e.locality.toLowerCase() === locality.toLowerCase());
-      if (found) matched = found;
-    } else if (entries.length > 1) {
-      // Ambiguous NPA and no locality specified: do not silently guess.
-      console.warn(`[PriminfoService] NPA ${zipCode} is ambiguous (${entries.length} localities) and no locality was provided.`);
-      return [];
-    }
-    canton = matched.canton;
-    region = matched.premium_region_code;
   } catch (err) {
     console.error("[PriminfoService] Failed to resolve NPA via official mapping:", err);
+    const fallback = resolveZipCode(zipCode.trim());
+    if (fallback) {
+      canton = fallback.canton;
+      region = getRegionCode(fallback.canton, fallback.zone);
+    }
+  }
+
+  if (!canton || !region) {
+    console.warn(`[PriminfoService] NPA ${zipCode} could not be resolved to any canton/region.`);
     return [];
   }
 

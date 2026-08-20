@@ -460,28 +460,120 @@ export default function Footer({ onTabChange }: FooterProps) {
 
         </div>
 
-        {/* SEO Cross-Links Section: Swiss Cantons & Other Insurances */}
+        {/* SEO Cross-Links Section: Swiss Cantons, Insurers, Guides & Calculators */}
         <div className="py-8 border-b border-white/10 space-y-6 text-xs text-fennec-cream/70">
           <div>
             <span className="font-display font-bold text-white uppercase text-[11px] tracking-wider block mb-3">
-              🇨🇭 Primes d'assurance maladie par canton :
+              🇨🇭 Primes d'assurance maladie dans les 26 cantons suisses :
             </span>
-            <div className="flex flex-wrap gap-x-4 gap-y-2">
+            <div className="flex flex-wrap gap-x-3 gap-y-2 leading-relaxed">
               <button onClick={() => handleNavClick('canton-geneve')} className="hover:text-white hover:underline cursor-pointer">Genève (GE)</button>
               <span>·</span>
               <button onClick={() => handleNavClick('canton-vaud')} className="hover:text-white hover:underline cursor-pointer">Vaud (VD)</button>
               <span>·</span>
+              <button onClick={() => handleNavClick('canton-valais')} className="hover:text-white hover:underline cursor-pointer">Valais (VS)</button>
+              <span>·</span>
               <button onClick={() => handleNavClick('canton-fribourg')} className="hover:text-white hover:underline cursor-pointer">Fribourg (FR)</button>
               <span>·</span>
               <button onClick={() => handleNavClick('canton-neuchatel')} className="hover:text-white hover:underline cursor-pointer">Neuchâtel (NE)</button>
-              <span>·</span>
-              <button onClick={() => handleNavClick('canton-valais')} className="hover:text-white hover:underline cursor-pointer">Valais (VS)</button>
               <span>·</span>
               <button onClick={() => handleNavClick('canton-jura')} className="hover:text-white hover:underline cursor-pointer">Jura (JU)</button>
               <span>·</span>
               <button onClick={() => handleNavClick('canton-berne')} className="hover:text-white hover:underline cursor-pointer">Berne (BE)</button>
               <span>·</span>
               <button onClick={() => handleNavClick('canton-zurich')} className="hover:text-white hover:underline cursor-pointer">Zurich (ZH)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-bale-ville')} className="hover:text-white hover:underline cursor-pointer">Bâle-Ville (BS)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-bale-campagne')} className="hover:text-white hover:underline cursor-pointer">Bâle-Campagne (BL)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-argovie')} className="hover:text-white hover:underline cursor-pointer">Argovie (AG)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-soleure')} className="hover:text-white hover:underline cursor-pointer">Soleure (SO)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-lucerne')} className="hover:text-white hover:underline cursor-pointer">Lucerne (LU)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-zoug')} className="hover:text-white hover:underline cursor-pointer">Zoug (ZG)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-schwyz')} className="hover:text-white hover:underline cursor-pointer">Schwyz (SZ)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-uri')} className="hover:text-white hover:underline cursor-pointer">Uri (UR)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-obwald')} className="hover:text-white hover:underline cursor-pointer">Obwald (OW)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-nidwald')} className="hover:text-white hover:underline cursor-pointer">Nidwald (NW)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-saint-gall')} className="hover:text-white hover:underline cursor-pointer">Saint-Gall (SG)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-thurgovie')} className="hover:text-white hover:underline cursor-pointer">Thurgovie (TG)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-schaffhouse')} className="hover:text-white hover:underline cursor-pointer">Schaffhouse (SH)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-appenzell-rhodes-exterieures')} className="hover:text-white hover:underline cursor-pointer">Appenzell AR</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-appenzell-rhodes-interieures')} className="hover:text-white hover:underline cursor-pointer">Appenzell AI</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-glaris')} className="hover:text-white hover:underline cursor-pointer">Glaris (GL)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-grisons')} className="hover:text-white hover:underline cursor-pointer">Grisons (GR)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('canton-tessin')} className="hover:text-white hover:underline cursor-pointer">Tessin (TI)</button>
+            </div>
+          </div>
+
+          <div>
+            <span className="font-display font-bold text-white uppercase text-[11px] tracking-wider block mb-3">
+              🏥 Caisses maladie suisses agréées OFSP (Profils & Avis 2026) :
+            </span>
+            <div className="flex flex-wrap gap-x-3 gap-y-2">
+              <button onClick={() => handleNavClick('insurer-css')} className="hover:text-white hover:underline cursor-pointer">CSS Assurance</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('insurer-helsana')} className="hover:text-white hover:underline cursor-pointer">Helsana</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('insurer-swica')} className="hover:text-white hover:underline cursor-pointer">SWICA</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('insurer-groupe-mutuel')} className="hover:text-white hover:underline cursor-pointer">Groupe Mutuel</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('insurer-assura')} className="hover:text-white hover:underline cursor-pointer">Assura</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('insurer-concordia')} className="hover:text-white hover:underline cursor-pointer">Concordia</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('insurer-sanitas')} className="hover:text-white hover:underline cursor-pointer">Sanitas</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('insurer-visana')} className="hover:text-white hover:underline cursor-pointer">Visana</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('insurer-kpt')} className="hover:text-white hover:underline cursor-pointer">KPT / CPT</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('insurer-sympany')} className="hover:text-white hover:underline cursor-pointer">Sympany</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('insurer-oekk')} className="hover:text-white hover:underline cursor-pointer">ÖKK</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('insurer-atupri')} className="hover:text-white hover:underline cursor-pointer">Atupri</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('insurer-egk')} className="hover:text-white hover:underline cursor-pointer">EGK Santé</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('insurer-aquilana')} className="hover:text-white hover:underline cursor-pointer">Aquilana</button>
+            </div>
+          </div>
+
+          <div>
+            <span className="font-display font-bold text-white uppercase text-[11px] tracking-wider block mb-3">
+              📐 Simulateurs d'optimisation & Guides d'experts :
+            </span>
+            <div className="flex flex-wrap gap-x-3 gap-y-2">
+              <button onClick={() => handleNavClick('tool-calculateur-franchise')} className="hover:text-white hover:underline cursor-pointer">Calculateur Franchise (300 vs 2500)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('tool-calculateur-impot-3a')} className="hover:text-white hover:underline cursor-pointer">Simulateur Impôts 3ème Pilier 3a</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('tool-simulateur-frontalier')} className="hover:text-white hover:underline cursor-pointer">Simulateur Frontalier (LAMal vs CMU)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('guide-modeles-assurance')} className="hover:text-white hover:underline cursor-pointer">Modèles Telmed / HMO / Médecin</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('guide-subside-assurance-maladie')} className="hover:text-white hover:underline cursor-pointer">Subsides & Aides aux Primes</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('guide-resiliation-assurance-maladie')} className="hover:text-white hover:underline cursor-pointer">Délais & Résiliation 30 Novembre</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('guide-3eme-pilier-fiscalite')} className="hover:text-white hover:underline cursor-pointer">Fiscalité Prévoyance 3a 2026</button>
             </div>
           </div>
 

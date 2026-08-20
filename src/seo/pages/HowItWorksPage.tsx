@@ -7,6 +7,7 @@ import React from 'react';
 import { HelpCircle, Sparkles, Filter, Search, CheckCircle, ArrowRight, Shield } from 'lucide-react';
 import SEOHead, { breadcrumbSchema, organizationSchema } from '../components/SEOHead';
 import Breadcrumb from '../components/Breadcrumb';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 interface Props {
   onStartComparison: () => void;
@@ -14,6 +15,7 @@ interface Props {
 }
 
 export default function HowItWorksPage({ onStartComparison, onGoHome }: Props) {
+  const { language } = useLanguage();
   const structured = [
     organizationSchema,
     breadcrumbSchema([
@@ -25,9 +27,8 @@ export default function HowItWorksPage({ onStartComparison, onGoHome }: Props) {
   return (
     <>
       <SEOHead
-        title="Comment Fonctionne Notre Comparateur d'Assurances ? | Le Fennec Malin"
-        description="Guide étape par étape sur l'utilisation du comparateur d'assurances Le Fennec Malin : simulation instantanée des primes, filtres par franchise et modèle, comparaison 100% neutre."
-        canonical="/comment-fonctionne-le-comparateur/"
+        tab="comment-fonctionne-le-comparateur"
+        language={language}
         structuredData={structured}
       />
 

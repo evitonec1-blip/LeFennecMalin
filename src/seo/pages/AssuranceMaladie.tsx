@@ -2,6 +2,7 @@ import React from 'react';
 import { Shield, CheckCircle, ArrowRight, HelpCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import SEOHead, { breadcrumbSchema, faqSchema, organizationSchema } from '../components/SEOHead';
 import Breadcrumb from '../components/Breadcrumb';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 interface Props {
   onStartComparison: () => void;
@@ -33,6 +34,7 @@ const FAQS = [
 
 export default function AssuranceMaladie({ onStartComparison, onGoHome }: Props) {
   const [openFaq, setOpenFaq] = React.useState<number | null>(null);
+  const { language } = useLanguage();
 
   const structured = [
     organizationSchema,
@@ -46,9 +48,8 @@ export default function AssuranceMaladie({ onStartComparison, onGoHome }: Props)
   return (
     <>
       <SEOHead
-        title="Comparateur Assurance Maladie Suisse 2026 — LAMal | Le Fennec Malin"
-        description="Comparez les primes des 37 caisses maladie suisses agréées (LAMal) 2026. Données officielles OFSP & Priminfo. Gratuit, neutre et indépendant. Économisez jusqu'à CHF 3'000 par an."
-        canonical="/assurance-maladie/"
+        tab="seo-maladie"
+        language={language}
         structuredData={structured}
       />
 

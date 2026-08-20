@@ -43,15 +43,15 @@ function buildPremiums() {
   const jsonPath = path.join(PUBLIC_DIR, 'premiums_2026.json');
   let text = '';
 
-  if (fs.existsSync(csvPath)) {
+  if (fs.existsSync(jsonPath) && fs.statSync(jsonPath).size > 100000) {
+    console.log('[download-premiums] public/premiums_2026.json already exists, skipping CSV parse.');
+    return;
+  } else if (fs.existsSync(csvPath)) {
     text = fs.readFileSync(csvPath, 'utf-8');
   } else if (fs.existsSync(gzPath)) {
     console.log('[download-premiums] Decompressing data/premiums_2026.csv.gz...');
     const buffer = fs.readFileSync(gzPath);
     text = zlib.gunzipSync(buffer).toString('utf-8');
-  } else if (fs.existsSync(jsonPath)) {
-    console.log('[download-premiums] public/premiums_2026.json already exists, skipping CSV parse.');
-    return;
   } else {
     throw new Error(`Missing source files: checked data/premiums_2026.csv, data/premiums_2026.csv.gz, and public/premiums_2026.json.`);
   }
@@ -92,15 +92,15 @@ function buildNpaMap() {
   const jsonPath = path.join(PUBLIC_DIR, 'npa_to_region.json');
   let text = '';
 
-  if (fs.existsSync(csvPath)) {
+  if (fs.existsSync(jsonPath) && fs.statSync(jsonPath).size > 10000) {
+    console.log('[download-premiums] public/npa_to_region.json already exists, skipping NPA build.');
+    return;
+  } else if (fs.existsSync(csvPath)) {
     text = fs.readFileSync(csvPath, 'utf-8');
   } else if (fs.existsSync(gzPath)) {
     console.log('[download-premiums] Decompressing data/npa_to_region_2026.csv.gz...');
     const buffer = fs.readFileSync(gzPath);
     text = zlib.gunzipSync(buffer).toString('utf-8');
-  } else if (fs.existsSync(jsonPath)) {
-    console.log('[download-premiums] public/npa_to_region.json already exists, skipping NPA build.');
-    return;
   } else {
     throw new Error(`Missing source files for NPA: checked data/npa_to_region_2026.csv, data/npa_to_region_2026.csv.gz, and public/npa_to_region.json.`);
   }

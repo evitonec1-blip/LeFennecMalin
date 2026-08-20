@@ -21,6 +21,14 @@ const STORAGE_KEY = 'fennec_preferred_language';
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
     try {
+      // 1. Check URL path prefix
+      const path = typeof window !== 'undefined' ? window.location.pathname : '';
+      if (path.startsWith('/de/') || path === '/de') return 'de';
+      if (path.startsWith('/it/') || path === '/it') return 'it';
+      if (path.startsWith('/en/') || path === '/en') return 'en';
+      if (path.startsWith('/fr/') || path === '/fr') return 'fr';
+
+      // 2. Check localStorage
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved && (['fr', 'de', 'en', 'it', 'es', 'pt'] as string[]).includes(saved)) {
         return saved as Language;

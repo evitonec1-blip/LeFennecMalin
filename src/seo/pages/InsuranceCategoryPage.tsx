@@ -8,6 +8,8 @@ import { Car, Home, Shield, Heart, Plane, Scale, PawPrint, ArrowRight, CheckCirc
 import SEOHead, { breadcrumbSchema, faqSchema, organizationSchema, financialServiceSchema } from '../components/SEOHead';
 import Breadcrumb from '../components/Breadcrumb';
 import { CategorySEOData } from '../data/categoriesData';
+import { useLanguage } from '../../i18n/LanguageContext';
+import { AppTab } from '../../types';
 
 interface CategoryPageProps {
   data: CategorySEOData;
@@ -18,6 +20,7 @@ interface CategoryPageProps {
 
 export default function InsuranceCategoryPage({ data, onStartComparison, onGoHome, onNavigate }: CategoryPageProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const { language } = useLanguage();
 
   const getIcon = () => {
     switch (data.iconName) {
@@ -49,9 +52,8 @@ export default function InsuranceCategoryPage({ data, onStartComparison, onGoHom
   return (
     <>
       <SEOHead
-        title={`${data.name} Suisse 2026 — Comparatif & Devis Gratuit | Le Fennec Malin`}
-        description={data.tagline}
-        canonical={`/${data.slug}/`}
+        tab={`category-${data.slug}` as AppTab}
+        language={language}
         structuredData={structured}
       />
 

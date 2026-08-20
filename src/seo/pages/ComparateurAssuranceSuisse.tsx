@@ -2,6 +2,7 @@ import React from 'react';
 import { Shield, TrendingUp, ArrowRight, Star } from 'lucide-react';
 import SEOHead, { breadcrumbSchema, organizationSchema, websiteSchema } from '../components/SEOHead';
 import Breadcrumb from '../components/Breadcrumb';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 interface Props {
   onStartHealth: () => void;
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export default function ComparateurAssuranceSuisse({ onStartHealth, onStartLife, onGoHome }: Props) {
+  const { language } = useLanguage();
   const structured = [
     organizationSchema,
     websiteSchema,
@@ -22,9 +24,8 @@ export default function ComparateurAssuranceSuisse({ onStartHealth, onStartLife,
   return (
     <>
       <SEOHead
-        title="Comparateur Assurance Suisse 2026 — Maladie, 3ème Pilier | Le Fennec Malin"
-        description="Comparez toutes les assurances en Suisse : assurance maladie LAMal, 3ème pilier, prévoyance. Données officielles 2026. Gratuit, indépendant, 100% neutre."
-        canonical="/comparateur-assurance-suisse/"
+        tab="seo-comparateur"
+        language={language}
         structuredData={structured}
       />
 

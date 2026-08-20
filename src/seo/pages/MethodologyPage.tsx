@@ -7,6 +7,7 @@ import React from 'react';
 import { Scale, CheckCircle2, ShieldCheck, Database, FileText, ArrowRight } from 'lucide-react';
 import SEOHead, { breadcrumbSchema, organizationSchema } from '../components/SEOHead';
 import Breadcrumb from '../components/Breadcrumb';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 interface Props {
   onStartComparison: () => void;
@@ -14,6 +15,7 @@ interface Props {
 }
 
 export default function MethodologyPage({ onStartComparison, onGoHome }: Props) {
+  const { language } = useLanguage();
   const structured = [
     organizationSchema,
     breadcrumbSchema([
@@ -25,9 +27,8 @@ export default function MethodologyPage({ onStartComparison, onGoHome }: Props) 
   return (
     <>
       <SEOHead
-        title="Méthodologie & Sources Officielles de Calcul | Le Fennec Malin"
-        description="Découvrez notre méthodologie de calcul des primes d'assurance en Suisse : sources de données certifiées OFSP/Priminfo, indépendance absolue et neutralité des classements."
-        canonical="/methodologie/"
+        tab="methodologie"
+        language={language}
         structuredData={structured}
       />
 
