@@ -1,6 +1,9 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
+ * 
+ * Swiss Canton Insurance Deep-Dive Page (/assurance-maladie/:cantonSlug/)
+ * Comprehensive, data-dense local SEO system covering all 26 Swiss cantons.
  */
 
 import React, { useState } from 'react';
@@ -22,7 +25,13 @@ import {
   PhoneCall,
   UserCheck,
   Building2,
-  Check
+  Check,
+  Calendar,
+  FileText,
+  Clock,
+  Sparkles,
+  ArrowUpRight,
+  ShieldAlert
 } from 'lucide-react';
 import SEOHead, { breadcrumbSchema, faqSchema, organizationSchema, financialServiceSchema } from '../components/SEOHead';
 import Breadcrumb from '../components/Breadcrumb';
@@ -36,11 +45,72 @@ interface CantonPageProps {
   onGoHome: () => void;
   onGoHealthHub: () => void;
   onSelectCanton?: (cantonSlug: string) => void;
+  onNavigate?: (url: string) => void;
 }
 
-export default function CantonPage({ data, onStartComparison, onGoHome, onGoHealthHub, onSelectCanton }: CantonPageProps) {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+const INSURER_SLUG_MAP: Record<string, string> = {
+  'CSS': 'css',
+  'CSS Assurance': 'css',
+  'Helsana': 'helsana',
+  'Swica': 'swica',
+  'Groupe Mutuel': 'groupemutuel',
+  'Mutuel Assurance': 'groupemutuel',
+  'Philos': 'groupemutuel',
+  'Avenir': 'groupemutuel',
+  'Assura': 'assura',
+  'Concordia': 'concordia',
+  'Visana': 'visana',
+  'Sanitas': 'sanitas',
+  'KPT': 'kpt',
+  'KPT / CPT': 'kpt',
+  'Sympany': 'sympany',
+  'Atupri': 'atupri',
+  'Agrisano': 'agrisano',
+  'Aquilana': 'aquilana',
+  'ÖKK': 'oekk',
+  'Provita': 'sanitas',
+  'EasySana': 'groupemutuel',
+  'Avanex': 'helsana',
+  'Progrès': 'helsana',
+  'Sana24': 'visana',
+  'Visperterminen': 'visana',
+};
+
+function getInsurerSlug(name: string): string | null {
+  for (const [key, slug] of Object.entries(INSURER_SLUG_MAP)) {
+    if (name.toLowerCase().includes(key.toLowerCase())) {
+      return slug;
+    }
+  }
+  return null;
+}
+
+export default function CantonPage({ 
+  data, 
+  onStartComparison, 
+  onGoHome, 
+  onGoHealthHub, 
+  onSelectCanton,
+  onNavigate 
+}: CantonPageProps) {
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
   const { language } = useLanguage();
+
+  const handleInternalLink = (url: string, e?: React.MouseEvent) => {
+    if (e && (e.metaKey || e.ctrlKey)) return;
+    if (e) e.preventDefault();
+    if (onNavigate) {
+      onNavigate(url);
+    } else if (url.startsWith('/fr/assurance-maladie/')) {
+      const parts = url.split('/').filter(Boolean);
+      const slug = parts[parts.length - 1];
+      if (slug && slug !== 'assurance-maladie' && onSelectCanton) {
+        onSelectCanton(slug);
+      } else {
+        onGoHealthHub();
+      }
+    }
+  };
 
   const structured = [
     organizationSchema,
@@ -75,17 +145,20 @@ export default function CantonPage({ data, onStartComparison, onGoHome, onGoHeal
         />
 
         {/* Hero Header */}
-        <div className="mb-10">
+        <div className="mb-10 text-left">
           <div className="inline-flex items-center gap-2 bg-fennec-terracotta/10 text-fennec-terracotta text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full mb-4">
             <MapPin className="w-3.5 h-3.5" />
             Canton de {data.name} ({data.code}) · Données Officielles OFSP 2026
           </div>
+          
           <h1 className="font-display font-black text-3xl sm:text-4xl text-fennec-dark mb-4 leading-tight">
-            {data.h1 || `Assurance maladie dans le canton de ${data.name} (${data.code})`}
+            {data.h1 || `Assurance maladie dans le canton de ${data.name} (${data.code}) : Primes 2026 & Comparatif`}
           </h1>
+          
           <p className="text-fennec-dark/75 text-base sm:text-lg leading-relaxed mb-6">
-            Découvrez les tarifs officiels 2026 de l'assurance maladie obligatoire (LAMal) dans le canton de {data.name}. Comparez toutes les caisses agréées, optimisez votre franchise et vos modèles alternatifs pour faire jusqu'à plus de CHF 1'500.- d'économies par an.
+            Découvrez les tarifs officiels 2026 de l'assurance maladie obligatoire (LAMal) dans le canton de {data.name}. Comparez l'ensemble des caisses agréées, optimisez votre franchise et vos modèles alternatifs pour économiser jusqu'à plus de CHF 1'500.- par an.
           </p>
+
           <div className="flex flex-wrap items-center gap-4">
             <button
               onClick={() => onStartComparison(data.code)}
@@ -94,12 +167,14 @@ export default function CantonPage({ data, onStartComparison, onGoHome, onGoHeal
               Comparer les primes à {data.name}
               <ArrowRight className="w-4 h-4" />
             </button>
-            <button
-              onClick={onGoHealthHub}
-              className="inline-flex items-center gap-2 bg-fennec-cream/40 text-fennec-dark font-display font-bold px-6 py-3.5 rounded-full hover:bg-fennec-cream/70 transition-all text-sm cursor-pointer"
+            <a
+              href={`/fr/subsides/${data.slug}/`}
+              onClick={(e) => handleInternalLink(`/fr/subsides/${data.slug}/`, e)}
+              className="inline-flex items-center gap-2 bg-amber-50 text-amber-900 border border-amber-300/80 font-display font-bold px-6 py-3.5 rounded-full hover:bg-amber-100/80 transition-all text-sm cursor-pointer"
             >
-              Tous les cantons suisses
-            </button>
+              <Award className="w-4 h-4 text-amber-700" />
+              Subsides {data.name}
+            </a>
           </div>
         </div>
 
@@ -131,7 +206,7 @@ export default function CantonPage({ data, onStartComparison, onGoHome, onGoHeal
         </div>
 
         {/* Canton Regional Structure */}
-        <div className="bg-white rounded-3xl border border-fennec-cream/60 p-6 sm:p-8 mb-10 shadow-xs space-y-4">
+        <div className="bg-white rounded-3xl border border-fennec-cream/60 p-6 sm:p-8 mb-10 shadow-xs space-y-4 text-left">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <h2 className="font-display font-bold text-xl text-fennec-dark flex items-center gap-2">
               <Building className="w-5 h-5 text-fennec-terracotta" />
@@ -180,7 +255,7 @@ export default function CantonPage({ data, onStartComparison, onGoHome, onGoHeal
 
         {/* Cheapest Insurers Table */}
         {data.cheapestInsurers && data.cheapestInsurers.length > 0 && (
-          <div className="bg-white rounded-3xl border border-fennec-cream/60 p-6 sm:p-8 mb-10 shadow-xs space-y-4">
+          <div className="bg-white rounded-3xl border border-fennec-cream/60 p-6 sm:p-8 mb-10 shadow-xs space-y-4 text-left">
             <div className="flex items-center justify-between flex-wrap gap-2">
               <h2 className="font-display font-bold text-xl text-fennec-dark flex items-center gap-2">
                 <TrendingDown className="w-5 h-5 text-emerald-600" />
@@ -204,20 +279,36 @@ export default function CantonPage({ data, onStartComparison, onGoHome, onGoHeal
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-fennec-cream/40">
-                  {data.cheapestInsurers.map((ins, idx) => (
-                    <tr key={idx} className="hover:bg-fennec-cream/20 transition-colors">
-                      <td className="py-3 px-2 font-display font-bold text-fennec-dark flex items-center gap-1.5">
-                        <span className="w-4 h-4 rounded-full bg-fennec-terracotta/15 text-fennec-terracotta text-[10px] flex items-center justify-center font-bold">
-                          {idx + 1}
-                        </span>
-                        {ins.name}
-                      </td>
-                      <td className="py-3 px-2 text-fennec-dark/70 font-medium">{ins.model}</td>
-                      <td className="py-3 px-2 font-bold text-emerald-700">{ins.adult2500}</td>
-                      <td className="py-3 px-2 font-bold text-fennec-terracotta">{ins.adult300}</td>
-                      <td className="py-3 px-2 text-fennec-dark/60 hidden sm:table-cell text-[11px]">{ins.highlight}</td>
-                    </tr>
-                  ))}
+                  {data.cheapestInsurers.map((ins, idx) => {
+                    const insurerSlug = getInsurerSlug(ins.name);
+
+                    return (
+                      <tr key={idx} className="hover:bg-fennec-cream/20 transition-colors">
+                        <td className="py-3 px-2 font-display font-bold text-fennec-dark">
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-4 h-4 rounded-full bg-fennec-terracotta/15 text-fennec-terracotta text-[10px] flex items-center justify-center font-bold shrink-0">
+                              {idx + 1}
+                            </span>
+                            {insurerSlug ? (
+                              <a
+                                href={`/fr/caisses-maladie/${insurerSlug}/`}
+                                onClick={(e) => handleInternalLink(`/fr/caisses-maladie/${insurerSlug}/`, e)}
+                                className="hover:text-fennec-terracotta hover:underline transition-colors"
+                              >
+                                {ins.name}
+                              </a>
+                            ) : (
+                              <span>{ins.name}</span>
+                            )}
+                          </div>
+                        </td>
+                        <td className="py-3 px-2 text-fennec-dark/70 font-medium">{ins.model}</td>
+                        <td className="py-3 px-2 font-bold text-emerald-700">{ins.adult2500}</td>
+                        <td className="py-3 px-2 font-bold text-fennec-terracotta">{ins.adult300}</td>
+                        <td className="py-3 px-2 text-fennec-dark/60 hidden sm:table-cell text-[11px]">{ins.highlight}</td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
@@ -235,11 +326,21 @@ export default function CantonPage({ data, onStartComparison, onGoHome, onGoHeal
 
         {/* Franchise Guide and Break-Even Point */}
         {data.franchiseGuide && (
-          <div className="bg-white rounded-3xl border border-fennec-cream/60 p-6 sm:p-8 mb-10 shadow-xs space-y-4">
-            <h2 className="font-display font-bold text-xl text-fennec-dark flex items-center gap-2">
-              <Scale className="w-5 h-5 text-blue-600" />
-              Franchise 300 vs 2'500 dans le canton de {data.name}
-            </h2>
+          <div className="bg-white rounded-3xl border border-fennec-cream/60 p-6 sm:p-8 mb-10 shadow-xs space-y-4 text-left">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <h2 className="font-display font-bold text-xl text-fennec-dark flex items-center gap-2">
+                <Scale className="w-5 h-5 text-blue-600" />
+                Franchise 300 vs 2'500 dans le canton de {data.name}
+              </h2>
+              <a
+                href="/fr/outils/calculateur-franchise/"
+                onClick={(e) => handleInternalLink('/fr/outils/calculateur-franchise/', e)}
+                className="text-xs font-bold text-blue-600 hover:underline flex items-center gap-1"
+              >
+                Calculateur de franchise <ArrowRight className="w-3 h-3" />
+              </a>
+            </div>
+
             <p className="text-sm text-fennec-dark/75 leading-relaxed">
               {data.franchiseGuide.intro}
             </p>
@@ -267,11 +368,21 @@ export default function CantonPage({ data, onStartComparison, onGoHome, onGoHeal
 
         {/* Alternative Models & Medical Networks */}
         {data.modelsGuide && (
-          <div className="bg-white rounded-3xl border border-fennec-cream/60 p-6 sm:p-8 mb-10 shadow-xs space-y-4">
-            <h2 className="font-display font-bold text-xl text-fennec-dark flex items-center gap-2">
-              <Shield className="w-5 h-5 text-purple-600" />
-              Modèles d'assurance alternatifs à {data.name}
-            </h2>
+          <div className="bg-white rounded-3xl border border-fennec-cream/60 p-6 sm:p-8 mb-10 shadow-xs space-y-4 text-left">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <h2 className="font-display font-bold text-xl text-fennec-dark flex items-center gap-2">
+                <Shield className="w-5 h-5 text-purple-600" />
+                Modèles d'assurance alternatifs à {data.name}
+              </h2>
+              <a
+                href="/fr/lamal/modeles/"
+                onClick={(e) => handleInternalLink('/fr/lamal/modeles/', e)}
+                className="text-xs font-bold text-purple-600 hover:underline flex items-center gap-1"
+              >
+                Guide des modèles <ArrowRight className="w-3 h-3" />
+              </a>
+            </div>
+
             <p className="text-sm text-fennec-dark/75 leading-relaxed">
               Pour réduire vos primes sans rogner sur la qualité des soins, les modèles alternatifs offrent des réductions substantielles :
             </p>
@@ -320,42 +431,129 @@ export default function CantonPage({ data, onStartComparison, onGoHome, onGoHeal
         )}
 
         {/* Subsidies & Cantonal Social Help */}
-        <div className="bg-amber-50/70 border border-amber-200/80 rounded-3xl p-6 sm:p-8 mb-10 space-y-3">
+        <div className="bg-amber-50/80 border border-amber-200/90 rounded-3xl p-6 sm:p-8 mb-10 space-y-4 text-left shadow-xs">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-2 text-amber-900 font-display font-bold text-lg">
               <Award className="w-5 h-5 text-amber-700" />
               Subsides d'assurance maladie à {data.name} ({data.subsideAgency})
             </div>
-            {data.subsideLink && (
+            <div className="flex items-center gap-2">
               <a
-                href={data.subsideLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs font-bold text-amber-800 bg-amber-200/60 hover:bg-amber-200 px-3 py-1 rounded-full transition-colors"
+                href={`/fr/subsides/${data.slug}/`}
+                onClick={(e) => handleInternalLink(`/fr/subsides/${data.slug}/`, e)}
+                className="inline-flex items-center gap-1 text-xs font-bold text-amber-900 bg-amber-200/80 hover:bg-amber-200 px-3.5 py-1.5 rounded-full transition-colors"
               >
-                Portail officiel subsides <ExternalLink className="w-3 h-3" />
+                Guide subsides {data.name} <ArrowRight className="w-3 h-3" />
               </a>
-            )}
+              {data.subsideLink && (
+                <a
+                  href={data.subsideLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-xs font-bold text-amber-800 bg-white/80 hover:bg-white px-3 py-1.5 rounded-full border border-amber-300 transition-colors"
+                >
+                  Portail officiel <ExternalLink className="w-3 h-3" />
+                </a>
+              )}
+            </div>
           </div>
-          <p className="text-xs sm:text-sm text-amber-950/80 leading-relaxed">
+          
+          <p className="text-xs sm:text-sm text-amber-950/85 leading-relaxed">
             {data.subsideDescription}
           </p>
+          
           {data.subsideIncomeLimits && (
             <p className="text-xs text-amber-900/90 font-medium">
               <span className="font-bold">Critères d'octroi : </span>{data.subsideIncomeLimits}
             </p>
           )}
-          <div className="pt-2 border-t border-amber-200/60">
-            <span className="text-xs font-bold text-amber-900">Conseil Le Fennec Malin : </span>
-            <span className="text-xs text-amber-950/80">
-              Même si vous bénéficiez d'un subside cantonal, changer pour une caisse moins chère réduit le montant restant à votre charge et maximise vos économies.
-            </span>
+          
+          <div className="pt-2 border-t border-amber-200/60 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <span className="text-xs font-bold text-amber-900">Conseil Le Fennec Malin : </span>
+              <span className="text-xs text-amber-950/80">
+                Même si vous bénéficiez d'un subside cantonal, changer pour une caisse moins chère réduit le solde restant à votre charge.
+              </span>
+            </div>
+            <a
+              href="/fr/subsides/"
+              onClick={(e) => handleInternalLink('/fr/subsides/', e)}
+              className="text-xs font-bold text-amber-800 hover:underline shrink-0"
+            >
+              Tous les 26 cantons →
+            </a>
+          </div>
+        </div>
+
+        {/* 4 Golden Rules for Savings in Canton */}
+        <div className="bg-white rounded-3xl border border-fennec-cream/60 p-6 sm:p-8 mb-10 shadow-xs space-y-4 text-left">
+          <h2 className="font-display font-bold text-xl text-fennec-dark flex items-center gap-2">
+            <CheckCircle className="w-5 h-5 text-emerald-600" />
+            4 règles d'or pour économiser sur sa prime à {data.name}
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+            <div className="p-3.5 rounded-xl bg-fennec-cream/20 border border-fennec-cream/40">
+              <span className="font-display font-bold text-xs text-fennec-dark block mb-1">1. Ajustez votre franchise</span>
+              <p className="text-[11px] text-fennec-dark/70">Passez à CHF 2'500 si vous êtes en bonne santé pour économiser jusqu'à CHF 1'540/an.</p>
+            </div>
+            <div className="p-3.5 rounded-xl bg-fennec-cream/20 border border-fennec-cream/40">
+              <span className="font-display font-bold text-xs text-fennec-dark block mb-1">2. Passez au modèle alternatif</span>
+              <p className="text-[11px] text-fennec-dark/70">Telmed ou Médecin de famille vous accordent 10% à 20% de rabais sur la prime de base.</p>
+            </div>
+            <div className="p-3.5 rounded-xl bg-fennec-cream/20 border border-fennec-cream/40">
+              <span className="font-display font-bold text-xs text-fennec-dark block mb-1">3. Suspendez la couverture accident</span>
+              <p className="text-[11px] text-fennec-dark/70">Salarié(e) dès 8h/semaine, vous êtes déjà assuré(e) par la LAA de votre employeur.</p>
+            </div>
+            <div className="p-3.5 rounded-xl bg-fennec-cream/20 border border-fennec-cream/40">
+              <span className="font-display font-bold text-xs text-fennec-dark block mb-1">4. Déposez votre demande de subside</span>
+              <p className="text-[11px] text-fennec-dark/70">Vérifiez vos droits auprès de {data.subsideAgency} pour alléger vos factures mensuelles.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* How to Switch Insurance in Canton */}
+        <div className="bg-white rounded-3xl border border-fennec-cream/60 p-6 sm:p-8 mb-10 shadow-xs space-y-4 text-left">
+          <div className="flex items-center justify-between flex-wrap gap-2">
+            <h2 className="font-display font-bold text-xl text-fennec-dark flex items-center gap-2">
+              <Calendar className="w-5 h-5 text-fennec-terracotta" />
+              Comment changer de caisse maladie à {data.name} ?
+            </h2>
+            <a
+              href="/fr/lamal/changer-caisse-maladie/"
+              onClick={(e) => handleInternalLink('/fr/lamal/changer-caisse-maladie/', e)}
+              className="text-xs font-bold text-fennec-terracotta hover:underline flex items-center gap-1"
+            >
+              Guide de résiliation complet <ArrowRight className="w-3 h-3" />
+            </a>
+          </div>
+
+          <div className="space-y-3 text-xs sm:text-sm text-fennec-dark/75 leading-relaxed">
+            <p>
+              Changer d'assureur LAMal est un droit garanti par la législation fédérale. Voici les règles essentielles pour les résidents de {data.name} :
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1">
+              <div className="p-3.5 bg-fennec-cream/25 rounded-xl border border-fennec-cream/40">
+                <span className="font-bold text-xs text-fennec-dark block mb-1">1. Date limite : 30 Novembre</span>
+                <p className="text-[11px] text-fennec-dark/70">Votre lettre de résiliation doit impérativement parvenir à votre assureur avant le 30 novembre à 17h.</p>
+              </div>
+
+              <div className="p-3.5 bg-fennec-cream/25 rounded-xl border border-fennec-cream/40">
+                <span className="font-bold text-xs text-fennec-dark block mb-1">2. Aucune exclusion médicale</span>
+                <p className="text-[11px] text-fennec-dark/70">En LAMal, la nouvelle caisse a l'obligation légale de vous accepter sans questionnaire de santé.</p>
+              </div>
+
+              <div className="p-3.5 bg-fennec-cream/25 rounded-xl border border-fennec-cream/40">
+                <span className="font-bold text-xs text-fennec-dark block mb-1">3. Prestations 100% identiques</span>
+                <p className="text-[11px] text-fennec-dark/70">Le panier de soins remboursés par la loi est strictement identique chez tous les assureurs suisses.</p>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Hospital Network in Canton */}
         {data.hospitals && data.hospitals.length > 0 && (
-          <div className="bg-white rounded-3xl border border-fennec-cream/60 p-6 sm:p-8 mb-10 shadow-xs space-y-3">
+          <div className="bg-white rounded-3xl border border-fennec-cream/60 p-6 sm:p-8 mb-10 shadow-xs space-y-3 text-left">
             <h2 className="font-display font-bold text-lg text-fennec-dark flex items-center gap-2">
               <Hospital className="w-5 h-5 text-red-600" />
               Établissements hospitaliers et soins à {data.name}
@@ -374,52 +572,97 @@ export default function CantonPage({ data, onStartComparison, onGoHome, onGoHeal
         )}
 
         {/* Top Insurers in Canton */}
-        <div className="bg-white rounded-3xl border border-fennec-cream/60 p-6 sm:p-8 mb-10 shadow-xs space-y-4">
-          <h2 className="font-display font-bold text-xl text-fennec-dark flex items-center gap-2">
-            <Shield className="w-5 h-5 text-blue-600" />
-            Caisses maladie agréées actives à {data.name}
-          </h2>
+        <div className="bg-white rounded-3xl border border-fennec-cream/60 p-6 sm:p-8 mb-10 shadow-xs space-y-4 text-left">
+          <div className="flex items-center justify-between flex-wrap gap-2">
+            <h2 className="font-display font-bold text-xl text-fennec-dark flex items-center gap-2">
+              <Shield className="w-5 h-5 text-blue-600" />
+              Caisses maladie agréées actives à {data.name}
+            </h2>
+            <a
+              href="/fr/caisses-maladie/"
+              onClick={(e) => handleInternalLink('/fr/caisses-maladie/', e)}
+              className="text-xs font-bold text-blue-600 hover:underline flex items-center gap-1"
+            >
+              Annuaire des 37 caisses <ArrowRight className="w-3 h-3" />
+            </a>
+          </div>
           <p className="text-xs sm:text-sm text-fennec-dark/70 leading-relaxed">
-            Les 37 caisses suisses agréées par l'Office fédéral de la santé publique (OFSP) sont tenues d'accepter sans réserve chaque résident de {data.name}. Parmi les caisses les plus souscrites dans le canton :
+            Les 37 caisses suisses agréées par l'Office fédéral de la santé publique (OFSP) sont tenues d'accepter chaque résident de {data.name}. Parmi les caisses les plus souscrites dans le canton :
           </p>
           <div className="flex flex-wrap gap-2 pt-1">
-            {data.popularInsurers.map(ins => (
-              <span key={ins} className="px-3 py-1.5 bg-fennec-cream/35 border border-fennec-cream/70 rounded-lg text-xs font-semibold text-fennec-dark">
-                {ins}
-              </span>
-            ))}
+            {data.popularInsurers.map(ins => {
+              const insurerSlug = getInsurerSlug(ins);
+
+              return insurerSlug ? (
+                <a
+                  key={ins}
+                  href={`/fr/caisses-maladie/${insurerSlug}/`}
+                  onClick={(e) => handleInternalLink(`/fr/caisses-maladie/${insurerSlug}/`, e)}
+                  className="px-3 py-1.5 bg-fennec-cream/35 hover:bg-fennec-cream/70 border border-fennec-cream/70 rounded-lg text-xs font-semibold text-fennec-dark transition-colors flex items-center gap-1"
+                >
+                  {ins} <ArrowUpRight className="w-3 h-3 text-fennec-dark/40" />
+                </a>
+              ) : (
+                <span key={ins} className="px-3 py-1.5 bg-fennec-cream/35 border border-fennec-cream/70 rounded-lg text-xs font-semibold text-fennec-dark">
+                  {ins}
+                </span>
+              );
+            })}
           </div>
         </div>
 
-        {/* Cantons Cross Navigation Grid */}
-        <div className="bg-fennec-cream/25 rounded-3xl border border-fennec-cream/60 p-6 sm:p-8 mb-10 space-y-4">
-          <h2 className="font-display font-bold text-lg text-fennec-dark flex items-center gap-2">
-            <MapPin className="w-4 h-4 text-fennec-terracotta" />
-            Comparer l'assurance maladie dans les 26 cantons suisses
-          </h2>
+        {/* Cantons Cross Navigation Grid with Real Crawlable Links */}
+        <div className="bg-fennec-cream/25 rounded-3xl border border-fennec-cream/60 p-6 sm:p-8 mb-10 space-y-4 text-left">
+          <div className="flex items-center justify-between flex-wrap gap-2">
+            <h2 className="font-display font-bold text-lg text-fennec-dark flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-fennec-terracotta" />
+              Comparer l'assurance maladie dans les 26 cantons suisses
+            </h2>
+            <a
+              href="/fr/assurance-maladie/"
+              onClick={(e) => handleInternalLink('/fr/assurance-maladie/', e)}
+              className="text-xs font-bold text-fennec-terracotta hover:underline"
+            >
+              Hub principal →
+            </a>
+          </div>
+
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
             {ALL_26_CANTONS.map(c => {
               const isCurrent = c.slug === data.slug;
+              const linkHref = `/fr/assurance-maladie/${c.slug}/`;
+
               return (
-                <button
+                <a
                   key={c.code}
-                  onClick={() => onSelectCanton ? onSelectCanton(c.slug) : onStartComparison(c.code)}
-                  className={`p-2 rounded-xl text-xs font-bold text-left transition-all cursor-pointer flex items-center justify-between ${
+                  href={linkHref}
+                  onClick={(e) => {
+                    if (e.metaKey || e.ctrlKey) return;
+                    e.preventDefault();
+                    if (onSelectCanton) {
+                      onSelectCanton(c.slug);
+                    } else if (onNavigate) {
+                      onNavigate(linkHref);
+                    }
+                  }}
+                  className={`p-2 rounded-xl text-xs font-bold text-left transition-all block ${
                     isCurrent 
-                      ? 'bg-fennec-terracotta text-white shadow-xs' 
+                      ? 'bg-fennec-terracotta text-white shadow-xs pointer-events-none' 
                       : 'bg-white hover:bg-fennec-cream/60 text-fennec-dark border border-fennec-cream/50'
                   }`}
                 >
-                  <span className="truncate">{c.name}</span>
-                  <span className={`text-[10px] ml-1 font-mono ${isCurrent ? 'text-white/80' : 'text-fennec-dark/50'}`}>{c.code}</span>
-                </button>
+                  <div className="flex items-center justify-between">
+                    <span className="truncate">{c.name}</span>
+                    <span className={`text-[10px] ml-1 font-mono ${isCurrent ? 'text-white/80' : 'text-fennec-dark/50'}`}>{c.code}</span>
+                  </div>
+                </a>
               );
             })}
           </div>
         </div>
 
         {/* FAQs */}
-        <div className="mb-12">
+        <div className="mb-12 text-left">
           <h2 className="font-display font-bold text-xl text-fennec-dark mb-4 flex items-center gap-2">
             <HelpCircle className="w-5 h-5 text-fennec-terracotta" />
             Questions fréquentes sur l'assurance maladie à {data.name}
@@ -429,7 +672,7 @@ export default function CantonPage({ data, onStartComparison, onGoHome, onGoHeal
               <div key={i} className="bg-white rounded-2xl border border-fennec-cream/60 overflow-hidden shadow-xs">
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between p-5 text-left font-display font-bold text-sm text-fennec-dark hover:bg-fennec-cream/20 transition-colors"
+                  className="w-full flex items-center justify-between p-5 text-left font-display font-bold text-sm text-fennec-dark hover:bg-fennec-cream/20 transition-colors cursor-pointer"
                 >
                   <span>{faq.question}</span>
                   {openFaq === i ? <ChevronUp className="w-4 h-4 shrink-0 text-fennec-terracotta" /> : <ChevronDown className="w-4 h-4 shrink-0 text-fennec-dark/40" />}
@@ -442,6 +685,17 @@ export default function CantonPage({ data, onStartComparison, onGoHome, onGoHeal
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Official Sources & Methodology Badge */}
+        <div className="bg-fennec-cream/20 rounded-2xl border border-fennec-cream/60 p-5 mb-10 text-center space-y-2">
+          <p className="text-xs text-fennec-dark/70">
+            <strong>Sources officielles : </strong>
+            Office fédéral de la santé publique (OFSP / BAG), base officielle Priminfo.admin.ch 2026, Service de la santé publique du canton de {data.name}.
+          </p>
+          <p className="text-[11px] text-fennec-dark/50">
+            Contenu rédigé et vérifié par l'équipe d'experts en prévoyance et assurance maladie Le Fennec Malin · Conforme aux exigences FINMA et à l'article 45 LSA.
+          </p>
         </div>
 
         {/* Final CTA Banner */}
