@@ -611,8 +611,10 @@ export default function App() {
 
         {currentTab === 'seo-maladie' && (
           <AssuranceMaladie
-            onStartComparison={() => setTab('health-comparator')}
+            onStartComparison={startHealthWithCanton}
             onGoHome={() => setTab('home')}
+            onNavigate={navigateToUrl}
+            onSelectCanton={(s) => setTab(`canton-${s}` as AppTab)}
           />
         )}
 
