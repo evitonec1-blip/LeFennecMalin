@@ -86,7 +86,7 @@ export const ROMANDIE_CANTONS: Record<string, CantonSEOData> = {
       }
     ],
     metaDescription: "Assurance maladie Genève 2026 : comparez les primes officielles OFSP des caisses (Assura, CSS, Mutuel, Helsana). Économisez jusqu'à CHF 1'800/an.",
-    seoTitle: "Assurance Maladie Genève 2026 : Comparatif Primes & Caisses Pas Chères (GE)",
+    seoTitle: "Assurance Maladie Genève 2026 : Comparatif Primes & Caisses (GE)",
     h1: "Assurance maladie dans le canton de Genève (GE) : comparatif officiel 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
@@ -259,7 +259,7 @@ export const ROMANDIE_CANTONS: Record<string, CantonSEOData> = {
       }
     ],
     metaDescription: "Assurance maladie Valais (VS) 2026 : comparez les primes les plus basses de Suisse romande à Sion, Sierre, Martigny et Monthey. Primes officielles OFSP.",
-    seoTitle: "Assurance Maladie Valais 2026 : Comparatif LAMal & Primes Moins Chères (VS)",
+    seoTitle: "Assurance Maladie Valais 2026 : Comparatif Primes & Caisses (VS)",
     h1: "Assurance maladie en Valais (VS) : primes et comparatif officiel 2026",
     year: 2026,
     lastUpdated: 'Août 2026'

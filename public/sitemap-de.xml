@@ -1094,4 +1094,352 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/confidentialite/"/>
   </url>
 
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/genf/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/geneve/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/genf/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/ginevra/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/geneva/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/geneve/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/waadt/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/vaud/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/waadt/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/vaud/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/vaud/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/vaud/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/wallis/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/valais/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/wallis/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/vallese/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/valais/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/valais/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/freiburg/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/fribourg/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/freiburg/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/friburgo/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/fribourg/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/fribourg/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/neuenburg/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/neuchatel/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/neuenburg/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/neuchatel/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/neuchatel/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/neuchatel/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/jura/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/jura/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/jura/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/giura/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/jura/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/jura/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/bern/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/berne/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/bern/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/berna/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/bern/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/berne/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/zuerich/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/zurich/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/zuerich/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/zurigo/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/zurich/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/zurich/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/basel-stadt/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/bale-ville/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/basel-stadt/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/basilea-citta/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/basel-city/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/bale-ville/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/basel-landschaft/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/bale-campagne/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/basel-landschaft/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/basilea-campagna/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/basel-countryside/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/bale-campagne/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/aargau/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/argovie/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/aargau/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/argovia/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/aargau/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/argovie/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/solothurn/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/soleure/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/solothurn/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/soletta/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/solothurn/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/soleure/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/luzern/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/lucerne/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/luzern/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/lucerna/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/lucerne/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/lucerne/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/zug/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/zoug/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/zug/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/zugo/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/zug/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/zoug/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/schwyz/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/schwyz/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/schwyz/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/svitto/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/schwyz/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/schwyz/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/uri/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/uri/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/uri/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/uri/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/uri/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/uri/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/obwalden/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/obwald/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/obwalden/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/obvaldo/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/obwalden/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/obwald/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/nidwalden/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/nidwald/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/nidwalden/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/nidvaldo/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/nidwalden/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/nidwald/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/st-gallen/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/saint-gall/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/st-gallen/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/san-gallo/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/st-gallen/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/saint-gall/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/thurgau/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/thurgovie/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/thurgau/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/turgovia/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/thurgau/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/thurgovie/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/schaffhausen/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/schaffhouse/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/schaffhausen/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/sciaffusa/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/schaffhausen/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/schaffhouse/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/appenzell-ausserrhoden/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/appenzell-rhodes-exterieures/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/appenzell-ausserrhoden/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/appenzello-esterno/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/appenzell-ausserrhoden/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/appenzell-rhodes-exterieures/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/appenzell-innerrhoden/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/appenzell-rhodes-interieures/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/appenzell-innerrhoden/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/appenzello-interno/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/appenzell-innerrhoden/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/appenzell-rhodes-interieures/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/glarus/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/glaris/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/glarus/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/glarona/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/glarus/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/glaris/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/graubuenden/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/grisons/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/graubuenden/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/grigioni/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/graubuenden/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/grisons/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/tessin/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/tessin/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/tessin/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/ticino/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/ticino/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/tessin/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/appenzell-ausserrhoden/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/appenzell-ar/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/appenzell-ausserrhoden/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/appenzello-esterno/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/appenzell-ausserrhoden/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/appenzell-ar/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemienverbilligung/appenzell-innerrhoden/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.86</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/appenzell-ai/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/appenzell-innerrhoden/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/appenzello-interno/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/appenzell-innerrhoden/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/appenzell-ai/"/>
+  </url>
+
 </urlset>

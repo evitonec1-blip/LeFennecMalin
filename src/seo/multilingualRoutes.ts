@@ -22,7 +22,7 @@ export interface LocalizedRouteInfo {
 
 export interface MultilingualRouteConfig {
   id: AppTab;
-  category: 'core' | 'health' | 'canton' | 'insurance' | 'pension' | 'guide' | 'tool' | 'trust' | 'legal';
+  category: 'core' | 'health' | 'canton' | 'insurance' | 'pension' | 'guide' | 'tool' | 'trust' | 'legal' | 'subside';
   priority: number;
   changefreq: 'daily' | 'weekly' | 'monthly' | 'yearly';
   lastModified?: string;
@@ -1123,6 +1123,144 @@ function generateAllCantonRoutes(): Record<string, MultilingualRouteConfig> {
 }
 
 /**
+ * Generates all 26 Swiss Canton Subsidy Routes & Subsidies Hub
+ */
+function generateAllSubsidiesRoutes(): Record<string, MultilingualRouteConfig> {
+  const subsidyConfigs: Record<string, MultilingualRouteConfig> = {};
+
+  const cantonSlugTranslations: Record<string, { de: string; it: string; en: string; deName: string; itName: string; enName: string }> = {
+    geneve: { de: 'genf', it: 'ginevra', en: 'geneva', deName: 'Genf', itName: 'Ginevra', enName: 'Geneva' },
+    vaud: { de: 'waadt', it: 'vaud', en: 'vaud', deName: 'Waadt', itName: 'Vaud', enName: 'Vaud' },
+    valais: { de: 'wallis', it: 'vallese', en: 'valais', deName: 'Wallis', itName: 'Vallese', enName: 'Valais' },
+    fribourg: { de: 'freiburg', it: 'friburgo', en: 'fribourg', deName: 'Freiburg', itName: 'Friburgo', enName: 'Fribourg' },
+    neuchatel: { de: 'neuenburg', it: 'neuchatel', en: 'neuchatel', deName: 'Neuenburg', itName: 'Neuchâtel', enName: 'Neuchâtel' },
+    jura: { de: 'jura', it: 'giura', en: 'jura', deName: 'Jura', itName: 'Giura', enName: 'Jura' },
+    berne: { de: 'bern', it: 'berna', en: 'bern', deName: 'Bern', itName: 'Berna', enName: 'Bern' },
+    zurich: { de: 'zuerich', it: 'zurigo', en: 'zurich', deName: 'Zürich', itName: 'Zurigo', enName: 'Zurich' },
+    'bale-ville': { de: 'basel-stadt', it: 'basilea-citta', en: 'basel-city', deName: 'Basel-Stadt', itName: 'Basilea Città', enName: 'Basel-City' },
+    'bale-campagne': { de: 'basel-landschaft', it: 'basilea-campagna', en: 'basel-countryside', deName: 'Basel-Landschaft', itName: 'Basilea Campagna', enName: 'Basel-Landschaft' },
+    argovie: { de: 'aargau', it: 'argovia', en: 'aargau', deName: 'Aargau', itName: 'Argovia', enName: 'Aargau' },
+    tessin: { de: 'tessin', it: 'ticino', en: 'ticino', deName: 'Tessin', itName: 'Ticino', enName: 'Ticino' },
+    'saint-gall': { de: 'st-gallen', it: 'san-gallo', en: 'st-gallen', deName: 'St. Gallen', itName: 'San Gallo', enName: 'St. Gallen' },
+    thurgovie: { de: 'thurgau', it: 'turgovia', en: 'thurgau', deName: 'Thurgau', itName: 'Turgovia', enName: 'Thurgau' },
+    lucerne: { de: 'luzern', it: 'lucerna', en: 'lucerne', deName: 'Luzern', itName: 'Lucerna', enName: 'Lucerne' },
+    zoug: { de: 'zug', it: 'zugo', en: 'zug', deName: 'Zug', itName: 'Zugo', enName: 'Zug' },
+    soleure: { de: 'solothurn', it: 'soletta', en: 'solothurn', deName: 'Solothurn', itName: 'Soletta', enName: 'Solothurn' },
+    schaffhouse: { de: 'schaffhausen', it: 'sciaffusa', en: 'schaffhausen', deName: 'Schaffhausen', itName: 'Sciaffusa', enName: 'Schaffhausen' },
+    'appenzell-ar': { de: 'appenzell-ausserrhoden', it: 'appenzello-esterno', en: 'appenzell-ausserrhoden', deName: 'Appenzell Ausserrhoden', itName: 'Appenzello Esterno', enName: 'Appenzell Ausserrhoden' },
+    'appenzell-rhodes-exterieures': { de: 'appenzell-ausserrhoden', it: 'appenzello-esterno', en: 'appenzell-ausserrhoden', deName: 'Appenzell Ausserrhoden', itName: 'Appenzello Esterno', enName: 'Appenzell Ausserrhoden' },
+    'appenzell-ai': { de: 'appenzell-innerrhoden', it: 'appenzello-interno', en: 'appenzell-innerrhoden', deName: 'Appenzell Innerrhoden', itName: 'Appenzello Interno', enName: 'Appenzell Innerrhoden' },
+    'appenzell-rhodes-interieures': { de: 'appenzell-innerrhoden', it: 'appenzello-interno', en: 'appenzell-innerrhoden', deName: 'Appenzell Innerrhoden', itName: 'Appenzello Interno', enName: 'Appenzell Innerrhoden' },
+    grisons: { de: 'graubuenden', it: 'grigioni', en: 'graubuenden', deName: 'Graubünden', itName: 'Grigioni', enName: 'Grisons' },
+    glaris: { de: 'glarus', it: 'glarona', en: 'glarus', deName: 'Glarus', itName: 'Glarona', enName: 'Glarus' },
+    nidwald: { de: 'nidwalden', it: 'nidvaldo', en: 'nidwalden', deName: 'Nidwalden', itName: 'Nidvaldo', enName: 'Nidwalden' },
+    obwald: { de: 'obwalden', it: 'obvaldo', en: 'obwalden', deName: 'Obwalden', itName: 'Obvaldo', enName: 'Obwalden' },
+    uri: { de: 'uri', it: 'uri', en: 'uri', deName: 'Uri', itName: 'Uri', enName: 'Uri' },
+    schwyz: { de: 'schwyz', it: 'svitto', en: 'schwyz', deName: 'Schwyz', itName: 'Svitto', enName: 'Schwyz' },
+  };
+
+  // Subsidies Hub
+  subsidyConfigs['hub-subsides'] = {
+    id: 'hub-subsides',
+    category: 'subside',
+    priority: 0.9,
+    changefreq: 'monthly',
+    locales: {
+      fr: {
+        path: '/fr/subsides/',
+        title: "Subsides Assurance Maladie Suisse 2026 — Guide & Barèmes par Canton | Le Fennec Malin",
+        description: "Guide complet de la réduction des primes d'assurance maladie (subsides LAMal / IPV) dans les 26 cantons suisses. Barèmes, plafonds de revenus, formulaires et délais officiels 2026.",
+        h1: "Subsides d'Assurance Maladie en Suisse : Guide Officiel 2026 par Canton",
+        breadcrumbLabel: "Subsides Suisse",
+        primaryKeyword: "subsides assurance maladie suisse",
+        secondaryKeywords: ["reduction primes lamal suisse", "subside caisse maladie 2026", "aide assurance maladie suisse"]
+      },
+      de: {
+        path: '/de/praemienverbilligung/',
+        title: "Prämienverbilligung Schweiz (IPV) 2026 — Alle 26 Kantone im Überblick",
+        description: "Individuelle Prämienverbilligung (IPV) 2026 in allen Schweizer Kantonen: Einkommensgrenzen, Antragsfristen, Online-Rechner und offizielle Stellen.",
+        h1: "Prämienverbilligung (IPV) in der Schweiz: Kantonale Richtlinien 2026",
+        breadcrumbLabel: "Prämienverbilligung",
+        primaryKeyword: "praemienverbilligung schweiz",
+        secondaryKeywords: ["ipv kantone 2026", "krankenkassen praemienverbilligung antrag"]
+      },
+      it: {
+        path: '/it/sussidi-cassa-malati/',
+        title: "Sussidi Cassa Malati Svizzera (RIP) 2026 — Guida per tutti i 26 Cantoni",
+        description: "Riduzione dei premi dell'assicurazione malattia (RIP) in Svizzera: limiti di reddito, scadenze, modelli di domanda e recapiti cantonali.",
+        h1: "Riduzione dei Premi dell'Assicurazione Malattia (RIP) in Svizzera",
+        breadcrumbLabel: "Sussidi Cassa Malati",
+        primaryKeyword: "sussidi cassa malati svizzera",
+        secondaryKeywords: ["riduzione premi cassa malati", "rip cantoni svizzera"]
+      },
+      en: {
+        path: '/en/health-insurance-subsidies/',
+        title: "Swiss Health Insurance Subsidies (IPV) 2026 — Guide to All 26 Cantons",
+        description: "Complete guide to mandatory Swiss health insurance premium reductions (IPV) across all 26 cantons. Income limits, application deadlines, and official contacts.",
+        h1: "Health Insurance Premium Reductions (IPV) in Switzerland: 2026 Guide",
+        breadcrumbLabel: "Health Subsidies",
+        primaryKeyword: "swiss health insurance subsidies",
+        secondaryKeywords: ["ipv switzerland health premium reduction", "canton health subsidies"]
+      }
+    }
+  };
+
+  // 26 Cantonal Subsidy Pages
+  for (const [slug, data] of Object.entries(CANTONS_SEO_DATA)) {
+    const tabKey = `subside-${slug}` as AppTab;
+    const trans = cantonSlugTranslations[slug] || { de: slug, it: slug, en: slug, deName: data.name, itName: data.name, enName: data.name };
+    const agencyName = (data as any).subsideAgency || 'Caisse de compensation cantonale';
+
+    subsidyConfigs[tabKey] = {
+      id: tabKey,
+      category: 'subside',
+      priority: 0.86,
+      changefreq: 'monthly',
+      locales: {
+        fr: {
+          path: `/fr/subsides/${slug}/`,
+          title: `Subsides d'Assurance Maladie ${data.name} (${data.code}) 2026 — Barème, Demande & Délais`,
+          description: `Guide officiel des subsides d'assurance maladie dans le canton de ${data.name} (${data.code}) en 2026. Barème de revenu, organisme cantonal (${agencyName}), démarches et délais.`,
+          h1: `Subsides d'assurance maladie dans le canton de ${data.name} (${data.code})`,
+          breadcrumbLabel: `Subsides ${data.code}`,
+          primaryKeyword: `subside assurance maladie ${data.name.toLowerCase()}`,
+          secondaryKeywords: [`subside caisse maladie ${data.code.toLowerCase()}`, `reduction prime ${data.name.toLowerCase()}`, `${agencyName.toLowerCase()}`]
+        },
+        de: {
+          path: `/de/praemienverbilligung/${trans.de}/`,
+          title: `Prämienverbilligung ${trans.deName} (${data.code}) 2026 — Antrag, Fristen & Rechner`,
+          description: `Prämienverbilligung (IPV) 2026 im Kanton ${trans.deName} (${data.code}). Einkommensgrenzen, offizielle Ausgleichskasse (${agencyName}) und Antragsverfahren.`,
+          h1: `Prämienverbilligung im Kanton ${trans.deName} (${data.code})`,
+          breadcrumbLabel: `IPV ${data.code}`,
+          primaryKeyword: `praemienverbilligung ${trans.deName.toLowerCase()}`,
+          secondaryKeywords: [`ipv ${data.code.toLowerCase()}`, `krankenkassenverbilligung ${trans.deName.toLowerCase()}`]
+        },
+        it: {
+          path: `/it/sussidi-cassa-malati/${trans.it}/`,
+          title: `Sussidi Cassa Malati ${trans.itName} (${data.code}) 2026 — Requisiti & Scadenze`,
+          description: `Riduzione individuale dei premi nel Cantone ${trans.itName} (${data.code}) per il 2026. Requisiti di reddito, ente ufficiale (${agencyName}) e scadenze.`,
+          h1: `Sussidi cassa malati nel Cantone ${trans.itName} (${data.code})`,
+          breadcrumbLabel: `Sussidi ${data.code}`,
+          primaryKeyword: `sussidi cassa malati ${trans.itName.toLowerCase()}`,
+          secondaryKeywords: [`rip ${data.code.toLowerCase()}`, `riduzione premi ${trans.itName.toLowerCase()}`]
+        },
+        en: {
+          path: `/en/health-insurance-subsidies/${trans.en}/`,
+          title: `Health Insurance Subsidies in ${trans.enName} (${data.code}) 2026 — Eligibility & Deadlines`,
+          description: `How to apply for health insurance premium subsidies in Canton ${trans.enName} (${data.code}) in 2026. Income thresholds, official office (${agencyName}) and deadlines.`,
+          h1: `Health Insurance Subsidies in Canton ${trans.enName} (${data.code})`,
+          breadcrumbLabel: `Subsidies ${data.code}`,
+          primaryKeyword: `health insurance subsidies ${trans.enName.toLowerCase()}`,
+          secondaryKeywords: [`ipv ${data.code.toLowerCase()}`, `canton ${trans.enName.toLowerCase()} health discount`]
+        }
+      }
+    };
+  }
+
+  return subsidyConfigs;
+}
+
+/**
  * Generates all 14 Swiss insurer profile routes
  */
 function generateAllInsurerRoutes(): Record<string, MultilingualRouteConfig> {
@@ -1573,6 +1711,7 @@ function generateAllCategoryRoutes(): Record<string, MultilingualRouteConfig> {
 Object.assign(
   MULTILINGUAL_ROUTES,
   generateAllCantonRoutes(),
+  generateAllSubsidiesRoutes(),
   generateAllInsurerRoutes(),
   generateAllComparisonRoutes(),
   generateAllGuideRoutes(),
@@ -1665,7 +1804,25 @@ export function resolveRouteFromPath(pathname: string): { tab: AppTab; language:
     }
   }
 
-  // 4. Handle Insurer Slugs dynamically (/fr/caisses-maladie/:slug/, /caisses-maladie/:slug/)
+  // 4. Handle Subsidies Slugs dynamically (/fr/subsides/:slug/, /subsides/:slug/, /de/praemienverbilligung/:slug/)
+  const subsidyMatch = normalized.match(/(?:\/(fr|de|it|en))?\/(?:subsides|praemienverbilligung|sussidi-cassa-malati|health-insurance-subsidies)\/([a-z0-9-]+)\/?$/);
+  if (subsidyMatch) {
+    const lang = (subsidyMatch[1] || 'fr') as Language;
+    const slug = subsidyMatch[2];
+    const candidateTab = `subside-${slug}` as AppTab;
+    if (MULTILINGUAL_ROUTES[candidateTab]) {
+      return { tab: candidateTab, language: lang };
+    }
+  }
+
+  // 5. Handle Subsidies Hub dynamically
+  const subsidyHubMatch = normalized.match(/(?:\/(fr|de|it|en))?\/(?:subsides|praemienverbilligung|sussidi-cassa-malati|health-insurance-subsidies)\/?$/);
+  if (subsidyHubMatch) {
+    const lang = (subsidyHubMatch[1] || 'fr') as Language;
+    return { tab: 'hub-subsides', language: lang };
+  }
+
+  // 6. Handle Insurer Slugs dynamically (/fr/caisses-maladie/:slug/, /caisses-maladie/:slug/)
   const insurerMatch = normalized.match(/(?:\/(fr|de|it|en))?\/(?:caisses-maladie|krankenkassen|casse-malati|health-funds)\/([a-z0-9-]+)\/?$/);
   if (insurerMatch) {
     const lang = (insurerMatch[1] || 'fr') as Language;
@@ -1676,7 +1833,7 @@ export function resolveRouteFromPath(pathname: string): { tab: AppTab; language:
     }
   }
 
-  // 5. Handle Guides Slugs dynamically (/fr/guides/:slug/, /guides/:slug/)
+  // 7. Handle Guides Slugs dynamically (/fr/guides/:slug/, /guides/:slug/)
   const guideMatch = normalized.match(/(?:\/(fr|de|it|en))?\/(?:guides|ratgeber|guide)\/([a-z0-9-]+)\/?$/);
   if (guideMatch) {
     const lang = (guideMatch[1] || 'fr') as Language;
@@ -1687,7 +1844,7 @@ export function resolveRouteFromPath(pathname: string): { tab: AppTab; language:
     }
   }
 
-  // 6. Handle Tools Slugs dynamically (/fr/outils/:slug/)
+  // 8. Handle Tools Slugs dynamically (/fr/outils/:slug/)
   const toolMatch = normalized.match(/(?:\/(fr|de|it|en))?\/(?:outils|tools|strumenti)\/([a-z0-9-]+)\/?$/);
   if (toolMatch) {
     const lang = (toolMatch[1] || 'fr') as Language;
@@ -1698,13 +1855,14 @@ export function resolveRouteFromPath(pathname: string): { tab: AppTab; language:
     }
   }
 
-  // 7. Legacy French non-prefixed paths (backward compatibility)
+  // 9. Legacy French non-prefixed paths (backward compatibility)
   const legacyMap: Record<string, AppTab> = {
     '/assurance-maladie/': 'seo-maladie',
     '/assurance-maladie/comparateur/': 'health-comparator',
     '/comparateur-assurance-suisse/': 'seo-comparateur',
     '/3eme-pilier/': 'seo-pilier',
     '/3eme-pilier/comparateur/': 'life-comparator',
+    '/subsides/': 'hub-subsides',
     '/a-propos/': 'about',
     '/faq/': 'faq',
     '/methodologie/': 'methodologie',

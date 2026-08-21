@@ -395,7 +395,7 @@ export const SUISSE_ORIENTALE_TESSIN_CANTONS: Record<string, CantonSEOData> = {
       }
     ],
     metaDescription: "Assurance maladie Appenzell Rhodes-Intérieures (AI) 2026 : les primes les moins chères de Suisse dès CHF 158/mois. Krankenkassenvergleich Appenzell officiel.",
-    seoTitle: "Assurance Maladie Appenzell Rhodes-Intérieures 2026 : Primes Record (AI)",
+    seoTitle: "Assurance Maladie Appenzell Rhodes-Intérieures 2026 (AI)",
     h1: "Assurance maladie en Appenzell Rhodes-Intérieures (AI) : primes les plus basses 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
@@ -633,9 +633,9 @@ export const SUISSE_ORIENTALE_TESSIN_CANTONS: Record<string, CantonSEOData> = {
         answer: "I lavoratori frontalieri con permesso G possono esercitare il diritto di opzione formale entro 3 mesi dall'inizio dell'attività, scegliendo tra l'assicurazione sanitaria svizzera LAMal frontalieri e il Servizio Sanitario Nazionale italiano."
       }
     ],
-    metaDescription: "Assicurazione malattia Ticino (TI) 2026 : Confronto casse malati Lugano, Bellinzona, Locarno. Premi ufficiali UFSP, casse più economiche e sussidi RIP.",
-    seoTitle: "Assicurazione Maladie Ticino 2026 : Confronto Casse & Premi (TI)",
-    h1: "Assicurazione malattia nel cantone Ticino (TI) : confronto premi e casse 2026",
+    metaDescription: "Assurance maladie Tessin (TI) 2026 : comparez les primes officielles OFSP à Lugano, Bellinzone, Locarno. Casse malati e sussidi RIP.",
+    seoTitle: "Assurance Maladie Tessin 2026 : Comparatif Primes & Caisses (TI)",
+    h1: "Assurance maladie dans le canton du Tessin (TI) : comparatif officiel 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   }

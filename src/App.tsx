@@ -17,6 +17,8 @@ import AssuranceMaladie from './seo/pages/AssuranceMaladie';
 import TroisiemePilier from './seo/pages/TroisiemePilier';
 import ComparateurAssuranceSuisse from './seo/pages/ComparateurAssuranceSuisse';
 import CantonPage from './seo/pages/CantonPage';
+import SubsidiesHubPage from './seo/pages/SubsidiesHubPage';
+import CantonSubsidiesPage from './seo/pages/CantonSubsidiesPage';
 import InsuranceCategoryPage from './seo/pages/InsuranceCategoryPage';
 import InsurerProfilePage from './seo/pages/InsurerProfilePage';
 import InsurersDirectoryPage from './seo/pages/InsurersDirectoryPage';
@@ -735,6 +737,30 @@ export default function App() {
               onGoHome={() => setTab('home')}
               onGoHealthHub={() => setTab('seo-maladie')}
               onSelectCanton={(s) => setTab(`canton-${s}` as AppTab)}
+              onNavigate={navigateToUrl}
+            />
+          );
+        })()}
+
+        {/* Subsidies Hub Page */}
+        {currentTab === 'hub-subsides' && (
+          <SubsidiesHubPage
+            onStartComparison={startHealthWithCanton}
+            onGoHome={() => setTab('home')}
+            onNavigate={navigateToUrl}
+            onSelectCanton={(s) => setTab(`subside-${s}` as AppTab)}
+          />
+        )}
+
+        {/* Dynamic Canton Subsidies Pages (All 26 Swiss Cantons) */}
+        {currentTab.startsWith('subside-') && (() => {
+          const slug = currentTab.replace('subside-', '');
+          return (
+            <CantonSubsidiesPage
+              cantonSlug={slug}
+              onStartComparison={startHealthWithCanton}
+              onGoHome={() => setTab('home')}
+              onNavigate={navigateToUrl}
             />
           );
         })()}
