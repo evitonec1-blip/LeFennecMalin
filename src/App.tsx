@@ -24,6 +24,16 @@ import GuidePage from './seo/pages/GuidePage';
 import CalculatorPage from './seo/pages/CalculatorPage';
 import MethodologyPage from './seo/pages/MethodologyPage';
 import HowItWorksPage from './seo/pages/HowItWorksPage';
+import LAMalHubPage from './seo/pages/LAMalHubPage';
+import FranchiseGuidePage from './seo/pages/FranchiseGuidePage';
+import InsuranceModelsPage from './seo/pages/InsuranceModelsPage';
+import CheapestInsurancePage from './seo/pages/CheapestInsurancePage';
+import BestInsurancePage from './seo/pages/BestInsurancePage';
+import SwitchingInsurancePage from './seo/pages/SwitchingInsurancePage';
+import { FamilyInsurancePage, YoungAdultInsurancePage, StudentInsurancePage, NewResidentInsurancePage } from './seo/pages/DemographicPages';
+import LamalVsLcaPage from './seo/pages/LamalVsLcaPage';
+import AccidentCoveragePage from './seo/pages/AccidentCoveragePage';
+import InsurerComparisonPage from './seo/pages/InsurerComparisonPage';
 import { CANTONS_SEO_DATA } from './seo/data/cantonsData';
 import { CATEGORIES_SEO_DATA } from './seo/data/categoriesData';
 import { INSURERS_SEO_DATA } from './seo/data/insurersData';
@@ -616,6 +626,100 @@ export default function App() {
             onStartHealth={() => setTab('health-comparator')}
             onStartLife={() => setTab('life-comparator')}
             onGoHome={() => setTab('home')}
+          />
+        )}
+
+        {/* 12 Master Semantic SEO Cluster Hubs */}
+        {currentTab === 'hub-lamal' && (
+          <LAMalHubPage
+            onNavigate={setTab}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab === 'lamal-franchise' && (
+          <FranchiseGuidePage
+            onNavigate={setTab}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab === 'lamal-modeles' && (
+          <InsuranceModelsPage
+            onNavigate={setTab}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab === 'lamal-moins-chere' && (
+          <CheapestInsurancePage
+            onNavigate={setTab}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab === 'meilleure-caisse-maladie' && (
+          <BestInsurancePage
+            onNavigate={setTab}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab === 'lamal-changer-caisse' && (
+          <SwitchingInsurancePage
+            onNavigate={setTab}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab === 'lamal-famille' && (
+          <FamilyInsurancePage
+            onNavigate={setTab}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab === 'lamal-jeunes-adultes' && (
+          <YoungAdultInsurancePage
+            onNavigate={setTab}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab === 'lamal-etudiant' && (
+          <StudentInsurancePage
+            onNavigate={setTab}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab === 'lamal-nouveaux-arrivants' && (
+          <NewResidentInsurancePage
+            onNavigate={setTab}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab === 'lamal-vs-lca' && (
+          <LamalVsLcaPage
+            onNavigate={setTab}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab === 'lamal-assurance-accident' && (
+          <AccidentCoveragePage
+            onNavigate={setTab}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
+        {/* Head-to-Head Comparison Routes */}
+        {currentTab.startsWith('compare-') && (
+          <InsurerComparisonPage
+            comparisonId={currentTab}
+            onNavigate={setTab}
+            onStartComparison={() => setTab('health-comparator')}
           />
         )}
 

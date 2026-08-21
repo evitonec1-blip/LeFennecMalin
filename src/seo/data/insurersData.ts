@@ -463,6 +463,15 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         emergencyRule: 'Service de garde cantonal.',
         pharmacyNetwork: 'Libre choix avec privilège génériques.',
         pros: ['Suivi clinique continu', 'Délégations simplifiées pour spécialistes']
+      },
+      {
+        type: 'hmo',
+        name: 'FAVORIT SANTE',
+        discount: 'Jusqu\'à -22%',
+        firstContact: 'Centres de santé partenaires et réseaux de soins régionaux.',
+        emergencyRule: 'Pôle d\'urgence conventionné.',
+        pharmacyNetwork: 'Pharmacie intégrée au cabinet de groupe.',
+        pros: ['Prise en charge multidisciplinaire', 'Rabais maximal sur prime LAMal']
       }
     ],
     lcaHighlights: [
@@ -503,6 +512,13 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         keyDifference: 'SWICA bat Sanitas sur les contributions sportives (CHF 1\'300 vs CHF 800), mais Sanitas propose une application mobile encore plus axée sur le quantified-self.',
         priceComparison: 'Primes comparables, SWICA légèrement plus avantageuse pour les familles.',
         targetAudience: 'Sportifs, adeptes de médecines douces et personnes exigeantes.'
+      },
+      {
+        competitorName: 'Helsana',
+        competitorSlug: 'helsana',
+        keyDifference: 'SWICA dispose de son propre service médical interne (santé24), tandis qu\'Helsana délègue son triage téléphonique à Medi24.',
+        priceComparison: 'Tarifs très similaires en Suisse romande.',
+        targetAudience: 'Assurés recherchant un service client 5 étoiles.'
       }
     ],
     switchingTips: {
@@ -521,6 +537,14 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
       {
         question: "Combien SWICA rembourse-t-elle pour un abonnement de fitness ?",
         answer: "En combinant les complémentaires COMPLETA TOP et OPTIMA, SWICA rembourse jusqu'à 95% de votre abonnement de fitness ou club de sport, plafonné à CHF 1'300 par an."
+      },
+      {
+        question: "Comment fonctionne le service médical santé24 chez SWICA ?",
+        answer: "santé24 est une plateforme médicale interne joignable 24h/24 et 7j/7 au 044 404 86 86, permettant d'obtenir des diagnostics, ordonnances et téléconsultations en français, allemand, italien et anglais."
+      },
+      {
+        question: "Quels sont les délais de résiliation de l'assurance de base chez SWICA ?",
+        answer: "Pour changer d'assurance de base LAMal au 1er janvier, votre lettre de résiliation doit parvenir à SWICA au plus tard le 30 novembre à 17h00."
       }
     ],
     metaDescription: "SWICA Assurance Maladie 2026 : N°1 satisfaction client Suisse, primes LAMal officielles, remboursements sport jusqu'à CHF 1'300/an, avis et comparatif."
@@ -573,6 +597,24 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         emergencyRule: 'Notification dans les 10 jours.',
         pharmacyNetwork: 'Pharmacies conventionnées avec livraison à domicile.',
         pros: ['Application ultra-intuitive', 'Planification des rappels médicaux', 'Suivi digitalisé']
+      },
+      {
+        type: 'medecin-famille',
+        name: 'Sanitas CareMed',
+        discount: 'Jusqu\'à -16%',
+        firstContact: 'Médecin de famille référent conventionné.',
+        emergencyRule: 'Service de garde ou urgence vitale sans délai.',
+        pharmacyNetwork: 'Réseau libre de pharmacies.',
+        pros: ['Coordination médicale personnalisée', 'Tarifs très stables']
+      },
+      {
+        type: 'hmo',
+        name: 'Sanitas NetMed',
+        discount: 'Jusqu\'à -22%',
+        firstContact: 'Centres de santé partenaires et cabinets de groupe régionaux.',
+        emergencyRule: 'Centre de soins d\'urgence rattaché.',
+        pharmacyNetwork: 'Pharmacie partenaire du cabinet.',
+        pros: ['Économies maximales', 'Prise en charge intégrée']
       }
     ],
     lcaHighlights: [
@@ -602,6 +644,13 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         keyDifference: 'Sanitas offre une expérience 100% digitale très aboutie, idéale pour les utilisateurs mobiles.',
         priceComparison: 'Primes comparables en Suisse romande.',
         targetAudience: 'Jeunes actifs, indépendants et familles connectées.'
+      },
+      {
+        competitorName: 'SWICA',
+        competitorSlug: 'swica',
+        keyDifference: 'Sanitas mise sur le self-care et l\'IA, tandis que SWICA privilégie l\'accompagnement humain et les contributions sport.',
+        priceComparison: 'Écarts tarifaires inférieurs à 3%.',
+        targetAudience: 'Amateurs de solutions numériques performantes.'
       }
     ],
     switchingTips: {
@@ -613,9 +662,21 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
       {
         question: "Quels sont les avantages de l'application Sanitas Portal ?",
         answer: "Elle permet de scanner instantanément vos factures avec paiement en 48h, de vérifier votre franchise en temps réel et de chatter avec un conseiller ou un médecin Medgate."
+      },
+      {
+        question: "Comment fonctionne le modèle Telmed CallMed chez Sanitas ?",
+        answer: "Avant chaque consultation, vous contactez les médecins de Medgate par téléphone ou visio via l'application Sanitas Portal. En contrepartie, vous bénéficiez d'un rabais pouvant atteindre 20% sur votre prime mensuelle."
+      },
+      {
+        question: "Puis-je souscrire l'assurance complémentaire Sanitas sans changer de base LAMal ?",
+        answer: "Oui, la législation suisse autorise la dissociation : vous pouvez conserver vos complémentaires chez Sanitas tout en choisissant un autre assureur pour la LAMal de base."
+      },
+      {
+        question: "Quels sont les délais de résiliation de l'assurance de base chez Sanitas ?",
+        answer: "La lettre de résiliation de l'assurance obligatoire des soins doit parvenir au siège de Sanitas au plus tard le 30 novembre pour une prise d'effet au 1er janvier suivant."
       }
     ],
-    metaDescription: "Sanitas Assurance Maladie 2026 : primes LAMal officielles, modèles CallMed/CareMed, portail mobile primé, avis et comparatif."
+    metaDescription: "Sanitas Assurance Maladie 2026 : primes LAMal officielles, modèles CallMed/CareMed, portail mobile primé, avis clients et comparatif."
   },
 
   'groupe-mutuel': {
@@ -666,6 +727,24 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         emergencyRule: 'Notification obligatoire dans les 20 jours.',
         pharmacyNetwork: 'Réseau étendu de pharmacies partenaires en Suisse romande.',
         pros: ['Économie substantielle', 'Accompagnement en français impeccable']
+      },
+      {
+        type: 'medecin-famille',
+        name: 'PrimaCare',
+        discount: 'Jusqu\'à -16%',
+        firstContact: 'Médecin de premier recours choisi dans le réseau Groupe Mutuel.',
+        emergencyRule: 'Urgences et déplacements à l\'étranger dispensés.',
+        pharmacyNetwork: 'Pharmacies conventionnées en Romandie.',
+        pros: ['Relation personnalisée', 'Gestion fluide des délégations']
+      },
+      {
+        type: 'hmo',
+        name: 'Réseau de soins (HMO)',
+        discount: 'Jusqu\'à -21%',
+        firstContact: 'Centres médicaux et réseaux partenaires régionaux.',
+        emergencyRule: 'Centre de soins d\'urgence conventionné.',
+        pharmacyNetwork: 'Pharmacie intégrée au cabinet de groupe.',
+        pros: ['Rabais maximal', 'Équipe médicale pluridisciplinaire']
       }
     ],
     lcaHighlights: [
@@ -698,6 +777,13 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         keyDifference: 'Groupe Mutuel est le leader de proximité en Suisse romande, tandis que CSS offre une assise nationale plus forte.',
         priceComparison: 'Groupe Mutuel est très compétitif en Valais et Fribourg.',
         targetAudience: 'Résidents de Suisse romande, familles et PME.'
+      },
+      {
+        competitorName: 'Assura',
+        competitorSlug: 'assura',
+        keyDifference: 'Groupe Mutuel offre le tiers payant et des agences de conseil physique, contrairement au modèle tiers garant d\'Assura.',
+        priceComparison: 'Assura est légèrement moins chère sur la prime de base pure.',
+        targetAudience: 'Assurés recherchant la proximité d\'une agence locale.'
       }
     ],
     switchingTips: {
@@ -709,9 +795,21 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
       {
         question: "Quelles caisses font partie du Groupe Mutuel ?",
         answer: "Le Groupe Mutuel regroupe notamment Mutuel Assurance, Avenir Assurance et Philos Assurance sous une direction administrative commune à Martigny."
+      },
+      {
+        question: "Comment fonctionne le modèle PrimaTel du Groupe Mutuel ?",
+        answer: "PrimaTel exige un premier appel téléphonique vers la centrale médicale avant toute consultation médicale (sauf gynécologie, ophtalmologie et urgences vitales) et fait économiser jusqu'à 20% sur la prime."
+      },
+      {
+        question: "Le Groupe Mutuel applique-t-il le tiers payant en pharmacie ?",
+        answer: "Oui, la présentation de votre carte d'assuré Groupe Mutuel en pharmacie vous évite d'avancer le montant de vos médicaments prescrits sous ordonnance."
+      },
+      {
+        question: "Quand et comment résilier sa police LAMal chez Groupe Mutuel ?",
+        answer: "La lettre de résiliation en courrier recommandé doit être reçue au siège de Martigny avant le 30 novembre pour prendre effet au 1er janvier."
       }
     ],
-    metaDescription: "Groupe Mutuel 2026 : primes LAMal Romandie, modèles PrimaTel & PrimaCare, complémentaires Global, avis et comparateur gratuit."
+    metaDescription: "Groupe Mutuel Assurance Maladie 2026 : primes Romandie officielles, modèles PrimaTel/Care, complémentaires Global, avis et comparateur."
   },
 
   assura: {
@@ -761,6 +859,24 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         emergencyRule: 'Notification obligatoire sous 30 jours.',
         pharmacyNetwork: 'Réseau Sun Store, Amavita, Coop Vitality pour génériques prioritaires.',
         pros: ['Tarif le plus bas de Suisse dans de nombreux cantons', 'Accès direct aux pharmaciens conseils']
+      },
+      {
+        type: 'medecin-famille',
+        name: 'Assura PharMed',
+        discount: 'Jusqu\'à -18%',
+        firstContact: 'Médecin de famille référent désigné.',
+        emergencyRule: 'Urgences dispensées de contact préalable.',
+        pharmacyNetwork: 'Obligation de choisir des médicaments génériques.',
+        pros: ['Primes ultra-compétitives', 'Suivi médical continu']
+      },
+      {
+        type: 'hmo',
+        name: 'Assura Qualimed',
+        discount: 'Jusqu\'à -25%',
+        firstContact: 'Centres de santé HMO partenaires.',
+        emergencyRule: 'Urgences traitées au centre régional.',
+        pharmacyNetwork: 'Pharmacie de groupe affiliée.',
+        pros: ['Rabais maximal du catalogue Assura', 'Économie annuelle record']
       }
     ],
     lcaHighlights: [
@@ -793,6 +909,13 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         keyDifference: 'Assura est nettement moins chère mais nécessite d\'avancer les frais, alors que CSS propose un service haut de gamme avec tiers payant.',
         priceComparison: 'Assura est 15% à 25% moins chère sur les primes de base.',
         targetAudience: 'Personnes attentives à leur budget et consultant peu souvent le médecin.'
+      },
+      {
+        competitorName: 'Groupe Mutuel',
+        competitorSlug: 'groupe-mutuel',
+        keyDifference: 'Assura privilégie les coûts minimaux via le tiers garant, alors que Groupe Mutuel mise sur un réseau d\'agences étendu.',
+        priceComparison: 'Assura est systématiquement plus économique sur les franchises 2500.',
+        targetAudience: 'Jeunes adultes et assurés en bonne santé.'
       }
     ],
     switchingTips: {
@@ -808,9 +931,17 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
       {
         question: "Comment se faire rembourser ses factures chez Assura ?",
         answer: "Il suffit de photographier votre justificatif de remboursement via l'application mobile Assura. Le remboursement intervient par virement bancaire une fois votre franchise et quote-part calculées."
+      },
+      {
+        question: "Qu'est-ce que le système du tiers garant chez Assura ?",
+        answer: "Avec le tiers garant, vous réglez d'abord la facture à votre médecin, puis vous la transmettez à Assura qui vous rembourse la part dépassant votre franchise annuelle et votre quote-part légale."
+      },
+      {
+        question: "Quelle est la date limite pour résilier son contrat chez Assura ?",
+        answer: "Votre lettre de résiliation recommandée doit être réceptionnée par Assura à Pully avant le 30 novembre à 17h00."
       }
     ],
-    metaDescription: "Assura Assurance Maladie 2026 : primes économiques, modèles PharMed/Qualimed, tiers garant, avis clients et comparatif officiel."
+    metaDescription: "Assura Assurance Maladie 2026 : primes économiques officielles, modèles PharMed/Qualimed, tiers garant, avis clients et comparateur."
   },
 
   concordia: {
@@ -860,6 +991,24 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         emergencyRule: 'Urgences dispensées d\'avis préalable.',
         pharmacyNetwork: 'Réseau libre de pharmacies conventionnées.',
         pros: ['Suivi idéal pour toute la famille', 'Primes particulièrement stables']
+      },
+      {
+        type: 'telmed',
+        name: 'Concordia telmed',
+        discount: 'Jusqu\'à -20%',
+        firstContact: 'Centre médical concordiaMed 24h/24.',
+        emergencyRule: 'Notification dans les 10 jours.',
+        pharmacyNetwork: 'Pharmacies partenaires.',
+        pros: ['Téléconsultation 24/7', 'Rabais substantiel']
+      },
+      {
+        type: 'hmo',
+        name: 'Concordia HMO',
+        discount: 'Jusqu\'à -22%',
+        firstContact: 'Centres de santé HMO conventionnés.',
+        emergencyRule: 'Urgences médicales au pôle régional.',
+        pharmacyNetwork: 'Pharmacie intégrée au cabinet.',
+        pros: ['Soins coordonnés complets', 'Économie maximale']
       }
     ],
     lcaHighlights: [
@@ -889,6 +1038,13 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         keyDifference: 'Concordia propose des rabais enfants souvent plus généreux que la CSS.',
         priceComparison: 'Tarifs très proches, avantage Concordia pour les foyers avec 2 enfants ou plus.',
         targetAudience: 'Familles avec enfants et couples prévoyants.'
+      },
+      {
+        competitorName: 'Visana',
+        competitorSlug: 'visana',
+        keyDifference: 'Concordia est spécialisée dans les réductions famille tandis que Visana cible les sportifs via myPoints.',
+        priceComparison: 'Écarts minimes selon les cantons.',
+        targetAudience: 'Parents recherchant des garanties pérennes pour leurs enfants.'
       }
     ],
     switchingTips: {
@@ -900,6 +1056,18 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
       {
         question: "Quels sont les avantages de Concordia pour les familles ?",
         answer: "Concordia offre des rabais substantiels dès le deuxième enfant, un cadeau de naissance de CHF 100 et la gratuité de certaines couvertures complémentaires pour les cadets."
+      },
+      {
+        question: "Comment fonctionne le service concordiaMed chez Concordia ?",
+        answer: "concordiaMed est un centre de conseil médical téléphonique gratuit disponible jour et nuit pour répondre à vos questions de santé ou orienter votre prise en charge dans le modèle telmed."
+      },
+      {
+        question: "Quelles sont les conditions pour assurer un nouveau-né chez Concordia ?",
+        answer: "En souscrivant l'assurance prénatale avant l'accouchement, votre enfant est accepté dans les assurances complémentaires sans questionnaire de santé et sans aucune réserve médicale."
+      },
+      {
+        question: "Quand envoyer sa résiliation à Concordia ?",
+        answer: "La lettre recommandée de résiliation de l'assurance obligatoire LAMal doit parvenir à Concordia à Lucerne au plus tard le 30 novembre."
       }
     ],
     metaDescription: "Concordia Assurance Maladie 2026 : primes LAMal officielles, rabais familles & enfants, modèles myDoc et telmed, avis et comparatif."
@@ -952,6 +1120,24 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         emergencyRule: 'Notification obligatoire sous 20 jours.',
         pharmacyNetwork: 'Pharmacies conventionnées avec tiers payant.',
         pros: ['Rabais élevé', 'Simplicité d\'utilisation']
+      },
+      {
+        type: 'medecin-famille',
+        name: 'Visana Med Doc',
+        discount: 'Jusqu\'à -16%',
+        firstContact: 'Médecin de famille référent conventionné.',
+        emergencyRule: 'Urgences dispensées.',
+        pharmacyNetwork: 'Réseau étendu de pharmacies.',
+        pros: ['Suivi médical continu', 'Primes stables']
+      },
+      {
+        type: 'hmo',
+        name: 'Visana Managed Care (HMO)',
+        discount: 'Jusqu\'à -22%',
+        firstContact: 'Centres de santé partenaires et réseaux régionaux.',
+        emergencyRule: 'Pôle médical de garde.',
+        pharmacyNetwork: 'Pharmacie partenaire du cabinet de groupe.',
+        pros: ['Rabais maximal', 'Prise en charge intégrée']
       }
     ],
     lcaHighlights: [
@@ -981,6 +1167,13 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         keyDifference: 'Visana met l\'accent sur le sport connecté, alors que Concordia privilégie les rabais enfants.',
         priceComparison: 'Tarifs comparables en Suisse romande.',
         targetAudience: 'Actifs, sportifs et familles bernoises et romandes.'
+      },
+      {
+        competitorName: 'CSS Assurance',
+        competitorSlug: 'css',
+        keyDifference: 'Visana propose le programme myPoints pour les sportifs, tandis que CSS propose myStep et active+.',
+        priceComparison: 'Visana est souvent très bien placée dans le canton de Berne et Fribourg.',
+        targetAudience: 'Assurés axés sur la prévention et le sport.'
       }
     ],
     switchingTips: {
@@ -992,6 +1185,14 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
       {
         question: "Comment fonctionne le programme myPoints de Visana ?",
         answer: "myPoints synchronise vos pas quotidiens et vos activités sportives avec votre smartphone pour vous verser jusqu'à CHF 120 de bonus en espèces chaque année."
+      },
+      {
+        question: "Comment fonctionne le modèle Tel Doc chez Visana ?",
+        answer: "Avant chaque rendez-vous médical, vous contactez la centrale de télémédecine Medi24 (par téléphone ou via l'application MyVisana) qui évalue votre situation et valide une consultation chez un spécialiste si nécessaire."
+      },
+      {
+        question: "Quelle est la date limite pour résilier son contrat chez Visana ?",
+        answer: "Pour que la résiliation de votre assurance de base LAMal soit effective au 1er janvier, votre lettre recommandée doit impérativement parvenir à Visana au plus tard le 30 novembre."
       }
     ],
     metaDescription: "Visana Assurance Maladie 2026 : primes LAMal Berne & Romandie, modèles Tel Doc/Med Doc, myPoints, avis et comparateur."
@@ -1044,6 +1245,24 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         emergencyRule: 'Notification sous 10 jours.',
         pharmacyNetwork: 'Pharmacies partenaires pour génériques.',
         pros: ['Économie maximale', 'Gestion 100% mobile ultra-rapide']
+      },
+      {
+        type: 'medecin-famille',
+        name: 'KPTwin.doc',
+        discount: 'Jusqu\'à -17%',
+        firstContact: 'Médecin de famille référent désigné.',
+        emergencyRule: 'Urgences dispensées.',
+        pharmacyNetwork: 'Libre choix en pharmacie.',
+        pros: ['Relation de confiance avec votre médecin', 'Primes compétitives']
+      },
+      {
+        type: 'hmo',
+        name: 'KPTwin.plus',
+        discount: 'Jusqu\'à -20%',
+        firstContact: 'Centre Medgate ou cabinet de groupe partenaire.',
+        emergencyRule: 'Prise en charge d\'urgence directe.',
+        pharmacyNetwork: 'Pharmacies conventionnées KPT.',
+        pros: ['Flexibilité hybride', 'Couverture optimale']
       }
     ],
     lcaHighlights: [
@@ -1073,6 +1292,13 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         keyDifference: 'KPT offre un positionnement tarifaire souvent plus agressif que Sanitas sur le digital.',
         priceComparison: 'KPT souvent moins chère de 3% à 7% sur les modèles Telmed.',
         targetAudience: 'Utilisateurs mobiles et personnes recherchant l\'efficacité.'
+      },
+      {
+        competitorName: 'Atupri',
+        competitorSlug: 'atupri',
+        keyDifference: 'KPT dispose d\'une communauté numérique plus large et de fonctionnalités de paiement immédiat.',
+        priceComparison: 'Tarifs très similaires.',
+        targetAudience: 'Assurés connectés privilégiant l\'ergonomie mobile.'
       }
     ],
     switchingTips: {
@@ -1084,6 +1310,14 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
       {
         question: "Qu'est-ce que le modèle KPTwin.easy ?",
         answer: "C'est le modèle Telmed de KPT qui passe obligatoirement par Medgate pour vous offrir jusqu'à 22% de rabais sur votre prime mensuelle."
+      },
+      {
+        question: "Quels sont les avantages de la plateforme KPTnet ?",
+        answer: "KPTnet vous permet de transmettre vos factures en photo, de suivre vos remboursements en direct et d'obtenir le virement sur votre compte bancaire sous 48 heures."
+      },
+      {
+        question: "Quelle est la date limite pour résilier son contrat chez KPT / CPT ?",
+        answer: "Votre lettre de résiliation LAMal en recommandé doit être réceptionnée au siège de Berne au plus tard le 30 novembre."
       }
     ],
     metaDescription: "KPT CPT Assurance Maladie 2026 : primes en ligne officielles, modèles KPTwin, portail KPTnet, avis et comparatif gratuit."
@@ -1135,6 +1369,15 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         emergencyRule: 'Notification obligatoire.',
         pharmacyNetwork: 'Pharmacies partenaires.',
         pros: ['Rabais attractif', 'App fluide']
+      },
+      {
+        type: 'medecin-famille',
+        name: 'Atupri CareMed',
+        discount: 'Jusqu\'à -16%',
+        firstContact: 'Médecin de famille conventionné.',
+        emergencyRule: 'Urgences dispensées.',
+        pharmacyNetwork: 'Réseau libre de pharmacies.',
+        pros: ['Suivi personnalisé', 'Tarif attractif']
       }
     ],
     lcaHighlights: [
@@ -1159,6 +1402,13 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         keyDifference: 'Deux caisses bernoises axées sur le digital avec d\'excellents retours clients.',
         priceComparison: 'Tarifs très proches.',
         targetAudience: 'Assurés connectés et sportifs.'
+      },
+      {
+        competitorName: 'Sympany',
+        competitorSlug: 'sympany',
+        keyDifference: 'Atupri est axée sur la prévention physique et le sport, tandis que Sympany met en avant le remboursement des excédents.',
+        priceComparison: 'Primes comparables en Romandie.',
+        targetAudience: 'Actifs et jeunes adultes.'
       }
     ],
     switchingTips: {
@@ -1170,6 +1420,14 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
       {
         question: "Qu'est-ce que le modèle Atupri TelFirst ?",
         answer: "C'est le modèle Telmed d'Atupri qui offre jusqu'à 20% d'économie en consultant d'abord un médecin Medgate par téléphone ou visio."
+      },
+      {
+        question: "Quelles sont les contributions sportives proposées par Atupri ?",
+        answer: "Avec le module complémentaire Mivita, Atupri rembourse jusqu'à CHF 400 par an pour vos abonnements de fitness, clubs sportifs ou cours de prévention santé."
+      },
+      {
+        question: "Quand résilier sa police LAMal chez Atupri ?",
+        answer: "La lettre recommandée de résiliation doit parvenir à la direction d'Atupri à Berne avant le 30 novembre à 17h00."
       }
     ],
     metaDescription: "Atupri Assurance Maladie 2026 : primes KVG officielles, modèle TelFirst, complémentaires Mivita, avis et comparatif."
@@ -1222,6 +1480,24 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         emergencyRule: 'Notification requise.',
         pharmacyNetwork: 'Pharmacies conventionnées.',
         pros: ['Remboursement des excédents', 'Modèle très souple']
+      },
+      {
+        type: 'medecin-famille',
+        name: 'casamed',
+        discount: 'Jusqu\'à -16%',
+        firstContact: 'Médecin de premier recours.',
+        emergencyRule: 'Urgences dispensées.',
+        pharmacyNetwork: 'Pharmacies conventionnées.',
+        pros: ['Coordination médicale personnalisée', 'Tarif attractif']
+      },
+      {
+        type: 'hmo',
+        name: 'flexmed',
+        discount: 'Jusqu\'à -18%',
+        firstContact: 'Choix flexible entre téléconsultation, pharmacie partenaire ou médecin.',
+        emergencyRule: 'Assistance directe.',
+        pharmacyNetwork: 'Réseau partenaires.',
+        pros: ['Liberté d\'orientation', 'Rabais équilibré']
       }
     ],
     lcaHighlights: [
@@ -1246,6 +1522,13 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         keyDifference: 'Sympany se distingue par sa promesse de redistribution des surplus financiers.',
         priceComparison: 'Tarifs compétitifs.',
         targetAudience: 'Assurés sensibles à l\'éthique et aux valeurs équitables.'
+      },
+      {
+        competitorName: 'SWICA',
+        competitorSlug: 'swica',
+        keyDifference: 'Sympany redistribue les surplus financiers aux assurés alors que SWICA privilégie les forfaits prévention sport.',
+        priceComparison: 'Primes proches en Suisse romande.',
+        targetAudience: 'Assurés recherchant une gestion éthique et équitable.'
       }
     ],
     switchingTips: {
@@ -1257,6 +1540,14 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
       {
         question: "Comment Sympany rembourse-t-elle les surplus de prime ?",
         answer: "Si les dépenses de santé de votre groupe d'assurance sont inférieures aux prévisions, Sympany vous reverse directement une partie du surplus sur votre compte bancaire."
+      },
+      {
+        question: "Qu'est-ce que le modèle hybride flexmed chez Sympany ?",
+        answer: "flexmed vous donne la liberté de choisir lors de chaque nouveau pépin de santé entre un appel à la centrale de télémédecine, une visite chez votre médecin de famille ou un conseil en pharmacie partenaire."
+      },
+      {
+        question: "Quelle est la date limite pour résilier son contrat chez Sympany ?",
+        answer: "Votre courrier recommandé de résiliation doit être reçu au siège de Sympany à Bâle au plus tard le 30 novembre."
       }
     ],
     metaDescription: "Sympany Assurance Maladie 2026 : caisse équitable suisse, primes Bâle & Romandie, modèles casamed & callmed, comparatif."
@@ -1308,6 +1599,15 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         emergencyRule: 'Notification requise.',
         pharmacyNetwork: 'Pharmacies conventionnées.',
         pros: ['Conseil clair', 'Prise en charge chaleureuse']
+      },
+      {
+        type: 'medecin-famille',
+        name: 'ÖKK MEINARZT',
+        discount: 'Jusqu\'à -17%',
+        firstContact: 'Médecin de famille choisi.',
+        emergencyRule: 'Urgences dispensées.',
+        pharmacyNetwork: 'Libre choix en pharmacie.',
+        pros: ['Confiance mutuelle', 'Gestion locale des soins']
       }
     ],
     lcaHighlights: [
@@ -1332,6 +1632,13 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         keyDifference: 'ÖKK offre une approche plus intime et montagnarde, tout en partageant le service santé24.',
         priceComparison: 'Tarifs très proches.',
         targetAudience: 'Familles, sportifs et amateurs de plein air.'
+      },
+      {
+        competitorName: 'Visana',
+        competitorSlug: 'visana',
+        keyDifference: 'ÖKK met en avant des garanties de sauvetage et de protection outdoor solides.',
+        priceComparison: 'Tarifs comparables.',
+        targetAudience: 'Amoureux de nature et familles.'
       }
     ],
     switchingTips: {
@@ -1343,6 +1650,14 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
       {
         question: "ÖKK est-elle accessible pour les résidents de Suisse romande ?",
         answer: "Oui, ÖKK est agréée OFSP sur l'ensemble des 26 cantons suisses et propose l'ensemble de ses tarifs et services en français."
+      },
+      {
+        question: "Comment contacter le service médical chez ÖKK ?",
+        answer: "Les assurés du modèle ÖKK TELEMED bénéficient d'un accès direct 24h/24 au service de télémédecine santé24 en composant le numéro dédié indiqué sur leur carte d'assuré."
+      },
+      {
+        question: "Quels sont les délais pour résilier son contrat chez ÖKK ?",
+        answer: "Pour une résiliation au 31 décembre, votre demande en courrier recommandé doit être réceptionnée au siège d'ÖKK à Landquart avant le 30 novembre."
       }
     ],
     metaDescription: "ÖKK Assurance Maladie 2026 : tarifs et primes LAMal officielles, modèle ÖKK Telemed, complémentaires et comparateur."
@@ -1393,6 +1708,15 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         emergencyRule: 'Notification requise.',
         pharmacyNetwork: 'Pharmacies conventionnées et remèdes naturels.',
         pros: ['Rabais élevé', 'Large ouverture aux soins naturels']
+      },
+      {
+        type: 'medecin-famille',
+        name: 'EGK-DocCare',
+        discount: 'Jusqu\'à -16%',
+        firstContact: 'Médecin de premier recours conventionné EGK.',
+        emergencyRule: 'Urgences dispensées.',
+        pharmacyNetwork: 'Pharmacies partenaires.',
+        pros: ['Suivi personnalisé', 'Sensibilité aux médecines intégratives']
       }
     ],
     lcaHighlights: [
@@ -1417,6 +1741,13 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         keyDifference: 'EGK est la spécialiste absolue de la médecine holistique, tandis que SWICA excelle dans les contributions fitness.',
         priceComparison: 'Tarifs proches.',
         targetAudience: 'Adeptes d\'homéopathie, phytothérapie et ostéopathie.'
+      },
+      {
+        competitorName: 'Concordia',
+        competitorSlug: 'concordia',
+        keyDifference: 'EGK rembourse les médecines naturelles sans ordonnance médicale, à la différence des conditions strictes de la plupart des caisses.',
+        priceComparison: 'EGK légèrement plus chère sur les primes de base.',
+        targetAudience: 'Patients adeptes de santé naturelle et préventive.'
       }
     ],
     switchingTips: {
@@ -1428,6 +1759,14 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
       {
         question: "Pourquoi choisir EGK pour les médecines naturelles ?",
         answer: "EGK rembourse la plus grande variété de thérapies naturelles et complémentaires sans exiger d'ordonnance préalable d'un médecin conventionnel."
+      },
+      {
+        question: "Qu'est-ce que le label SNE chez EGK ?",
+        answer: "La Fondation SNE (Stiftung Naturheilkunde und Erfahrungsmedizin) gère le registre officiel des thérapeutes en médecine naturelle agréés et reconnus par EGK."
+      },
+      {
+        question: "Quand résilier sa police LAMal chez EGK ?",
+        answer: "La lettre recommandée de résiliation de l'assurance obligatoire des soins doit parvenir à Laufen au plus tard le 30 novembre."
       }
     ],
     metaDescription: "EGK Caisse de Santé 2026 : spécialiste médecines naturelles Suisse, primes LAMal, complémentaire SUN et comparatif."
@@ -1478,6 +1817,15 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         emergencyRule: 'Notification requise.',
         pharmacyNetwork: 'Réseau libre.',
         pros: ['Gestion directe sans tracas', 'Remboursements en 48h']
+      },
+      {
+        type: 'telmed',
+        name: 'Aquilana Telmed',
+        discount: 'Jusqu\'à -18%',
+        firstContact: 'Centrale médicale partenaire avant consultation.',
+        emergencyRule: 'Notification sous 10 jours.',
+        pharmacyNetwork: 'Pharmacies conventionnées.',
+        pros: ['Conseil téléphonique immédiat', 'Rabais substantiel']
       }
     ],
     lcaHighlights: [
@@ -1506,6 +1854,13 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
         keyDifference: 'Aquilana offre une proximité humaine encore plus personnalisée à une échelle artisanale.',
         priceComparison: 'Aquilana est souvent un peu moins chère que Swica.',
         targetAudience: 'Personnes qui détestent les centres d\'appels automatisés et privilégient l\'efficacité humaine.'
+      },
+      {
+        competitorName: 'KPT',
+        competitorSlug: 'kpt',
+        keyDifference: 'Aquilana mise sur un interlocuteur attitré direct, alors que KPT mise sur des flux 100% automatisés.',
+        priceComparison: 'Tarifs très proches.',
+        targetAudience: 'Assurés recherchant un service premium à taille humaine.'
       }
     ],
     switchingTips: {
@@ -1517,6 +1872,14 @@ export const INSURERS_SEO_DATA: Record<string, InsurerSEOData> = {
       {
         question: "Aquilana est-elle une caisse maladie solide ?",
         answer: "Oui, avec plus de 130 ans d'histoire et un ratio de réserves frôlant les 200% des exigences légales de l'OFSP, Aquilana est l'une des caisses les plus saines de toute la Suisse."
+      },
+      {
+        question: "Comment se déroule le contact avec le service client d'Aquilana ?",
+        answer: "Chez Aquilana, vous êtes directement mis en relation avec un gestionnaire dédié en Suisse sans passer par des menus vocaux automatisés interminables."
+      },
+      {
+        question: "Quelle est la date limite pour résilier son contrat chez Aquilana ?",
+        answer: "Votre lettre de résiliation recommandée doit être réceptionnée à Baden au plus tard le 30 novembre."
       }
     ],
     metaDescription: "Aquilana Assurance Maladie 2026 : satisfaction client record 5.6/6, primes LAMal avantageuses, avis et comparatif."

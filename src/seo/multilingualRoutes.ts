@@ -268,6 +268,561 @@ export const MULTILINGUAL_ROUTES: Record<AppTab, MultilingualRouteConfig> = ({
     }
   },
 
+  // ==========================================
+  // MASTER SEMANTIC CLUSTERS (SEO TOPICAL HUBS)
+  // ==========================================
+  'hub-lamal': {
+    id: 'hub-lamal',
+    category: 'health',
+    priority: 0.95,
+    changefreq: 'weekly',
+    lastModified: '2026-08-20',
+    locales: {
+      fr: {
+        path: '/fr/lamal/',
+        title: "LAMal Suisse 2026 — Tout Comprendre sur l'Assurance Maladie Obligatoire | Le Fennec Malin",
+        description: "Guide exhaustif sur la loi LAMal en Suisse : obligations, catalogue de prestations couvertes, choix des franchises, modèles alternatifs et calcul des primes 2026.",
+        h1: "LAMal en Suisse : Guide Complet de l'Assurance Maladie Obligatoire 2026",
+        breadcrumbLabel: "LAMal Suisse",
+        primaryKeyword: "LAMal Suisse",
+        secondaryKeywords: ["assurance LAMal", "loi assurance maladie suisse", "primes lamal 2026"]
+      },
+      de: {
+        path: '/de/kvg/',
+        title: "KVG Schweiz 2026 — Der Grosse Krankenversicherungs-Leitfaden | Le Fennec Malin",
+        description: "Alles über das Krankenversicherungsgesetz (KVG) in der Schweiz: Obligatorium, Leistungen, Franchisen, Sparmodelle und Prämienberechnung 2026.",
+        h1: "KVG Schweiz: Grundversicherung & Gesetzliche Grundlagen 2026",
+        breadcrumbLabel: "KVG Leitfaden",
+        primaryKeyword: "kvg schweiz",
+        secondaryKeywords: ["krankenversicherungsgesetz", "grundversicherung schweiz", "kvg leistungen"]
+      },
+      it: {
+        path: '/it/lamal/',
+        title: "LAMal Svizzera 2026 — Guida Completa all'Assicurazione Malattia Obbligatoria | Le Fennec Malin",
+        description: "Tutto sulla legge federale LAMal in Svizzera: obbligo assicurativo, catalogo prestazioni, scelta della franchigia e modelli di risparmio.",
+        h1: "LAMal Svizzera: Guida Ufficiale all'Assicurazione Malattia Base 2026",
+        breadcrumbLabel: "LAMal Svizzera",
+        primaryKeyword: "lamal svizzera",
+        secondaryKeywords: ["legge assicurazione malattia", "premi base lamal 2026", "prestazioni lamal"]
+      },
+      en: {
+        path: '/en/lamal/',
+        title: "Swiss Health Insurance Law (LAMal/KVG) 2026 — Official Guide | Le Fennec Malin",
+        description: "Comprehensive guide to Swiss mandatory health insurance (LAMal/KVG): mandatory affiliation, covered benefits, deductibles, and premium calculation.",
+        h1: "Swiss Mandatory Health Insurance (LAMal / KVG) — 2026 Guide",
+        breadcrumbLabel: "LAMal Guide",
+        primaryKeyword: "lamal switzerland",
+        secondaryKeywords: ["swiss health insurance law", "mandatory health insurance benefits", "swiss basic healthcare"]
+      }
+    }
+  },
+
+  'lamal-franchise': {
+    id: 'lamal-franchise',
+    category: 'health',
+    priority: 0.9,
+    changefreq: 'monthly',
+    lastModified: '2026-08-20',
+    locales: {
+      fr: {
+        path: '/fr/lamal/franchise/',
+        title: "Franchise LAMal 2026 — 300 ou 2500 ? Règle des CHF 1'800 & Calculateur | Le Fennec Malin",
+        description: "Quelle franchise d'assurance maladie choisir en 2026 ? Simulation chiffrée, règle mathématique des CHF 1800, piège des franchises intermédiaires et délais légaux.",
+        h1: "Franchise Assurance Maladie Suisse : Comment Choisir entre 300 et 2500 CHF ?",
+        breadcrumbLabel: "Franchise LAMal",
+        primaryKeyword: "franchise assurance maladie",
+        secondaryKeywords: ["franchise 300 ou 2500", "quelle franchise choisir", "regle 1800 chf franchise"]
+      },
+      de: {
+        path: '/de/kvg/franchise/',
+        title: "Franchise Krankenkasse Schweiz 2026 — 300 oder 2500 wählen? | Le Fennec Malin",
+        description: "Die optimale Franchise in der Schweiz wählen: CHF 300 oder CHF 2500? Rechner, 1'800-Franken-Regel und Fristen für den Wechsel.",
+        h1: "Krankenkassen-Franchise Schweiz: 300 oder 2500 CHF wählen?",
+        breadcrumbLabel: "Franchisen-Wahl",
+        primaryKeyword: "franchise krankenkasse schweiz",
+        secondaryKeywords: ["franchise 300 oder 2500", "optimale franchise berechnen"]
+      },
+      it: {
+        path: '/it/lamal/franchigia/',
+        title: "Franchigia Cassa Malati 2026 — 300 o 2500 CHF? Guida al Calcolo | Le Fennec Malin",
+        description: "Come scegliere la franchigia della cassa malati in Svizzera. Regola dei 1800 franchi, simulazione e scadenze per la modifica.",
+        h1: "Franchigia Cassa Malati in Svizzera: Scegliere tra 300 e 2500 CHF",
+        breadcrumbLabel: "Franchigia LAMal",
+        primaryKeyword: "franchigia cassa malati",
+        secondaryKeywords: ["franchigia 300 o 2500", "scelta franchigia svizzera"]
+      },
+      en: {
+        path: '/en/lamal/deductible/',
+        title: "Swiss Health Deductibles 2026 — Choosing CHF 300 vs CHF 2500 | Le Fennec Malin",
+        description: "Which Swiss health insurance deductible should you choose in 2026? The CHF 1,800 threshold rule, intermediate deductible traps, and simulator.",
+        h1: "Swiss Health Insurance Deductible: CHF 300 or CHF 2,500?",
+        breadcrumbLabel: "Deductibles Guide",
+        primaryKeyword: "swiss insurance deductible",
+        secondaryKeywords: ["deductible 300 vs 2500", "how to choose swiss deductible"]
+      }
+    }
+  },
+
+  'lamal-modeles': {
+    id: 'lamal-modeles',
+    category: 'health',
+    priority: 0.9,
+    changefreq: 'monthly',
+    lastModified: '2026-08-20',
+    locales: {
+      fr: {
+        path: '/fr/lamal/modeles/',
+        title: "Modèles d'Assurance Maladie 2026 — Standard, Telmed, Médecin de famille, HMO | Le Fennec Malin",
+        description: "Comparatif des modèles LAMal : jusqu'à 25% d'économies sur vos primes. Règles de délégation, exceptions d'urgence (gynécologue, ophtalmologue) et comparatif.",
+        h1: "Modèles d'Assurance Maladie en Suisse : Standard vs Telmed vs HMO",
+        breadcrumbLabel: "Modèles d'Assurance",
+        primaryKeyword: "modèle assurance maladie",
+        secondaryKeywords: ["modele standard vs telmed", "medecin de famille hmo", "rabais modele alternatif"]
+      },
+      de: {
+        path: '/de/kvg/versicherungsmodelle/',
+        title: "Versicherungsmodelle Schweiz 2026 — Standard, Telmed, Hausarzt, HMO | Le Fennec Malin",
+        description: "Vergleich aller KVG-Sparmodelle: Sparen Sie bis zu 25% Prämie mit Telmed, Hausarzt- oder HMO-Modell. Regeln und Notfallausnahmen.",
+        h1: "Krankenkassen-Modelle in der Schweiz: Standard, Telmed, Hausarzt & HMO",
+        breadcrumbLabel: "Versicherungsmodelle",
+        primaryKeyword: "versicherungsmodelle schweiz",
+        secondaryKeywords: ["telmed modell", "hausarztmodell schweiz", "hmo modell vergleich"]
+      },
+      it: {
+        path: '/it/lamal/modelli/',
+        title: "Modelli di Assicurazione Malattia 2026 — Standard, Telmed, Medico di Famiglia | Le Fennec Malin",
+        description: "Confronto dei modelli alternativi LAMal in Svizzera: risparmia fino al 25% con Telmed, Medico di famiglia o rete HMO.",
+        h1: "Modelli di Assicurazione Malattia in Svizzera: Standard, Telmed o Medico di Famiglia?",
+        breadcrumbLabel: "Modelli LAMal",
+        primaryKeyword: "modelli assicurazione malattia",
+        secondaryKeywords: ["modello telmed", "medico di famiglia svizzera", "modello hmo"]
+      },
+      en: {
+        path: '/en/lamal/models/',
+        title: "Swiss Healthcare Models 2026 — Standard, Telmed, GP & HMO | Le Fennec Malin",
+        description: "Compare Swiss insurance models: save up to 25% with Telmed, Family Doctor (GP), or HMO networks. Direct access rules and emergency protocols.",
+        h1: "Swiss Health Insurance Models: Standard vs Telmed vs HMO",
+        breadcrumbLabel: "Insurance Models",
+        primaryKeyword: "swiss insurance models",
+        secondaryKeywords: ["telmed model switzerland", "family doctor model", "hmo network switzerland"]
+      }
+    }
+  },
+
+  'lamal-moins-chere': {
+    id: 'lamal-moins-chere',
+    category: 'health',
+    priority: 0.92,
+    changefreq: 'weekly',
+    lastModified: '2026-08-20',
+    locales: {
+      fr: {
+        path: '/fr/lamal/caisse-maladie-la-moins-chere/',
+        title: "Caisse Maladie la Moins Chère en Suisse 2026 — Comparatif Réel par Canton | Le Fennec Malin",
+        description: "Quelle est la caisse maladie la moins chère en Suisse ? Découvrez pourquoi il n'existe aucun assureur universellement le moins cher et comparez selon votre profil.",
+        h1: "Caisse Maladie la Moins Chère en Suisse : Comparatif Réel & Astuces 2026",
+        breadcrumbLabel: "Moins Chère",
+        primaryKeyword: "caisse maladie la moins chère",
+        secondaryKeywords: ["assurance maladie pas chere suisse", "trouver la caisse la moins chere", "primes les plus basses 2026"]
+      },
+      de: {
+        path: '/de/kvg/guenstigste-krankenkasse/',
+        title: "Günstigste Krankenkasse Schweiz 2026 — Echter Vergleich nach Kanton | Le Fennec Malin",
+        description: "Welche ist die billigste Krankenkasse der Schweiz? Vergleichen Sie reale Prämien nach Wohnort und Alter für maximale Ersparnis.",
+        h1: "Die günstigste Krankenkasse der Schweiz: Realer Kantons-Vergleich 2026",
+        breadcrumbLabel: "Günstigste Kasse",
+        primaryKeyword: "guenstigste krankenkasse schweiz",
+        secondaryKeywords: ["billigste krankenkasse", "praemien sparen schweiz"]
+      },
+      it: {
+        path: '/it/lamal/cassa-malati-piu-economica/',
+        title: "Cassa Malati Più Economica Svizzera 2026 — Confronto Reale per Cantone | Le Fennec Malin",
+        description: "Qual è la cassa malati meno cara in Svizzera? Confronto reale dei premi per cantone, franchigia e modello.",
+        h1: "Cassa Malati Più Economica in Svizzera: Classifica Reale 2026",
+        breadcrumbLabel: "Più Economica",
+        primaryKeyword: "cassa malati piu economica",
+        secondaryKeywords: ["cassa malati meno cara", "risparmiare cassa malati svizzera"]
+      },
+      en: {
+        path: '/en/lamal/cheapest-health-insurance/',
+        title: "Cheapest Health Insurance Switzerland 2026 — Real Cantonal Rates | Le Fennec Malin",
+        description: "Find the lowest health insurance premiums in Switzerland for 2026. Understand why rates vary by canton and how to save up to CHF 1,200/year.",
+        h1: "The Cheapest Health Insurance in Switzerland: 2026 Breakdown",
+        breadcrumbLabel: "Cheapest Fund",
+        primaryKeyword: "cheapest health insurance switzerland",
+        secondaryKeywords: ["lowest swiss health premiums", "save money swiss healthcare"]
+      }
+    }
+  },
+
+  'meilleure-caisse-maladie': {
+    id: 'meilleure-caisse-maladie',
+    category: 'health',
+    priority: 0.92,
+    changefreq: 'weekly',
+    lastModified: '2026-08-20',
+    locales: {
+      fr: {
+        path: '/fr/meilleure-caisse-maladie/',
+        title: "Meilleure Caisse Maladie Suisse 2026 — Classement, Satisfaction & Solvabilité | Le Fennec Malin",
+        description: "Classement 2026 des meilleures caisses maladie suisses. Notes de satisfaction client, taux de réserves OFSP, rapidité de remboursement et qualité du service.",
+        h1: "Quelle est la Meilleure Caisse Maladie en Suisse ? Classement & Avis 2026",
+        breadcrumbLabel: "Meilleure Caisse",
+        primaryKeyword: "meilleure caisse maladie suisse",
+        secondaryKeywords: ["classement caisses maladie", "satisfaction caisse maladie", "solvabilite ofsp"]
+      },
+      de: {
+        path: '/de/beste-krankenkasse/',
+        title: "Beste Krankenkasse Schweiz 2026 — Ranking, Kundenzufriedenheit & Solvenz | Le Fennec Malin",
+        description: "Die besten Krankenkassen der Schweiz im Test: Kundenzufriedenheit, BAG-Reserven, Auszahlungsgeschwindigkeit und Servicequalität 2026.",
+        h1: "Die beste Krankenkasse der Schweiz: Offizielles Ranking & Test 2026",
+        breadcrumbLabel: "Beste Kasse",
+        primaryKeyword: "beste krankenkasse schweiz",
+        secondaryKeywords: ["krankenkassen test 2026", "kundenzufriedenheit krankenkassen"]
+      },
+      it: {
+        path: '/it/migliore-cassa-malati/',
+        title: "Migliore Cassa Malati Svizzera 2026 — Classifica, Soddisfazione & Riserve | Le Fennec Malin",
+        description: "Classifica 2026 delle migliori casse malati in Svizzera: soddisfazione clienti, tempi di rimborso e solidità finanziaria UFSP.",
+        h1: "Qual è la Migliore Cassa Malati in Svizzera? Classifica Ufficiale 2026",
+        breadcrumbLabel: "Migliore Cassa",
+        primaryKeyword: "migliore cassa malati svizzera",
+        secondaryKeywords: ["classifica casse malati", "soddisfazione clienti cassa malati"]
+      },
+      en: {
+        path: '/en/best-health-insurance-switzerland/',
+        title: "Best Health Insurance in Switzerland 2026 — Ratings, Service & Solvency | Le Fennec Malin",
+        description: "Official 2026 ranking of Swiss health insurance funds. Customer satisfaction scores, FOPH reserve ratios, and claims reimbursement speed.",
+        h1: "The Best Health Insurance Companies in Switzerland — 2026 Ranking",
+        breadcrumbLabel: "Best Insurer",
+        primaryKeyword: "best health insurance switzerland",
+        secondaryKeywords: ["top swiss health insurers", "swiss insurance satisfaction rating"]
+      }
+    }
+  },
+
+  'lamal-changer-caisse': {
+    id: 'lamal-changer-caisse',
+    category: 'health',
+    priority: 0.9,
+    changefreq: 'monthly',
+    lastModified: '2026-08-20',
+    locales: {
+      fr: {
+        path: '/fr/lamal/changer-caisse-maladie/',
+        title: "Changer de Caisse Maladie en Suisse — Délai 30 Novembre & Lettre Type | Le Fennec Malin",
+        description: "Comment changer de caisse maladie en Suisse ? Délai strict du 30 novembre, modèle gratuit de lettre de résiliation, règles pour les complémentaires et arriérés.",
+        h1: "Changer de Caisse Maladie en Suisse : Guide Pas à Pas & Modèle de Résiliation",
+        breadcrumbLabel: "Changer de Caisse",
+        primaryKeyword: "changer de caisse maladie",
+        secondaryKeywords: ["resiliation assurance maladie suisse", "delai 30 novembre lamal", "modele lettre resiliation caisse maladie"]
+      },
+      de: {
+        path: '/de/kvg/krankenkasse-wechseln/',
+        title: "Krankenkasse Wechseln Schweiz — Kündigungsfrist 30. November & Vorlage | Le Fennec Malin",
+        description: "Krankenkasse kündigen und wechseln in der Schweiz: Frist bis 30. November, kostenlose Kündigungsvorlage, Zusatzversicherungs-Regeln und offizielle Abläufe.",
+        h1: "Krankenkasse wechseln in der Schweiz: Schritt-für-Schritt & Kündigungsbrief",
+        breadcrumbLabel: "Krankenkasse wechseln",
+        primaryKeyword: "krankenkasse wechseln",
+        secondaryKeywords: ["krankenkasse kuendigen", "kuendigungsfrist 30 november", "kuendigungsschreiben krankenkasse"]
+      },
+      it: {
+        path: '/it/lamal/cambiare-cassa-malati/',
+        title: "Cambiare Cassa Malati Svizzera — Scadenza 30 Novembre & Modello Lettera | Le Fennec Malin",
+        description: "Come disdire e cambiare cassa malati in Svizzera: termine imperativo del 30 novembre, lettera tipo di disdetta gratuita e regole per le complementari.",
+        h1: "Come Cambiare Cassa Malati in Svizzera: Guida & Modello di Disdetta",
+        breadcrumbLabel: "Cambiare Cassa",
+        primaryKeyword: "cambiare cassa malati",
+        secondaryKeywords: ["disdetta cassa malati svizzera", "termine 30 novembre cassa malati", "lettera disdetta lamal"]
+      },
+      en: {
+        path: '/en/lamal/switch-health-insurance/',
+        title: "How to Switch Swiss Health Insurance — Nov 30 Deadline & Cancellation Letter | Le Fennec Malin",
+        description: "Complete guide on switching your Swiss health insurer: mandatory November 30 deadline, free cancellation letter template, and supplementary policy safety.",
+        h1: "How to Switch Health Insurance in Switzerland: Step-by-Step Guide",
+        breadcrumbLabel: "Switch Insurance",
+        primaryKeyword: "switch health insurance switzerland",
+        secondaryKeywords: ["cancel swiss health insurance", "november 30 deadline lamal", "cancellation letter template"]
+      }
+    }
+  },
+
+  'assurance-famille': {
+    id: 'assurance-famille',
+    category: 'health',
+    priority: 0.88,
+    changefreq: 'monthly',
+    lastModified: '2026-08-20',
+    locales: {
+      fr: {
+        path: '/fr/assurance-maladie/famille/',
+        title: "Assurance Maladie Famille & Enfant Suisse 2026 — Rabais & Primes | Le Fennec Malin",
+        description: "Guide de l'assurance maladie pour les familles en Suisse : rabais dès le 2ème et 3ème enfant, franchise 0 CHF, couverture prénatale et optimisation de budget.",
+        h1: "Assurance Maladie pour Famille et Enfants en Suisse : Primes & Rabais 2026",
+        breadcrumbLabel: "Famille & Enfants",
+        primaryKeyword: "assurance maladie famille",
+        secondaryKeywords: ["assurance maladie enfant suisse", "rabais famille caisse maladie", "assurance prenatale bebe"]
+      },
+      de: {
+        path: '/de/krankenkassen/familie/',
+        title: "Krankenkasse für Familien & Kinder Schweiz 2026 — Rabatte & Prämien | Le Fennec Malin",
+        description: "Familienrabatte bei Schweizer Krankenkassen: Franchise CHF 0 für Kinder, Ermässigungen ab dem 2. Kind, Pränatale Versicherung und Spartipps.",
+        h1: "Familien-Krankenkasse in der Schweiz: Prämienrabatte & Schutz für Kinder",
+        breadcrumbLabel: "Familie & Kinder",
+        primaryKeyword: "krankenkasse familie schweiz",
+        secondaryKeywords: ["krankenkasse fuer kinder", "familienrabatt krankenkasse", "praenatale versicherung"]
+      },
+      it: {
+        path: '/it/casse-malati/famiglia/',
+        title: "Cassa Malati per Famiglie & Bambini Svizzera 2026 — Sconti & Premi | Le Fennec Malin",
+        description: "Guida per famiglie in Svizzera: sconti dal 2° e 3° figlio, franchigia 0 CHF per minori, assicurazione prenatale e risparmio.",
+        h1: "Cassa Malati per Famiglie e Bambini in Svizzera: Agevolazioni 2026",
+        breadcrumbLabel: "Famiglia & Bambini",
+        primaryKeyword: "cassa malati famiglia svizzera",
+        secondaryKeywords: ["cassa malati bambini", "sconti famiglia cassa malati"]
+      },
+      en: {
+        path: '/en/health-insurance/family/',
+        title: "Swiss Family & Child Health Insurance 2026 — Discounts & Maternity | Le Fennec Malin",
+        description: "Guide for families in Switzerland: multi-child discounts, CHF 0 deductible for children, prenatal registration, and budget optimization.",
+        h1: "Health Insurance for Families and Children in Switzerland: 2026 Guide",
+        breadcrumbLabel: "Family & Children",
+        primaryKeyword: "family health insurance switzerland",
+        secondaryKeywords: ["child health insurance switzerland", "family discounts health insurance"]
+      }
+    }
+  },
+
+  'assurance-jeune-adulte': {
+    id: 'assurance-jeune-adulte',
+    category: 'health',
+    priority: 0.85,
+    changefreq: 'monthly',
+    lastModified: '2026-08-20',
+    locales: {
+      fr: {
+        path: '/fr/assurance-maladie/jeune-adulte/',
+        title: "Assurance Maladie Jeune Adulte (19-25 ans) 2026 — Rabais & Tarifs | Le Fennec Malin",
+        description: "Assurance maladie jeune adulte en Suisse : économisez jusqu'à 40% sur vos primes LAMal de 19 à 25 ans. Astuces pour choisir son modèle et sa franchise.",
+        h1: "Assurance Maladie Jeune Adulte en Suisse (19 à 25 ans) : Réductions & Conseils",
+        breadcrumbLabel: "Jeunes Adultes",
+        primaryKeyword: "assurance maladie jeune adulte",
+        secondaryKeywords: ["tarif jeune 19-25 ans", "rabais jeune adulte lamal", "economiser prime jeune"]
+      },
+      de: {
+        path: '/de/krankenkassen/junge-erwachsene/',
+        title: "Krankenkasse für Junge Erwachsene (19-25) Schweiz 2026 | Le Fennec Malin",
+        description: "Rabatte für junge Erwachsene von 19 bis 25 Jahren: Bis zu 40% tiefere Grundversicherungs-Prämien. Die besten Modelle und Franchisen.",
+        h1: "Krankenkasse für junge Erwachsene (19 bis 25 Jahre): Tarife & Rabatte",
+        breadcrumbLabel: "Junge Erwachsene",
+        primaryKeyword: "krankenkasse junge erwachsene",
+        secondaryKeywords: ["jugendrabatt krankenkasse", "praemien 19 bis 25 jahre"]
+      },
+      it: {
+        path: '/it/casse-malati/giovani-adulti/',
+        title: "Cassa Malati Giovani Adulti (19-25 anni) Svizzera 2026 | Le Fennec Malin",
+        description: "Agevolazioni per giovani dai 19 ai 25 anni in Svizzera: tariffe ridotte fino al 40%, scelta della franchigia e modelli ottimali.",
+        h1: "Cassa Malati per Giovani Adulti in Svizzera: Sconti 19-25 Anni",
+        breadcrumbLabel: "Giovani Adulti",
+        primaryKeyword: "cassa malati giovani adulti",
+        secondaryKeywords: ["sconti giovani cassa malati", "tariffe 19-25 anni lamal"]
+      },
+      en: {
+        path: '/en/health-insurance/young-adults/',
+        title: "Swiss Health Insurance for Young Adults (19-25) 2026 | Le Fennec Malin",
+        description: "Young adult discounts in Switzerland: save up to 40% on mandatory LAMal premiums between ages 19 and 25 with optimal models and deductibles.",
+        h1: "Health Insurance for Young Adults (19-25) in Switzerland",
+        breadcrumbLabel: "Young Adults",
+        primaryKeyword: "young adult health insurance switzerland",
+        secondaryKeywords: ["swiss youth insurance discounts", "health rates age 19 to 25"]
+      }
+    }
+  },
+
+  'assurance-etudiant': {
+    id: 'assurance-etudiant',
+    category: 'health',
+    priority: 0.85,
+    changefreq: 'monthly',
+    lastModified: '2026-08-20',
+    locales: {
+      fr: {
+        path: '/fr/assurance-maladie/etudiant/',
+        title: "Assurance Maladie Étudiant Suisse 2026 — Formules Économiques & Exonérations | Le Fennec Malin",
+        description: "Guide complet pour les étudiants suisses et internationaux : primes réduites, subsides cantonaux pour études et démarches d'exemption LAMal.",
+        h1: "Assurance Maladie pour Étudiants en Suisse : Offres, Subsides & Exonération",
+        breadcrumbLabel: "Étudiants",
+        primaryKeyword: "assurance maladie étudiant suisse",
+        secondaryKeywords: ["assurance etudiant international suisse", "exoneration lamal etudiant", "subside etudiant"]
+      },
+      de: {
+        path: '/de/krankenkassen/studenten/',
+        title: "Krankenkasse für Studenten in der Schweiz 2026 | Le Fennec Malin",
+        description: "Günstige Krankenkassenangebote für Schweizer und internationale Studierende: Prämienverbilligung, Befreiung vom KVG-Obligatorium und Spartipps.",
+        h1: "Krankenversicherung für Studierende in der Schweiz",
+        breadcrumbLabel: "Studenten",
+        primaryKeyword: "krankenkasse studenten schweiz",
+        secondaryKeywords: ["studentenversicherung schweiz", "kvg befreiung studium"]
+      },
+      it: {
+        path: '/it/casse-malati/studenti/',
+        title: "Cassa Malati per Studenti in Svizzera 2026 | Le Fennec Malin",
+        description: "Tutto sull'assicurazione malattia per studenti svizzeri e internazionali: premi agevolati, sussidi cantonali e domande di esenzione.",
+        h1: "Assicurazione Malattia per Studenti in Svizzera: Guida 2026",
+        breadcrumbLabel: "Studenti",
+        primaryKeyword: "cassa malati studenti svizzera",
+        secondaryKeywords: ["assicurazione studenti internazionali", "sussidi studio cassa malati"]
+      },
+      en: {
+        path: '/en/health-insurance/students/',
+        title: "Swiss Student Health Insurance 2026 — International & Local | Le Fennec Malin",
+        description: "Health insurance solutions for local and international students in Switzerland: premium reductions, cantonal subsidies, and exemption criteria.",
+        h1: "Health Insurance for Students in Switzerland: Complete 2026 Guide",
+        breadcrumbLabel: "Students",
+        primaryKeyword: "student health insurance switzerland",
+        secondaryKeywords: ["international student health insurance", "swiss lamal exemption student"]
+      }
+    }
+  },
+
+  'lamal-nouveau-resident': {
+    id: 'lamal-nouveau-resident',
+    category: 'health',
+    priority: 0.9,
+    changefreq: 'monthly',
+    lastModified: '2026-08-20',
+    locales: {
+      fr: {
+        path: '/fr/lamal/nouveau-resident-suisse/',
+        title: "Assurance Maladie Nouveau Résident & Expatrié Suisse — Guide 3 Mois | Le Fennec Malin",
+        description: "Arriver en Suisse : délai obligatoire de 3 mois pour souscrire la LAMal, rétroactivité, permis B/C, choix de franchise et affiliation pas à pas.",
+        h1: "Nouveau Résident & Expatrié en Suisse : Démarches Assurance Maladie Obligatoire",
+        breadcrumbLabel: "Nouveau Résident",
+        primaryKeyword: "assurance maladie nouveau résident suisse",
+        secondaryKeywords: ["delai 3 mois affiliation suisse", "expatriation suisse assurance maladie", "permis b assurance maladie"]
+      },
+      de: {
+        path: '/de/kvg/neuzuzueger-schweiz/',
+        title: "Krankenversicherung für Neuzuzüger in die Schweiz 2026 | Le Fennec Malin",
+        description: "In die Schweiz gezogen: 3-Monats-Frist für das KVG-Obligatorium, Rückwirkung der Deckung, B-/C-Bewilligung und Anbieterwahl.",
+        h1: "Neuzuzüger in die Schweiz: Leitfaden zur obligatorischen Krankenpflegeversicherung",
+        breadcrumbLabel: "Neuzuzüger",
+        primaryKeyword: "krankenkasse neuzuzueger schweiz",
+        secondaryKeywords: ["anmeldung krankenkasse frist 3 monate", "auswandern schweiz versicherung"]
+      },
+      it: {
+        path: '/it/lamal/nuovi-residenti-svizzera/',
+        title: "Cassa Malati per Nuovi Residenti in Svizzera — Termine 3 Mesi | Le Fennec Malin",
+        description: "Trasferirsi in Svizzera: termine di 3 mesi per l'affiliazione LAMal obbligatoria, retroattività dei premi, permesso B/C e consigli pratici.",
+        h1: "Nuovi Residenti ed Espatriati in Svizzera: Guida all'Assicurazione Malattia",
+        breadcrumbLabel: "Nuovi Residenti",
+        primaryKeyword: "cassa malati nuovi residenti svizzera",
+        secondaryKeywords: ["termine affiliazione 3 mesi svizzera", "permesso b cassa malati"]
+      },
+      en: {
+        path: '/en/lamal/new-residents-switzerland/',
+        title: "Health Insurance for New Residents & Expats in Switzerland | Le Fennec Malin",
+        description: "Moving to Switzerland: mandatory 3-month affiliation deadline, retroactive coverage, B/C work permits, and choosing your insurance provider.",
+        h1: "New Residents & Expats in Switzerland: Mandatory Health Insurance Guide",
+        breadcrumbLabel: "New Residents",
+        primaryKeyword: "health insurance new residents switzerland",
+        secondaryKeywords: ["swiss 3 month insurance deadline", "expat health insurance switzerland"]
+      }
+    }
+  },
+
+  'lamal-vs-lca': {
+    id: 'lamal-vs-lca',
+    category: 'health',
+    priority: 0.9,
+    changefreq: 'monthly',
+    lastModified: '2026-08-20',
+    locales: {
+      fr: {
+        path: '/fr/lamal-vs-lca/',
+        title: "LAMal vs LCA — Différence entre Assurance de Base et Complémentaire | Le Fennec Malin",
+        description: "Comprendre la différence entre LAMal (obligatoire) et LCA (privée facultative) en Suisse. Questionnaire médical, exclusion de prestations et double affiliation.",
+        h1: "LAMal vs LCA : Comprendre la Différence entre Base et Complémentaire en Suisse",
+        breadcrumbLabel: "LAMal vs LCA",
+        primaryKeyword: "LAMal vs LCA",
+        secondaryKeywords: ["difference lamal lca", "assurance de base vs complementaire", "questionnaire medical lca"]
+      },
+      de: {
+        path: '/de/kvg-vs-vvg/',
+        title: "KVG vs. VVG — Unterschied zwischen Grund- & Zusatzversicherung | Le Fennec Malin",
+        description: "Der Unterschied zwischen KVG (obligatorisch) und VVG (privat) in der Schweiz: Aufnahmezwang, Gesundheitsfragen, Kündigung und Doppelabdeckung.",
+        h1: "KVG vs. VVG: Grundversicherung und Zusatzversicherung im Vergleich",
+        breadcrumbLabel: "KVG vs VVG",
+        primaryKeyword: "kvg vs vvg",
+        secondaryKeywords: ["unterschied grundversicherung zusatzversicherung", "gesundheitspruefung vvg"]
+      },
+      it: {
+        path: '/it/lamal-vs-lca/',
+        title: "LAMal vs LCA — Differenza tra Assicurazione Base e Complementare | Le Fennec Malin",
+        description: "Differenze tra LAMal (obbligatoria) e LCA (facoltativa) in Svizzera: questionario medico, riserve e possibilità di separare le polizze.",
+        h1: "LAMal vs LCA: Differenza tra Assicurazione di Base e Complementare",
+        breadcrumbLabel: "LAMal vs LCA",
+        primaryKeyword: "lamal vs lca",
+        secondaryKeywords: ["differenza lamal lca", "assicurazione complementare svizzera"]
+      },
+      en: {
+        path: '/en/lamal-vs-vvg/',
+        title: "LAMal vs LCA (VVG) — Basic vs Supplementary Swiss Insurance | Le Fennec Malin",
+        description: "Key differences between mandatory LAMal and private LCA/VVG insurance in Switzerland: medical questionnaires, exclusion clauses, and insurer splitting.",
+        h1: "LAMal vs LCA: Basic vs Supplementary Health Insurance in Switzerland",
+        breadcrumbLabel: "LAMal vs LCA",
+        primaryKeyword: "lamal vs lca switzerland",
+        secondaryKeywords: ["basic vs supplementary health insurance", "swiss medical questionnaire"]
+      }
+    }
+  },
+
+  'lamal-assurance-accident': {
+    id: 'lamal-assurance-accident',
+    category: 'health',
+    priority: 0.85,
+    changefreq: 'monthly',
+    lastModified: '2026-08-20',
+    locales: {
+      fr: {
+        path: '/fr/lamal/assurance-accident/',
+        title: "Assurance Accident LAMal — Avec ou Sans Accident ? Règle des 8h LAA | Le Fennec Malin",
+        description: "Faut-il inclure la couverture accident dans son assurance maladie ? Règle des 8h/semaine LAA employeur, économie de 7% sur la prime et cas des sans-emploi.",
+        h1: "Assurance Accident LAMal : Faut-il l'Inclure dans sa Caisse Maladie ?",
+        breadcrumbLabel: "Couverture Accident",
+        primaryKeyword: "assurance accident LAMal",
+        secondaryKeywords: ["avec ou sans accident lamal", "regle 8 heures laa", "economiser prime accident"]
+      },
+      de: {
+        path: '/de/kvg/unfalldeckung/',
+        title: "Unfalldeckung Krankenkasse — Mit oder ohne Unfall versichern? (8h-Regel) | Le Fennec Malin",
+        description: "Unfalldeckung in der Grundversicherung ein- oder ausschliessen? UVG-Arbeitgeberdeckung ab 8 Stunden pro Woche, Ersparnis von ca. 7% der Prämie.",
+        h1: "Unfalldeckung in der Krankenkasse: Mit oder ohne Unfall versichern?",
+        breadcrumbLabel: "Unfalldeckung",
+        primaryKeyword: "unfalldeckung krankenkasse",
+        secondaryKeywords: ["unfall ein oder ausschluss", "uvg 8 stunden regel", "praemie sparen ohne unfall"]
+      },
+      it: {
+        path: '/it/lamal/copertura-infortuni/',
+        title: "Copertura Infortuni Cassa Malati — Con o Senza Infortuni? Regola 8h | Le Fennec Malin",
+        description: "Includere o escludere la copertura infortuni nella cassa malati? Regola delle 8 ore settimanali LAINF col datore di lavoro e risparmio sul premio.",
+        h1: "Copertura Infortuni nella Cassa Malati: Con o Senza?",
+        breadcrumbLabel: "Copertura Infortuni",
+        primaryKeyword: "copertura infortuni cassa malati",
+        secondaryKeywords: ["con o senza infortunio cassa malati", "regola 8 ore lainf"]
+      },
+      en: {
+        path: '/en/lamal/accident-coverage/',
+        title: "Accident Coverage Swiss Health Insurance — With or Without Accident (8h Rule) | Le Fennec Malin",
+        description: "Should you include accident coverage in your Swiss health insurance? Employer UVG/LAA 8h/week rule, saving ~7% on premiums, and non-employed cases.",
+        h1: "Accident Coverage in Swiss Health Insurance: With or Without?",
+        breadcrumbLabel: "Accident Coverage",
+        primaryKeyword: "swiss health insurance accident coverage",
+        secondaryKeywords: ["with or without accident insurance", "8 hours uvg rule switzerland"]
+      }
+    }
+  },
+
   'seo-pilier': {
     id: 'seo-pilier',
     category: 'pension',
@@ -631,6 +1186,8 @@ function generateAllInsurerRoutes(): Record<string, MultilingualRouteConfig> {
 function generateAllComparisonRoutes(): Record<string, MultilingualRouteConfig> {
   const comps: Record<string, { fr: string; de: string; it: string; en: string; titleFr: string }> = {
     'compare-css-helsana': { fr: 'css-vs-helsana', de: 'css-vs-helsana', it: 'css-vs-helsana', en: 'css-vs-helsana', titleFr: 'CSS vs Helsana' },
+    'compare-helsana-swica': { fr: 'helsana-vs-swica', de: 'helsana-vs-swica', it: 'helsana-vs-swica', en: 'helsana-vs-swica', titleFr: 'Helsana vs SWICA' },
+    'compare-css-swica': { fr: 'css-vs-swica', de: 'css-vs-swica', it: 'css-vs-swica', en: 'css-vs-swica', titleFr: 'CSS vs SWICA' },
     'compare-assura-mutuel': { fr: 'assura-vs-groupe-mutuel', de: 'assura-vs-groupe-mutuel', it: 'assura-vs-groupe-mutuel', en: 'assura-vs-groupe-mutuel', titleFr: 'Assura vs Groupe Mutuel' },
     'compare-swica-sanitas': { fr: 'swica-vs-sanitas', de: 'swica-vs-sanitas', it: 'swica-vs-sanitas', en: 'swica-vs-sanitas', titleFr: 'SWICA vs Sanitas' },
     'compare-visana-concordia': { fr: 'visana-vs-concordia', de: 'visana-vs-concordia', it: 'visana-vs-concordia', en: 'visana-vs-concordia', titleFr: 'Visana vs Concordia' },
