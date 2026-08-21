@@ -128,8 +128,9 @@ def prepare():
                 insurer_name = insurer_obj["name"] if insurer_obj else f"Assureur {versicherer}"
                 canton_name = cantons_map.get(kanton, kanton)
                 
-                region_code = f"PR-REG CH{region_num}"
-                region_label = f"Région {region_num}"
+                region_code = region_num if region_num.startswith("PR-REG CH") else f"PR-REG CH{region_num}"
+                region_clean_num = region_num.replace("PR-REG CH", "").strip()
+                region_label = f"Région {region_clean_num}"
                 
                 akl_label = legends["age_classes"].get(akl, akl)
                 unfall_label = legends["accident_inclusion"].get(unfall, unfall)

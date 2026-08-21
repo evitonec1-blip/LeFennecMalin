@@ -31,7 +31,14 @@ with open(os.path.join(DATA, 'premiums_2026.csv'), encoding='utf-8') as f:
             continue
         insurer = row['insurer_code'].strip()
         canton = row['canton_code'].strip().upper()
-        region = row['premium_region_code'].strip()
+        raw_reg = row['premium_region_code'].strip()
+        # Clean region code format
+        if raw_reg.startswith('PR-REG CHPR-REG CH'):
+            region = raw_reg.replace('PR-REG CHPR-REG CH', 'PR-REG CH')
+        elif not raw_reg.startswith('PR-REG CH'):
+            region = f"PR-REG CH{raw_reg}"
+        else:
+            region = raw_reg
         try:
             deductible = int(float(row['deductible_chf']))
             premium = float(row['monthly_premium_chf'])
@@ -47,6 +54,9 @@ with open(os.path.join(DATA, 'premiums_2026.csv'), encoding='utf-8') as f:
 print(f"[premiums] read {n} rows, skipped {skipped} unmappable rows, wrote {len(db)} unique keys")
 
 with open(os.path.join(PUBLIC, 'premiums_2026.json'), 'w', encoding='utf-8') as f:
+    json.dump(db, f, ensure_ascii=False)
+
+with open(os.path.join(BASE, 'premiums_2026.json'), 'w', encoding='utf-8') as f:
     json.dump(db, f, ensure_ascii=False)
 
 # ---------- 2. npa_to_region.json ----------

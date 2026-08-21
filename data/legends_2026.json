@@ -1,150 +1,58 @@
 {
-  "source_file": "gesamtbericht_ch.xlsx (priminfo.admin.ch / OFSP)",
-  "note": "Toutes les valeurs ci-dessous proviennent directement de l'onglet 'Wertebereiche' du fichier officiel. Rien n'a ete invente.",
   "cantons": {
-    "AG": {
-      "de": "Aargau",
-      "fr": "Argovie"
-    },
-    "AI": {
-      "de": "Appenzell-Innerrhoden",
-      "fr": "Appenzell Rhodes Intérieures"
-    },
-    "AR": {
-      "de": "Appenzell-Ausserrhoden",
-      "fr": "Appenzell Rhodes Extérieures"
-    },
-    "BE": {
-      "de": "Bern",
-      "fr": "Berne"
-    },
-    "BL": {
-      "de": "Basel-Landschaft",
-      "fr": "Bâle-Campagne"
-    },
-    "BS": {
-      "de": "Basel-Stadt",
-      "fr": "Bâle-Ville"
-    },
-    "FR": {
-      "de": "Freiburg",
-      "fr": "Fribourg"
-    },
-    "GE": {
-      "de": "Genf",
-      "fr": "Genève"
-    },
-    "GL": {
-      "de": "Glarus",
-      "fr": "Glaris"
-    },
-    "GR": {
-      "de": "Graubünden",
-      "fr": "Grisons"
-    },
-    "JU": {
-      "de": "Jura",
-      "fr": "Jura"
-    },
-    "LU": {
-      "de": "Luzern",
-      "fr": "Lucerne"
-    },
-    "NE": {
-      "de": "Neuenburg",
-      "fr": "Neuchâtel"
-    },
-    "NW": {
-      "de": "Nidwalden",
-      "fr": "Nidwald"
-    },
-    "OW": {
-      "de": "Obwalden",
-      "fr": "Obwald"
-    },
-    "SG": {
-      "de": "St.Gallen",
-      "fr": "Saint-Gall"
-    },
-    "SH": {
-      "de": "Schaffhausen",
-      "fr": "Schaffhouse"
-    },
-    "SO": {
-      "de": "Solothurn",
-      "fr": "Soleure"
-    },
-    "SZ": {
-      "de": "Schwyz",
-      "fr": "Schwyz"
-    },
-    "TG": {
-      "de": "Thurgau",
-      "fr": "Thurgovie"
-    },
-    "TI": {
-      "de": "Tessin",
-      "fr": "Tessin"
-    },
-    "UR": {
-      "de": "Uri",
-      "fr": "Uri"
-    },
-    "VD": {
-      "de": "Waadt",
-      "fr": "Vaud"
-    },
-    "VS": {
-      "de": "Wallis",
-      "fr": "Valais"
-    },
-    "ZE": {
-      "de": "Entsandte",
-      "fr": "Travailleurs détachés "
-    },
-    "ZG": {
-      "de": "Zug",
-      "fr": "Zoug"
-    },
-    "ZH": {
-      "de": "Zürich",
-      "fr": "Zurich"
-    },
-    "ZR": {
-      "de": "Rheinschiffer",
-      "fr": "Bateliers rhénans"
-    },
-    "ZZ": {
-      "de": "Entsandte und Rheinschiffer (Historie bis 2011)",
-      "fr": "Travailleurs détachés et bateliers rhénans (historique jusqu'à 2011)"
-    }
+    "AG": "Aargau",
+    "AI": "Appenzell Innerrhoden",
+    "AR": "Appenzell Ausserrhoden",
+    "BE": "Berne",
+    "BL": "Bâle-Campagne",
+    "BS": "Bâle-Ville",
+    "FR": "Fribourg",
+    "GE": "Genève",
+    "GL": "Glaris",
+    "GR": "Grisons",
+    "JU": "Jura",
+    "LU": "Lucerne",
+    "NE": "Neuchâtel",
+    "NW": "Nidwald",
+    "OW": "Obwald",
+    "SG": "Saint-Gall",
+    "SH": "Schaffhouse",
+    "SO": "Soleure",
+    "SZ": "Schwyz",
+    "TG": "Thurgovie",
+    "TI": "Tessin",
+    "UR": "Uri",
+    "VD": "Vaud",
+    "VS": "Valais",
+    "ZG": "Zoug",
+    "ZH": "Zürich"
   },
   "age_classes": {
-    "AKL-ERW": "26 -",
-    "AKL-JUG": "19 - 25",
-    "AKL-KIN": "0 - 18"
+    "AKL-KIN": "Enfant (0-18 ans)",
+    "AKL-JUG": "Jeune adulte (19-25 ans)",
+    "AKL-ERW": "Adulte (26+ ans)"
+  },
+  "deductibles": {
+    "0": 0,
+    "100": 100,
+    "200": 200,
+    "300": 300,
+    "400": 400,
+    "500": 500,
+    "600": 600,
+    "1000": 1000,
+    "1500": 1500,
+    "2000": 2000,
+    "2500": 2500
+  },
+  "tariff_types": {
+    "TAR-BASE": "Assurance de base (Standard)",
+    "TAR-HAM": "Médecin de famille",
+    "TAR-HMO": "HMO",
+    "TAR-DIV": "Télémédecine / Modèle alternatif"
   },
   "accident_inclusion": {
-    "MIT-UNF": "Avec Accident",
-    "OHN-UNF": "Sans Accident"
-  },
-  "franchise_amounts_chf": {
-    "FRA-0": "0",
-    "FRA-100": "100",
-    "FRA-1000": "1000",
-    "FRA-1500": "1500",
-    "FRA-200": "200",
-    "FRA-2000": "2000",
-    "FRA-2500": "2500",
-    "FRA-300": "300",
-    "FRA-400": "400",
-    "FRA-500": "500",
-    "FRA-600": "600"
-  },
-  "premium_regions": {
-    "PR-REG CH0": "Région 0",
-    "PR-REG CH1": "Région 1",
-    "PR-REG CH2": "Région 2",
-    "PR-REG CH3": "Région 3"
+    "MIT-UNF": "Avec couverture accident",
+    "OHN-UNF": "Sans couverture accident"
   }
 }
