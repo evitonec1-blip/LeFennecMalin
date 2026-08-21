@@ -79,11 +79,15 @@ export const ROMANDIE_CANTONS: Record<string, CantonSEOData> = {
       {
         question: "Tous les hôpitaux de Genève sont-ils couverts par la LAMal ?",
         answer: "Oui, les séjours en division commune aux Hôpitaux Universitaires de Genève (HUG) et dans les établissements publics conventionnés sont intégralement pris en charge par l'assurance de base LAMal, déduction faite de votre franchise et de la quote-part de 10%."
+      },
+      {
+        question: "Quelles sont les règles d'assurance maladie pour les frontaliers travaillant à Genève ?",
+        answer: "Les travailleurs frontaliers résidant en France et travaillant à Genève bénéficient du droit d'option (LAMal frontalier avec couverture CMU ou LAMal suisse). La prime LAMal pour frontalier est spécifique et permet de se soigner en Suisse ou en France."
       }
     ],
     metaDescription: "Assurance maladie Genève 2026 : comparez les primes officielles OFSP des caisses (Assura, CSS, Mutuel, Helsana). Économisez jusqu'à CHF 1'800/an.",
-    seoTitle: "Assurance Maladie Genève 2026 : Comparatif Primes & Caisses Pas Chères",
-    h1: "Assurance maladie à Genève : primes et comparatif officiel 2026",
+    seoTitle: "Assurance Maladie Genève 2026 : Comparatif Primes & Caisses Pas Chères (GE)",
+    h1: "Assurance maladie dans le canton de Genève (GE) : comparatif officiel 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   },
@@ -158,11 +162,19 @@ export const ROMANDIE_CANTONS: Record<string, CantonSEOData> = {
       {
         question: "Puis-je changer d'assureur si je reçois un subside de l'OVAM ?",
         answer: "Oui, absolument ! Le subside de l'OVAM est calculé sur une prime de référence cantonale. En choisissant une caisse moins chère, vous diminuez le montant résiduel à votre charge et conservez plus de pouvoir d'achat."
+      },
+      {
+        question: "Quels sont les délais pour résilier sa caisse maladie dans le canton de Vaud ?",
+        answer: "Votre lettre de résiliation recommandée doit être reçue par votre assureur au plus tard le 30 novembre à 17h00 pour prendre effet au 1er janvier suivant. L'assureur actuel ne peut refuser votre départ si vous n'avez pas d'arriérés de primes."
+      },
+      {
+        question: "Le CHUV est-il accessible avec n'importe quelle caisse maladie LAMal ?",
+        answer: "Oui. En division commune, le CHUV et tous les hôpitaux de la liste hospitalière vaudoise (EHC, GHOL, eHnv, HRC) sont accessibles à tous les assurés suisses sous couverture LAMal de base sans surcoût."
       }
     ],
     metaDescription: "Assurance maladie Vaud (VD) 2026 : comparez les primes officielles à Lausanne, Nyon, Yverdon et Montreux. Régions 1 et 2, subsides OVAM, comparatif caisses.",
-    seoTitle: "Assurance Maladie Vaud 2026 : Primes et Caisses les Moins Chères",
-    h1: "Assurance maladie dans le canton de Vaud : comparatif et primes 2026",
+    seoTitle: "Assurance Maladie Vaud 2026 : Primes, Caisses & Subsides Lausanne (VD)",
+    h1: "Assurance maladie dans le canton de Vaud (VD) : comparatif officiel 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   },
@@ -232,11 +244,23 @@ export const ROMANDIE_CANTONS: Record<string, CantonSEOData> = {
       {
         question: "Comment faire une demande de subside d'assurance maladie en Valais auprès de la CCVs ?",
         answer: "La Caisse de compensation du canton du Valais (CCVs) notifie automatiquement les bénéficiaires sur la base de leur déclaration fiscale. En cas de changement de situation financière, un formulaire de demande extraordinaire est disponible sur le site officiel de l'État du Valais."
+      },
+      {
+        question: "Quelle est la différence de prime entre le Bas-Valais, le Valais central et le Haut-Valais ?",
+        answer: "Le canton est découpé en 2 régions de primes par l'OFSP. Les zones urbaines de la plaine (Région 1 : Sion, Sierre, Martigny, Monthey) ont des primes très proches, tandis que certaines zones alpines (Région 2) bénéficient d'un léger rabais cantonal."
+      },
+      {
+        question: "Puis-je me faire soigner à l'Hôpital Riviera-Chablais de Rennaz avec une assurance valaisanne ?",
+        answer: "Oui, l'Hôpital Riviera-Chablais (HRC) est un établissement intercantonal conventionné conjointement par Vaud et le Valais. Les résidents du Chablais valaisan (Monthey, St-Maurice) y sont pris en charge en division commune sans surcoût."
+      },
+      {
+        question: "Comment changer de caisse maladie en Valais avant le 30 novembre ?",
+        answer: "Il vous suffit de comparer les primes sur notre comparateur neutre, de souscrire auprès du nouvel assureur et d'envoyer votre résiliation par lettre recommandée à votre caisse actuelle avant le 30 novembre."
       }
     ],
     metaDescription: "Assurance maladie Valais (VS) 2026 : comparez les primes les plus basses de Suisse romande à Sion, Sierre, Martigny et Monthey. Primes officielles OFSP.",
-    seoTitle: "Assurance Maladie Valais 2026 : Comparatif LAMal & Primes Moins Chères",
-    h1: "Assurance maladie en Valais : primes et caisses maladie 2026",
+    seoTitle: "Assurance Maladie Valais 2026 : Comparatif LAMal & Primes Moins Chères (VS)",
+    h1: "Assurance maladie en Valais (VS) : primes et comparatif officiel 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   },
@@ -302,11 +326,23 @@ export const ROMANDIE_CANTONS: Record<string, CantonSEOData> = {
       {
         question: "Quelles sont les caisses maladie les plus avantageuses dans le canton de Fribourg en 2026 ?",
         answer: "Concordia, Assura et Groupe Mutuel figurent parmi les options les plus compétitives du canton de Fribourg, tant à Fribourg-Ville qu'en Gruyère (Bulle) ou dans la Broye."
+      },
+      {
+        question: "Quelle est la différence de prime entre l'agglomération de Fribourg et la Singine ?",
+        answer: "Le canton de Fribourg comporte 2 régions de primes OFSP. L'agglomération fribourgeoise et la Veveyse (Région 1) ont des coûts légèrement supérieurs aux districts ruraux de la Singine ou de la Glâne (Région 2)."
+      },
+      {
+        question: "L'Hôpital Fribourgeois (HFR) est-il couvert sans frais supplémentaires ?",
+        answer: "Oui, les sites de l'HFR (Fribourg-Hôpital cantonal, Riaz en Gruyère, Tafers en Singine, Meyriez dans le district du Lac) sont tous conventionnés en division commune LAMal."
+      },
+      {
+        question: "Les étudiants de l'Université de Fribourg bénéficient-ils de réductions sur leurs primes ?",
+        answer: "Oui, les étudiants de 19 à 25 ans bénéficient du tarif réduit jeune adulte auprès des caisses maladie et peuvent solliciter une réduction individuelle de primes (RIP) auprès de l'ECAS en fonction de leurs revenus."
       }
     ],
     metaDescription: "Assurance maladie Fribourg (FR) 2026 : comparez les primes officielles à Fribourg, Bulle, Estavayer et Morat. Tarifs OFSP, subsides ECAS et caisses agréées.",
-    seoTitle: "Assurance Maladie Fribourg 2026 : Comparateur Primes & Caisses",
-    h1: "Assurance maladie dans le canton de Fribourg : comparatif officiel 2026",
+    seoTitle: "Assurance Maladie Fribourg 2026 : Comparatif Primes & Caisses (FR)",
+    h1: "Assurance maladie dans le canton de Fribourg (FR) : comparatif officiel 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   },
@@ -372,11 +408,23 @@ export const ROMANDIE_CANTONS: Record<string, CantonSEOData> = {
       {
         question: "Quelle est la caisse maladie la moins chère à Neuchâtel en 2026 ?",
         answer: "Assura et Groupe Mutuel proposent les primes les plus compétitives du canton de Neuchâtel en 2026 pour les modèles alternatifs avec franchise 2'500, suivis par CSS et Visana."
+      },
+      {
+        question: "Comment fonctionne la demande de subsides auprès de l'OCAS à Neuchâtel ?",
+        answer: "L'OCAS vérifie automatiquement les conditions d'octroi sur la base du revenu déterminant de la taxation fiscale. En cas de changement de situation financière, une demande individuelle doit être soumise en ligne sur ocas-ne.ch."
+      },
+      {
+        question: "Le Réseau Hospitalier Neuchâtelois (RHNe) est-il couvert par toutes les caisses ?",
+        answer: "Oui, les sites de Pourtalès à Neuchâtel et de La Chaux-de-Fonds font partie intégrante de la liste hospitalière cantonale couverte en division commune par la LAMal de toutes les caisses agréées."
+      },
+      {
+        question: "Quand doit-on envoyer sa résiliation d'assurance maladie à Neuchâtel ?",
+        answer: "Votre lettre recommandée doit parvenir à votre assureur actuel avant le 30 novembre à 17h00. Vous pouvez ensuite vous affilier librement à l'assureur le moins cher de Neuchâtel dès le 1er janvier."
       }
     ],
     metaDescription: "Assurance maladie Neuchâtel (NE) 2026 : comparez les primes officielles à Neuchâtel et La Chaux-de-Fonds. Tarifs OFSP, subsides OCAS et caisses pas chères.",
-    seoTitle: "Assurance Maladie Neuchâtel 2026 : Comparatif & Primes LAMal",
-    h1: "Assurance maladie dans le canton de Neuchâtel : comparatif 2026",
+    seoTitle: "Assurance Maladie Neuchâtel 2026 : Comparatif & Primes LAMal (NE)",
+    h1: "Assurance maladie dans le canton de Neuchâtel (NE) : comparatif officiel 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   },
@@ -441,11 +489,23 @@ export const ROMANDIE_CANTONS: Record<string, CantonSEOData> = {
       {
         question: "Comment demander un subside d'assurance maladie dans le Jura auprès de la CAJU ?",
         answer: "La CAJU procède à l'examen d'office du droit aux subsides dès réception de la taxation fiscale. Si votre situation a changé, vous pouvez remplir un formulaire de réexamen sur caju.ch."
+      },
+      {
+        question: "Quelles sont les caisses maladie les plus populaires dans le Jura en 2026 ?",
+        answer: "Assura, CSS, Groupe Mutuel et Concordia représentent la majorité des assurés jurassiens grâce à leurs agences à Delémont et Porrentruy et leurs accords avec l'Hôpital du Jura (H-JU)."
+      },
+      {
+        question: "Les résidents jurassiens peuvent-ils se faire soigner à Bâle ou Berne ?",
+        answer: "En cas d'urgence médicale ou sur prescription médicale justifiant un transfert spécialisé vers l'USB ou l'Inselspital, les soins sont intégralement pris en charge par l'assurance de base LAMal."
+      },
+      {
+        question: "Comment un frontalier travaillant dans le Jura est-il assuré ?",
+        answer: "Les travailleurs frontaliers résidant en France voisine ont le choix d'exercer leur droit d'option pour la LAMal frontalier ou la CMU française dans un délai de 3 mois suivant leur prise d'emploi."
       }
     ],
     metaDescription: "Assurance maladie Jura (JU) 2026 : comparez les primes officielles à Delémont, Porrentruy et Saignelégier. Caisses agréées, subsides CAJU et simulateur.",
-    seoTitle: "Assurance Maladie Jura 2026 : Primes LAMal & Caisses Delémont",
-    h1: "Assurance maladie dans le canton du Jura : comparatif officiel 2026",
+    seoTitle: "Assurance Maladie Jura 2026 : Primes LAMal & Caisses Delémont (JU)",
+    h1: "Assurance maladie dans le canton du Jura (JU) : comparatif officiel 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   }

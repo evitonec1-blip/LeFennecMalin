@@ -62,16 +62,28 @@ export const SUISSE_CENTRALE_CANTONS: Record<string, CantonSEOData> = {
     faqs: [
       {
         question: "Pourquoi CSS et Concordia sont-elles si populaires à Lucerne ?",
-        answer: "CSS et Concordia ont toutes deux leur siège principal à Lucerne depuis plus d'un siècle. Elles disposent du plus important maillage d'agences et de conseillers de la région."
+        answer: "CSS et Concordia ont toutes deux leur siège principal à Lucerne depuis plus d'un siècle. Elles disposent du plus important maillage d'agences, de conseillers de proximité et de partenariats privilégiés avec le groupe hospitalier LUKS."
       },
       {
         question: "Comment faire une demande de subside d'assurance maladie à Lucerne auprès de WAS ?",
-        answer: "WAS Luzern envoie une notification aux contribuables éligibles. Les demandes extraordinaires peuvent être faites en ligne sur le portail was-luzern.ch."
+        answer: "WAS Luzern envoie une notification avec formulaire aux contribuables éligibles sur la base de la taxation fiscale. Les demandes d'octroi ou de révision peuvent être déposées directement en ligne sur le portail was-luzern.ch/ipv."
+      },
+      {
+        question: "Comment sont réparties les 2 régions de primes du canton de Lucerne ?",
+        answer: "La Région 1 comprend la Ville de Lucerne, Sursee, Emmen et Kriens, tandis que la Région 2 comprend les communes de l'Entlebuch et du Willisau avec des primes légèrement plus économiques."
+      },
+      {
+        question: "Le Luzerner Kantonsspital (LUKS) est-il accessible avec n'importe quelle caisse maladie ?",
+        answer: "Oui. Le Luzerner Kantonsspital (sites de Lucerne, Sursee et Wolhusen) fait partie de la liste hospitalière cantonale et est pris en charge en division commune par toutes les caisses LAMal de Suisse."
+      },
+      {
+        question: "Quels rabais peut-on obtenir avec les modèles alternatifs à Lucerne ?",
+        answer: "Les modèles Telmed ou médecin de famille (comme myDoc de Concordia ou Multimed de CSS) permettent de réaliser entre 10% et 18% d'économies mensuelles par rapport au modèle standard."
       }
     ],
     metaDescription: "Assurance maladie Lucerne (LU) 2026 : Krankenkassenvergleich Luzern & Sursee. Primes officielles OFSP, sièges CSS et Concordia, subsides WAS Luzern.",
     seoTitle: "Assurance Maladie Lucerne 2026 : Primes & Caisses Pas Chères (LU)",
-    h1: "Assurance maladie dans le canton de Lucerne : comparatif 2026",
+    h1: "Assurance maladie dans le canton de Lucerne (LU) : comparatif 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   },
@@ -132,12 +144,28 @@ export const SUISSE_CENTRALE_CANTONS: Record<string, CantonSEOData> = {
     faqs: [
       {
         question: "Pourquoi l'assurance maladie est-elle si bon marché à Zoug ?",
-        answer: "Le canton de Zoug bénéficie d'une population active jeune, d'un niveau de vie élevé et d'une saine gestion hospitalière (Zuger Kantonsspital, AndreasKlinik), ce qui maintient les coûts de santé par habitant parmi les plus bas de Suisse."
+        answer: "Le canton de Zoug bénéficie d'une population active jeune, d'un niveau de vie élevé et d'une gestion hospitalière efficiente (Zuger Kantonsspital, AndreasKlinik), ce qui maintient les coûts de santé par habitant parmi les plus bas de Suisse."
+      },
+      {
+        question: "Quelle caisse maladie choisir dans le canton de Zoug en 2026 ?",
+        answer: "Assura, CSS et Concordia sont les caisses les plus recommandées à Zoug, combinant des primes sous les CHF 220.-/mois en franchise 2'500 et un accès direct aux meilleurs spécialistes du canton."
+      },
+      {
+        question: "Comment solliciter une réduction individuelle de prime (IPV) auprès de l'AK Zug ?",
+        answer: "L'Ausgleichskasse Zug procède à un examen automatique sur la base de la décision de taxation fiscale cantonale. Vous pouvez déposer une réclamation en ligne sur zg.ch/ausgleichskasse."
+      },
+      {
+        question: "Le Zuger Kantonsspital de Baar est-il conventionné LAMal ?",
+        answer: "Oui, le Zuger Kantonsspital situé à Baar accueille tous les patients affiliés à l'assurance de base obligatoire de n'importe quelle caisse suisse en division commune."
+      },
+      {
+        question: "Comment changer d'assureur maladie à Zoug avant l'échéance du 30 novembre ?",
+        answer: "Il suffit de résilier votre contrat actuel par courrier recommandé avant le 30 novembre pour adhérer à votre nouvel assureur dès le 1er janvier sans interruption de couverture."
       }
     ],
     metaDescription: "Assurance maladie Zoug (ZG) 2026 : Krankenkassenvergleich Zug & Baar. Primes les plus basses de Suisse, tarifs officiels OFSP et comparatif des caisses.",
     seoTitle: "Assurance Maladie Zoug 2026 : Primes les Moins Chères de Suisse (ZG)",
-    h1: "Assurance maladie dans le canton de Zoug : comparatif officiel 2026",
+    h1: "Assurance maladie dans le canton de Zoug (ZG) : comparatif officiel 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   },
@@ -198,12 +226,28 @@ export const SUISSE_CENTRALE_CANTONS: Record<string, CantonSEOData> = {
     faqs: [
       {
         question: "Quelles sont les caisses maladie les plus avantageuses à Schwyz en 2026 ?",
-        answer: "Assura, CSS et Concordia proposent les tarifs les plus compétitifs du canton de Schwyz, tant en Ausserschwyz qu'en Innerschwyz."
+        answer: "Assura, CSS et Concordia proposent les tarifs les plus compétitifs du canton de Schwyz, tant en Ausserschwyz (Freienbach, Pfäffikon) qu'en Innerschwyz."
+      },
+      {
+        question: "Quelle différence entre les régions de primes 1 et 2 dans le canton de Schwyz ?",
+        answer: "La Région 1 comprend les districts d'Ausserschwyz (Höfe, March, Einsiedeln) au contact de Zurich, tandis que la Région 2 regroupe les districts d'Innerschwyz (Schwyz, Küssnacht, Gersau) avec des primes légèrement inférieures."
+      },
+      {
+        question: "Comment solliciter une réduction individuelle de primes auprès de l'AKSZ ?",
+        answer: "L'Ausgleichskasse Schwyz (AKSZ) vérifie le droit à la réduction de prime lors du traitement de la taxation fiscale. Les demandes d'ajustement peuvent être introduites sur aksz.ch."
+      },
+      {
+        question: "Les hôpitaux de Schwyz, Einsiedeln et Lachen sont-ils tous reconnus LAMal ?",
+        answer: "Oui, les hôpitaux de Schwyz, d'Einsiedeln et de Lachen garantissent la couverture complète en division commune pour l'ensemble des assureurs maladie suisses."
+      },
+      {
+        question: "Quels modèles alternatifs choisir dans le canton de Schwyz ?",
+        answer: "Les modèles de médecin de famille affiliés aux réseaux Ärztenetz Schwyz ou mediX linth permettent d'économiser 10% à 16% sur sa prime annuelle."
       }
     ],
     metaDescription: "Assurance maladie Schwyz (SZ) 2026 : Krankenkassenvergleich Schwyz & Freienbach. Primes officielles OFSP, caisses agréées et subsides AKSZ.",
     seoTitle: "Assurance Maladie Schwyz 2026 : Comparatif Primes & Caisses (SZ)",
-    h1: "Assurance maladie dans le canton de Schwyz : comparatif officiel 2026",
+    h1: "Assurance maladie dans le canton de Schwyz (SZ) : comparatif officiel 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   },
@@ -265,11 +309,23 @@ export const SUISSE_CENTRALE_CANTONS: Record<string, CantonSEOData> = {
       {
         question: "Comment choisir sa caisse maladie dans le canton d'Uri ?",
         answer: "Concordia et CSS sont traditionnellement les caisses les plus implantées en Uri, mais Assura et Swica offrent également d'excellentes alternatives très économiques."
+      },
+      {
+        question: "Comment fonctionne la réduction de prime (IPV) auprès de l'Ausgleichskasse Uri ?",
+        answer: "L'Ausgleichskasse Uri à Altdorf calcule le droit à la réduction de prime à partir de la taxation fiscale cantonale. Les demandes particulières peuvent être faites sur akuri.ch."
+      },
+      {
+        question: "Le Kantonsspital Uri à Altdorf est-il conventionné par toutes les caisses ?",
+        answer: "Oui, le nouvel hôpital cantonal d'Uri à Altdorf offre des prestations complètes en division commune LAMal pour l'ensemble des assurés suisses."
+      },
+      {
+        question: "Quand et comment changer d'assurance maladie en Uri ?",
+        answer: "La notification de résiliation doit parvenir à votre assureur actuel au plus tard le 30 novembre. L'adhésion au nouvel assureur s'opère automatiquement au 1er janvier."
       }
     ],
     metaDescription: "Assurance maladie Uri (UR) 2026 : Krankenkassenvergleich Uri (Altdorf). Primes officielles OFSP, caisses agréées et subsides Ausgleichskasse Uri.",
     seoTitle: "Assurance Maladie Uri 2026 : Primes & Caisses Pas Chères (UR)",
-    h1: "Assurance maladie dans le canton d'Uri : comparatif officiel 2026",
+    h1: "Assurance maladie dans le canton d'Uri (UR) : comparatif officiel 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   },
@@ -330,11 +386,23 @@ export const SUISSE_CENTRALE_CANTONS: Record<string, CantonSEOData> = {
       {
         question: "Comment choisir sa caisse d'assurance maladie à Obwald ?",
         answer: "Concordia, CSS et Assura offrent les meilleures prestations pour les assurés d'Obwald avec accès facilité au Kantonsspital Obwalden à Sarnen."
+      },
+      {
+        question: "Comment déposer une demande de réduction de prime (IPV) à Obwald ?",
+        answer: "L'Ausgleichskasse Obwalden à Sarnen analyse les déclarations fiscales cantonales. Si vos revenus ont diminué, déposez un dossier directement sur akow.ch."
+      },
+      {
+        question: "Le Kantonsspital Obwalden à Sarnen est-il affilié à la LAMal ?",
+        answer: "Oui, le Kantonsspital Obwalden garantit l'ensemble des soins hospitaliers et ambulatoires en division commune pour toutes les caisses d'assurance maladie suisses."
+      },
+      {
+        question: "Comment fonctionne la franchise d'assurance maladie à Obwald ?",
+        answer: "Vous pouvez opter pour une franchise allant de CHF 300.- à CHF 2'500.- par an. La franchise de CHF 2'500.- est optimale si vos frais médicaux annuels sont inférieurs à CHF 1'620.-."
       }
     ],
     metaDescription: "Assurance maladie Obwald (OW) 2026 : Krankenkassenvergleich Obwalden (Sarnen, Engelberg). Primes officielles OFSP, caisses et subsides.",
     seoTitle: "Assurance Maladie Obwald 2026 : Primes & Caisses Pas Chères (OW)",
-    h1: "Assurance maladie dans le canton d'Obwald : comparatif officiel 2026",
+    h1: "Assurance maladie dans le canton d'Obwald (OW) : comparatif officiel 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   },
@@ -394,12 +462,24 @@ export const SUISSE_CENTRALE_CANTONS: Record<string, CantonSEOData> = {
     faqs: [
       {
         question: "Pourquoi l'assurance maladie est-elle si peu chère à Nidwald ?",
-        answer: "Le canton de Nidwald profite d'une population à fort pouvoir d'achat, d'un faible taux de maladie chronique et d'une intégration hospitalière performante avec le réseau LUKS de Suisse centrale."
+        answer: "Le canton de Nidwald profite d'une population à fort pouvoir d'achat, d'un faible taux de morbidité et d'une intégration hospitalière performante avec le réseau LUKS de Suisse centrale."
+      },
+      {
+        question: "Quelle est la caisse maladie la moins chère à Nidwald en 2026 ?",
+        answer: "Assura propose la prime adulte la plus basse du canton à CHF 198.-/mois avec franchise 2'500, suivie de CSS et Concordia avec une prise en charge complète au Kantonsspital Nidwalden."
+      },
+      {
+        question: "Comment fonctionne la réduction de prime (IPV) auprès de l'Ausgleichskasse Nidwalden ?",
+        answer: "L'Ausgleichskasse Nidwalden à Stans transmet directement une confirmation aux bénéficiaires d'après les données de taxation fiscale. Les demandes peuvent être soumises sur aknw.ch."
+      },
+      {
+        question: "Comment changer de caisse d'assurance maladie à Nidwald ?",
+        answer: "Envoyez une lettre recommandée de résiliation à votre caisse actuelle avant le 30 novembre pour démarrer avec votre nouvel assureur dès le 1er janvier."
       }
     ],
     metaDescription: "Assurance maladie Nidwald (NW) 2026 : Krankenkassenvergleich Nidwalden (Stans, Hergiswil). Primes sous les CHF 200/mois, caisses et subsides.",
     seoTitle: "Assurance Maladie Nidwald 2026 : Primes & Caisses Pas Chères (NW)",
-    h1: "Assurance maladie dans le canton de Nidwald : comparatif officiel 2026",
+    h1: "Assurance maladie dans le canton de Nidwald (NW) : comparatif officiel 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   }

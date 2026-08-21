@@ -62,16 +62,28 @@ export const BILINGUE_BERNE_CANTONS: Record<string, CantonSEOData> = {
     faqs: [
       {
         question: "Quelles sont les primes d'assurance maladie dans le Jura bernois et à Bienne ?",
-        answer: "Le Jura bernois est généralement classé en Région 3, avec des primes plus économiques que l'agglomération de Berne (Région 1) ou Bienne (Région 2). KPT, Visana et Assura y proposent les tarifs les plus compétitifs."
+        answer: "Le Jura bernois est classé en Région 3, avec des primes plus économiques que l'agglomération de Berne (Région 1) ou Bienne et Thoune (Région 2). KPT, Visana et Assura y proposent les tarifs les plus compétitifs."
       },
       {
         question: "Comment obtenir un subside d'assurance maladie dans le canton de Berne ?",
-        answer: "L'Office des assurances sociales du canton de Berne (ASB) évalue le droit aux subsides (RIP) de manière automatisée à partir de la taxation fiscale. Les demandes spéciales peuvent être introduites directement auprès de l'ASB."
+        answer: "L'Office des assurances sociales du canton de Berne (ASB / ASV) évalue le droit aux subsides (RIP / IPV) de manière automatisée à partir de la taxation fiscale. Les demandes spéciales peuvent être introduites directement en ligne sur asb.gef.be.ch."
+      },
+      {
+        question: "Quelles caisses maladie ont leur siège dans le canton de Berne ?",
+        answer: "Le canton de Berne accueille les sièges historiques de plusieurs grands assureurs suisses, notamment KPT, Visana et Atupri, qui disposent d'un maillage d'agences et de réseaux partenaires exceptionnels dans tout le canton."
+      },
+      {
+        question: "L'Inselspital de Berne est-il accessible avec toutes les caisses d'assurance maladie ?",
+        answer: "Oui. En tant qu'hôpital universitaire de référence, l'Inselspital de Berne et les hôpitaux régionaux (Spitalzentrum Biel, Hôpital du Jura bernois, Spital STS Thun) sont pris en charge en division commune LAMal par tous les assureurs suisses."
+      },
+      {
+        question: "Quand et comment résilier son assurance maladie dans le canton de Berne ?",
+        answer: "La lettre de résiliation recommandée doit être réceptionnée par votre assureur au plus tard le 30 novembre à 17h00. Toutes les caisses LAMal ont l'obligation légale d'accepter chaque habitant du canton sans réserve d'âge ni de santé."
       }
     ],
     metaDescription: "Assurance maladie Berne (BE) 2026 : comparez les primes officielles à Berne, Bienne, Thoune et Jura bernois. Régions 1, 2, 3, subsides ASB et caisses pas chères.",
     seoTitle: "Assurance Maladie Berne 2026 : Comparatif Primes & Caisses (BE)",
-    h1: "Assurance maladie dans le canton de Berne : comparatif officiel 2026",
+    h1: "Assurance maladie dans le canton de Berne (BE) : comparatif officiel 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   },
@@ -137,11 +149,23 @@ export const BILINGUE_BERNE_CANTONS: Record<string, CantonSEOData> = {
       {
         question: "Comment fonctionne la réduction de prime (IPV) à Zurich auprès de la SVA ?",
         answer: "La SVA Zürich envoie automatiquement une proposition d'IPV aux assurés éligibles d'après leur avis de taxation. Les assurés dont le revenu a baissé peuvent déposer une demande en ligne sur svazurich.ch."
+      },
+      {
+        question: "Comment se répartissent les 3 régions de primes du canton de Zurich ?",
+        answer: "La Région 1 comprend la Ville de Zurich (8000-8099). La Région 2 comprend Winterthour et sa couronne. La Région 3 couvre l'Unterland, l'Oberland et le Weinland, où les primes sont jusqu'à 7% plus basses."
+      },
+      {
+        question: "L'Hôpital Universitaire de Zurich (USZ) est-il pris en charge par l'assurance de base ?",
+        answer: "Oui, les soins en division commune à l'USZ ainsi qu'au Stadtspital Triemli/Waid et au KSW de Winterthour sont intégralement pris en charge par la LAMal de tous les assureurs suisses."
+      },
+      {
+        question: "Quels sont les avantages des modèles de santé HMO MediX à Zurich ?",
+        answer: "Les modèles HMO affiliés au réseau MediX Zürich permettent de bénéficier d'un rabais de 15% à 22% sur les primes en échange d'une coordination des soins par un centre de santé partenaire."
       }
     ],
     metaDescription: "Assurance maladie Zurich (ZH) 2026 : Krankenkassenvergleich Zürich & Winterthur. Primes officielles OFSP, caisses (Swica, Sanitas, Helsana) et subsides SVA.",
     seoTitle: "Assurance Maladie Zurich 2026 : Comparatif Primes & Caisses (ZH)",
-    h1: "Assurance maladie dans le canton de Zurich : comparatif officiel 2026",
+    h1: "Assurance maladie dans le canton de Zurich (ZH) : comparatif officiel 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   },
@@ -204,11 +228,23 @@ export const BILINGUE_BERNE_CANTONS: Record<string, CantonSEOData> = {
       {
         question: "Quelle caisse maladie choisir à Bâle-Ville en 2026 ?",
         answer: "Sympany (basée à Bâle), Assura et CSS offrent les meilleures combinaisons de prix et d'accès aux prestataires de soins bâlois."
+      },
+      {
+        question: "Comment déposer une demande de réduction de prime (IPV) auprès de l'ASB Basel-Stadt ?",
+        answer: "L'Amt für Sozialbeiträge de Bâle-Ville (ASB) évalue le droit à l'IPV lors du dépôt de la déclaration d'impôt. Vous pouvez vérifier votre droit et formuler une demande en ligne sur asb.bs.ch."
+      },
+      {
+        question: "Quelles sont les règles pour les travailleurs frontaliers (France et Allemagne) à Bâle ?",
+        answer: "Les travailleurs frontaliers résidant en France ou en Allemagne et travaillant à Bâle disposent du droit d'option formel entre le système d'assurance de leur pays de résidence et la LAMal suisse frontalier."
+      },
+      {
+        question: "Les résidents de Bâle-Ville peuvent-ils être soignés au Claraspital ou à l'USB sans franchise supplémentaire ?",
+        answer: "Oui. Tous les hôpitaux publics et répertoriés de Bâle-Ville (USB, UKBB, Claraspital, Bethesda) sont couverts en division commune par l'assurance de base obligatoire LAMal."
       }
     ],
     metaDescription: "Assurance maladie Bâle-Ville (BS) 2026 : Krankenkassenvergleich Basel. Primes officielles OFSP, caisses (Sympany, CSS, Helsana) et subsides ASB.",
     seoTitle: "Assurance Maladie Bâle-Ville 2026 : Primes & Caisses Pas Chères (BS)",
-    h1: "Assurance maladie dans le canton de Bâle-Ville : comparatif 2026",
+    h1: "Assurance maladie dans le canton de Bâle-Ville (BS) : comparatif 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   },
@@ -270,11 +306,27 @@ export const BILINGUE_BERNE_CANTONS: Record<string, CantonSEOData> = {
       {
         question: "Quelle caisse maladie choisir à Liestal et Bâle-Campagne en 2026 ?",
         answer: "Assura, Sympany et CSS sont les caisses les plus demandées à Bâle-Campagne grâce à leurs primes compétitives et leurs partenariats avec le KSBL."
+      },
+      {
+        question: "Quelle est la différence de prime entre Liestal, Allschwil et les zones rurales de Bâle-Campagne ?",
+        answer: "La Région 1 (Allschwil, Reinach, Binningen, Muttenz) présente des primes comparables à celles de l'agglomération bâloise, tandis que la Région 2 (Liestal, Waldenburg, Laufen) bénéficie de tarifs légèrement plus doux."
+      },
+      {
+        question: "Comment solliciter une réduction individuelle de primes auprès de la SVA Basel-Landschaft ?",
+        answer: "La SVA Basel-Landschaft calcule le droit à l'IPV automatiquement pour les contribuables ordinaires. Vous pouvez déposer une demande complémentaire directement sur sva-bl.ch."
+      },
+      {
+        question: "Les hôpitaux du KSBL sont-ils tous conventionnés LAMal ?",
+        answer: "Oui, les sites du Kantonsspital Baselland (KSBL) à Liestal, Bruderholz et Laufen sont couverts en division commune par toutes les caisses d'assurance maladie suisses."
+      },
+      {
+        question: "Comment résilier sa caisse maladie à Bâle-Campagne avant le 30 novembre ?",
+        answer: "Envoyez une lettre recommandée de résiliation à votre caisse actuelle avant le 30 novembre à minuit pour adhérer à votre nouvel assureur dès le 1er janvier."
       }
     ],
     metaDescription: "Assurance maladie Bâle-Campagne (BL) 2026 : Krankenkassenvergleich Liestal & Allschwil. Primes officielles OFSP, caisses (Sympany, CSS) et subsides SVA BL.",
     seoTitle: "Assurance Maladie Bâle-Campagne 2026 : Primes & Caisses (BL)",
-    h1: "Assurance maladie dans le canton de Bâle-Campagne : comparatif 2026",
+    h1: "Assurance maladie dans le canton de Bâle-Campagne (BL) : comparatif 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   },
@@ -340,11 +392,23 @@ export const BILINGUE_BERNE_CANTONS: Record<string, CantonSEOData> = {
       {
         question: "Comment faire une demande d'IPV auprès de la SVA Aargau ?",
         answer: "La SVA Aargau envoie un code d'accès par courrier aux personnes susceptibles d'avoir droit à l'IPV pour faire leur demande en ligne sur sva-ag.ch."
+      },
+      {
+        question: "Comment s'organisent les soins avec les hôpitaux KSA et KSB en Argovie ?",
+        answer: "Le Kantonsspital Aarau (KSA) et le Kantonsspital Baden (KSB) assurent la prise en charge médicale complète du canton en division commune LAMal pour tous les assurés suisses."
+      },
+      {
+        question: "Pourquoi les primes en Argovie sont-elles plus abordables qu'à Zurich ou Bâle ?",
+        answer: "La maîtrise des coûts hospitaliers cantonaux et le recours généralisé aux réseaux de médecins coordonnés (Argomed) permettent de maintenir des primes moyennes inférieures de 10% à 15% à celles de Bâle ou Zurich."
+      },
+      {
+        question: "Comment changer de modèle d'assurance maladie en Argovie ?",
+        answer: "Vous pouvez adapter votre franchise ou passer à un modèle Telmed / Médecin de famille auprès de votre caisse jusqu'au 30 novembre pour une prise d'effet au 1er janvier."
       }
     ],
     metaDescription: "Assurance maladie Argovie (AG) 2026 : Krankenkassenvergleich Aargau (Aarau, Baden). Primes officielles OFSP, caisses agréées et subsides SVA Aargau.",
     seoTitle: "Assurance Maladie Argovie 2026 : Comparatif Primes & Caisses (AG)",
-    h1: "Assurance maladie dans le canton d'Argovie : comparatif officiel 2026",
+    h1: "Assurance maladie dans le canton d'Argovie (AG) : comparatif officiel 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   },
@@ -406,11 +470,23 @@ export const BILINGUE_BERNE_CANTONS: Record<string, CantonSEOData> = {
       {
         question: "Quelle caisse maladie choisir à Soleure et Olten en 2026 ?",
         answer: "Assura, CSS et Visana sont particulièrement recommandées pour leurs tarifs modérés et leur conventionnement avec les hôpitaux SoH de Soleure et Olten."
+      },
+      {
+        question: "Comment fonctionne la réduction de prime (IPV) auprès de l'AKSO ?",
+        answer: "L'AKSO examine le droit aux réductions individuelles de primes lors de l'établissement de la taxation fiscale. Les demandes peuvent être soumises sur akso.ch."
+      },
+      {
+        question: "Les hôpitaux SoH (Bürgerspital Solothurn, Kantonsspital Olten) sont-ils couverts par toutes les caisses ?",
+        answer: "Oui, la société des hôpitaux soleurois (SoH) fait partie de la liste hospitalière cantonale officielle et assure la prise en charge en division commune pour l'ensemble des assureurs LAMal."
+      },
+      {
+        question: "Comment changer de caisse maladie dans le canton de Soleure avant le 30 novembre ?",
+        answer: "Comparez les primes officielles de Soleure sur notre outil neutre, remplissez votre nouvelle demande et envoyez votre résiliation recommandée à votre ancienne caisse avant le 30 novembre."
       }
     ],
     metaDescription: "Assurance maladie Soleure (SO) 2026 : Krankenkassenvergleich Solothurn & Olten. Primes officielles OFSP, caisses agréées et subsides AKSO.",
     seoTitle: "Assurance Maladie Soleure 2026 : Primes & Caisses Pas Chères (SO)",
-    h1: "Assurance maladie dans le canton de Soleure : comparatif officiel 2026",
+    h1: "Assurance maladie dans le canton de Soleure (SO) : comparatif officiel 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   }

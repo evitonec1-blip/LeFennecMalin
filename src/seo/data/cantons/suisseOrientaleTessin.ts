@@ -62,12 +62,28 @@ export const SUISSE_ORIENTALE_TESSIN_CANTONS: Record<string, CantonSEOData> = {
     faqs: [
       {
         question: "Quelle caisse maladie choisir à Saint-Gall et Rapperswil en 2026 ?",
-        answer: "ÖKK, Assura, CSS et Concordia sont les caisses les plus recommandées à Saint-Gall pour leur rapport qualité-prix et leurs conventions avec le KSSG."
+        answer: "ÖKK, Assura, CSS et Concordia sont les caisses les plus recommandées à Saint-Gall pour leur rapport qualité-prix et leurs conventions directes avec le KSSG."
+      },
+      {
+        question: "Comment sont réparties les 3 régions de primes du canton de Saint-Gall ?",
+        answer: "La Région 1 comprend la Ville de Saint-Gall et Gossau. La Région 2 comprend Rapperswil-Jona, Wil et See-Gaster. La Région 3 comprend le Toggenbourg, le Rheintal et le Sarganserland, où les primes sont jusqu'à 6% plus basses."
+      },
+      {
+        question: "Comment solliciter une réduction individuelle de primes (IPV) auprès de la SVA St. Gallen ?",
+        answer: "La SVA St. Gallen évalue le droit à l'IPV automatiquement après réception des données fiscales. Les demandes de réexamen ou changements de situation financière peuvent être déposés sur svasg.ch/ipv."
+      },
+      {
+        question: "Le Kantonsspital St. Gallen (KSSG) est-il pris en charge par l'assurance de base ?",
+        answer: "Oui, le KSSG à Saint-Gall ainsi que les hôpitaux de Grabs, Uznach (Spital Linth) et Wil sont couverts en division commune par la LAMal de l'ensemble des assureurs maladie suisses."
+      },
+      {
+        question: "Quels rabais peut-on obtenir avec les réseaux de médecins de famille mediX säntis ?",
+        answer: "Les modèles de médecin de famille affiliés au réseau de soins coordonnés mediX säntis offrent des réductions de 10% à 16% sur les primes mensuelles."
       }
     ],
     metaDescription: "Assurance maladie Saint-Gall (SG) 2026 : Krankenkassenvergleich St. Gallen & Rapperswil. Primes officielles OFSP, caisses (ÖKK, CSS) et subsides SVA SG.",
     seoTitle: "Assurance Maladie Saint-Gall 2026 : Primes & Caisses (SG)",
-    h1: "Assurance maladie dans le canton de Saint-Gall : comparatif officiel 2026",
+    h1: "Assurance maladie dans le canton de Saint-Gall (SG) : comparatif officiel 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   },
@@ -129,11 +145,27 @@ export const SUISSE_ORIENTALE_TESSIN_CANTONS: Record<string, CantonSEOData> = {
       {
         question: "Quelle caisse maladie choisir à Frauenfeld et Kreuzlingen en 2026 ?",
         answer: "Assura, CSS et Concordia sont les caisses les plus demandées en Thurgovie pour leur excellent compromis tarif/qualité de remboursement."
+      },
+      {
+        question: "Comment fonctionnent les 2 régions de primes en Thurgovie ?",
+        answer: "La Région 1 couvre Frauenfeld, Kreuzlingen et Arbon. La Région 2 comprend les districts plus ruraux du canton où les primes mensuelles sont légèrement plus basses."
+      },
+      {
+        question: "Comment obtenir un subside d'assurance maladie (IPV) en Thurgovie auprès du SVTG ?",
+        answer: "Le Sozialversicherungszentrum Thurgau (SVTG) examine d'office l'éligibilité à partir de la taxation fiscale. Les demandes peuvent être suivies et renouvelées en ligne sur svtg.ch/ipv."
+      },
+      {
+        question: "Les hôpitaux de Frauenfeld et Münsterlingen sont-ils accessibles avec toutes les caisses ?",
+        answer: "Oui, la société hospitalière Spital Thurgau AG (hôpitaux cantonaux de Frauenfeld et Münsterlingen) est conventionnée LAMal pour l'ensemble des assureurs de Suisse."
+      },
+      {
+        question: "Comment changer de caisse maladie en Thurgovie avant le 30 novembre ?",
+        answer: "La lettre recommandée de résiliation doit parvenir à votre assureur avant le 30 novembre à minuit pour garantir un changement effectif au 1er janvier."
       }
     ],
     metaDescription: "Assurance maladie Thurgovie (TG) 2026 : Krankenkassenvergleich Thurgau (Frauenfeld, Kreuzlingen). Primes officielles OFSP, caisses et subsides SVTG.",
     seoTitle: "Assurance Maladie Thurgovie 2026 : Primes & Caisses (TG)",
-    h1: "Assurance maladie dans le canton de Thurgovie : comparatif officiel 2026",
+    h1: "Assurance maladie dans le canton de Thurgovie (TG) : comparatif officiel 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   },
@@ -194,11 +226,23 @@ export const SUISSE_ORIENTALE_TESSIN_CANTONS: Record<string, CantonSEOData> = {
       {
         question: "Quelle caisse maladie choisir à Schaffhouse en 2026 ?",
         answer: "KPT, Assura et CSS offrent les meilleures primes LAMal à Schaffhouse et Neuhausen avec accès garanti au Kantonsspital Schaffhausen."
+      },
+      {
+        question: "Comment solliciter une réduction individuelle de primes (IPV) à la SVA Schaffhausen ?",
+        answer: "La SVA Schaffhausen transmet les propositions d'IPV d'après les données fiscales. Les demandes de révision peuvent être introduites sur svash.ch/ipv."
+      },
+      {
+        question: "Le Kantonsspital Schaffhausen est-il affilié à toutes les caisses d'assurance maladie ?",
+        answer: "Oui, les Spitäler Schaffhausen (Kantonsspital) garantissent l'accès en division commune pour l'ensemble des assureurs suisses de base."
+      },
+      {
+        question: "Comment économiser sur sa prime d'assurance maladie à Schaffhouse ?",
+        answer: "En combinant la franchise de CHF 2'500.- avec un modèle de médecin de famille ou de télémédecine (mediX Schaffhausen, KPTwin.doc), vous pouvez économiser jusqu'à CHF 1'350.- par an."
       }
     ],
     metaDescription: "Assurance maladie Schaffhouse (SH) 2026 : Krankenkassenvergleich Schaffhausen. Primes officielles OFSP, caisses (KPT, CSS, Swica) et subsides SVA SH.",
     seoTitle: "Assurance Maladie Schaffhouse 2026 : Primes & Caisses (SH)",
-    h1: "Assurance maladie dans le canton de Schaffhouse : comparatif 2026",
+    h1: "Assurance maladie dans le canton de Schaffhouse (SH) : comparatif 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   },
@@ -259,11 +303,23 @@ export const SUISSE_ORIENTALE_TESSIN_CANTONS: Record<string, CantonSEOData> = {
       {
         question: "Quelles caisses maladie choisir en Appenzell Rhodes-Extérieures ?",
         answer: "ÖKK, Assura, CSS et Concordia sont les caisses les plus recommandées pour les habitants d'Herisau, Teufen et Heiden."
+      },
+      {
+        question: "Comment solliciter une réduction de prime (IPV) auprès de la SVA Appenzell Ausserrhoden ?",
+        answer: "La SVA Appenzell Ausserrhoden à Herisau évalue les déclarations fiscales et transmet les attestations d'octroi. Consultez sva-ar.ch pour toute démarche."
+      },
+      {
+        question: "Les hôpitaux du SVAR (Herisau, Heiden) sont-ils conventionnés LAMal ?",
+        answer: "Oui, le Spitalverbund Appenzell Ausserrhoden (SVAR) assure les soins en division commune pour toutes les caisses d'assurance maladie de Suisse."
+      },
+      {
+        question: "Comment changer de caisse maladie en Appenzell Rhodes-Extérieures ?",
+        answer: "La résiliation écrite doit parvenir à votre assureur au plus tard le 30 novembre pour une affiliation au 1er janvier."
       }
     ],
     metaDescription: "Assurance maladie Appenzell Rhodes-Extérieures (AR) 2026 : Krankenkassenvergleich Herisau & Teufen. Primes officielles OFSP, caisses et subsides SVA AR.",
     seoTitle: "Assurance Maladie Appenzell Rhodes-Extérieures 2026 : Primes (AR)",
-    h1: "Assurance maladie en Appenzell Rhodes-Extérieures : comparatif 2026",
+    h1: "Assurance maladie en Appenzell Rhodes-Extérieures (AR) : comparatif 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   },
@@ -324,11 +380,23 @@ export const SUISSE_ORIENTALE_TESSIN_CANTONS: Record<string, CantonSEOData> = {
       {
         question: "Pourquoi l'assurance maladie est-elle la moins chère de Suisse en Appenzell Rhodes-Intérieures ?",
         answer: "Le canton d'Appenzell Rhodes-Intérieures affiche le coût de la santé par habitant le plus bas de la Confédération grâce à une faible densité d'actes médicaux superflus, une excellente hygiène de vie et un recours raisonné aux soins d'urgence."
+      },
+      {
+        question: "Quelle est la prime mensuelle minimale à Appenzell en 2026 ?",
+        answer: "Avec une prime mensuelle débutant à environ CHF 158.40 pour un adulte (franchise 2'500 et modèle médecin ÖKK / Assura), Appenzell Rhodes-Intérieures détient le record suisse du tarif le plus bas."
+      },
+      {
+        question: "Comment sont pris en charge les soins hospitaliers à Appenzell ?",
+        answer: "L'Appenzeller Kantonsspital et le KSSG de Saint-Gall assurent la couverture complète en division commune pour l'ensemble des assureurs de la LAMal."
+      },
+      {
+        question: "Comment demander un subside d'assurance maladie à Appenzell Rhodes-Intérieures ?",
+        answer: "Le Gesundheits- und Sozialdepartement à Appenzell traite directement les demandes selon le barème cantonal officiel disponible sur ai.ch."
       }
     ],
     metaDescription: "Assurance maladie Appenzell Rhodes-Intérieures (AI) 2026 : les primes les moins chères de Suisse dès CHF 158/mois. Krankenkassenvergleich Appenzell officiel.",
     seoTitle: "Assurance Maladie Appenzell Rhodes-Intérieures 2026 : Primes Record (AI)",
-    h1: "Assurance maladie en Appenzell Rhodes-Intérieures : primes les plus basses de Suisse 2026",
+    h1: "Assurance maladie en Appenzell Rhodes-Intérieures (AI) : primes les plus basses 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   },
@@ -387,11 +455,23 @@ export const SUISSE_ORIENTALE_TESSIN_CANTONS: Record<string, CantonSEOData> = {
       {
         question: "Quelle caisse maladie choisir dans le canton de Glaris ?",
         answer: "Assura, CSS et Concordia sont les caisses les plus demandées à Glaris, Näfels et Schwanden pour leur excellent rapport prix/remboursement."
+      },
+      {
+        question: "Comment solliciter l'IPV auprès de la SVA Glarus ?",
+        answer: "La SVA Glarus examine la déclaration fiscale et notifie les bénéficiaires éligibles. Les demandes complémentaires peuvent être envoyées sur svaglarus.ch/ipv."
+      },
+      {
+        question: "Le Kantonsspital Glarus (KSGL) est-il reconnu par l'assurance obligatoire ?",
+        answer: "Oui, le KSGL est l'établissement hospitalier central du canton et prend en charge tous les assurés suisses en division commune."
+      },
+      {
+        question: "Comment résilier son assurance maladie à Glaris avant le 30 novembre ?",
+        answer: "Transmettez votre courrier recommandé avant le 30 novembre pour garantir le changement de caisse au 1er janvier."
       }
     ],
     metaDescription: "Assurance maladie Glaris (GL) 2026 : Krankenkassenvergleich Glarus (Glarus Nord, Süd). Primes officielles OFSP, caisses et subsides SVA GL.",
     seoTitle: "Assurance Maladie Glaris 2026 : Primes & Caisses Pas Chères (GL)",
-    h1: "Assurance maladie dans le canton de Glaris : comparatif officiel 2026",
+    h1: "Assurance maladie dans le canton de Glaris (GL) : comparatif officiel 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   },
@@ -452,12 +532,28 @@ export const SUISSE_ORIENTALE_TESSIN_CANTONS: Record<string, CantonSEOData> = {
     faqs: [
       {
         question: "Quelle est la caisse maladie la plus populaire dans les Grisons ?",
-        answer: "ÖKK, dont le siège central est situé à Landquart, est l'assureur historique et le plus souscrit du canton des Grisons, suivi par CSS et Concordia."
+        answer: "ÖKK, dont le siège central est situé à Landquart, est l'assureur historique et le plus souscrit du canton des Grisons, suivi par CSS, Concordia et Aquilana."
+      },
+      {
+        question: "Comment se découpent les 3 régions de primes dans les Grisons ?",
+        answer: "La Région 1 comprend Coire et la vallée du Rhin. La Région 2 comprend Davos, la Haute-Engadine et le Prättigau. La Région 3 couvre la Surselva et les vallées du sud (Poschiavo, Bregaglia)."
+      },
+      {
+        question: "Comment demander une réduction de prime (IPV) auprès de la SVA Graubünden ?",
+        answer: "La SVA Graubünden à Coire transmet automatiquement les attestations aux ménages éligibles. Les demandes de réévaluation peuvent être faites sur sva.gr.ch/ipv."
+      },
+      {
+        question: "Les hôpitaux de Coire (KSGR), Davos et Samedan sont-ils tous pris en charge ?",
+        answer: "Oui, tous les hôpitaux de la liste hospitalière grisonne (KSGR Chur, Spital Davos, Spital Oberengadin Samedan, Regionalspital Surselva) sont couverts en division commune LAMal."
+      },
+      {
+        question: "Quels sont les rabais offerts par les réseaux médicaux aux Grisons ?",
+        answer: "En adhérant aux réseaux mediX grischuna ou Hausärzte KSGR via votre caisse, vous bénéficiez de 10% à 16% d'économies mensuelles sur vos primes."
       }
     ],
     metaDescription: "Assurance maladie Grisons (GR) 2026 : Krankenkassenvergleich Graubünden (Chur, Davos, St. Moritz). Primes officielles OFSP, caisses (ÖKK, CSS) et subsides SVA GR.",
     seoTitle: "Assurance Maladie Grisons 2026 : Primes & Caisses (GR)",
-    h1: "Assurance maladie dans le canton des Grisons : comparatif officiel 2026",
+    h1: "Assurance maladie dans le canton des Grisons (GR) : comparatif officiel 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   },
@@ -522,12 +618,24 @@ export const SUISSE_ORIENTALE_TESSIN_CANTONS: Record<string, CantonSEOData> = {
       },
       {
         question: "Come richiedere la riduzione individuale dei premi (RIP) in Ticino presso l'IAS ?",
-        answer: "L'Istituto delle assicurazioni sociali (IAS) a Bellinzona esamina i dati fiscali cantonali e invia una proposta agli aventi diritto. È possibile fare domanda online su iasticino.ch."
+        answer: "L'Istituto delle assicurazioni sociali (IAS) a Bellinzona esamina i dati fiscali cantonali e invia una proposta agli aventi diritto. È possibile fare domanda online su iasticino.ch/rip."
+      },
+      {
+        question: "Qual è la differenza di premio tra Sopraceneri e Sottoceneri ?",
+        answer: "La Regione 1 (Sottoceneri: Lugano, Mendrisio) presenta premi leggermente superiori rispetto alla Regione 2 (Sopraceneri: Bellinzona, Locarno, Valli), dove il costo medio è di circa 4-6% inferiore."
+      },
+      {
+        question: "Gli ospedali dell'Ente Ospedaliero Cantonale (EOC) sono coperti da tutte le casse malati ?",
+        answer: "Sì, tutti gli stabilimenti pubblici dell'EOC (Civico e Italiano a Lugano, San Giovanni a Bellinzona, La Carità a Locarno, Beata Vergine a Mendrisio) sono accessibili con la LAMal di base in divisione comune."
+      },
+      {
+        question: "Quali sono le regole per i frontalieri italiani in Ticino ?",
+        answer: "I lavoratori frontalieri con permesso G possono esercitare il diritto di opzione formale entro 3 mesi dall'inizio dell'attività, scegliendo tra l'assicurazione sanitaria svizzera LAMal frontalieri e il Servizio Sanitario Nazionale italiano."
       }
     ],
     metaDescription: "Assicurazione malattia Ticino (TI) 2026 : Confronto casse malati Lugano, Bellinzona, Locarno. Premi ufficiali UFSP, casse più economiche e sussidi RIP.",
-    seoTitle: "Assicurazione Malattia Ticino 2026 : Confronto Casse & Premi (TI)",
-    h1: "Assicurazione malattia nel cantone Ticino : confronto premi e casse 2026",
+    seoTitle: "Assicurazione Maladie Ticino 2026 : Confronto Casse & Premi (TI)",
+    h1: "Assicurazione malattia nel cantone Ticino (TI) : confronto premi e casse 2026",
     year: 2026,
     lastUpdated: 'Août 2026'
   }
