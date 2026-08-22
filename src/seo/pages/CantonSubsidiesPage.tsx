@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  * 
  * Canton Subsidies Page (/subsides/:cantonSlug/)
- * Deep-dive cantonal subsidy guide with official agency links, thresholds, and deadlines.
+ * Deep-dive cantonal subsidy guide with embedded Fenny Simulator, official agency links, thresholds, and deadlines.
  */
 
 import React, { useState } from 'react';
@@ -23,7 +23,8 @@ import {
   Percent, 
   AlertCircle,
   Clock,
-  ArrowLeft
+  ArrowLeft,
+  Sparkles
 } from 'lucide-react';
 import SEOHead, { breadcrumbSchema, faqSchema, organizationSchema } from '../components/SEOHead';
 import Breadcrumb from '../components/Breadcrumb';
@@ -31,6 +32,7 @@ import { CantonSEOData } from '../data/cantonTypes';
 import { CANTONS_SEO_DATA } from '../data/cantonsData';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { AppTab } from '../../types';
+import FennySubsidySimulator from '../../components/FennySubsidySimulator';
 
 interface Props {
   cantonSlug: string;
@@ -95,6 +97,7 @@ export default function CantonSubsidiesPage({ cantonSlug, onStartComparison, onG
 
         {/* Back Link */}
         <button
+          type="button"
           onClick={() => onNavigate('/subsides/')}
           className="inline-flex items-center gap-1.5 text-xs font-bold text-fennec-dark/60 hover:text-fennec-dark mb-6 cursor-pointer"
         >
@@ -119,6 +122,15 @@ export default function CantonSubsidiesPage({ cantonSlug, onStartComparison, onG
           <p className="text-fennec-dark/75 text-base sm:text-lg leading-relaxed">
             {canton.subsideDescription}
           </p>
+        </div>
+
+        {/* EMBEDDED FENNY SIMULATOR PRESET FOR THIS CANTON */}
+        <div className="mb-10">
+          <FennySubsidySimulator
+            initialCanton={canton.code}
+            onStartHealthComparison={onStartComparison}
+            onNavigateCantonGuide={(slug) => onNavigate(`/subsides/${slug}/`)}
+          />
         </div>
 
         {/* Official Authority Card */}
@@ -241,6 +253,7 @@ export default function CantonSubsidiesPage({ cantonSlug, onStartComparison, onG
               </p>
             </div>
             <button
+              type="button"
               onClick={() => onStartComparison(canton.code)}
               className="text-xs font-bold text-fennec-terracotta hover:underline inline-flex items-center gap-1 cursor-pointer shrink-0"
             >
@@ -259,29 +272,20 @@ export default function CantonSubsidiesPage({ cantonSlug, onStartComparison, onG
                   <h3 className="font-display font-bold text-sm text-fennec-dark">{ins.name}</h3>
                   <p className="text-[11px] text-fennec-dark/60">{ins.model}</p>
                 </div>
-                <div className="mt-3 pt-3 border-t border-fennec-cream/50">
-                  <div className="text-xs text-fennec-dark/70 flex justify-between">
-                    <span>Franchise 2500 :</span>
-                    <span className="font-bold text-emerald-700">{ins.adult2500}</span>
-                  </div>
-                  <div className="text-xs text-fennec-dark/70 flex justify-between">
-                    <span>Franchise 300 :</span>
-                    <span className="font-bold text-fennec-dark">{ins.adult300}</span>
-                  </div>
+                <div className="mt-3 pt-2 border-t border-fennec-cream/60">
+                  <span className="text-xs font-bold text-fennec-dark block">{ins.adult2500}</span>
+                  <span className="text-[10px] text-fennec-dark/50">Franchise 2500 / mois</span>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* FAQs */}
-        <div className="bg-white rounded-3xl border border-fennec-cream/70 p-6 sm:p-8 mb-8 shadow-xs">
-          <div className="flex items-center gap-3 mb-6">
-            <HelpCircle className="w-5 h-5 text-fennec-terracotta" />
-            <h2 className="font-display font-bold text-xl sm:text-2xl text-fennec-dark">
-              Questions fréquentes sur les subsides en {canton.name}
-            </h2>
-          </div>
+        {/* Canton Specific FAQs */}
+        <div className="bg-white rounded-3xl border border-fennec-cream/70 p-6 sm:p-8 mb-8 shadow-xs space-y-4">
+          <h2 className="font-display font-bold text-xl text-fennec-dark mb-2">
+            Questions fréquentes sur les subsides en {canton.name}
+          </h2>
 
           <div className="space-y-3">
             {cantonFaqs.map((faq, idx) => {
@@ -289,20 +293,19 @@ export default function CantonSubsidiesPage({ cantonSlug, onStartComparison, onG
               return (
                 <div key={idx} className="border border-fennec-cream/60 rounded-2xl overflow-hidden">
                   <button
+                    type="button"
                     onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="w-full text-left p-4 sm:p-5 flex items-center justify-between gap-4 hover:bg-fennec-cream/20 transition-colors cursor-pointer"
+                    className="w-full p-4 text-left font-display font-bold text-xs sm:text-sm text-fennec-dark flex items-center justify-between gap-4 hover:bg-[#FAF7F3] transition-colors cursor-pointer"
                   >
-                    <span className="font-display font-bold text-sm text-fennec-dark">
-                      {faq.question}
-                    </span>
+                    <span>{faq.question}</span>
                     {isOpen ? (
                       <ChevronUp className="w-4 h-4 text-fennec-terracotta shrink-0" />
                     ) : (
-                      <ChevronDown className="w-4 h-4 text-fennec-dark/40 shrink-0" />
+                      <ChevronDown className="w-4 h-4 text-fennec-dark/50 shrink-0" />
                     )}
                   </button>
                   {isOpen && (
-                    <div className="p-4 sm:p-5 pt-0 text-xs sm:text-sm text-fennec-dark/75 leading-relaxed border-t border-fennec-cream/40 bg-[#FAF7F3]">
+                    <div className="p-4 pt-0 text-xs text-fennec-dark/75 leading-relaxed bg-[#FAF7F3]/40 border-t border-fennec-cream/40">
                       {faq.answer}
                     </div>
                   )}
@@ -312,22 +315,25 @@ export default function CantonSubsidiesPage({ cantonSlug, onStartComparison, onG
           </div>
         </div>
 
-        {/* CTA */}
-        <div className="bg-gradient-to-br from-fennec-dark to-[#241A15] text-white rounded-3xl p-8 text-center space-y-4 shadow-md">
-          <h2 className="font-display font-bold text-2xl">
-            Simulez vos primes 2026 dans le canton de {canton.name}
-          </h2>
-          <p className="text-white/80 text-sm max-w-xl mx-auto">
-            Comparez instantanément tous les modèles d'assurance (Telmed, Médecin de famille, HMO) et trouvez la caisse idéale.
-          </p>
+        {/* Bottom CTA */}
+        <div className="p-6 sm:p-8 rounded-3xl bg-fennec-dark text-white flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <h3 className="font-display font-bold text-lg sm:text-xl text-white">
+              Calculez vos économies 2026 dans le canton de {canton.name}
+            </h3>
+            <p className="text-xs text-white/70 mt-1">
+              Comparez les primes officielles de toutes les caisses agréées en quelques clics.
+            </p>
+          </div>
           <button
+            type="button"
             onClick={() => onStartComparison(canton.code)}
-            className="inline-flex items-center gap-2 bg-fennec-terracotta hover:bg-fennec-terracotta/90 text-white font-display font-bold px-7 py-3.5 rounded-full shadow-md transition-all active:scale-95 text-xs uppercase tracking-wider cursor-pointer"
+            className="bg-fennec-terracotta hover:bg-fennec-terracotta/90 text-white font-display font-bold px-6 py-3 rounded-full text-xs uppercase tracking-wider transition-all active:scale-95 shrink-0 shadow-xs cursor-pointer"
           >
-            Lancer le comparateur {canton.name}
-            <ArrowRight className="w-4 h-4" />
+            Comparer en {canton.code}
           </button>
         </div>
+
       </div>
     </>
   );

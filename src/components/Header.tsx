@@ -20,12 +20,17 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { t } = useLanguage();
 
-  const navItems = [
+  const navItems: { id: AppTab; label: string; activeWhen?: (tab: AppTab) => boolean }[] = [
     { id: 'health-comparator', label: t('health_insurance') },
+    { 
+      id: 'hub-subsides', 
+      label: t('subsidies'),
+      activeWhen: (tab) => tab === 'hub-subsides' || tab.startsWith('subside-')
+    },
     { id: 'life-comparator', label: t('life_insurance') },
     { id: 'about', label: t('about_fenny') },
     { id: 'faq', label: t('faq') },
-  ] as const;
+  ];
 
   const handleNavClick = (tab: AppTab) => {
     onTabChange(tab);
@@ -81,12 +86,12 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
           {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center space-x-1 lg:space-x-3">
             {navItems.map((item) => {
-              const isActive = currentTab === item.id;
+              const isActive = item.activeWhen ? item.activeWhen(currentTab) : currentTab === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`px-4 py-2 rounded-full font-display font-semibold text-sm transition-all duration-200 ${
+                  className={`px-4 py-2 rounded-full font-display font-semibold text-sm transition-all duration-200 cursor-pointer ${
                     isActive
                       ? 'bg-fennec-terracotta text-white shadow-sm'
                       : 'text-fennec-dark hover:bg-fennec-cream/40 hover:text-fennec-terracotta'
@@ -133,12 +138,12 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
             <LanguageSelector variant="mobile" />
 
             {navItems.map((item) => {
-              const isActive = currentTab === item.id;
+              const isActive = item.activeWhen ? item.activeWhen(currentTab) : currentTab === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`w-full text-left px-4 py-3 rounded-xl font-display font-bold text-base transition-colors ${
+                  className={`w-full text-left px-4 py-3 rounded-xl font-display font-bold text-base transition-colors cursor-pointer ${
                     isActive
                       ? 'bg-fennec-cream text-fennec-terracotta'
                       : 'text-fennec-dark hover:bg-fennec-cream/20'

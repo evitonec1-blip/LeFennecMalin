@@ -1,6 +1,6 @@
 {
   "name": "Le Fennec Malin",
-  "description": "Comparateur suisse d'assurances (maladie, vie, 3ème pilier) avec Fenny le fennec malin.",
+  "description": "Comparateur suisse d'assurances (maladie, subsides, vie, 3ème pilier) avec Fenny le fennec malin.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

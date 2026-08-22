@@ -26,6 +26,7 @@ export const translations = {
   fr: {
     // Navigation
     health_insurance: "Assurance Maladie",
+    subsidies: "Subsides",
     life_insurance: "Assurance Vie / 3e Pilier",
     about_fenny: "À propos de Fenny",
     faq: "FAQ",
@@ -166,6 +167,7 @@ export const translations = {
   de: {
     // Navigation
     health_insurance: "Krankenversicherung",
+    subsidies: "Prämienverbilligung",
     life_insurance: "Lebensversicherung / 3. Säule",
     about_fenny: "Über Fenny",
     faq: "FAQ",
@@ -306,6 +308,7 @@ export const translations = {
   en: {
     // Navigation
     health_insurance: "Health Insurance",
+    subsidies: "Subsidies",
     life_insurance: "Life Insurance / 3rd Pillar",
     about_fenny: "About Fenny",
     faq: "FAQ",
@@ -446,6 +449,7 @@ export const translations = {
   it: {
     // Navigation
     health_insurance: "Assicurazione Malattia",
+    subsidies: "Sussidi",
     life_insurance: "Assicurazione Vita / 3° Pilastro",
     about_fenny: "A proposito di Fenny",
     faq: "FAQ",
@@ -586,6 +590,7 @@ export const translations = {
 
   es: {
     health_insurance: "Seguro de Enfermedad",
+    subsidies: "Subsidios",
     life_insurance: "Seguro de Vida / 3er Pilar",
     about_fenny: "Sobre Fenny",
     faq: "FAQ",
@@ -708,6 +713,7 @@ export const translations = {
 
   pt: {
     health_insurance: "Seguro de Saúde",
+    subsidies: "Subsídios",
     life_insurance: "Seguro de Vida / 3º Pilar",
     about_fenny: "Sobre Fenny",
     faq: "FAQ",

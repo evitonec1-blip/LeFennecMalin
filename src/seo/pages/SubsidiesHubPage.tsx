@@ -2,8 +2,8 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
  * 
- * Subsidies / Subsides Hub Page (/subsides/)
- * Comprehensive Guide to Swiss Health Insurance Subsidies across all 26 Cantons.
+ * Subsidies / Subsides Hub Page (/subsides/ or /subside)
+ * Comprehensive Guide & Fenny Simulator for Swiss Health Insurance Subsidies across all 26 Cantons.
  */
 
 import React, { useState } from 'react';
@@ -24,13 +24,18 @@ import {
   UserCheck,
   ShieldCheck,
   TrendingUp,
-  Percent
+  Percent,
+  Sparkles
 } from 'lucide-react';
 import SEOHead, { breadcrumbSchema, faqSchema, organizationSchema } from '../components/SEOHead';
 import Breadcrumb from '../components/Breadcrumb';
 import { ALL_26_CANTONS, CANTONS_SEO_DATA } from '../data/cantonsData';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { AppTab } from '../../types';
+import FennySubsidySimulator from '../../components/FennySubsidySimulator';
+
+// Mascot image
+import fenyWinking from '../../assets/images/feny_mascot_avatar_1783245725195.jpg';
 
 interface Props {
   onStartComparison: (cantonCode?: string) => void;
@@ -46,7 +51,7 @@ const SUBSIDIES_FAQS = [
   },
   {
     question: "Qui a droit aux subsides cantonaux d'assurance maladie ?",
-    answer: "Toute personne assurée en Suisse (salarié, indépendant, retraité, étudiant, apprenti, demandeur d'emploi) dont le revenu et la fortune du ménage ne dépassent pas les plafonds légaux fixés par son canton de domicile. Les conditions varient considérablement d'un canton à l'autre."
+    answer: "Toute personne assurée en Suisse (salarié, indépendant, retraité, étudiant, apprenti, demandeur d'emploi) dont le revenu et la fortune du ménage ne dépassent pas les plafonds légaux fixés par son canton de domicile. Les conditions varient d'un canton à l'autre."
   },
   {
     question: "Comment est calculé le droit aux subsides (RDU vs Revenu imposable) ?",
@@ -58,11 +63,11 @@ const SUBSIDIES_FAQS = [
   },
   {
     question: "L'octroi du subside est-il automatique ou faut-il faire une demande ?",
-    answer: "Dans certains cantons (comme Genève ou Vaud pour les personnes taxées de manière ordinaire), l'éligibilité est calculée automatiquement lors du traitement de la déclaration d'impôt. Toutefois, en cas de baisse récente de revenus, de divorce, de fin de chômage ou d'arrivée en Suisse, vous devez impérativement déposer une demande extraordinaire avant la date limite cantonale."
+    answer: "Dans certains cantons (comme Genève ou Vaud pour les personnes taxées de manière ordinaire), l'éligibilité est calculée automatiquement lors du traitement de la déclaration d'impôt. Toutefois, en cas de baisse récente de revenus, de séparation, de fin de chômage ou d'arrivée en Suisse, vous devez impérativement déposer une demande extraordinaire avant la date limite cantonale."
   },
   {
     question: "Puis-je changer de caisse maladie si je reçois des subsides ?",
-    answer: "Oui, absolument ! Le fait de percevoir un subside n'entrave en rien votre droit de résilier votre contrat pour choisir une caisse maladie moins chère au 1er janvier. Changer pour un assureur économique permet souvent de couvrir l'intégralité de la prime avec le subside."
+    answer: "Oui, absolument ! Le fait de percevoir un subside n'entrave en rien votre droit de résilier votre contrat pour choisir une caisse maladie moins chère au 1er janvier. Changer pour un assureur économique permet souvent de couvrir l'intégralité de la prime avec le subside et d'annuler votre reste à charge."
   }
 ];
 
@@ -87,13 +92,27 @@ export default function SubsidiesHubPage({ onStartComparison, onGoHome, onNaviga
     return true;
   });
 
+  const scrollToSimulator = () => {
+    const el = document.getElementById('fenny-subsidy-simulator');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const scrollToGuide = () => {
+    const el = document.getElementById('subsidy-guide-section');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
       <SEOHead
         tab={'hub-subsides' as AppTab}
         language={language}
-        title="Subsides Assurance Maladie Suisse 2026 — Guide & Barèmes par Canton | Le Fennec Malin"
-        description="Guide complet des subsides LAMal en Suisse : conditions d'octroi, plafonds de revenus (RDU), démarches par canton (Genève, Vaud, Valais, Fribourg) et simulateur."
+        title="Subsides Assurance Maladie Suisse 2026 — Simulateur Fenny & Barèmes 26 Cantons | Le Fennec Malin"
+        description="Vérifiez votre éligibilité aux subsides d'assurance maladie (LAMal 2026) avec Fenny. Simulateur gratuit, barèmes RDU par canton (Genève, Vaud, Valais, Fribourg...) et démarches officielles."
         structuredData={structured}
       />
 
@@ -105,39 +124,73 @@ export default function SubsidiesHubPage({ onStartComparison, onGoHome, onNaviga
           ]}
         />
 
-        {/* Hero Banner */}
-        <div className="mb-12">
-          <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full mb-4">
-            <Coins className="w-3.5 h-3.5" />
-            Aides Publiques Cantonales 2026 · LAMal
-          </div>
-          <h1 className="font-display font-black text-3xl sm:text-4xl md:text-5xl text-fennec-dark mb-4 leading-tight">
-            Subsides d'assurance maladie en Suisse : barèmes et démarches 2026
-          </h1>
-          <p className="text-fennec-dark/75 text-base sm:text-lg leading-relaxed mb-8">
-            En Suisse, près de <strong>30% des ménages</strong> ont droit à une réduction individuelle de prime (subside) financée par leur canton pour payer leur assurance obligatoire des soins (LAMal). Découvrez les conditions d'octroi, les plafonds de revenus et comment déposer votre demande.
-          </p>
+        {/* Hero Banner with Fenny Companion */}
+        <div className="mb-12 bg-gradient-to-br from-[#FAF7F3] via-white to-orange-50/20 rounded-3xl border border-fennec-cream/80 p-6 sm:p-10 shadow-xs">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+            <div className="flex-1 space-y-4">
+              <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full">
+                <Coins className="w-3.5 h-3.5" />
+                Aides Publiques Cantonales 2026 · LAMal
+              </div>
+              <h1 className="font-display font-black text-2xl sm:text-4xl md:text-5xl text-fennec-dark leading-tight">
+                🦊 Fenny t’aide à vérifier si tu peux bénéficier d’un subside !
+              </h1>
+              <p className="text-fennec-dark/75 text-base sm:text-lg leading-relaxed">
+                Le subside peut réduire une partie de vos primes d’assurance maladie. Répondez à quelques questions et découvrez si vous pourriez être éligible selon les barèmes officiels 2026 de votre canton.
+              </p>
 
-          <div className="flex flex-wrap items-center gap-4">
-            <button
-              onClick={() => onStartComparison()}
-              className="inline-flex items-center gap-2 bg-fennec-terracotta text-white font-display font-bold px-7 py-3.5 rounded-full shadow-md hover:bg-fennec-terracotta/90 transition-all active:scale-95 text-xs uppercase tracking-wider cursor-pointer"
-            >
-              Calculer mes primes & subsides
-              <ArrowRight className="w-4 h-4" />
-            </button>
-            <a
-              href="#cantons-grid"
-              className="inline-flex items-center gap-2 bg-fennec-cream/40 hover:bg-fennec-cream/70 text-fennec-dark font-display font-bold px-6 py-3.5 rounded-full transition-all text-xs uppercase tracking-wider cursor-pointer"
-            >
-              Voir les barèmes par canton
-              <ChevronDown className="w-4 h-4" />
-            </a>
+              <div className="flex flex-wrap items-center gap-3.5 pt-2">
+                <button
+                  type="button"
+                  onClick={scrollToSimulator}
+                  className="inline-flex items-center gap-2 bg-fennec-terracotta text-white font-display font-bold px-7 py-3.5 rounded-full shadow-md hover:bg-fennec-terracotta/90 transition-all active:scale-95 text-xs uppercase tracking-wider cursor-pointer"
+                >
+                  <Sparkles className="w-4 h-4" />
+                  Vérifier mon droit au subside
+                </button>
+                <button
+                  type="button"
+                  onClick={scrollToGuide}
+                  className="inline-flex items-center gap-2 bg-white hover:bg-fennec-cream/40 text-fennec-dark border border-fennec-cream/80 font-display font-bold px-6 py-3.5 rounded-full transition-all text-xs uppercase tracking-wider cursor-pointer shadow-xs"
+                >
+                  Comprendre les subsides
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Mascot Visual Badge */}
+            <div className="shrink-0 self-center md:self-auto flex flex-col items-center">
+              <div className="relative">
+                <img
+                  src={fenyWinking}
+                  alt="Fenny mascotte comparateur subside"
+                  className="w-28 h-28 sm:w-36 sm:h-36 rounded-3xl object-cover border-4 border-white shadow-lg"
+                />
+                <span className="absolute -bottom-2 -right-2 bg-emerald-600 text-white font-black text-[11px] px-3 py-1 rounded-full shadow-xs">
+                  2026 Validé
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 
+        {/* INTERACTIVE FENNY SUBSIDY SIMULATOR */}
+        <div className="mb-14">
+          <FennySubsidySimulator
+            onStartHealthComparison={onStartComparison}
+            onNavigateCantonGuide={(slug) => {
+              if (onSelectCanton) {
+                onSelectCanton(slug);
+              } else {
+                onNavigate(`/subsides/${slug}/`);
+              }
+            }}
+          />
+        </div>
+
         {/* 3 Key Concepts of Subsidies */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-14">
           <div className="bg-white rounded-3xl border border-fennec-cream/60 p-6 shadow-xs">
             <div className="w-10 h-10 bg-emerald-50 rounded-2xl flex items-center justify-center mb-4 text-emerald-600">
               <Coins className="w-5 h-5" />
@@ -175,8 +228,8 @@ export default function SubsidiesHubPage({ onStartComparison, onGoHome, onNaviga
           </div>
         </div>
 
-        {/* How Subsidies Work Section */}
-        <div className="bg-white rounded-3xl border border-fennec-cream/60 p-6 sm:p-10 mb-12 shadow-xs space-y-8">
+        {/* How Subsidies Work Section (Guide) */}
+        <div id="subsidy-guide-section" className="bg-white rounded-3xl border border-fennec-cream/60 p-6 sm:p-10 mb-14 shadow-xs space-y-8">
           <div className="space-y-3">
             <h2 className="font-display font-black text-2xl sm:text-3xl text-fennec-dark">
               Comment fonctionne le calcul du subside d'assurance-maladie ?
@@ -198,7 +251,7 @@ export default function SubsidiesHubPage({ onStartComparison, onGoHome, onNaviga
               <ul className="text-xs text-fennec-dark/70 space-y-1.5 list-disc pl-4">
                 <li>Le revenu net imposable de tous les membres du foyer fiscal</li>
                 <li>Une part de la fortune nette (généralement 1/10e ou 1/15e au-delà d'une franchise)</li>
-                <li>Des déductions forfaitaires par enfant à charge (CHF 5'000 à CHF 10'000 / enfant)</li>
+                <li>Des déductions forfaitaires par enfant à charge (CHF 8'000 à CHF 12'000 / enfant)</li>
               </ul>
             </div>
 
@@ -213,7 +266,7 @@ export default function SubsidiesHubPage({ onStartComparison, onGoHome, onNaviga
               <ul className="text-xs text-fennec-dark/70 space-y-1.5 list-disc pl-4">
                 <li><strong>Traitement d'office :</strong> Calculé lors de votre avis de taxation annuelle.</li>
                 <li><strong>Demande sur formulaire :</strong> Indispensable pour les indépendants en création, nouveaux arrivants, étudiants majeurs ou en cas de baisse de salaire supérieure à 15-20%.</li>
-                <li><strong>Délai légal :</strong> Déposer sa demande avant le 30 novembre pour rétroactivité au 1er janvier.</li>
+                <li><strong>Délai légal :</strong> Déposer sa demande avant le 30 novembre pour effet rétroactif au 1er janvier.</li>
               </ul>
             </div>
           </div>
@@ -246,7 +299,7 @@ export default function SubsidiesHubPage({ onStartComparison, onGoHome, onNaviga
         </div>
 
         {/* Canton Directory Section */}
-        <div id="cantons-grid" className="mb-12">
+        <div id="cantons-grid" className="mb-14">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div>
               <h2 className="font-display font-black text-2xl sm:text-3xl text-fennec-dark">
@@ -260,18 +313,21 @@ export default function SubsidiesHubPage({ onStartComparison, onGoHome, onNaviga
             {/* Filter buttons */}
             <div className="flex items-center gap-1.5 p-1 bg-fennec-cream/30 rounded-full text-xs font-semibold self-start sm:self-auto">
               <button
+                type="button"
                 onClick={() => setFilterRegion('all')}
                 className={`px-3 py-1.5 rounded-full transition-all cursor-pointer ${filterRegion === 'all' ? 'bg-fennec-dark text-white' : 'text-fennec-dark/70 hover:text-fennec-dark'}`}
               >
                 Tous (26)
               </button>
               <button
+                type="button"
                 onClick={() => setFilterRegion('romandie')}
                 className={`px-3 py-1.5 rounded-full transition-all cursor-pointer ${filterRegion === 'romandie' ? 'bg-fennec-dark text-white' : 'text-fennec-dark/70 hover:text-fennec-dark'}`}
               >
                 Romandie
               </button>
               <button
+                type="button"
                 onClick={() => setFilterRegion('alemanique')}
                 className={`px-3 py-1.5 rounded-full transition-all cursor-pointer ${filterRegion === 'alemanique' ? 'bg-fennec-dark text-white' : 'text-fennec-dark/70 hover:text-fennec-dark'}`}
               >
@@ -298,49 +354,51 @@ export default function SubsidiesHubPage({ onStartComparison, onGoHome, onNaviga
                         <span className="w-7 h-7 bg-fennec-terracotta/10 text-fennec-terracotta font-black text-xs rounded-lg flex items-center justify-center font-mono">
                           {canton.code}
                         </span>
-                        <h3 className="font-display font-bold text-base text-fennec-dark group-hover:text-fennec-terracotta transition-colors">
+                        <h3 className="font-display font-bold text-base text-fennec-dark">
                           {canton.name}
                         </h3>
                       </div>
-                      <span className="text-[10px] uppercase font-bold tracking-wider text-fennec-dark/50 bg-fennec-cream/30 px-2 py-0.5 rounded-md">
-                        {canton.region.split(' ')[0]}
+                      <span className="text-[10px] uppercase font-bold text-fennec-dark/40 bg-fennec-cream/30 px-2 py-0.5 rounded-full">
+                        {canton.region}
                       </span>
                     </div>
 
-                    <div className="space-y-2 mb-4">
+                    <div className="space-y-2 mb-4 text-xs">
                       <div>
-                        <span className="text-[11px] font-bold text-fennec-dark/60 block">Organisme :</span>
-                        <span className="text-xs font-semibold text-fennec-dark line-clamp-1">{agency}</span>
+                        <span className="text-fennec-dark/50 block text-[11px] font-bold">Organisme :</span>
+                        <p className="font-medium text-fennec-dark/85 line-clamp-1">{agency}</p>
                       </div>
                       <div>
-                        <span className="text-[11px] font-bold text-fennec-dark/60 block">Seuils indicatifs :</span>
-                        <p className="text-xs text-fennec-dark/75 line-clamp-2 leading-relaxed">{limits}</p>
+                        <span className="text-fennec-dark/50 block text-[11px] font-bold">Plafonds :</span>
+                        <p className="text-fennec-dark/70 text-[11px] line-clamp-2 leading-relaxed">{limits}</p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="pt-3 border-t border-fennec-cream/40 flex items-center justify-between">
+                  <div className="pt-3 border-t border-fennec-cream/50 flex items-center justify-between gap-2">
                     <button
+                      type="button"
                       onClick={() => {
-                        if (onSelectCanton) onSelectCanton(canton.slug);
-                        else onNavigate(`/assurance-maladie/${canton.slug}/`);
+                        if (onSelectCanton) {
+                          onSelectCanton(canton.slug);
+                        } else {
+                          onNavigate(`/subsides/${canton.slug}/`);
+                        }
                       }}
                       className="text-xs font-bold text-fennec-terracotta hover:underline inline-flex items-center gap-1 cursor-pointer"
                     >
-                      <span>Primes {canton.name}</span>
-                      <ArrowRight className="w-3 h-3" />
+                      <span>Guide complet</span>
+                      <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                     </button>
-                    {data?.subsideLink && (
-                      <a
-                        href={data.subsideLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[11px] text-fennec-dark/60 hover:text-fennec-dark inline-flex items-center gap-1"
-                      >
-                        <span>Portail officiel</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
-                    )}
+                    <a
+                      href={link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[11px] text-fennec-dark/50 hover:text-fennec-dark inline-flex items-center gap-1"
+                    >
+                      <span>Portail</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
                   </div>
                 </div>
               );
@@ -348,35 +406,44 @@ export default function SubsidiesHubPage({ onStartComparison, onGoHome, onNaviga
           </div>
         </div>
 
-        {/* FAQs */}
-        <div className="bg-white rounded-3xl border border-fennec-cream/60 p-6 sm:p-10 mb-12 shadow-xs">
-          <div className="flex items-center gap-3 mb-6">
-            <HelpCircle className="w-6 h-6 text-fennec-terracotta" />
-            <h2 className="font-display font-black text-2xl sm:text-3xl text-fennec-dark">
-              Foire aux questions sur les subsides d'assurance maladie
-            </h2>
+        {/* FAQ Section */}
+        <div className="bg-white rounded-3xl border border-fennec-cream/60 p-6 sm:p-10 mb-14 shadow-xs space-y-6">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-amber-500/10 rounded-2xl flex items-center justify-center text-amber-700">
+              <HelpCircle className="w-5 h-5" />
+            </div>
+            <div>
+              <h2 className="font-display font-black text-2xl text-fennec-dark">
+                Foire aux questions sur les subsides LAMal
+              </h2>
+              <p className="text-xs text-fennec-dark/60">
+                Tout ce que vous devez savoir pour obtenir votre réduction individuelle de prime.
+              </p>
+            </div>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-3 pt-2">
             {SUBSIDIES_FAQS.map((faq, idx) => {
               const isOpen = openFaq === idx;
               return (
-                <div key={idx} className="border border-fennec-cream/60 rounded-2xl overflow-hidden">
+                <div
+                  key={idx}
+                  className="rounded-2xl border border-fennec-cream/60 overflow-hidden transition-all"
+                >
                   <button
+                    type="button"
                     onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="w-full text-left p-4 sm:p-5 flex items-center justify-between gap-4 hover:bg-fennec-cream/20 transition-colors cursor-pointer"
+                    className="w-full p-4 sm:p-5 text-left font-display font-bold text-sm sm:text-base text-fennec-dark flex items-center justify-between gap-4 hover:bg-[#FAF7F3] transition-colors cursor-pointer"
                   >
-                    <span className="font-display font-bold text-sm sm:text-base text-fennec-dark">
-                      {faq.question}
-                    </span>
+                    <span>{faq.question}</span>
                     {isOpen ? (
-                      <ChevronUp className="w-5 h-5 text-fennec-terracotta shrink-0" />
+                      <ChevronUp className="w-4 h-4 text-fennec-terracotta shrink-0" />
                     ) : (
-                      <ChevronDown className="w-5 h-5 text-fennec-dark/40 shrink-0" />
+                      <ChevronDown className="w-4 h-4 text-fennec-dark/50 shrink-0" />
                     )}
                   </button>
                   {isOpen && (
-                    <div className="p-4 sm:p-5 pt-0 text-xs sm:text-sm text-fennec-dark/75 leading-relaxed border-t border-fennec-cream/40 bg-[#FAF7F3]">
+                    <div className="p-4 sm:p-5 pt-0 text-xs sm:text-sm text-fennec-dark/75 leading-relaxed bg-[#FAF7F3]/40 border-t border-fennec-cream/40">
                       {faq.answer}
                     </div>
                   )}
@@ -386,27 +453,26 @@ export default function SubsidiesHubPage({ onStartComparison, onGoHome, onNaviga
           </div>
         </div>
 
-        {/* CTA Bottom */}
-        <div className="bg-gradient-to-br from-fennec-dark to-[#241A15] text-white rounded-3xl p-8 sm:p-10 text-center space-y-5 shadow-lg">
-          <span className="inline-block px-3 py-1 bg-white/10 rounded-full text-xs font-bold tracking-wider uppercase text-fennec-sand">
-            Optimisation Budgétaire 2026
-          </span>
-          <h2 className="font-display font-black text-2xl sm:text-3xl">
-            Cumulez subsides et primes les plus basses
-          </h2>
-          <p className="text-white/80 text-sm max-w-xl mx-auto leading-relaxed">
-            En choisissant la caisse maladie la moins chère de votre canton, votre subside couvre une proportion bien plus importante de vos coûts de santé. Calculez votre économie nette en 2 minutes.
-          </p>
-          <div className="pt-2">
-            <button
-              onClick={() => onStartComparison()}
-              className="inline-flex items-center gap-2 bg-fennec-terracotta hover:bg-fennec-terracotta/90 text-white font-display font-bold px-8 py-4 rounded-full shadow-md transition-all active:scale-95 text-xs uppercase tracking-wider cursor-pointer"
-            >
-              Lancer le comparateur officiel 2026
-              <ArrowRight className="w-4 h-4" />
-            </button>
+        {/* Bottom Comparison CTA Banner */}
+        <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-fennec-dark to-stone-900 text-white text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
+          <div className="space-y-2 max-w-xl">
+            <h3 className="font-display font-black text-2xl sm:text-3xl text-white">
+              Maximisez vos économies avec la caisse la moins chère
+            </h3>
+            <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+              Même avec un subside, le choix d'un assureur économique permet d'annuler totalement votre reste à charge. Comparez les 37 caisses suisses en 2 minutes.
+            </p>
           </div>
+          <button
+            type="button"
+            onClick={() => onStartComparison()}
+            className="inline-flex items-center gap-2 bg-fennec-terracotta hover:bg-fennec-terracotta/90 text-white font-display font-bold px-7 py-3.5 rounded-full text-xs uppercase tracking-wider transition-all active:scale-95 shadow-md shrink-0 cursor-pointer"
+          >
+            <span>Comparer maintenant</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </div>
+
       </div>
     </>
   );
