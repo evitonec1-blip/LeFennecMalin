@@ -41,11 +41,16 @@ import { CATEGORIES_SEO_DATA } from './seo/data/categoriesData';
 import { INSURERS_SEO_DATA } from './seo/data/insurersData';
 import { GUIDES_SEO_DATA } from './seo/data/guidesData';
 import SEOHead, { organizationSchema, websiteSchema } from './seo/components/SEOHead';
-import { resolveRouteFromPath, getLocalizedUrl, MULTILINGUAL_ROUTES } from './seo/multilingualRoutes';
+import { resolveRouteFromPath, getLocalizedPath, MULTILINGUAL_ROUTES } from './seo/multilingualRoutes';
 
 function pushURL(path: string) {
   if (typeof window !== 'undefined' && window.location.pathname !== path) {
-    window.history.pushState({}, '', path);
+    try {
+      window.history.pushState({}, '', path);
+    } catch (e) {
+      // Ignore pushState errors in sandboxed iframes or cross-origin contexts
+      console.debug('[App] history.pushState suppressed:', e);
+    }
   }
 }
 import FAQSection from './components/FAQSection';
@@ -68,8 +73,8 @@ export default function App() {
 
   // Initialize from URL path using multilingual resolver
   const [currentTab, setCurrentTab] = useState<AppTab>(() => {
-    const fromPath = typeof window !== 'undefined' ? resolveRouteFromPath(window.location.pathname) : { tab: 'home', language: 'fr' };
-    return fromPath.tab;
+    const fromPath = typeof window !== 'undefined' ? resolveRouteFromPath(window.location.pathname) : { tab: 'home' as AppTab, language: 'fr' as const };
+    return fromPath.tab as AppTab;
   });
   const [selectedCantonPreset, setSelectedCantonPreset] = useState<string | undefined>(undefined);
   const [activeVertical, setActiveVertical] = useState<'health' | 'life'>('health');
@@ -77,8 +82,8 @@ export default function App() {
   // Sync URL when tab changes
   const setTab = (tab: AppTab) => {
     setCurrentTab(tab);
-    const targetUrl = getLocalizedUrl(tab, language);
-    pushURL(targetUrl);
+    const targetPath = getLocalizedPath(tab, language);
+    pushURL(targetPath);
   };
 
   // Sync URL when language changes via LanguageSelector
@@ -86,8 +91,8 @@ export default function App() {
   useEffect(() => {
     if (prevLangRef.current !== language) {
       prevLangRef.current = language;
-      const targetUrl = getLocalizedUrl(currentTab, language);
-      pushURL(targetUrl);
+      const targetPath = getLocalizedPath(currentTab, language);
+      pushURL(targetPath);
     }
   }, [language, currentTab]);
 
@@ -561,7 +566,10 @@ export default function App() {
 
         {currentTab === 'about' && (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <AboutSection />
+            <AboutSection
+              onStartComparison={() => setTab('health-comparator')}
+              onTabChange={setTab}
+            />
           </div>
         )}
 
@@ -611,10 +619,8 @@ export default function App() {
 
         {currentTab === 'seo-maladie' && (
           <AssuranceMaladie
-            onStartComparison={startHealthWithCanton}
+            onStartComparison={() => startHealthWithCanton()}
             onGoHome={() => setTab('home')}
-            onNavigate={navigateToUrl}
-            onSelectCanton={(s) => setTab(`canton-${s}` as AppTab)}
           />
         )}
 

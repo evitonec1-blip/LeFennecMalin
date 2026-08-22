@@ -107,14 +107,15 @@ async function getClientPremiumsDb(): Promise<Record<string, { premium: number; 
       cache: "force-cache"
     });
     if (!res.ok) {
-      throw new Error(`Failed to load premiums_2026.json (status ${res.status})`);
+      console.warn(`[PriminfoService] premiums_2026.json status: ${res.status}`);
+      return {};
     }
     const data = await res.json();
     clientPremiumsDbCache = data;
     return data;
   } catch (err) {
     console.error("[PriminfoService] Error loading local client-side JSON cache:", err);
-    throw err;
+    return {};
   }
 }
 
@@ -132,15 +133,21 @@ let clientNpaMapCache: Record<string, NpaRegionEntry[]> | null = null;
 
 async function getClientNpaMap(): Promise<Record<string, NpaRegionEntry[]>> {
   if (clientNpaMapCache) return clientNpaMapCache;
-  const res = await fetch('/npa_to_region.json', {
-    headers: { "Accept": "application/json" },
-    cache: "force-cache"
-  });
-  if (!res.ok) {
-    throw new Error(`Failed to load npa_to_region.json (status ${res.status})`);
+  try {
+    const res = await fetch('/npa_to_region.json', {
+      headers: { "Accept": "application/json" },
+      cache: "force-cache"
+    });
+    if (!res.ok) {
+      console.warn(`[PriminfoService] npa_to_region.json status: ${res.status}`);
+      return {};
+    }
+    clientNpaMapCache = await res.json();
+    return clientNpaMapCache || {};
+  } catch (err) {
+    console.error("[PriminfoService] Failed to load npa_to_region.json:", err);
+    return {};
   }
-  clientNpaMapCache = await res.json();
-  return clientNpaMapCache!;
 }
 
 /**

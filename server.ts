@@ -10,9 +10,11 @@ import { fileURLToPath } from "url";
 import { getInsurerDisplayName, getInsurerModelFallbackName, translateModelNameToFrench, lookupPremium, getAgeCategoryFromYob, getRegionCode, ACTIVE_INSURER_IDS } from "./src/utils/premiumLookupService.js";
 import { resolveZipCode } from "./src/utils/swissZipCodes.js";
 
-// Polyfill __filename and __dirname for ESM environments
-const __filename_esm = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename_esm);
+// Safe __dirname for both tsx (ESM) and esbuild (CJS bundle)
+const __dirname_resolved = typeof __dirname !== "undefined" 
+  ? __dirname 
+  : (typeof import.meta !== "undefined" && import.meta.url ? path.dirname(fileURLToPath(import.meta.url)) : process.cwd());
+
 
 // Load environment variables
 dotenv.config();
@@ -95,10 +97,10 @@ function getLogoData() {
   const possiblePaths = [
     path.join(process.cwd(), "public", "fennec-logo.jpg"),
     path.join(process.cwd(), "dist", "fennec-logo.jpg"),
-    path.join(__dirname, "public", "fennec-logo.jpg"),
-    path.join(__dirname, "..", "public", "fennec-logo.jpg"),
+    path.join(__dirname_resolved, "public", "fennec-logo.jpg"),
+    path.join(__dirname_resolved, "..", "public", "fennec-logo.jpg"),
     path.join(process.cwd(), "src", "assets", "images", "feny_logo_1783331214351.jpg"),
-    path.join(__dirname, "src", "assets", "images", "feny_logo_1783331214351.jpg"),
+    path.join(__dirname_resolved, "src", "assets", "images", "feny_logo_1783331214351.jpg"),
   ];
 
   for (const p of possiblePaths) {
@@ -895,11 +897,9 @@ function loadNpaToRegionMap() {
   const candidatePaths = [
     path.join(cwd, "data", "npa_to_region_2026.csv"),
     path.join(cwd, "public", "npa_to_region_2026.csv"),
+    path.join(__dirname_resolved, "data", "npa_to_region_2026.csv"),
+    path.join(__dirname_resolved, "..", "data", "npa_to_region_2026.csv"),
   ];
-  if (typeof __dirname !== "undefined") {
-    candidatePaths.push(path.join(__dirname, "data", "npa_to_region_2026.csv"));
-    candidatePaths.push(path.join(__dirname, "..", "data", "npa_to_region_2026.csv"));
-  }
   const existingPath = candidatePaths.find(p => fs.existsSync(p));
   if (existingPath) {
     try {
@@ -948,11 +948,9 @@ async function loadPremiums() {
   const candidatePaths = [
     path.join(cwd, "public", "premiums_2026.json"),
     path.join(cwd, "dist", "premiums_2026.json"),
+    path.join(__dirname_resolved, "public", "premiums_2026.json"),
+    path.join(__dirname_resolved, "..", "public", "premiums_2026.json"),
   ];
-  if (typeof __dirname !== "undefined") {
-    candidatePaths.push(path.join(__dirname, "public", "premiums_2026.json"));
-    candidatePaths.push(path.join(__dirname, "..", "public", "premiums_2026.json"));
-  }
 
   const existingPath = candidatePaths.find(p => fs.existsSync(p));
 

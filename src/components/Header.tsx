@@ -34,13 +34,9 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
   };
 
   const handleLogoClick = () => {
-    if (currentTab === 'home') {
-      window.location.href = '/';
-    } else {
-      onTabChange('home');
-      setMobileMenuOpen(false);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    onTabChange('home');
+    setMobileMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (

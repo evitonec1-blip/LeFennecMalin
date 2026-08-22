@@ -2093,7 +2093,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
   const [analysisStage, setAnalysisStage] = useState<number>(0);
   const [showFiltersInline, setShowFiltersInline] = useState<boolean>(false);
   const [expandedCompany, setExpandedCompany] = useState<string | null>(null);
-  const [offersTab, setOffersTab] = useState<'all' | 'yield' | 'guaranteed'>('all');
+  const [offersTab, setOffersTab] = useState<'all' | 'yield' | 'guaranteed' | 'partner'>('all');
 
   // SMS & Email verification states
   const [verificationStep, setVerificationStep] = useState<'details' | 'code'>('details');
@@ -4499,7 +4499,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
                 <form onSubmit={handleFormSubmit} className="space-y-4">
                   <div className="p-3.5 bg-emerald-50 rounded-xl border border-emerald-200 text-xs text-emerald-900 leading-normal">
                     <strong>{ui.summaryProjectionLabel}</strong><br />
-                    {ui.monthlySavingsPrefix} <strong>CHF {monthlyAmount}.-</strong> {ui.monthlySavingsMiddle1} <strong>{duration} {ui.yearsUnit}</strong>. {ui.monthlySavingsMiddle2} <strong>CHF {selectedAssureur.expectedSum.toLocaleString()}.-</strong> {ui.monthlySavingsMiddle3} {selectedAssureur.name}. {ui.monthlySavingsMiddle4} <strong>CHF {((selectedAssureur.taxSavingsPerYear || 0) * duration).toLocaleString()}.-</strong> {ui.monthlySavingsSuffix}
+                    {ui.monthlySavingsPrefix} <strong>CHF {monthlyAmount}.-</strong> {ui.monthlySavingsMiddle1} <strong>{duration} {ui.yearsUnit}</strong>. {ui.monthlySavingsMiddle2} <strong>CHF {(selectedAssureur.expectedSum || 0).toLocaleString()}.-</strong> {ui.monthlySavingsMiddle3} {selectedAssureur.name}. {ui.monthlySavingsMiddle4} <strong>CHF {((selectedAssureur.taxSavingsPerYear || 0) * duration).toLocaleString()}.-</strong> {ui.monthlySavingsSuffix}
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">

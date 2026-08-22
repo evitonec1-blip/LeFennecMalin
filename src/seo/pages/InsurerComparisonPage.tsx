@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import SEOHead, { breadcrumbSchema, faqSchema, organizationSchema } from '../components/SEOHead';
 import Breadcrumb from '../components/Breadcrumb';
+import CompanyLogo from '../../components/CompanyLogo';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { AppTab } from '../../types';
 
@@ -213,7 +214,10 @@ export default function InsurerComparisonPage({ comparisonId, onNavigate, onStar
             {/* Insurer A */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold text-slate-900">{comp.nameA}</h2>
+                <div className="flex items-center gap-3">
+                  <CompanyLogo id={comp.tabA.replace('insurer-', '')} className="w-12 h-12 shrink-0" />
+                  <h2 className="text-2xl font-bold text-slate-900">{comp.nameA}</h2>
+                </div>
                 <button
                   onClick={() => onNavigate(comp.tabA)}
                   className="text-xs text-emerald-600 hover:text-emerald-700 font-semibold flex items-center gap-1"
@@ -252,7 +256,10 @@ export default function InsurerComparisonPage({ comparisonId, onNavigate, onStar
             {/* Insurer B */}
             <div className="space-y-4 md:pl-8 pt-6 md:pt-0">
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold text-slate-900">{comp.nameB}</h2>
+                <div className="flex items-center gap-3">
+                  <CompanyLogo id={comp.tabB.replace('insurer-', '')} className="w-12 h-12 shrink-0" />
+                  <h2 className="text-2xl font-bold text-slate-900">{comp.nameB}</h2>
+                </div>
                 <button
                   onClick={() => onNavigate(comp.tabB)}
                   className="text-xs text-emerald-600 hover:text-emerald-700 font-semibold flex items-center gap-1"

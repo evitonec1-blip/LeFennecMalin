@@ -17,6 +17,7 @@ const DOMAIN_MAP: Record<string, string> = {
   // Caisses Maladie
   okk: 'oekk.ch',
   'ökk': 'oekk.ch',
+  oekk: 'oekk.ch',
   assura: 'assura.ch',
   glarner: 'glarnerkv.ch',
   waedenswil: 'kkwaedenswil.ch',
@@ -40,6 +41,9 @@ const DOMAIN_MAP: Record<string, string> = {
   sana24: 'visana.ch',
   rhenusana: 'rhenusana.ch',
   mutuel: 'groupemutuel.ch',
+  groupemutuel: 'groupemutuel.ch',
+  'groupe mutuel': 'groupemutuel.ch',
+  'groupe-mutuel': 'groupemutuel.ch',
   easysana: 'groupemutuel.ch',
   philos: 'groupemutuel.ch',
   avenir: 'groupemutuel.ch',
@@ -48,6 +52,9 @@ const DOMAIN_MAP: Record<string, string> = {
   progres: 'helsana.ch',
   visana: 'visana.ch',
   helsana: 'helsana.ch',
+  concordia: 'concordia.ch',
+  egk: 'egk.ch',
+  sanitas: 'sanitas.com',
 
   // Assureurs Vie
   swisslife: 'swisslife.ch',
@@ -69,8 +76,6 @@ const DOMAIN_MAP: Record<string, string> = {
   'retraite populaire': 'retraitepopulaire.ch',
   vaudoise: 'vaudoise.ch',
   'la vaudoise': 'vaudoise.ch',
-  groupemutuel: 'groupemutuel.ch',
-  'groupe mutuel': 'groupemutuel.ch',
 };
 
 const NUMERIC_ID_MAP: Record<string, string> = {
@@ -135,8 +140,9 @@ export function resolveBrandKey(rawId: string): string {
   if (clean.includes('mutuel')) return 'mutuel';
   if (clean.includes('atupri')) return 'atupri';
   if (clean.includes('sympany')) return 'sympany';
-  if (clean.includes('okk') || clean.includes('ökk')) return 'okk';
+  if (clean.includes('okk') || clean.includes('ökk') || clean.includes('oekk')) return 'okk';
   if (clean.includes('agrisano')) return 'agrisano';
+  if (clean.includes('egk')) return 'egk';
   if (clean.includes('aquilana')) return 'aquilana';
   if (clean.includes('sodalis')) return 'sodalis';
   if (clean.includes('rhenusana')) return 'rhenusana';
@@ -166,6 +172,8 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
     visana: 'https://www.google.com/s2/favicons?sz=128&domain=visana.ch',
     groupemutuel: 'https://www.google.com/s2/favicons?sz=128&domain=groupemutuel.ch',
     mutuel: 'https://www.google.com/s2/favicons?sz=128&domain=groupemutuel.ch',
+    'groupe mutuel': 'https://www.google.com/s2/favicons?sz=128&domain=groupemutuel.ch',
+    'groupe-mutuel': 'https://www.google.com/s2/favicons?sz=128&domain=groupemutuel.ch',
     avenir: 'https://www.google.com/s2/favicons?sz=128&domain=groupemutuel.ch',
     philos: 'https://www.google.com/s2/favicons?sz=128&domain=groupemutuel.ch',
     amb: 'https://www.google.com/s2/favicons?sz=128&domain=groupemutuel.ch',
@@ -176,9 +184,14 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
     assura: 'https://www.google.com/s2/favicons?sz=128&domain=assura.ch',
     atupri: 'https://www.google.com/s2/favicons?sz=128&domain=atupri.ch',
     okk: 'https://www.google.com/s2/favicons?sz=128&domain=oekk.ch',
+    oekk: 'https://www.google.com/s2/favicons?sz=128&domain=oekk.ch',
+    'ökk': 'https://www.google.com/s2/favicons?sz=128&domain=oekk.ch',
+    concordia: 'https://www.google.com/s2/favicons?sz=128&domain=concordia.ch',
+    egk: 'https://www.google.com/s2/favicons?sz=128&domain=egk.ch',
     agrisano: 'https://www.google.com/s2/favicons?sz=128&domain=agrisano.ch',
     aquilana: 'https://www.google.com/s2/favicons?sz=128&domain=aquilana.ch',
     sodalis: 'https://www.google.com/s2/favicons?sz=128&domain=sodalis.ch',
+    sanitas: sanitasLogo,
 
     // Assureurs Vie (Life Insurers)
     swisslife: 'https://www.google.com/s2/favicons?sz=128&domain=swisslife.ch',
@@ -466,8 +479,15 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
         </div>
       );
 
-    case 'curaulta':
     case 'egk':
+      return (
+        <div className={`${className} bg-[#33691E] rounded-2xl flex flex-col items-center justify-center p-2 text-white shadow-2xs`}>
+          <span className="text-xs font-black font-display tracking-widest text-[#AEEA00]">EGK</span>
+          <span className="text-[6px] font-bold text-white/90 uppercase tracking-widest mt-0.5">Gesundheit</span>
+        </div>
+      );
+
+    case 'curaulta':
     case 'slkk':
     case 'surselva':
     case 'visperterminen':

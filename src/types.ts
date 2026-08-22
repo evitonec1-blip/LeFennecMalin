@@ -156,6 +156,8 @@ export interface CaisseMaladie {
   ratingStars: number;
   logo: string; // Shorthand/placeholder or visual symbol
   basePrice: number; // Standard monthly premium at Franchise 300, baseline canton, standard model, Region 1
+  calculatedPrice?: number;
+  realModelName?: string;
   isPartner: boolean;
   notes: string;
 }
@@ -170,6 +172,11 @@ export interface AssureurVie {
   supportedTypes: ('3a' | '3b' | 'mixte' | 'deces')[];
   guarantees: string[];
   pros: string[];
+  expectedSum?: number;
+  guaranteedSum?: number;
+  totalInvested?: number;
+  taxSavingsPerYear?: number;
+  score?: number;
 }
 
 export interface HealthFilterState {
@@ -242,7 +249,7 @@ export interface LifeFilterState {
   // Question 4: Assurance-vie liée : besoins de couverture
   deathCoverageNeeded?: boolean;
   deathCoverageAmount?: number;
-  disabilityCoverageNeeded?: 'rente' | 'capital' | 'none';
+  disabilityCoverageNeeded?: 'rente' | 'capital' | 'none' | 'monthly-pension';
   disabilityPensionAmount?: number;
   premiumExemptionNeeded?: boolean;
   hasDependents?: boolean;

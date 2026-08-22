@@ -23,6 +23,7 @@ import {
 import SEOHead, { breadcrumbSchema, faqSchema, organizationSchema } from '../components/SEOHead';
 import Breadcrumb from '../components/Breadcrumb';
 import { INSURERS_SEO_DATA, InsurerSEOData } from '../data/insurersData';
+import CompanyLogo from '../../components/CompanyLogo';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { AppTab } from '../../types';
 
@@ -151,12 +152,7 @@ export default function InsurersDirectoryPage({ onStartComparison, onGoHome, onN
                 {/* Header */}
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center text-white font-black text-base shadow-sm"
-                      style={{ backgroundColor: ins.brandColor }}
-                    >
-                      {ins.name.slice(0, 3).toUpperCase()}
-                    </div>
+                    <CompanyLogo id={ins.slug || ins.id || ins.name} className="w-12 h-12 shrink-0" />
                     <div>
                       <h2 className="font-extrabold text-stone-900 text-lg leading-snug">
                         {ins.name}
