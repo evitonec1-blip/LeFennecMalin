@@ -180,7 +180,7 @@ export function validateAllCantons(): {
 if (typeof process !== 'undefined' && process.argv[1]?.includes('validateCantonSeo')) {
   const result = validateAllCantons();
   console.log('================================================================');
-  console.log('🦊 LEFENNECMALIN — 26 CANTON SEO AUTOMATED VALIDATOR REPORT');
+  console.log('LEFENNECMALIN — 26 CANTON SEO AUTOMATED VALIDATOR REPORT');
   console.log('================================================================');
   console.log(`Total Cantons Tested: ${result.summary.totalCantons}`);
   console.log(`Passed: ${result.summary.passed} / ${result.summary.totalCantons}`);

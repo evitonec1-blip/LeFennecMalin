@@ -133,7 +133,7 @@ export default function SubsidiesHubPage({ onStartComparison, onGoHome, onNaviga
                 Aides Publiques Cantonales 2026 · LAMal
               </div>
               <h1 className="font-display font-black text-2xl sm:text-4xl md:text-5xl text-fennec-dark leading-tight">
-                🦊 Fenny t’aide à vérifier si tu peux bénéficier d’un subside !
+                Fenny t’aide à vérifier si tu peux bénéficier d’un subside !
               </h1>
               <p className="text-fennec-dark/75 text-base sm:text-lg leading-relaxed">
                 Le subside peut réduire une partie de vos primes d’assurance maladie. Répondez à quelques questions et découvrez si vous pourriez être éligible selon les barèmes officiels 2026 de votre canton.

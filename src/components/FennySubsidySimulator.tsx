@@ -257,9 +257,11 @@ export default function FennySubsidySimulator({
         {/* Fenny Advice Bubble */}
         <div className="px-6 sm:px-8 pt-6 pb-2">
           <div className="bg-[#FAF7F3] border border-fennec-cream/70 rounded-2xl p-4 flex items-start gap-3.5">
-            <div className="w-8 h-8 rounded-full bg-fennec-terracotta/10 text-fennec-terracotta flex items-center justify-center shrink-0 mt-0.5 font-bold text-sm">
-              🦊
-            </div>
+            <img
+              src={fenyWinking}
+              alt="Fenny"
+              className="w-8 h-8 rounded-full object-cover border border-fennec-cream/80 shrink-0 mt-0.5"
+            />
             <p className="text-xs sm:text-sm text-fennec-dark/85 leading-relaxed font-medium">
               <strong className="text-fennec-dark">Fenny : </strong>
               {getFennyAdvice()}

@@ -554,7 +554,7 @@ Prime mensuelle calculée : ${computedPrem ? `CHF ${computedPrem.toFixed(2)} / m
               Des questions sur vos assurances ? Contactez-nous à <a href="mailto:contact@lefennecmalin.ch" style="color: #D36D53; font-weight: bold;">contact@lefennecmalin.ch</a>.
             </p>
             <p style="font-size: 14px; color: #2F2921; font-weight: bold; margin-top: 16px; margin-bottom: 0;">
-              L'équipe de Fenny, Le Fennec Malin 🦊🇨🇭
+              L'équipe de Fenny, Le Fennec Malin 🇨🇭
             </p>
           </div>
 
@@ -793,7 +793,7 @@ Gain fiscal total estimé : ${totalTaxSavings ? `CHF ${totalTaxSavings.toLocaleS
               Une question sur la fiscalité ou vos contrats ? Écrivez-nous à <a href="mailto:contact@lefennecmalin.ch" style="color: #D36D53; font-weight: bold;">contact@lefennecmalin.ch</a>.
             </p>
             <p style="font-size: 14px; color: #2F2921; font-weight: bold; margin-top: 16px; margin-bottom: 0;">
-              L'équipe de Fenny, Le Fennec Malin 🦊🇨🇭
+              L'équipe de Fenny, Le Fennec Malin 🇨🇭
             </p>
           </div>
 
