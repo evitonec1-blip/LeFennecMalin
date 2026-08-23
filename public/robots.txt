@@ -9,8 +9,10 @@ Allow: /en/
 Allow: /es/
 Allow: /pt/
 
-# Block API routes from indexing
+# Block API and share routes from indexing
 Disallow: /api/
+Disallow: /share/*
+Disallow: /share/
 
 # Sitemaps
 Sitemap: https://www.lefennecmalin.ch/sitemap.xml
