@@ -37,14 +37,30 @@ function parseCsv(text) {
   return rows;
 }
 
+function isJsonValid(filePath, minSize = 10000) {
+  if (!fs.existsSync(filePath)) return false;
+  if (fs.statSync(filePath).size < minSize) return false;
+  try {
+    const raw = fs.readFileSync(filePath, 'utf-8');
+    JSON.parse(raw);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 function buildPremiums() {
   const csvPath = path.join(DATA_DIR, 'premiums_2026.csv');
   const gzPath = path.join(DATA_DIR, 'premiums_2026.csv.gz');
   const jsonPath = path.join(PUBLIC_DIR, 'premiums_2026.json');
+  const rootJsonPath = path.join(process.cwd(), 'premiums_2026.json');
   let text = '';
 
-  if (fs.existsSync(jsonPath) && fs.statSync(jsonPath).size > 100000) {
-    console.log('[download-premiums] public/premiums_2026.json already exists, skipping CSV parse.');
+  if (isJsonValid(jsonPath, 100000)) {
+    console.log('[download-premiums] public/premiums_2026.json is already valid, skipping CSV parse.');
+    if (!isJsonValid(rootJsonPath, 100000)) {
+      fs.copyFileSync(jsonPath, rootJsonPath);
+    }
     return;
   } else if (fs.existsSync(csvPath)) {
     text = fs.readFileSync(csvPath, 'utf-8');
@@ -82,7 +98,13 @@ function buildPremiums() {
   console.log(`[download-premiums] Parsed ${rows.length} rows, skipped ${skipped}, wrote ${Object.keys(db).length} unique keys.`);
 
   if (!fs.existsSync(PUBLIC_DIR)) fs.mkdirSync(PUBLIC_DIR, { recursive: true });
-  fs.writeFileSync(jsonPath, JSON.stringify(db));
+  const serialized = JSON.stringify(db);
+  fs.writeFileSync(jsonPath, serialized);
+  fs.writeFileSync(rootJsonPath, serialized);
+  const distDir = path.join(process.cwd(), 'dist');
+  if (fs.existsSync(distDir)) {
+    fs.writeFileSync(path.join(distDir, 'premiums_2026.json'), serialized);
+  }
   console.log(`[download-premiums] Wrote public/premiums_2026.json (${(fs.statSync(jsonPath).size / 1024 / 1024).toFixed(2)} MB)`);
 }
 
@@ -92,8 +114,8 @@ function buildNpaMap() {
   const jsonPath = path.join(PUBLIC_DIR, 'npa_to_region.json');
   let text = '';
 
-  if (fs.existsSync(jsonPath) && fs.statSync(jsonPath).size > 10000) {
-    console.log('[download-premiums] public/npa_to_region.json already exists, skipping NPA build.');
+  if (isJsonValid(jsonPath, 1000)) {
+    console.log('[download-premiums] public/npa_to_region.json is valid, skipping NPA build.');
     return;
   } else if (fs.existsSync(csvPath)) {
     text = fs.readFileSync(csvPath, 'utf-8');
