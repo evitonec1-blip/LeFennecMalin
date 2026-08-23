@@ -204,14 +204,14 @@ export function scanSeoDataStructures(): {
   // 2. Iterate over INSURERS_SEO_DATA (Health Funds & Insurers)
   for (const [slug, insurer] of Object.entries(INSURERS_SEO_DATA)) {
     insurersCount++;
-    const insurerTab = `assurance-${insurer.slug}` as AppTab;
+    const insurerTab = `insurer-${insurer.slug}` as AppTab;
     registerTab(insurerTab, insurer.lastUpdated || TODAY, 'monthly', 0.80);
   }
 
   // 3. Iterate over CATEGORIES_SEO_DATA (Insurance Verticals)
   for (const [slug, cat] of Object.entries(CATEGORIES_SEO_DATA)) {
     categoriesCount++;
-    const catTab = `assurance-${cat.slug}` as AppTab;
+    const catTab = `category-${cat.slug}` as AppTab;
     registerTab(catTab, cat.lastUpdated || TODAY, 'monthly', 0.80);
   }
 

@@ -6,7 +6,7 @@
 import { Language } from '../i18n/translations';
 import { AppTab } from '../types';
 import { SITE_URL } from './site';
-import { CANTONS_SEO_DATA } from './data/cantonsData';
+import { CANTONS_SEO_DATA, ALL_26_CANTONS } from './data/cantonsData';
 import { INSURERS_SEO_DATA } from './data/insurersData';
 import { GUIDES_SEO_DATA } from './data/guidesData';
 
@@ -1071,7 +1071,10 @@ function generateAllCantonRoutes(): Record<string, MultilingualRouteConfig> {
     schwyz: { de: 'schwyz', it: 'svitto', en: 'schwyz', deName: 'Schwyz', itName: 'Svitto', enName: 'Schwyz' },
   };
 
-  for (const [slug, data] of Object.entries(CANTONS_SEO_DATA)) {
+  for (const cantonInfo of ALL_26_CANTONS) {
+    const slug = cantonInfo.slug;
+    const data = CANTONS_SEO_DATA[slug];
+    if (!data) continue;
     const tabKey = `canton-${slug}` as AppTab;
     const trans = cantonSlugTranslations[slug] || { de: slug, it: slug, en: slug, deName: data.name, itName: data.name, enName: data.name };
 
@@ -1208,7 +1211,10 @@ function generateAllSubsidiesRoutes(): Record<string, MultilingualRouteConfig> {
   };
 
   // 26 Cantonal Subsidy Pages
-  for (const [slug, data] of Object.entries(CANTONS_SEO_DATA)) {
+  for (const cantonInfo of ALL_26_CANTONS) {
+    const slug = cantonInfo.slug;
+    const data = CANTONS_SEO_DATA[slug];
+    if (!data) continue;
     const tabKey = `subside-${slug}` as AppTab;
     const trans = cantonSlugTranslations[slug] || { de: slug, it: slug, en: slug, deName: data.name, itName: data.name, enName: data.name };
     const agencyName = (data as any).subsideAgency || 'Caisse de compensation cantonale';
