@@ -42,9 +42,11 @@ import {
 import { calculateSubsidyEligibility } from '../subsidy/calculator';
 import { trackSubsidyEvent } from '../subsidy/analytics';
 
-// Mascot image imports
-import fenyWinking from '../assets/images/feny_mascot_avatar_1783245725195.jpg';
+// Mascot image imports - distinct for each step and context
+import fenyAvatar from '../assets/images/feny_mascot_avatar_1783245725195.jpg';
+import fenyThinking from '../assets/images/feny_thinking_1783331247759.jpg';
 import fenyAnalyse from '../assets/images/IMG_20260804_161612_upscaled.jpg';
+import fenySavings from '../assets/images/feny_mascot_savings_1783245711111.jpg';
 import fenyResults from '../assets/images/feny_mascot_compare_1783245694484.jpg';
 
 interface Props {
@@ -201,6 +203,29 @@ export default function FennySubsidySimulator({
 
   const selectedCantonObj = SWISS_CANTONS.find((c) => c.code === canton) || SWISS_CANTONS[0];
 
+  const getHeaderMascotImage = () => {
+    if (step === 7) {
+      return result?.status === 'likely_eligible' ? fenySavings : fenyResults;
+    }
+    if (step === 1) return fenyThinking;
+    if (step === 2) return fenyAvatar;
+    if (step === 3 || step === 4) return fenyAnalyse;
+    return fenySavings;
+  };
+
+  const getAdviceBubbleImage = () => {
+    if (step === 1) return fenyThinking;
+    if (step === 2) return fenyAvatar;
+    if (step === 3 || step === 4) return fenyAnalyse;
+    if (step === 5 || step === 6) return fenySavings;
+    if (step === 7) {
+      if (result?.status === 'likely_eligible') return fenySavings;
+      if (result?.status === 'not_eligible') return fenyThinking;
+      return fenyResults;
+    }
+    return fenyAvatar;
+  };
+
   return (
     <div id="fenny-subsidy-simulator" className="w-full max-w-4xl mx-auto">
       {/* Container Box */}
@@ -211,9 +236,9 @@ export default function FennySubsidySimulator({
           <div className="flex items-center gap-4">
             <div className="relative">
               <img
-                src={step === 7 ? fenyResults : (step >= 4 ? fenyAnalyse : fenyWinking)}
+                src={getHeaderMascotImage()}
                 alt="Fenny la mascotte"
-                className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl object-cover border-2 border-white/20 shadow-xs"
+                className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl object-cover border-2 border-white/20 shadow-xs transition-all duration-300"
               />
               <span className="absolute -bottom-1 -right-1 w-5 h-5 bg-emerald-500 border-2 border-white rounded-full flex items-center justify-center text-[10px] font-black text-white">
                 ✓
@@ -258,9 +283,9 @@ export default function FennySubsidySimulator({
         <div className="px-6 sm:px-8 pt-6 pb-2">
           <div className="bg-[#FAF7F3] border border-fennec-cream/70 rounded-2xl p-4 flex items-start gap-3.5">
             <img
-              src={fenyWinking}
+              src={getAdviceBubbleImage()}
               alt="Fenny"
-              className="w-8 h-8 rounded-full object-cover border border-fennec-cream/80 shrink-0 mt-0.5"
+              className="w-9 h-9 rounded-full object-cover border border-fennec-cream/80 shrink-0 mt-0.5 shadow-xs transition-all duration-300"
             />
             <p className="text-xs sm:text-sm text-fennec-dark/85 leading-relaxed font-medium">
               <strong className="text-fennec-dark">Fenny : </strong>

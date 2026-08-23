@@ -34,8 +34,11 @@ import { useLanguage } from '../../i18n/LanguageContext';
 import { AppTab } from '../../types';
 import FennySubsidySimulator from '../../components/FennySubsidySimulator';
 
-// Mascot image
-import fenyWinking from '../../assets/images/feny_mascot_avatar_1783245725195.jpg';
+// Mascot images - distinct for each section
+import fenySavings from '../../assets/images/feny_mascot_savings_1783245711111.jpg';
+import fenyAnalyse from '../../assets/images/feny_analyse_1783331235825.jpg';
+import fenyCompare from '../../assets/images/feny_mascot_compare_1783245694484.jpg';
+import fenyThinking from '../../assets/images/feny_thinking_1783331247759.jpg';
 
 interface Props {
   onStartComparison: (cantonCode?: string) => void;
@@ -163,8 +166,8 @@ export default function SubsidiesHubPage({ onStartComparison, onGoHome, onNaviga
             <div className="shrink-0 self-center md:self-auto flex flex-col items-center">
               <div className="relative">
                 <img
-                  src={fenyWinking}
-                  alt="Fenny mascotte comparateur subside"
+                  src={fenySavings}
+                  alt="Fenny mascotte subsides et réductions primes"
                   className="w-28 h-28 sm:w-36 sm:h-36 rounded-3xl object-cover border-4 border-white shadow-lg"
                 />
                 <span className="absolute -bottom-2 -right-2 bg-emerald-600 text-white font-black text-[11px] px-3 py-1 rounded-full shadow-xs">
@@ -230,13 +233,22 @@ export default function SubsidiesHubPage({ onStartComparison, onGoHome, onNaviga
 
         {/* How Subsidies Work Section (Guide) */}
         <div id="subsidy-guide-section" className="bg-white rounded-3xl border border-fennec-cream/60 p-6 sm:p-10 mb-14 shadow-xs space-y-8">
-          <div className="space-y-3">
-            <h2 className="font-display font-black text-2xl sm:text-3xl text-fennec-dark">
-              Comment fonctionne le calcul du subside d'assurance-maladie ?
-            </h2>
-            <p className="text-sm text-fennec-dark/75 leading-relaxed">
-              Chaque canton suisse dispose de sa propre législation pour fixer le montant des aides, mais la règle fondamentale repose sur le ratio entre le coût de la prime moyenne cantonale et les capacités contributives du ménage.
-            </p>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-2">
+            <div className="space-y-3 flex-1">
+              <h2 className="font-display font-black text-2xl sm:text-3xl text-fennec-dark">
+                Comment fonctionne le calcul du subside d'assurance-maladie ?
+              </h2>
+              <p className="text-sm text-fennec-dark/75 leading-relaxed">
+                Chaque canton suisse dispose de sa propre législation pour fixer le montant des aides, mais la règle fondamentale repose sur le ratio entre le coût de la prime moyenne cantonale et les capacités contributives du ménage.
+              </p>
+            </div>
+            <div className="shrink-0 hidden sm:block">
+              <img
+                src={fenyAnalyse}
+                alt="Fenny analyse les barèmes fiscaux et RDU"
+                className="w-24 h-24 rounded-2xl object-cover border-2 border-fennec-cream/80 shadow-xs"
+              />
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -408,18 +420,25 @@ export default function SubsidiesHubPage({ onStartComparison, onGoHome, onNaviga
 
         {/* FAQ Section */}
         <div className="bg-white rounded-3xl border border-fennec-cream/60 p-6 sm:p-10 mb-14 shadow-xs space-y-6">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-amber-500/10 rounded-2xl flex items-center justify-center text-amber-700">
-              <HelpCircle className="w-5 h-5" />
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-amber-500/10 rounded-2xl flex items-center justify-center text-amber-700">
+                <HelpCircle className="w-5 h-5" />
+              </div>
+              <div>
+                <h2 className="font-display font-black text-2xl text-fennec-dark">
+                  Foire aux questions sur les subsides LAMal
+                </h2>
+                <p className="text-xs text-fennec-dark/60">
+                  Tout ce que vous devez savoir pour obtenir votre réduction individuelle de prime.
+                </p>
+              </div>
             </div>
-            <div>
-              <h2 className="font-display font-black text-2xl text-fennec-dark">
-                Foire aux questions sur les subsides LAMal
-              </h2>
-              <p className="text-xs text-fennec-dark/60">
-                Tout ce que vous devez savoir pour obtenir votre réduction individuelle de prime.
-              </p>
-            </div>
+            <img
+              src={fenyThinking}
+              alt="Fenny répond à vos questions sur les subsides"
+              className="w-12 h-12 rounded-2xl object-cover border border-fennec-cream/80 shadow-xs hidden sm:block"
+            />
           </div>
 
           <div className="space-y-3 pt-2">
@@ -455,13 +474,20 @@ export default function SubsidiesHubPage({ onStartComparison, onGoHome, onNaviga
 
         {/* Bottom Comparison CTA Banner */}
         <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-fennec-dark to-stone-900 text-white text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
-          <div className="space-y-2 max-w-xl">
-            <h3 className="font-display font-black text-2xl sm:text-3xl text-white">
-              Maximisez vos économies avec la caisse la moins chère
-            </h3>
-            <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
-              Même avec un subside, le choix d'un assureur économique permet d'annuler totalement votre reste à charge. Comparez les 37 caisses suisses en 2 minutes.
-            </p>
+          <div className="flex items-center gap-5">
+            <img
+              src={fenyCompare}
+              alt="Fenny compare les caisses maladie"
+              className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover border-2 border-white/20 shadow-xs hidden sm:block shrink-0"
+            />
+            <div className="space-y-2 max-w-xl">
+              <h3 className="font-display font-black text-2xl sm:text-3xl text-white">
+                Maximisez vos économies avec la caisse la moins chère
+              </h3>
+              <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                Même avec un subside, le choix d'un assureur économique permet d'annuler totalement votre reste à charge. Comparez les 37 caisses suisses en 2 minutes.
+              </p>
+            </div>
           </div>
           <button
             type="button"

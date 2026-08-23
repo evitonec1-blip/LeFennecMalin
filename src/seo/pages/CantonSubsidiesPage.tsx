@@ -34,6 +34,12 @@ import { useLanguage } from '../../i18n/LanguageContext';
 import { AppTab } from '../../types';
 import FennySubsidySimulator from '../../components/FennySubsidySimulator';
 
+// Mascot images - distinct for each section
+import fenySavings from '../../assets/images/feny_mascot_savings_1783245711111.jpg';
+import fenyAnalyse from '../../assets/images/IMG_20260804_161612_upscaled.jpg';
+import fenyThinking from '../../assets/images/feny_thinking_1783331247759.jpg';
+import fenyCompare from '../../assets/images/feny_mascot_compare_1783245694484.jpg';
+
 interface Props {
   cantonSlug: string;
   onStartComparison: (cantonCode?: string) => void;
@@ -106,22 +112,34 @@ export default function CantonSubsidiesPage({ cantonSlug, onStartComparison, onG
         </button>
 
         {/* Hero Section */}
-        <div className="mb-10">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="w-8 h-8 bg-fennec-terracotta text-white font-black text-sm rounded-xl flex items-center justify-center font-mono shadow-xs">
-              {canton.code}
-            </span>
-            <span className="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-full">
-              Barème & Démarches 2026
-            </span>
-          </div>
+        <div className="mb-10 bg-gradient-to-br from-[#FAF7F3] via-white to-orange-50/20 rounded-3xl border border-fennec-cream/80 p-6 sm:p-8 shadow-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+            <div className="space-y-3 flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="w-8 h-8 bg-fennec-terracotta text-white font-black text-sm rounded-xl flex items-center justify-center font-mono shadow-xs">
+                  {canton.code}
+                </span>
+                <span className="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-full">
+                  Barème & Démarches 2026
+                </span>
+              </div>
 
-          <h1 className="font-display font-black text-3xl sm:text-4xl text-fennec-dark mb-4 leading-tight">
-            Subside d'assurance maladie dans le canton de {canton.name} (2026)
-          </h1>
-          <p className="text-fennec-dark/75 text-base sm:text-lg leading-relaxed">
-            {canton.subsideDescription}
-          </p>
+              <h1 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-fennec-dark leading-tight">
+                Subside d'assurance maladie dans le canton de {canton.name} (2026)
+              </h1>
+              <p className="text-fennec-dark/75 text-sm sm:text-base leading-relaxed">
+                {canton.subsideDescription}
+              </p>
+            </div>
+
+            <div className="shrink-0 self-center sm:self-auto">
+              <img
+                src={fenySavings}
+                alt={`Fenny subsides canton de ${canton.name}`}
+                className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover border-2 border-white shadow-md"
+              />
+            </div>
+          </div>
         </div>
 
         {/* EMBEDDED FENNY SIMULATOR PRESET FOR THIS CANTON */}
@@ -192,9 +210,21 @@ export default function CantonSubsidiesPage({ cantonSlug, onStartComparison, onG
 
         {/* Steps to apply */}
         <div className="bg-white rounded-3xl border border-fennec-cream/70 p-6 sm:p-8 mb-8 shadow-xs space-y-6">
-          <h2 className="font-display font-bold text-xl sm:text-2xl text-fennec-dark">
-            Comment demander votre subside dans le canton de {canton.name} ?
-          </h2>
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <h2 className="font-display font-bold text-xl sm:text-2xl text-fennec-dark">
+                Comment demander votre subside dans le canton de {canton.name} ?
+              </h2>
+              <p className="text-xs text-fennec-dark/70 mt-1">
+                Les étapes officielles pour obtenir votre réduction de prime d'assurance maladie.
+              </p>
+            </div>
+            <img
+              src={fenyAnalyse}
+              alt="Fenny analyse des démarches"
+              className="w-12 h-12 rounded-2xl object-cover border border-fennec-cream/80 shadow-xs hidden sm:block shrink-0"
+            />
+          </div>
 
           <div className="space-y-4">
             <div className="flex gap-4 p-4 rounded-2xl bg-[#FAF7F3] border border-fennec-cream/50">
@@ -283,9 +313,16 @@ export default function CantonSubsidiesPage({ cantonSlug, onStartComparison, onG
 
         {/* Canton Specific FAQs */}
         <div className="bg-white rounded-3xl border border-fennec-cream/70 p-6 sm:p-8 mb-8 shadow-xs space-y-4">
-          <h2 className="font-display font-bold text-xl text-fennec-dark mb-2">
-            Questions fréquentes sur les subsides en {canton.name}
-          </h2>
+          <div className="flex items-center justify-between gap-4">
+            <h2 className="font-display font-bold text-xl text-fennec-dark">
+              Questions fréquentes sur les subsides en {canton.name}
+            </h2>
+            <img
+              src={fenyThinking}
+              alt="Fenny réfléchit aux questions fréquentes"
+              className="w-10 h-10 rounded-xl object-cover border border-fennec-cream/80 shadow-xs hidden sm:block shrink-0"
+            />
+          </div>
 
           <div className="space-y-3">
             {cantonFaqs.map((faq, idx) => {
@@ -316,14 +353,21 @@ export default function CantonSubsidiesPage({ cantonSlug, onStartComparison, onG
         </div>
 
         {/* Bottom CTA */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-fennec-dark text-white flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div>
-            <h3 className="font-display font-bold text-lg sm:text-xl text-white">
-              Calculez vos économies 2026 dans le canton de {canton.name}
-            </h3>
-            <p className="text-xs text-white/70 mt-1">
-              Comparez les primes officielles de toutes les caisses agréées en quelques clics.
-            </p>
+        <div className="p-6 sm:p-8 rounded-3xl bg-fennec-dark text-white flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <img
+              src={fenyCompare}
+              alt="Fenny compare les caisses"
+              className="w-14 h-14 rounded-2xl object-cover border-2 border-white/20 shadow-xs hidden sm:block shrink-0"
+            />
+            <div>
+              <h3 className="font-display font-bold text-lg sm:text-xl text-white">
+                Calculez vos économies 2026 dans le canton de {canton.name}
+              </h3>
+              <p className="text-xs text-white/70 mt-1">
+                Comparez les primes officielles de toutes les caisses agréées en quelques clics.
+              </p>
+            </div>
           </div>
           <button
             type="button"
