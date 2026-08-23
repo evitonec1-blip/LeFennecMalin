@@ -356,9 +356,9 @@ export default function App() {
 
                 {/* Show appropriate component */}
                 {activeVertical === 'health' ? (
-                  <HealthComparator isEmbedded={true} onStartQuiz={() => handleCtaClick('health')} />
+                  <HealthComparator isEmbedded={true} onStartQuiz={() => handleCtaClick('health')} onGoHome={() => setTab('home')} />
                 ) : (
-                  <LifePensionComparator isEmbedded={true} onStartQuiz={() => handleCtaClick('life')} />
+                  <LifePensionComparator isEmbedded={true} onStartQuiz={() => handleCtaClick('life')} onGoHome={() => setTab('home')} />
                 )}
 
               </div>
@@ -552,14 +552,14 @@ export default function App() {
         {/* SUB-PAGES ACCORDING TO USER'S SELECTED NAVIGATION TABS */}
         {currentTab === 'health-comparator' && (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
-            <HealthComparator initialCanton={selectedCantonPreset} />
+            <HealthComparator initialCanton={selectedCantonPreset} onGoHome={() => setTab('home')} />
             <ProductsGrid onTabChange={setTab} />
           </div>
         )}
 
         {currentTab === 'life-comparator' && (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
-            <LifePensionComparator />
+            <LifePensionComparator onGoHome={() => setTab('home')} />
             <ProductsGrid onTabChange={setTab} />
           </div>
         )}

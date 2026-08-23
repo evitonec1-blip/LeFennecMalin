@@ -1942,6 +1942,7 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
 interface LifePensionComparatorProps {
   isEmbedded?: boolean;
   onStartQuiz?: () => void;
+  onGoHome?: () => void;
 }
 
 const LIFE_ADVICE_MAP = {
@@ -1951,9 +1952,17 @@ const LIFE_ADVICE_MAP = {
   phone: "Votre numéro mobile suisse pour la validation sécurisée.",
 };
 
-export default function LifePensionComparator({ isEmbedded = false, onStartQuiz }: LifePensionComparatorProps) {
+export default function LifePensionComparator({ isEmbedded = false, onStartQuiz, onGoHome }: LifePensionComparatorProps) {
   const { language } = useLanguage();
   const ui = { ...LIFE_UI_TEXTS.fr, ...(LIFE_UI_TEXTS[language] || {}) };
+
+  const handleExitQuiz = () => {
+    if (onGoHome) {
+      onGoHome();
+    } else if (typeof window !== 'undefined') {
+      window.location.href = '/';
+    }
+  };
 
   // 1. Core State with comprehensive Swiss 3rd pillar questions
   const [filters, setFilters] = useState<LifeFilterState>({
@@ -2538,9 +2547,10 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz 
 
               <button
                 type="button"
-                onClick={() => setQuizMode(false)}
+                onClick={handleExitQuiz}
                 disabled={isAnalyzing}
                 className="flex items-center text-xs font-bold font-display px-3.5 py-2 rounded-full border border-fennec-cream/60 text-fennec-dark hover:bg-fennec-cream/15 transition-all disabled:opacity-50"
+                title={ui.quitBtn}
               >
                 <X className="w-4 h-4 mr-1" />
                 <span className="hidden sm:inline">{ui.quitBtn}</span>

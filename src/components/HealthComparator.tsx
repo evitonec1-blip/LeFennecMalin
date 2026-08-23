@@ -1536,6 +1536,7 @@ interface HealthComparatorProps {
   isEmbedded?: boolean;
   initialCanton?: string;
   onStartQuiz?: () => void;
+  onGoHome?: () => void;
 }
 
 const HEALTH_ADVICE_MAP = {
@@ -1545,9 +1546,17 @@ const HEALTH_ADVICE_MAP = {
   phone: "Numéro de téléphone suisse pour valider la demande.",
 };
 
-export default function HealthComparator({ isEmbedded = false, initialCanton, onStartQuiz }: HealthComparatorProps) {
+export default function HealthComparator({ isEmbedded = false, initialCanton, onStartQuiz, onGoHome }: HealthComparatorProps) {
   const { language } = useLanguage();
   const ui = { ...HEALTH_UI_TEXTS.fr, ...(HEALTH_UI_TEXTS[language] || {}) };
+
+  const handleExitQuiz = () => {
+    if (onGoHome) {
+      onGoHome();
+    } else if (typeof window !== 'undefined') {
+      window.location.href = '/';
+    }
+  };
 
   const startCanton = initialCanton && CANTON_DEFAULT_ZIPS[initialCanton] ? initialCanton : 'GE';
   const startZip = CANTON_DEFAULT_ZIPS[startCanton]?.zip || '1201';
@@ -2290,9 +2299,10 @@ export default function HealthComparator({ isEmbedded = false, initialCanton, on
 
               <button
                 type="button"
-                onClick={() => setQuizMode(false)}
+                onClick={handleExitQuiz}
                 disabled={isAnalyzing}
                 className="flex items-center text-xs font-bold font-display px-3.5 py-2 rounded-full border border-fennec-cream/60 text-fennec-dark hover:bg-fennec-cream/15 transition-all disabled:opacity-50"
+                title={ui.quitBtn}
               >
                 <X className="w-4 h-4 mr-1" />
                 <span className="hidden sm:inline">{ui.quitBtn}</span>
