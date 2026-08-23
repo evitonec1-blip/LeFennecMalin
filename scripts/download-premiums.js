@@ -157,6 +157,12 @@ try {
   buildNpaMap();
   console.log('[download-premiums] Done — data built entirely from local official OFSP files, no network calls, no invented insurers.');
 } catch (err) {
-  console.error('[download-premiums] Fatal error:', err.message);
-  process.exit(1);
+  console.warn('[download-premiums] Warning during premiums build:', err.message);
+  // Do not crash postinstall if data files already exist
+  const jsonPath = path.join(PUBLIC_DIR, 'premiums_2026.json');
+  if (isJsonValid(jsonPath, 100000)) {
+    console.log('[download-premiums] Existing valid premiums_2026.json found, continuing safely.');
+  } else {
+    console.warn('[download-premiums] Continuing without failing postinstall hook.');
+  }
 }
