@@ -58,15 +58,73 @@ export const HREFLANG_REGION_MAP: Record<Language, string> = {
 };
 
 /**
+ * Normalizes any date string (including human readable "Août 2026") into standard ISO YYYY-MM-DD
+ * required by search engines (W3C Datetime format).
+ */
+export function formatToIsoDate(rawDate?: string): string {
+  if (!rawDate || typeof rawDate !== 'string') return TODAY;
+  const trimmed = rawDate.trim();
+
+  // Already standard ISO YYYY-MM-DD
+  if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) {
+    return trimmed;
+  }
+
+  // YYYY-MM
+  if (/^\d{4}-\d{2}$/.test(trimmed)) {
+    return `${trimmed}-01`;
+  }
+
+  // Multilingual Month mapping
+  const monthMap: Record<string, string> = {
+    janvier: '01', januar: '01', january: '01', gennaio: '01', enero: '01', janeiro: '01',
+    fevrier: '02', februar: '02', february: '02', febbraio: '02', febrero: '02', fevereiro: '02',
+    mars: '03', marz: '03', maerz: '03', march: '03', marzo: '03', marco: '03',
+    avril: '04', april: '04', aprile: '04', abril: '04',
+    mai: '05', may: '05', maggio: '05', mayo: '05', maio: '05',
+    juin: '06', juni: '06', june: '06', giugno: '06', junio: '06', junho: '06',
+    juillet: '07', juli: '07', july: '07', luglio: '07', julio: '07', julho: '07',
+    aout: '08', august: '08', agosto: '08',
+    septembre: '09', september: '09', settembre: '09', septiembre: '09', setembro: '09',
+    octobre: '10', oktober: '10', october: '10', ottobre: '10', octubre: '10', outubro: '10',
+    novembre: '11', november: '11', noviembre: '11', novembro: '11',
+    decembre: '12', dezember: '12', december: '12', dicembre: '12', diciembre: '12', dezembro: '12',
+  };
+
+  const normalized = trimmed.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const yearMatch = trimmed.match(/\b(20\d{2})\b/);
+
+  if (yearMatch) {
+    const year = yearMatch[1];
+    for (const [cleanMonthKey, monthNum] of Object.entries(monthMap)) {
+      if (normalized.includes(cleanMonthKey)) {
+        return `${year}-${monthNum}-01`;
+      }
+    }
+    return `${year}-01-01`;
+  }
+
+  // Attempt JS Date parse
+  const parsed = new Date(trimmed);
+  if (!isNaN(parsed.getTime())) {
+    return parsed.toISOString().split('T')[0];
+  }
+
+  return TODAY;
+}
+
+/**
  * Builds a sitemap URL entry with all reciprocal hreflang tags
  */
 export function buildLocalizedSitemapEntry(
   tabKey: AppTab,
-  lastmod: string = TODAY,
+  rawLastmod?: string,
   changefreq: SitemapEntry['changefreq'] = 'weekly',
   priority: number = 0.8,
   targetLang: Language = 'fr'
 ): SitemapEntry {
+  const lastmod = formatToIsoDate(rawLastmod);
+
   // Build reciprocal hreflang list for all languages
   const alternates: { lang: string; href: string }[] = SUPPORTED_LANGUAGES.map((lang) => ({
     lang: HREFLANG_REGION_MAP[lang],
