@@ -3,6 +3,1112 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/geneve/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/geneve/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/genf/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/ginevra/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/geneva/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/geneve/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/geneve/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/geneve/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/geneve/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/geneve/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/genf/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/ginevra/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/geneva/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/geneve/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/geneve/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/geneve/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/vaud/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/vaud/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/waadt/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/vaud/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/vaud/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/vaud/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/vaud/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/vaud/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/vaud/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/vaud/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/waadt/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/vaud/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/vaud/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/vaud/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/vaud/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/vaud/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/valais/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/valais/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/wallis/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/vallese/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/valais/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/valais/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/valais/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/valais/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/valais/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/valais/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/wallis/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/vallese/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/valais/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/valais/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/valais/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/valais/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/fribourg/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/fribourg/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/freiburg/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/friburgo/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/fribourg/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/fribourg/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/fribourg/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/fribourg/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/fribourg/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/fribourg/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/freiburg/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/friburgo/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/fribourg/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/fribourg/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/fribourg/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/fribourg/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/neuchatel/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/neuchatel/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/neuenburg/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/neuchatel/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/neuchatel/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/neuchatel/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/neuchatel/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/neuchatel/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/neuchatel/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/neuchatel/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/neuenburg/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/neuchatel/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/neuchatel/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/neuchatel/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/neuchatel/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/neuchatel/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/jura/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/jura/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/jura/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/giura/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/jura/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/jura/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/jura/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/jura/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/jura/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/jura/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/jura/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/giura/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/jura/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/jura/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/jura/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/jura/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/berne/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/berne/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/bern/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/berna/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/bern/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/berne/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/berne/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/berne/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/berne/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/berne/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/bern/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/berna/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/bern/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/berne/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/berne/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/berne/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/zurich/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/zurich/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/zuerich/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/zurigo/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/zurich/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/zurich/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/zurich/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/zurich/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/zurich/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/zurich/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/zuerich/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/zurigo/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/zurich/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/zurich/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/zurich/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/zurich/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/bale-ville/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/bale-ville/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/basel-stadt/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/basilea-citta/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/basel-city/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/bale-ville/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/bale-ville/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/bale-ville/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/bale-ville/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/bale-ville/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/basel-stadt/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/basilea-citta/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/basel-city/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/bale-ville/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/bale-ville/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/bale-ville/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/bale-campagne/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/bale-campagne/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/basel-landschaft/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/basilea-campagna/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/basel-countryside/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/bale-campagne/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/bale-campagne/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/bale-campagne/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/bale-campagne/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/bale-campagne/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/basel-landschaft/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/basilea-campagna/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/basel-countryside/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/bale-campagne/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/bale-campagne/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/bale-campagne/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/argovie/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/argovie/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/aargau/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/argovia/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/aargau/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/argovie/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/argovie/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/argovie/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/argovie/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/argovie/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/aargau/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/argovia/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/aargau/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/argovie/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/argovie/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/argovie/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/soleure/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/soleure/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/solothurn/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/soletta/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/solothurn/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/soleure/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/soleure/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/soleure/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/soleure/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/soleure/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/solothurn/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/soletta/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/solothurn/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/soleure/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/soleure/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/soleure/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/lucerne/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/lucerne/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/luzern/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/lucerna/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/lucerne/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/lucerne/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/lucerne/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/lucerne/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/lucerne/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/lucerne/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/luzern/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/lucerna/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/lucerne/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/lucerne/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/lucerne/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/lucerne/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/zoug/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/zoug/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/zug/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/zugo/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/zug/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/zoug/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/zoug/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/zoug/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/zoug/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/zoug/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/zug/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/zugo/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/zug/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/zoug/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/zoug/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/zoug/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/schwyz/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/schwyz/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/schwyz/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/svitto/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/schwyz/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/schwyz/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/schwyz/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/schwyz/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/schwyz/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/schwyz/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/schwyz/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/svitto/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/schwyz/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/schwyz/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/schwyz/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/schwyz/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/uri/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/uri/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/uri/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/uri/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/uri/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/uri/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/uri/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/uri/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/uri/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/uri/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/uri/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/uri/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/uri/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/uri/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/uri/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/uri/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/obwald/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/obwald/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/obwalden/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/obvaldo/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/obwalden/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/obwald/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/obwald/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/obwald/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/obwald/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/obwald/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/obwalden/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/obvaldo/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/obwalden/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/obwald/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/obwald/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/obwald/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/nidwald/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/nidwald/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/nidwalden/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/nidvaldo/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/nidwalden/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/nidwald/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/nidwald/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/nidwald/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/nidwald/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/nidwald/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/nidwalden/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/nidvaldo/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/nidwalden/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/nidwald/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/nidwald/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/nidwald/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/saint-gall/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/saint-gall/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/st-gallen/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/san-gallo/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/st-gallen/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/saint-gall/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/saint-gall/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/saint-gall/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/saint-gall/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/saint-gall/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/st-gallen/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/san-gallo/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/st-gallen/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/saint-gall/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/saint-gall/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/saint-gall/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/thurgovie/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/thurgovie/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/thurgau/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/turgovia/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/thurgau/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/thurgovie/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/thurgovie/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/thurgovie/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/thurgovie/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/thurgovie/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/thurgau/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/turgovia/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/thurgau/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/thurgovie/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/thurgovie/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/thurgovie/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/schaffhouse/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/schaffhouse/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/schaffhausen/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/sciaffusa/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/schaffhausen/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/schaffhouse/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/schaffhouse/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/schaffhouse/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/schaffhouse/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/schaffhouse/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/schaffhausen/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/sciaffusa/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/schaffhausen/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/schaffhouse/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/schaffhouse/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/schaffhouse/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/appenzell-rhodes-exterieures/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/appenzell-rhodes-exterieures/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/appenzell-ausserrhoden/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/appenzello-esterno/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/appenzell-ausserrhoden/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/appenzell-rhodes-exterieures/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/appenzell-rhodes-exterieures/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/appenzell-rhodes-exterieures/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/appenzell-rhodes-exterieures/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/appenzell-rhodes-exterieures/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/appenzell-ausserrhoden/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/appenzello-esterno/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/appenzell-ausserrhoden/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/appenzell-rhodes-exterieures/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/appenzell-rhodes-exterieures/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/appenzell-rhodes-exterieures/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/appenzell-rhodes-interieures/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/appenzell-rhodes-interieures/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/appenzell-innerrhoden/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/appenzello-interno/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/appenzell-innerrhoden/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/appenzell-rhodes-interieures/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/appenzell-rhodes-interieures/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/appenzell-rhodes-interieures/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/appenzell-rhodes-interieures/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/appenzell-rhodes-interieures/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/appenzell-innerrhoden/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/appenzello-interno/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/appenzell-innerrhoden/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/appenzell-rhodes-interieures/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/appenzell-rhodes-interieures/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/appenzell-rhodes-interieures/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/glaris/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/glaris/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/glarus/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/glarona/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/glarus/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/glaris/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/glaris/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/glaris/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/glaris/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/glaris/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/glarus/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/glarona/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/glarus/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/glaris/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/glaris/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/glaris/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/grisons/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/grisons/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/graubuenden/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/grigioni/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/graubuenden/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/grisons/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/grisons/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/grisons/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/grisons/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/grisons/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/graubuenden/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/grigioni/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/graubuenden/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/grisons/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/grisons/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/grisons/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/tessin/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/tessin/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/tessin/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/ticino/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/ticino/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/tessin/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/tessin/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/tessin/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/subsides/tessin/</loc>
+    <lastmod>Août 2026</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/tessin/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/tessin/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/ticino/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/ticino/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/tessin/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/tessin/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/tessin/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/guides/franchise-300-vs-2500/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/guides/franchise-300-vs-2500/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/ratgeber/franchise-300-oder-2500/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/guide/franchigia-300-o-2500/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/guides/deductible-300-vs-2500/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/guides/franchise-300-vs-2500/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/guides/franchise-300-vs-2500/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/guides/franchise-300-vs-2500/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/guides/modeles-assurance/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/guides/modeles-assurance/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/ratgeber/versicherungsmodelle-schweiz/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/guide/modelli-assicurazione-malattia/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/guides/swiss-insurance-models/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/guides/modeles-assurance/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/guides/modeles-assurance/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/guides/modeles-assurance/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/guides/subside-assurance-maladie/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/guides/subside-assurance-maladie/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/ratgeber/praemienverbilligung-schweiz/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/guide/sussidi-cassa-malati-svizzera/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/guides/health-insurance-subsidies/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/guides/subside-assurance-maladie/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/guides/subside-assurance-maladie/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/guides/subside-assurance-maladie/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/guides/resiliation-assurance-maladie/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/guides/resiliation-assurance-maladie/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/ratgeber/krankenkasse-kuendigen-schweiz/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/guide/disdetta-cassa-malati-svizzera/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/guides/cancel-swiss-health-insurance/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/guides/resiliation-assurance-maladie/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/guides/resiliation-assurance-maladie/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/guides/resiliation-assurance-maladie/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/guides/frontalier-assurance-maladie/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/guides/frontalier-assurance-maladie/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/ratgeber/grenzgaenger-krankenversicherung-schweiz/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/guide/frontalieri-assicurazione-malattia/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/guides/cross-border-health-insurance-switzerland/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/guides/frontalier-assurance-maladie/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/guides/frontalier-assurance-maladie/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/guides/frontalier-assurance-maladie/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/guides/3eme-pilier-fiscalite/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/guides/3eme-pilier-fiscalite/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/ratgeber/3-saeule-steuern-sparen/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/guide/terzo-pilastro-risparmio-fiscale/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/guides/3rd-pillar-tax-deductions/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/guides/3eme-pilier-fiscalite/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/guides/3eme-pilier-fiscalite/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/guides/3eme-pilier-fiscalite/"/>
+  </url>
+
+  <url>
     <loc>https://www.lefennecmalin.ch/pt/</loc>
     <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -266,370 +1372,6 @@
     <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/3eme-pilier/comparateur/"/>
     <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/3eme-pilier/comparateur/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/3eme-pilier/comparateur/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/geneve/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/geneve/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/genf/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/ginevra/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/geneva/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/geneve/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/geneve/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/geneve/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/vaud/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/vaud/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/waadt/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/vaud/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/vaud/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/vaud/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/vaud/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/vaud/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/valais/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/valais/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/wallis/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/vallese/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/valais/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/valais/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/valais/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/valais/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/fribourg/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/fribourg/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/freiburg/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/friburgo/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/fribourg/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/fribourg/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/fribourg/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/fribourg/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/neuchatel/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/neuchatel/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/neuenburg/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/neuchatel/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/neuchatel/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/neuchatel/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/neuchatel/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/neuchatel/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/jura/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/jura/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/jura/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/giura/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/jura/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/jura/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/jura/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/jura/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/berne/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/berne/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/bern/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/berna/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/bern/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/berne/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/berne/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/berne/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/zurich/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/zurich/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/zuerich/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/zurigo/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/zurich/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/zurich/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/zurich/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/zurich/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/bale-ville/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/bale-ville/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/basel-stadt/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/basilea-citta/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/basel-city/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/bale-ville/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/bale-ville/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/bale-ville/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/bale-campagne/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/bale-campagne/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/basel-landschaft/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/basilea-campagna/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/basel-countryside/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/bale-campagne/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/bale-campagne/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/bale-campagne/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/argovie/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/argovie/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/aargau/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/argovia/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/aargau/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/argovie/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/argovie/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/argovie/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/soleure/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/soleure/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/solothurn/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/soletta/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/solothurn/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/soleure/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/soleure/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/soleure/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/lucerne/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/lucerne/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/luzern/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/lucerna/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/lucerne/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/lucerne/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/lucerne/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/lucerne/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/zoug/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/zoug/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/zug/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/zugo/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/zug/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/zoug/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/zoug/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/zoug/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/schwyz/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/schwyz/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/schwyz/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/svitto/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/schwyz/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/schwyz/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/schwyz/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/schwyz/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/uri/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/uri/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/uri/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/uri/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/uri/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/uri/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/uri/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/uri/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/obwald/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/obwald/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/obwalden/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/obvaldo/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/obwalden/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/obwald/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/obwald/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/obwald/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/nidwald/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/nidwald/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/nidwalden/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/nidvaldo/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/nidwalden/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/nidwald/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/nidwald/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/nidwald/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/saint-gall/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/saint-gall/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/st-gallen/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/san-gallo/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/st-gallen/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/saint-gall/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/saint-gall/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/saint-gall/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/thurgovie/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/thurgovie/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/thurgau/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/turgovia/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/thurgau/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/thurgovie/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/thurgovie/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/thurgovie/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/schaffhouse/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/schaffhouse/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/schaffhausen/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/sciaffusa/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/schaffhausen/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/schaffhouse/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/schaffhouse/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/schaffhouse/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/appenzell-rhodes-exterieures/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/appenzell-rhodes-exterieures/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/appenzell-ausserrhoden/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/appenzello-esterno/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/appenzell-ausserrhoden/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/appenzell-rhodes-exterieures/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/appenzell-rhodes-exterieures/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/appenzell-rhodes-exterieures/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/appenzell-rhodes-interieures/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/appenzell-rhodes-interieures/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/appenzell-innerrhoden/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/appenzello-interno/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/appenzell-innerrhoden/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/appenzell-rhodes-interieures/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/appenzell-rhodes-interieures/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/appenzell-rhodes-interieures/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/glaris/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/glaris/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/glarus/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/glarona/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/glarus/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/glaris/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/glaris/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/glaris/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/grisons/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/grisons/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/graubuenden/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/grigioni/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/graubuenden/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/grisons/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/grisons/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/grisons/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/assurance-maladie/tessin/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/tessin/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkasse/tessin/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/cassa-malati/ticino/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/ticino/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/assurance-maladie/tessin/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/assurance-maladie/tessin/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/tessin/"/>
   </url>
 
   <url>
@@ -941,90 +1683,6 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/pt/guides/franchise-300-vs-2500/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/guides/franchise-300-vs-2500/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/ratgeber/franchise-300-oder-2500/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/guide/franchigia-300-o-2500/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/guides/deductible-300-vs-2500/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/guides/franchise-300-vs-2500/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/guides/franchise-300-vs-2500/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/guides/franchise-300-vs-2500/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/guides/modeles-assurance/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/guides/modeles-assurance/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/ratgeber/versicherungsmodelle-schweiz/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/guide/modelli-assicurazione-malattia/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/guides/swiss-insurance-models/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/guides/modeles-assurance/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/guides/modeles-assurance/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/guides/modeles-assurance/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/guides/subside-assurance-maladie/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/guides/subside-assurance-maladie/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/ratgeber/praemienverbilligung-schweiz/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/guide/sussidi-cassa-malati-svizzera/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/guides/health-insurance-subsidies/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/guides/subside-assurance-maladie/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/guides/subside-assurance-maladie/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/guides/subside-assurance-maladie/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/guides/resiliation-assurance-maladie/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/guides/resiliation-assurance-maladie/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/ratgeber/krankenkasse-kuendigen-schweiz/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/guide/disdetta-cassa-malati-svizzera/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/guides/cancel-swiss-health-insurance/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/guides/resiliation-assurance-maladie/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/guides/resiliation-assurance-maladie/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/guides/resiliation-assurance-maladie/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/guides/frontalier-assurance-maladie/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/guides/frontalier-assurance-maladie/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/ratgeber/grenzgaenger-krankenversicherung-schweiz/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/guide/frontalieri-assicurazione-malattia/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/guides/cross-border-health-insurance-switzerland/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/guides/frontalier-assurance-maladie/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/guides/frontalier-assurance-maladie/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/guides/frontalier-assurance-maladie/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/guides/3eme-pilier-fiscalite/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/guides/3eme-pilier-fiscalite/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/ratgeber/3-saeule-steuern-sparen/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/guide/terzo-pilastro-risparmio-fiscale/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/guides/3rd-pillar-tax-deductions/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/guides/3eme-pilier-fiscalite/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/guides/3eme-pilier-fiscalite/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/guides/3eme-pilier-fiscalite/"/>
-  </url>
-
-  <url>
     <loc>https://www.lefennecmalin.ch/pt/outils/calculateur-franchise/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -1288,370 +1946,6 @@
     <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/"/>
     <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/geneve/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/geneve/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/genf/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/ginevra/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/geneva/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/geneve/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/geneve/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/geneve/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/vaud/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/vaud/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/waadt/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/vaud/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/vaud/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/vaud/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/vaud/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/vaud/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/valais/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/valais/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/wallis/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/vallese/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/valais/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/valais/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/valais/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/valais/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/fribourg/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/fribourg/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/freiburg/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/friburgo/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/fribourg/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/fribourg/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/fribourg/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/fribourg/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/neuchatel/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/neuchatel/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/neuenburg/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/neuchatel/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/neuchatel/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/neuchatel/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/neuchatel/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/neuchatel/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/jura/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/jura/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/jura/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/giura/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/jura/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/jura/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/jura/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/jura/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/berne/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/berne/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/bern/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/berna/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/bern/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/berne/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/berne/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/berne/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/zurich/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/zurich/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/zuerich/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/zurigo/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/zurich/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/zurich/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/zurich/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/zurich/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/bale-ville/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/bale-ville/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/basel-stadt/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/basilea-citta/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/basel-city/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/bale-ville/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/bale-ville/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/bale-ville/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/bale-campagne/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/bale-campagne/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/basel-landschaft/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/basilea-campagna/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/basel-countryside/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/bale-campagne/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/bale-campagne/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/bale-campagne/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/argovie/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/argovie/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/aargau/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/argovia/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/aargau/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/argovie/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/argovie/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/argovie/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/soleure/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/soleure/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/solothurn/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/soletta/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/solothurn/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/soleure/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/soleure/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/soleure/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/lucerne/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/lucerne/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/luzern/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/lucerna/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/lucerne/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/lucerne/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/lucerne/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/lucerne/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/zoug/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/zoug/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/zug/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/zugo/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/zug/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/zoug/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/zoug/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/zoug/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/schwyz/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/schwyz/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/schwyz/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/svitto/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/schwyz/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/schwyz/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/schwyz/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/schwyz/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/uri/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/uri/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/uri/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/uri/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/uri/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/uri/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/uri/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/uri/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/obwald/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/obwald/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/obwalden/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/obvaldo/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/obwalden/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/obwald/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/obwald/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/obwald/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/nidwald/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/nidwald/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/nidwalden/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/nidvaldo/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/nidwalden/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/nidwald/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/nidwald/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/nidwald/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/saint-gall/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/saint-gall/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/st-gallen/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/san-gallo/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/st-gallen/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/saint-gall/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/saint-gall/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/saint-gall/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/thurgovie/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/thurgovie/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/thurgau/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/turgovia/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/thurgau/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/thurgovie/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/thurgovie/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/thurgovie/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/schaffhouse/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/schaffhouse/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/schaffhausen/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/sciaffusa/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/schaffhausen/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/schaffhouse/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/schaffhouse/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/schaffhouse/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/appenzell-rhodes-exterieures/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/appenzell-rhodes-exterieures/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/appenzell-ausserrhoden/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/appenzello-esterno/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/appenzell-ausserrhoden/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/appenzell-rhodes-exterieures/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/appenzell-rhodes-exterieures/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/appenzell-rhodes-exterieures/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/appenzell-rhodes-interieures/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/appenzell-rhodes-interieures/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/appenzell-innerrhoden/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/appenzello-interno/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/appenzell-innerrhoden/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/appenzell-rhodes-interieures/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/appenzell-rhodes-interieures/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/appenzell-rhodes-interieures/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/glaris/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/glaris/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/glarus/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/glarona/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/glarus/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/glaris/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/glaris/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/glaris/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/grisons/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/grisons/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/graubuenden/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/grigioni/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/graubuenden/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/grisons/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/grisons/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/grisons/"/>
-  </url>
-
-  <url>
-    <loc>https://www.lefennecmalin.ch/pt/subsides/tessin/</loc>
-    <lastmod>2026-08-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.86</priority>
-    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/subsides/tessin/"/>
-    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemienverbilligung/tessin/"/>
-    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/sussidi-cassa-malati/ticino/"/>
-    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance-subsidies/ticino/"/>
-    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/subsides/tessin/"/>
-    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/subsides/tessin/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/subsides/tessin/"/>
   </url>
 
   <url>
