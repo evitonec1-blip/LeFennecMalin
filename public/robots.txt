@@ -6,6 +6,8 @@ Allow: /fr/
 Allow: /de/
 Allow: /it/
 Allow: /en/
+Allow: /es/
+Allow: /pt/
 
 # Block API routes from indexing
 Disallow: /api/
@@ -16,3 +18,5 @@ Sitemap: https://www.lefennecmalin.ch/sitemap-fr.xml
 Sitemap: https://www.lefennecmalin.ch/sitemap-de.xml
 Sitemap: https://www.lefennecmalin.ch/sitemap-it.xml
 Sitemap: https://www.lefennecmalin.ch/sitemap-en.xml
+Sitemap: https://www.lefennecmalin.ch/sitemap-es.xml
+Sitemap: https://www.lefennecmalin.ch/sitemap-pt.xml

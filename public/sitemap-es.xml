@@ -3,7 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/</loc>
+    <loc>https://www.lefennecmalin.ch/es/</loc>
     <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.00</priority>
@@ -17,7 +17,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/confronto-assicurazioni-svizzera/</loc>
+    <loc>https://www.lefennecmalin.ch/es/comparateur-assurance-suisse/</loc>
     <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
@@ -31,7 +31,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/</loc>
     <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
@@ -45,7 +45,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/calcolatore-premi/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/comparateur/</loc>
     <lastmod>2026-08-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.90</priority>
@@ -59,7 +59,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/casse-malati/</loc>
+    <loc>https://www.lefennecmalin.ch/es/caisses-maladie/</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
@@ -73,7 +73,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/lamal/</loc>
+    <loc>https://www.lefennecmalin.ch/es/lamal/</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
@@ -87,7 +87,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/lamal/franchigia/</loc>
+    <loc>https://www.lefennecmalin.ch/es/lamal/franchise/</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
@@ -101,7 +101,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/lamal/modelli/</loc>
+    <loc>https://www.lefennecmalin.ch/es/lamal/modeles/</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
@@ -115,7 +115,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/lamal/cassa-malati-piu-economica/</loc>
+    <loc>https://www.lefennecmalin.ch/es/lamal/caisse-maladie-la-moins-chere/</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.92</priority>
@@ -129,7 +129,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/migliore-cassa-malati/</loc>
+    <loc>https://www.lefennecmalin.ch/es/meilleure-caisse-maladie/</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.92</priority>
@@ -143,7 +143,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/lamal/cambiare-cassa-malati/</loc>
+    <loc>https://www.lefennecmalin.ch/es/lamal/changer-caisse-maladie/</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
@@ -157,7 +157,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/casse-malati/famiglia/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/famille/</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.88</priority>
@@ -171,7 +171,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/casse-malati/giovani-adulti/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/jeune-adulte/</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -185,7 +185,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/casse-malati/studenti/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/etudiant/</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -199,7 +199,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/lamal/nuovi-residenti-svizzera/</loc>
+    <loc>https://www.lefennecmalin.ch/es/lamal/nouveau-resident-suisse/</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
@@ -213,7 +213,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/lamal-vs-lca/</loc>
+    <loc>https://www.lefennecmalin.ch/es/lamal-vs-lca/</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
@@ -227,7 +227,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/lamal/copertura-infortuni/</loc>
+    <loc>https://www.lefennecmalin.ch/es/lamal/assurance-accident/</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -241,7 +241,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/terzo-pilastro/</loc>
+    <loc>https://www.lefennecmalin.ch/es/3eme-pilier/</loc>
     <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
@@ -255,7 +255,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/terzo-pilastro/confronto/</loc>
+    <loc>https://www.lefennecmalin.ch/es/3eme-pilier/comparateur/</loc>
     <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -269,7 +269,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/ginevra/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/geneve/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -283,7 +283,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/vaud/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/vaud/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -297,7 +297,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/vallese/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/valais/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -311,7 +311,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/friburgo/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/fribourg/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -325,7 +325,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/neuchatel/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/neuchatel/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -339,7 +339,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/giura/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/jura/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -353,7 +353,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/berna/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/berne/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -367,7 +367,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/zurigo/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/zurich/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -381,7 +381,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/basilea-citta/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/bale-ville/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -395,7 +395,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/basilea-campagna/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/bale-campagne/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -409,7 +409,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/argovia/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/argovie/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -423,7 +423,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/soletta/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/soleure/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -437,7 +437,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/lucerna/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/lucerne/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -451,7 +451,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/zugo/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/zoug/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -465,7 +465,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/svitto/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/schwyz/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -479,7 +479,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/uri/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/uri/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -493,7 +493,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/obvaldo/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/obwald/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -507,7 +507,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/nidvaldo/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/nidwald/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -521,7 +521,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/san-gallo/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/saint-gall/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -535,7 +535,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/turgovia/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/thurgovie/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -549,7 +549,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/sciaffusa/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/schaffhouse/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -563,7 +563,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/appenzello-esterno/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/appenzell-rhodes-exterieures/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -577,7 +577,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/appenzello-interno/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/appenzell-rhodes-interieures/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -591,7 +591,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/glarona/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/glaris/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -605,7 +605,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/grigioni/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/grisons/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -619,7 +619,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/ticino/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/tessin/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -633,7 +633,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/appenzello-esterno/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/appenzell-ar/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -647,7 +647,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/cassa-malati/appenzello-interno/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-maladie/appenzell-ai/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -661,7 +661,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/casse-malati/css/</loc>
+    <loc>https://www.lefennecmalin.ch/es/caisses-maladie/css/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -675,7 +675,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/casse-malati/helsana/</loc>
+    <loc>https://www.lefennecmalin.ch/es/caisses-maladie/helsana/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -689,7 +689,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/casse-malati/swica/</loc>
+    <loc>https://www.lefennecmalin.ch/es/caisses-maladie/swica/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -703,7 +703,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/casse-malati/sanitas/</loc>
+    <loc>https://www.lefennecmalin.ch/es/caisses-maladie/sanitas/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -717,7 +717,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/casse-malati/groupe-mutuel/</loc>
+    <loc>https://www.lefennecmalin.ch/es/caisses-maladie/groupe-mutuel/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -731,7 +731,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/casse-malati/assura/</loc>
+    <loc>https://www.lefennecmalin.ch/es/caisses-maladie/assura/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -745,7 +745,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/casse-malati/concordia/</loc>
+    <loc>https://www.lefennecmalin.ch/es/caisses-maladie/concordia/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -759,7 +759,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/casse-malati/visana/</loc>
+    <loc>https://www.lefennecmalin.ch/es/caisses-maladie/visana/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -773,7 +773,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/casse-malati/kpt/</loc>
+    <loc>https://www.lefennecmalin.ch/es/caisses-maladie/kpt/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -787,7 +787,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/casse-malati/atupri/</loc>
+    <loc>https://www.lefennecmalin.ch/es/caisses-maladie/atupri/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -801,7 +801,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/casse-malati/sympany/</loc>
+    <loc>https://www.lefennecmalin.ch/es/caisses-maladie/sympany/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -815,7 +815,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/casse-malati/oekk/</loc>
+    <loc>https://www.lefennecmalin.ch/es/caisses-maladie/oekk/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -829,7 +829,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/casse-malati/egk/</loc>
+    <loc>https://www.lefennecmalin.ch/es/caisses-maladie/egk/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -843,7 +843,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/casse-malati/aquilana/</loc>
+    <loc>https://www.lefennecmalin.ch/es/caisses-maladie/aquilana/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -857,7 +857,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/confronto/css-vs-helsana/</loc>
+    <loc>https://www.lefennecmalin.ch/es/comparatif/css-vs-helsana/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
@@ -871,7 +871,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/confronto/helsana-vs-swica/</loc>
+    <loc>https://www.lefennecmalin.ch/es/comparatif/helsana-vs-swica/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
@@ -885,7 +885,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/confronto/css-vs-swica/</loc>
+    <loc>https://www.lefennecmalin.ch/es/comparatif/css-vs-swica/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
@@ -899,7 +899,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/confronto/assura-vs-groupe-mutuel/</loc>
+    <loc>https://www.lefennecmalin.ch/es/comparatif/assura-vs-groupe-mutuel/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
@@ -913,7 +913,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/confronto/swica-vs-sanitas/</loc>
+    <loc>https://www.lefennecmalin.ch/es/comparatif/swica-vs-sanitas/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
@@ -927,7 +927,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/confronto/visana-vs-concordia/</loc>
+    <loc>https://www.lefennecmalin.ch/es/comparatif/visana-vs-concordia/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
@@ -941,7 +941,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/guide/franchigia-300-o-2500/</loc>
+    <loc>https://www.lefennecmalin.ch/es/guides/franchise-300-vs-2500/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -955,7 +955,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/guide/modelli-assicurazione-malattia/</loc>
+    <loc>https://www.lefennecmalin.ch/es/guides/modeles-assurance/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -969,7 +969,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/guide/sussidi-cassa-malati-svizzera/</loc>
+    <loc>https://www.lefennecmalin.ch/es/guides/subside-assurance-maladie/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -983,7 +983,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/guide/disdetta-cassa-malati-svizzera/</loc>
+    <loc>https://www.lefennecmalin.ch/es/guides/resiliation-assurance-maladie/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -997,7 +997,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/guide/frontalieri-assicurazione-malattia/</loc>
+    <loc>https://www.lefennecmalin.ch/es/guides/frontalier-assurance-maladie/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -1011,7 +1011,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/guide/terzo-pilastro-risparmio-fiscale/</loc>
+    <loc>https://www.lefennecmalin.ch/es/guides/3eme-pilier-fiscalite/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -1025,7 +1025,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/strumenti/calcolatore-franchigia/</loc>
+    <loc>https://www.lefennecmalin.ch/es/outils/calculateur-franchise/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
@@ -1039,7 +1039,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/strumenti/calcolatore-imposte-3a/</loc>
+    <loc>https://www.lefennecmalin.ch/es/outils/calculateur-impot-3a/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
@@ -1053,7 +1053,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/strumenti/simulatore-frontalieri/</loc>
+    <loc>https://www.lefennecmalin.ch/es/outils/simulateur-frontalier/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.88</priority>
@@ -1067,7 +1067,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/assicurazione-auto/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-auto/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
@@ -1081,7 +1081,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/assicurazione-mobilia/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-menage/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
@@ -1095,7 +1095,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/responsabilita-civile-privata/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-rc/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
@@ -1109,7 +1109,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/assicurazione-vita/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-vie/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
@@ -1123,7 +1123,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/assicurazione-viaggi/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-voyage/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
@@ -1137,7 +1137,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/protezione-giuridica/</loc>
+    <loc>https://www.lefennecmalin.ch/es/protection-juridique/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
@@ -1151,7 +1151,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/assicurazione-animali/</loc>
+    <loc>https://www.lefennecmalin.ch/es/assurance-animaux/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
@@ -1165,7 +1165,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/chi-siamo/</loc>
+    <loc>https://www.lefennecmalin.ch/es/a-propos/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
@@ -1179,7 +1179,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/faq/</loc>
+    <loc>https://www.lefennecmalin.ch/es/faq/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
@@ -1193,7 +1193,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/metodologia/</loc>
+    <loc>https://www.lefennecmalin.ch/es/methodologie/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
@@ -1207,7 +1207,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/come-funziona-il-confronto/</loc>
+    <loc>https://www.lefennecmalin.ch/es/comment-fonctionne-le-comparateur/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
@@ -1221,7 +1221,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/articolo-45-lsa/</loc>
+    <loc>https://www.lefennecmalin.ch/es/article-45-lsa/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
@@ -1235,7 +1235,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/qualifiche-intermediario/</loc>
+    <loc>https://www.lefennecmalin.ch/es/qualifications-intermediaire/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.50</priority>
@@ -1249,7 +1249,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/note-legali/</loc>
+    <loc>https://www.lefennecmalin.ch/es/mentions-legales/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.40</priority>
@@ -1263,7 +1263,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/protezione-dati/</loc>
+    <loc>https://www.lefennecmalin.ch/es/confidentialite/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.40</priority>
@@ -1277,7 +1277,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
@@ -1291,7 +1291,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/ginevra/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/geneve/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1305,7 +1305,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/vaud/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/vaud/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1319,7 +1319,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/vallese/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/valais/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1333,7 +1333,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/friburgo/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/fribourg/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1347,7 +1347,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/neuchatel/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/neuchatel/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1361,7 +1361,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/giura/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/jura/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1375,7 +1375,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/berna/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/berne/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1389,7 +1389,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/zurigo/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/zurich/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1403,7 +1403,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/basilea-citta/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/bale-ville/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1417,7 +1417,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/basilea-campagna/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/bale-campagne/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1431,7 +1431,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/argovia/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/argovie/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1445,7 +1445,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/soletta/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/soleure/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1459,7 +1459,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/lucerna/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/lucerne/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1473,7 +1473,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/zugo/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/zoug/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1487,7 +1487,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/svitto/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/schwyz/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1501,7 +1501,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/uri/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/uri/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1515,7 +1515,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/obvaldo/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/obwald/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1529,7 +1529,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/nidvaldo/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/nidwald/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1543,7 +1543,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/san-gallo/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/saint-gall/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1557,7 +1557,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/turgovia/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/thurgovie/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1571,7 +1571,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/sciaffusa/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/schaffhouse/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1585,7 +1585,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/appenzello-esterno/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/appenzell-rhodes-exterieures/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1599,7 +1599,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/appenzello-interno/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/appenzell-rhodes-interieures/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1613,7 +1613,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/glarona/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/glaris/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1627,7 +1627,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/grigioni/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/grisons/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1641,7 +1641,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/ticino/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/tessin/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1655,7 +1655,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/appenzello-esterno/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/appenzell-ar/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
@@ -1669,7 +1669,7 @@
   </url>
 
   <url>
-    <loc>https://www.lefennecmalin.ch/it/sussidi-cassa-malati/appenzello-interno/</loc>
+    <loc>https://www.lefennecmalin.ch/es/subsides/appenzell-ai/</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.86</priority>
