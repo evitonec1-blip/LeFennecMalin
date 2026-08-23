@@ -145,27 +145,20 @@ export default function App() {
 
   // Intro animation for header & hero on first mount
   useEffect(() => {
-    const tl = gsap.timeline();
+    if (currentTab !== 'home') return;
     
-    // Select header & hero elements
-    gsap.set('.hero-animate', { opacity: 0, y: 35 });
-    gsap.set('header', { yPercent: -100, opacity: 0 });
-    
-    tl.to('header', {
-      yPercent: 0,
-      opacity: 1,
-      duration: 0.8,
-      ease: 'power3.out'
-    });
-    
-    tl.to('.hero-animate', {
-      opacity: 1,
-      y: 0,
-      duration: 0.9,
-      stagger: 0.12,
-      ease: 'power3.out'
-    }, '-=0.45');
-  }, []);
+    // Animate header and hero elements cleanly
+    gsap.fromTo('.hero-animate', 
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        stagger: 0.08,
+        ease: 'power2.out'
+      }
+    );
+  }, [currentTab]);
 
   // Subtle GSAP fade-in transition when switching tabs or active comparator verticals
   useEffect(() => {
@@ -219,7 +212,7 @@ export default function App() {
                   <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
                     
                     {/* Headline */}
-                    <h1 className="hero-animate opacity-0 font-display font-black text-3xl sm:text-4xl md:text-5xl text-fennec-dark leading-tight tracking-tight">
+                    <h1 className="hero-animate font-display font-black text-3xl sm:text-4xl md:text-5xl text-fennec-dark leading-tight tracking-tight">
                       {t('hero_title_1')} <br />
                       <span className="text-transparent bg-clip-text bg-gradient-to-r from-fennec-terracotta to-fennec-tan">
                         {t('hero_title_2')}
@@ -227,12 +220,12 @@ export default function App() {
                     </h1>
 
                     {/* Subheading */}
-                    <p className="hero-animate opacity-0 text-base sm:text-lg text-fennec-dark/80 max-w-2xl mx-auto lg:mx-0 leading-relaxed text-justify">
+                    <p className="hero-animate text-base sm:text-lg text-fennec-dark/80 max-w-2xl mx-auto lg:mx-0 leading-relaxed text-justify">
                       {t('hero_subtitle')}
                     </p>
 
                     {/* Three Inline Stats Strip */}
-                    <div className="hero-animate opacity-0 grid grid-cols-3 gap-3 max-w-lg mx-auto lg:mx-0 pt-2">
+                    <div className="hero-animate grid grid-cols-3 gap-3 max-w-lg mx-auto lg:mx-0 pt-2">
                       <div className="bg-white p-3.5 rounded-2xl border border-fennec-cream/40 shadow-2xs text-center">
                         <span className="font-display font-black text-xl md:text-2xl text-fennec-terracotta block">
                           37
@@ -263,7 +256,7 @@ export default function App() {
                     </div>
 
                     {/* Hero Big Tab CTAs */}
-                    <div className="hero-animate opacity-0 pt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl mx-auto lg:mx-0">
+                    <div className="hero-animate pt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl mx-auto lg:mx-0">
                       <button
                         onClick={() => handleCtaClick('health')}
                         className={`w-full h-full px-6 py-4 rounded-2xl font-display font-extrabold text-sm sm:text-base transition-all duration-300 flex items-center justify-center text-center space-x-2.5 ${
@@ -290,7 +283,7 @@ export default function App() {
                   </div>
 
                   {/* Hero Right Mascot Visual */}
-                  <div className="hero-animate opacity-0 lg:col-span-5 flex justify-center relative">
+                  <div className="hero-animate lg:col-span-5 flex justify-center relative">
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-fennec-cream/30 rounded-full blur-3xl z-0" />
                     
                     <div className="relative z-10 w-full max-w-sm aspect-square bg-white rounded-3xl p-4 border border-fennec-cream/60 shadow-lg group hover:scale-101 transition-transform">
