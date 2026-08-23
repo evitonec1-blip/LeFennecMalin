@@ -31,6 +31,8 @@ export interface MultilingualRouteConfig {
     de: LocalizedRouteInfo;
     it: LocalizedRouteInfo;
     en: LocalizedRouteInfo;
+    es?: LocalizedRouteInfo;
+    pt?: LocalizedRouteInfo;
   };
 }
 
@@ -1731,7 +1733,14 @@ export function getMultilingualRoute(tab: AppTab): MultilingualRouteConfig {
  */
 export function getLocalizedPath(tab: AppTab, lang: Language): string {
   const route = getMultilingualRoute(tab);
-  return route.locales[lang]?.path || route.locales.fr.path;
+  if (route.locales[lang]?.path) {
+    return route.locales[lang]!.path;
+  }
+  const frPath = route.locales.fr?.path || '/fr/';
+  if (frPath.startsWith('/fr/')) {
+    return `/${lang}/${frPath.slice(4)}`;
+  }
+  return `/${lang}${frPath.startsWith('/') ? '' : '/'}${frPath}`;
 }
 
 /**
@@ -1746,24 +1755,34 @@ export function getLocalizedUrl(tab: AppTab, lang: Language): string {
  */
 export function getLocalizedRouteInfo(tab: AppTab, lang: Language): LocalizedRouteInfo {
   const route = getMultilingualRoute(tab);
-  return route.locales[lang] || route.locales.fr;
+  if (route.locales[lang]) {
+    return route.locales[lang]!;
+  }
+  const fr = route.locales.fr;
+  return {
+    ...fr,
+    path: getLocalizedPath(tab, lang),
+  };
 }
 
 /**
  * Generates the full hreflang alternate URLs matrix
  */
 export function getHreflangAlternates(tab: AppTab): Record<string, string> {
-  const config = getMultilingualRoute(tab);
-  const frUrl = `${SITE_URL}${config.locales.fr.path}`;
-  const deUrl = `${SITE_URL}${config.locales.de.path}`;
-  const itUrl = `${SITE_URL}${config.locales.it.path}`;
-  const enUrl = `${SITE_URL}${config.locales.en.path}`;
+  const frUrl = `${SITE_URL}${getLocalizedPath(tab, 'fr')}`;
+  const deUrl = `${SITE_URL}${getLocalizedPath(tab, 'de')}`;
+  const itUrl = `${SITE_URL}${getLocalizedPath(tab, 'it')}`;
+  const enUrl = `${SITE_URL}${getLocalizedPath(tab, 'en')}`;
+  const esUrl = `${SITE_URL}${getLocalizedPath(tab, 'es')}`;
+  const ptUrl = `${SITE_URL}${getLocalizedPath(tab, 'pt')}`;
 
   return {
     'fr-CH': frUrl,
     'de-CH': deUrl,
     'it-CH': itUrl,
     'en-CH': enUrl,
+    'es-CH': esUrl,
+    'pt-CH': ptUrl,
     'x-default': frUrl,
   };
 }
@@ -1780,7 +1799,7 @@ export function resolveRouteFromPath(pathname: string): { tab: AppTab; language:
     const route = MULTILINGUAL_ROUTES[tabKey];
     if (!route?.locales) continue;
     for (const [langKey, info] of Object.entries(route.locales)) {
-      if (info.path === normalized || info.path === raw) {
+      if (info && (info.path === normalized || info.path === raw)) {
         return { tab: route.id, language: langKey as Language };
       }
     }
@@ -1791,12 +1810,29 @@ export function resolveRouteFromPath(pathname: string): { tab: AppTab; language:
   if (normalized === '/de/') return { tab: 'home', language: 'de' };
   if (normalized === '/it/') return { tab: 'home', language: 'it' };
   if (normalized === '/en/') return { tab: 'home', language: 'en' };
+  if (normalized === '/es/' || normalized === '/sp/') return { tab: 'home', language: 'es' };
+  if (normalized === '/pt/') return { tab: 'home', language: 'pt' };
   if (normalized === '/fr/') return { tab: 'home', language: 'fr' };
 
-  // 3. Handle Canton Slugs dynamically (e.g. /fr/assurance-maladie/geneve/, /assurance-maladie/geneve/)
-  const cantonMatch = normalized.match(/(?:\/(fr|de|it|en))?\/(?:assurance-maladie|krankenkasse|cassa-malati|health-insurance)\/([a-z0-9-]+)\/?$/);
+  // 2b. Check if path starts with /es/, /sp/ or /pt/ and matches a localized version of a French route
+  if (normalized.startsWith('/es/') || normalized.startsWith('/sp/') || normalized.startsWith('/pt/')) {
+    const isSp = normalized.startsWith('/sp/');
+    const lang = (isSp ? 'es' : normalized.slice(1, 3)) as Language;
+    const pathSuffix = isSp ? normalized.slice(4) : normalized.slice(4);
+    const frEquivalent = `/fr/${pathSuffix}`;
+    for (const tabKey of Object.keys(MULTILINGUAL_ROUTES) as AppTab[]) {
+      const route = MULTILINGUAL_ROUTES[tabKey];
+      if (route?.locales?.fr?.path === frEquivalent) {
+        return { tab: route.id, language: lang };
+      }
+    }
+  }
+
+  // 3. Handle Canton Slugs dynamically (e.g. /fr/assurance-maladie/geneve/, /es/assurance-maladie/geneve/)
+  const cantonMatch = normalized.match(/(?:\/(fr|de|it|en|es|sp|pt))?\/(?:assurance-maladie|krankenkasse|cassa-malati|health-insurance)\/([a-z0-9-]+)\/?$/);
   if (cantonMatch) {
-    const lang = (cantonMatch[1] || 'fr') as Language;
+    const rawLang = cantonMatch[1] || 'fr';
+    const lang = (rawLang === 'sp' ? 'es' : rawLang) as Language;
     const slug = cantonMatch[2];
     const candidateTab = `canton-${slug}` as AppTab;
     if (MULTILINGUAL_ROUTES[candidateTab]) {
@@ -1804,10 +1840,11 @@ export function resolveRouteFromPath(pathname: string): { tab: AppTab; language:
     }
   }
 
-  // 4. Handle Subsidies Slugs dynamically (/fr/subsides/:slug/, /subsides/:slug/, /de/praemienverbilligung/:slug/)
-  const subsidyMatch = normalized.match(/(?:\/(fr|de|it|en))?\/(?:subsides|praemienverbilligung|sussidi-cassa-malati|health-insurance-subsidies)\/([a-z0-9-]+)\/?$/);
+  // 4. Handle Subsidies Slugs dynamically (/fr/subsides/:slug/, /es/subsides/:slug/, /de/praemienverbilligung/:slug/)
+  const subsidyMatch = normalized.match(/(?:\/(fr|de|it|en|es|sp|pt))?\/(?:subsides|praemienverbilligung|sussidi-cassa-malati|health-insurance-subsidies)\/([a-z0-9-]+)\/?$/);
   if (subsidyMatch) {
-    const lang = (subsidyMatch[1] || 'fr') as Language;
+    const rawLang = subsidyMatch[1] || 'fr';
+    const lang = (rawLang === 'sp' ? 'es' : rawLang) as Language;
     const slug = subsidyMatch[2];
     const candidateTab = `subside-${slug}` as AppTab;
     if (MULTILINGUAL_ROUTES[candidateTab]) {
@@ -1816,16 +1853,18 @@ export function resolveRouteFromPath(pathname: string): { tab: AppTab; language:
   }
 
   // 5. Handle Subsidies Hub dynamically
-  const subsidyHubMatch = normalized.match(/(?:\/(fr|de|it|en))?\/(?:subsides|praemienverbilligung|sussidi-cassa-malati|health-insurance-subsidies)\/?$/);
+  const subsidyHubMatch = normalized.match(/(?:\/(fr|de|it|en|es|sp|pt))?\/(?:subsides|praemienverbilligung|sussidi-cassa-malati|health-insurance-subsidies)\/?$/);
   if (subsidyHubMatch) {
-    const lang = (subsidyHubMatch[1] || 'fr') as Language;
+    const rawLang = subsidyHubMatch[1] || 'fr';
+    const lang = (rawLang === 'sp' ? 'es' : rawLang) as Language;
     return { tab: 'hub-subsides', language: lang };
   }
 
-  // 6. Handle Insurer Slugs dynamically (/fr/caisses-maladie/:slug/, /caisses-maladie/:slug/)
-  const insurerMatch = normalized.match(/(?:\/(fr|de|it|en))?\/(?:caisses-maladie|krankenkassen|casse-malati|health-funds)\/([a-z0-9-]+)\/?$/);
+  // 6. Handle Insurer Slugs dynamically (/fr/caisses-maladie/:slug/, /es/caisses-maladie/:slug/)
+  const insurerMatch = normalized.match(/(?:\/(fr|de|it|en|es|sp|pt))?\/(?:caisses-maladie|krankenkassen|casse-malati|health-funds)\/([a-z0-9-]+)\/?$/);
   if (insurerMatch) {
-    const lang = (insurerMatch[1] || 'fr') as Language;
+    const rawLang = insurerMatch[1] || 'fr';
+    const lang = (rawLang === 'sp' ? 'es' : rawLang) as Language;
     const slug = insurerMatch[2];
     const candidateTab = `insurer-${slug}` as AppTab;
     if (MULTILINGUAL_ROUTES[candidateTab]) {
@@ -1833,10 +1872,11 @@ export function resolveRouteFromPath(pathname: string): { tab: AppTab; language:
     }
   }
 
-  // 7. Handle Guides Slugs dynamically (/fr/guides/:slug/, /guides/:slug/)
-  const guideMatch = normalized.match(/(?:\/(fr|de|it|en))?\/(?:guides|ratgeber|guide)\/([a-z0-9-]+)\/?$/);
+  // 7. Handle Guides Slugs dynamically (/fr/guides/:slug/)
+  const guideMatch = normalized.match(/(?:\/(fr|de|it|en|es|sp|pt))?\/(?:guides|ratgeber|guide)\/([a-z0-9-]+)\/?$/);
   if (guideMatch) {
-    const lang = (guideMatch[1] || 'fr') as Language;
+    const rawLang = guideMatch[1] || 'fr';
+    const lang = (rawLang === 'sp' ? 'es' : rawLang) as Language;
     const slug = guideMatch[2];
     const candidateTab = (slug.startsWith('guide-') ? slug : `guide-${slug}`) as AppTab;
     if (MULTILINGUAL_ROUTES[candidateTab]) {
@@ -1845,9 +1885,10 @@ export function resolveRouteFromPath(pathname: string): { tab: AppTab; language:
   }
 
   // 8. Handle Tools Slugs dynamically (/fr/outils/:slug/)
-  const toolMatch = normalized.match(/(?:\/(fr|de|it|en))?\/(?:outils|tools|strumenti)\/([a-z0-9-]+)\/?$/);
+  const toolMatch = normalized.match(/(?:\/(fr|de|it|en|es|sp|pt))?\/(?:outils|tools|strumenti)\/([a-z0-9-]+)\/?$/);
   if (toolMatch) {
-    const lang = (toolMatch[1] || 'fr') as Language;
+    const rawLang = toolMatch[1] || 'fr';
+    const lang = (rawLang === 'sp' ? 'es' : rawLang) as Language;
     const slug = toolMatch[2];
     const candidateTab = (slug.startsWith('tool-') ? slug : `tool-${slug}`) as AppTab;
     if (MULTILINGUAL_ROUTES[candidateTab]) {
@@ -1881,6 +1922,8 @@ export function resolveRouteFromPath(pathname: string): { tab: AppTab; language:
   if (normalized.startsWith('/de/')) return { tab: 'home', language: 'de' };
   if (normalized.startsWith('/it/')) return { tab: 'home', language: 'it' };
   if (normalized.startsWith('/en/')) return { tab: 'home', language: 'en' };
+  if (normalized.startsWith('/es/') || normalized.startsWith('/sp/')) return { tab: 'home', language: 'es' };
+  if (normalized.startsWith('/pt/')) return { tab: 'home', language: 'pt' };
 
   return { tab: 'home', language: 'fr' };
 }
