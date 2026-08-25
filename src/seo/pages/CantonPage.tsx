@@ -38,6 +38,9 @@ import Breadcrumb from '../components/Breadcrumb';
 import { CantonSEOData, ALL_26_CANTONS } from '../data/cantonsData';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { AppTab } from '../../types';
+import { getLocalizedPath } from '../multilingualRoutes';
+import RelatedContent from '../components/RelatedContent';
+import CantonCrossLinks from '../components/CantonCrossLinks';
 
 interface CantonPageProps {
   data: CantonSEOData;
@@ -168,8 +171,8 @@ export default function CantonPage({
               <ArrowRight className="w-4 h-4" />
             </button>
             <a
-              href={`/fr/subsides/${data.slug}/`}
-              onClick={(e) => handleInternalLink(`/fr/subsides/${data.slug}/`, e)}
+              href={getLocalizedPath(`subside-${data.slug}` as AppTab, language)}
+              onClick={(e) => handleInternalLink(getLocalizedPath(`subside-${data.slug}` as AppTab, language), e)}
               className="inline-flex items-center gap-2 bg-amber-50 text-amber-900 border border-amber-300/80 font-display font-bold px-6 py-3.5 rounded-full hover:bg-amber-100/80 transition-all text-sm cursor-pointer"
             >
               <Award className="w-4 h-4 text-amber-700" />
@@ -685,6 +688,24 @@ export default function CantonPage({
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Semantic Internal Linking Silo */}
+        <RelatedContent
+          currentPath={`/fr/assurance-maladie/${data.slug}/`}
+          topicType="canton"
+          currentSlug={data.slug}
+          onNavigate={(url) => onNavigate(url)}
+          className="mb-10"
+        />
+
+        {/* 26 Cantons Cross-Linking Matrix */}
+        <div className="mb-10">
+          <CantonCrossLinks
+            currentCantonSlug={data.slug}
+            mode="health"
+            onNavigate={(url) => onNavigate(url)}
+          />
         </div>
 
         {/* Official Sources & Methodology Badge */}

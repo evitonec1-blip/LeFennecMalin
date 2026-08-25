@@ -32,6 +32,9 @@ import Breadcrumb from '../components/Breadcrumb';
 import { ALL_26_CANTONS, CANTONS_SEO_DATA } from '../data/cantonsData';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { AppTab } from '../../types';
+import { getLocalizedPath } from '../multilingualRoutes';
+import RelatedContent from '../components/RelatedContent';
+import CantonCrossLinks from '../components/CantonCrossLinks';
 import FennySubsidySimulator from '../../components/FennySubsidySimulator';
 
 // Mascot images - distinct for each section
@@ -388,28 +391,30 @@ export default function SubsidiesHubPage({ onStartComparison, onGoHome, onNaviga
                   </div>
 
                   <div className="pt-3 border-t border-fennec-cream/50 flex items-center justify-between gap-2">
-                    <button
-                      type="button"
-                      onClick={() => {
+                    <a
+                      href={getLocalizedPath(`subside-${canton.slug}` as AppTab, language)}
+                      onClick={(e) => {
+                        e.preventDefault();
                         if (onSelectCanton) {
                           onSelectCanton(canton.slug);
                         } else {
-                          onNavigate(`/subsides/${canton.slug}/`);
+                          onNavigate(getLocalizedPath(`subside-${canton.slug}` as AppTab, language));
                         }
                       }}
                       className="text-xs font-bold text-fennec-terracotta hover:underline inline-flex items-center gap-1 cursor-pointer"
                     >
-                      <span>Guide complet</span>
+                      <span>Subside {canton.name}</span>
                       <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-                    </button>
+                    </a>
                     <a
-                      href={link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[11px] text-fennec-dark/50 hover:text-fennec-dark inline-flex items-center gap-1"
+                      href={getLocalizedPath(`canton-${canton.slug}` as AppTab, language)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        onNavigate(getLocalizedPath(`canton-${canton.slug}` as AppTab, language));
+                      }}
+                      className="text-[11px] font-semibold text-fennec-dark/60 hover:text-fennec-dark inline-flex items-center gap-1 bg-fennec-cream/40 px-2 py-0.5 rounded-md"
                     >
-                      <span>Portail</span>
-                      <ExternalLink className="w-3 h-3" />
+                      <span>Primes {canton.code}</span>
                     </a>
                   </div>
                 </div>
@@ -470,6 +475,22 @@ export default function SubsidiesHubPage({ onStartComparison, onGoHome, onNaviga
               );
             })}
           </div>
+        </div>
+
+        {/* Semantic Internal Linking Silo */}
+        <RelatedContent
+          currentPath="/fr/subsides/"
+          topicType="subside"
+          onNavigate={(url) => onNavigate(url)}
+          className="mb-14"
+        />
+
+        {/* 26 Cantons Subsidies Matrix */}
+        <div className="mb-14">
+          <CantonCrossLinks
+            mode="subside"
+            onNavigate={(url) => onNavigate(url)}
+          />
         </div>
 
         {/* Bottom Comparison CTA Banner */}

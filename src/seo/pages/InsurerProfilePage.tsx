@@ -34,6 +34,10 @@ import { InsurerSEOData } from '../data/insurersData';
 import CompanyLogo from '../../components/CompanyLogo';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { AppTab } from '../../types';
+import { getLocalizedPath } from '../multilingualRoutes';
+import RelatedContent from '../components/RelatedContent';
+import InsurerCrossLinks from '../components/InsurerCrossLinks';
+import CantonCrossLinks from '../components/CantonCrossLinks';
 
 interface Props {
   insurer: InsurerSEOData;
@@ -631,27 +635,11 @@ export default function InsurerProfilePage({ insurer, onStartComparison, onGoHom
         </div>
 
         {/* 9. CANTONAL DIRECTORY LINKS */}
-        <div id="cantons-directory" className="bg-white rounded-2xl border border-stone-200 shadow-sm p-6 sm:p-8 mb-8">
-          <h2 className="text-xl font-bold text-stone-900 mb-2 flex items-center gap-2">
-            <MapPin className="w-5 h-5 text-fennec-terracotta" />
-            Tarifs {insurer.name} dans les 26 cantons suisses
-          </h2>
-          <p className="text-stone-500 text-sm mb-4">
-            Consultez les primes et les spécificités de l'assurance maladie dans votre canton de résidence :
-          </p>
-
-          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2">
-            {SWISS_CANTONS_LIST.map((c) => (
-              <button
-                key={c.code}
-                onClick={() => onNavigate(`/fr/assurance-maladie/${c.slug}/`)}
-                className="bg-stone-50 hover:bg-stone-100 border border-stone-200 p-2.5 rounded-lg text-left transition-colors flex items-center justify-between text-xs"
-              >
-                <span className="font-semibold text-stone-800">{c.name}</span>
-                <span className="text-[10px] font-bold text-stone-400">{c.code}</span>
-              </button>
-            ))}
-          </div>
+        <div className="mb-8">
+          <CantonCrossLinks
+            mode="health"
+            onNavigate={(url) => onNavigate(url)}
+          />
         </div>
 
         {/* 10. FREQUENTLY ASKED QUESTIONS */}
@@ -684,6 +672,23 @@ export default function InsurerProfilePage({ insurer, onStartComparison, onGoHom
           </div>
         </div>
 
+        {/* Semantic Internal Linking Silo */}
+        <RelatedContent
+          currentPath={`/fr/caisses-maladie/${insurer.slug}/`}
+          topicType="insurer"
+          currentSlug={insurer.slug}
+          onNavigate={(url) => onNavigate(url)}
+          className="mb-8"
+        />
+
+        {/* 37 Swiss Insurers Matrix */}
+        <div className="mb-8">
+          <InsurerCrossLinks
+            currentInsurerSlug={insurer.slug}
+            onNavigate={(url) => onNavigate(url)}
+          />
+        </div>
+
         {/* 11. BOTTOM CTA BANNER */}
         <div className="bg-gradient-to-br from-stone-900 to-stone-800 text-white rounded-2xl p-8 text-center shadow-lg">
           <h2 className="text-2xl sm:text-3xl font-extrabold mb-3">
@@ -700,12 +705,13 @@ export default function InsurerProfilePage({ insurer, onStartComparison, onGoHom
               <span>Lancer le comparateur neutre</span>
               <ArrowRight className="w-5 h-5" />
             </button>
-            <button
-              onClick={() => onNavigate('/fr/caisses-maladie/')}
+            <a
+              href={getLocalizedPath('hub-assureurs', language)}
+              onClick={(e) => { e.preventDefault(); onNavigate(getLocalizedPath('hub-assureurs', language)); }}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold px-6 py-4 rounded-xl border border-white/20 transition-colors text-sm"
             >
               <span>Voir toutes les caisses maladie</span>
-            </button>
+            </a>
           </div>
         </div>
       </div>

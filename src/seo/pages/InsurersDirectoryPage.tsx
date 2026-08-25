@@ -26,6 +26,9 @@ import { INSURERS_SEO_DATA, InsurerSEOData } from '../data/insurersData';
 import CompanyLogo from '../../components/CompanyLogo';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { AppTab } from '../../types';
+import { getLocalizedPath } from '../multilingualRoutes';
+import RelatedContent from '../components/RelatedContent';
+import CantonCrossLinks from '../components/CantonCrossLinks';
 
 interface Props {
   onStartComparison: () => void;
@@ -199,13 +202,14 @@ export default function InsurersDirectoryPage({ onStartComparison, onGoHome, onN
 
               {/* Actions */}
               <div className="pt-4 border-t border-stone-100 flex items-center gap-2">
-                <button
-                  onClick={() => onNavigate(`/fr/caisses-maladie/${ins.slug}/`)}
+                <a
+                  href={getLocalizedPath(`insurer-${ins.slug}` as AppTab, language)}
+                  onClick={(e) => { e.preventDefault(); onNavigate(getLocalizedPath(`insurer-${ins.slug}` as AppTab, language)); }}
                   className="flex-1 inline-flex items-center justify-center gap-1.5 bg-stone-100 hover:bg-stone-200 text-stone-900 text-xs font-bold py-2.5 px-3 rounded-xl transition-colors"
                 >
-                  <span>Fiche complète</span>
+                  <span>Fiche complète {ins.name}</span>
                   <ChevronRight className="w-3.5 h-3.5" />
-                </button>
+                </a>
                 <button
                   onClick={onStartComparison}
                   className="inline-flex items-center justify-center gap-1 bg-fennec-terracotta hover:bg-fennec-rust text-white text-xs font-bold py-2.5 px-3 rounded-xl transition-colors shrink-0"
@@ -229,29 +233,59 @@ export default function InsurersDirectoryPage({ onStartComparison, onGoHome, onN
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <div
-              onClick={() => onNavigate('/fr/caisses-maladie/css/')}
-              className="p-4 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-xl cursor-pointer transition-all"
+            <a
+              href={getLocalizedPath('compare-css-helsana', language)}
+              onClick={(e) => { e.preventDefault(); onNavigate(getLocalizedPath('compare-css-helsana', language)); }}
+              className="p-4 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-xl transition-all block"
             >
               <div className="font-bold text-stone-900 text-sm mb-1">CSS vs Helsana</div>
               <p className="text-xs text-stone-500">Comparatif des deux géants leaders de l'assurance santé suisse.</p>
-            </div>
+            </a>
 
-            <div
-              onClick={() => onNavigate('/fr/caisses-maladie/assura/')}
-              className="p-4 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-xl cursor-pointer transition-all"
+            <a
+              href={getLocalizedPath('compare-assura-mutuel', language)}
+              onClick={(e) => { e.preventDefault(); onNavigate(getLocalizedPath('compare-assura-mutuel', language)); }}
+              className="p-4 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-xl transition-all block"
             >
               <div className="font-bold text-stone-900 text-sm mb-1">Assura vs Groupe Mutuel</div>
               <p className="text-xs text-stone-500">Le match de la Romandie : prime économique contre service de proximité.</p>
-            </div>
+            </a>
 
-            <div
-              onClick={() => onNavigate('/fr/caisses-maladie/swica/')}
-              className="p-4 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-xl cursor-pointer transition-all"
+            <a
+              href={getLocalizedPath('compare-swica-sanitas', language)}
+              onClick={(e) => { e.preventDefault(); onNavigate(getLocalizedPath('compare-swica-sanitas', language)); }}
+              className="p-4 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-xl transition-all block"
             >
               <div className="font-bold text-stone-900 text-sm mb-1">SWICA vs Sanitas</div>
               <p className="text-xs text-stone-500">Comparatif axé sur les contributions sportives et l'innovation digitale.</p>
-            </div>
+            </a>
+
+            <a
+              href={getLocalizedPath('compare-helsana-swica', language)}
+              onClick={(e) => { e.preventDefault(); onNavigate(getLocalizedPath('compare-helsana-swica', language)); }}
+              className="p-4 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-xl transition-all block"
+            >
+              <div className="font-bold text-stone-900 text-sm mb-1">Helsana vs SWICA</div>
+              <p className="text-xs text-stone-500">Qualité de service client, remboursements et médecines alternatives.</p>
+            </a>
+
+            <a
+              href={getLocalizedPath('compare-css-swica', language)}
+              onClick={(e) => { e.preventDefault(); onNavigate(getLocalizedPath('compare-css-swica', language)); }}
+              className="p-4 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-xl transition-all block"
+            >
+              <div className="font-bold text-stone-900 text-sm mb-1">CSS vs SWICA</div>
+              <p className="text-xs text-stone-500">Leader national face à la référence de la satisfaction client.</p>
+            </a>
+
+            <a
+              href={getLocalizedPath('compare-visana-concordia', language)}
+              onClick={(e) => { e.preventDefault(); onNavigate(getLocalizedPath('compare-visana-concordia', language)); }}
+              className="p-4 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-xl transition-all block"
+            >
+              <div className="font-bold text-stone-900 text-sm mb-1">Visana vs Concordia</div>
+              <p className="text-xs text-stone-500">Couverture des familles, solidité financière et ancrage régional.</p>
+            </a>
           </div>
         </div>
 
@@ -269,6 +303,22 @@ export default function InsurersDirectoryPage({ onStartComparison, onGoHome, onN
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Semantic Internal Linking Silo */}
+        <RelatedContent
+          currentPath="/fr/caisses-maladie/"
+          topicType="insurer"
+          onNavigate={(url) => onNavigate(url)}
+          className="mb-12"
+        />
+
+        {/* 26 Cantons Matrix */}
+        <div className="mb-12">
+          <CantonCrossLinks
+            mode="health"
+            onNavigate={(url) => onNavigate(url)}
+          />
         </div>
 
         {/* Bottom CTA */}

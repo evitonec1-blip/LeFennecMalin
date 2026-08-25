@@ -22,6 +22,9 @@ import SEOHead, { breadcrumbSchema, faqSchema, organizationSchema } from '../com
 import Breadcrumb from '../components/Breadcrumb';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { AppTab } from '../../types';
+import { getLocalizedPath } from '../multilingualRoutes';
+import RelatedContent from '../components/RelatedContent';
+import CantonCrossLinks from '../components/CantonCrossLinks';
 
 interface Props {
   onNavigate: (tab: AppTab) => void;
@@ -258,6 +261,29 @@ export default function FranchiseGuidePage({ onNavigate, onStartComparison }: Pr
             })}
           </div>
         </section>
+
+        {/* Semantic Internal Linking Silo */}
+        <RelatedContent
+          currentPath="/fr/guide-assurance-maladie/franchise-lamal/"
+          topicType="guide"
+          currentSlug="franchise"
+          onNavigate={(url) => {
+            const tab = url.replace(/^\/[a-z]{2}\//, '').replace(/\/$/, '') as AppTab;
+            onNavigate(tab);
+          }}
+          className="mb-12"
+        />
+
+        {/* 26 Cantons Cross Links */}
+        <div className="mb-12">
+          <CantonCrossLinks
+            mode="health"
+            onNavigate={(url) => {
+              const tab = url.replace(/^\/[a-z]{2}\//, '').replace(/\/$/, '') as AppTab;
+              onNavigate(tab);
+            }}
+          />
+        </div>
 
         {/* CTA */}
         <div className="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6">

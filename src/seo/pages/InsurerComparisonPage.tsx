@@ -25,6 +25,10 @@ import Breadcrumb from '../components/Breadcrumb';
 import CompanyLogo from '../../components/CompanyLogo';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { AppTab } from '../../types';
+import { getLocalizedPath } from '../multilingualRoutes';
+import RelatedContent from '../components/RelatedContent';
+import InsurerCrossLinks from '../components/InsurerCrossLinks';
+import CantonCrossLinks from '../components/CantonCrossLinks';
 
 interface ComparisonData {
   nameA: string;
@@ -218,13 +222,14 @@ export default function InsurerComparisonPage({ comparisonId, onNavigate, onStar
                   <CompanyLogo id={comp.tabA.replace('insurer-', '')} className="w-12 h-12 shrink-0" />
                   <h2 className="text-2xl font-bold text-slate-900">{comp.nameA}</h2>
                 </div>
-                <button
-                  onClick={() => onNavigate(comp.tabA)}
+                <a
+                  href={getLocalizedPath(comp.tabA, language)}
+                  onClick={(e) => { e.preventDefault(); onNavigate(comp.tabA); }}
                   className="text-xs text-emerald-600 hover:text-emerald-700 font-semibold flex items-center gap-1"
                 >
-                  Voir fiche complète
+                  <span>Fiche {comp.nameA}</span>
                   <ExternalLink className="w-3 h-3" />
-                </button>
+                </a>
               </div>
               <div className="space-y-2 text-xs text-slate-600">
                 <div className="flex justify-between py-1.5 border-b border-slate-100">
@@ -260,13 +265,14 @@ export default function InsurerComparisonPage({ comparisonId, onNavigate, onStar
                   <CompanyLogo id={comp.tabB.replace('insurer-', '')} className="w-12 h-12 shrink-0" />
                   <h2 className="text-2xl font-bold text-slate-900">{comp.nameB}</h2>
                 </div>
-                <button
-                  onClick={() => onNavigate(comp.tabB)}
+                <a
+                  href={getLocalizedPath(comp.tabB, language)}
+                  onClick={(e) => { e.preventDefault(); onNavigate(comp.tabB); }}
                   className="text-xs text-emerald-600 hover:text-emerald-700 font-semibold flex items-center gap-1"
                 >
-                  Voir fiche complète
+                  <span>Fiche {comp.nameB}</span>
                   <ExternalLink className="w-3 h-3" />
-                </button>
+                </a>
               </div>
               <div className="space-y-2 text-xs text-slate-600">
                 <div className="flex justify-between py-1.5 border-b border-slate-100">
@@ -333,6 +339,29 @@ export default function InsurerComparisonPage({ comparisonId, onNavigate, onStar
             ))}
           </div>
         </section>
+
+        {/* Semantic Internal Linking Silo */}
+        <RelatedContent
+          currentPath="/fr/comparatif-caisses/"
+          topicType="insurer"
+          onNavigate={(url) => onNavigate(url)}
+          className="mb-12"
+        />
+
+        {/* 37 Swiss Insurers Matrix */}
+        <div className="mb-12">
+          <InsurerCrossLinks
+            onNavigate={(url) => onNavigate(url)}
+          />
+        </div>
+
+        {/* 26 Cantons Cross Links */}
+        <div className="mb-12">
+          <CantonCrossLinks
+            mode="health"
+            onNavigate={(url) => onNavigate(url)}
+          />
+        </div>
 
         {/* CTA */}
         <div className="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">

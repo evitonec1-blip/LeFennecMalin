@@ -32,6 +32,9 @@ import { CantonSEOData } from '../data/cantonTypes';
 import { CANTONS_SEO_DATA } from '../data/cantonsData';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { AppTab } from '../../types';
+import { getLocalizedPath } from '../multilingualRoutes';
+import RelatedContent from '../components/RelatedContent';
+import CantonCrossLinks from '../components/CantonCrossLinks';
 import FennySubsidySimulator from '../../components/FennySubsidySimulator';
 
 // Mascot images - distinct for each section
@@ -95,21 +98,32 @@ export default function CantonSubsidiesPage({ cantonSlug, onStartComparison, onG
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10">
         <Breadcrumb
           items={[
-            { label: 'Accueil', onClick: onGoHome },
-            { label: 'Subsides', onClick: () => onNavigate('/subsides/') },
-            { label: canton.name }
+            { label: 'Accueil', href: getLocalizedPath('home', language), onClick: onGoHome },
+            { label: 'Subsides', href: getLocalizedPath('subside', language), onClick: () => onNavigate(getLocalizedPath('subside', language)) },
+            { label: `Subside ${canton.name}` }
           ]}
         />
 
-        {/* Back Link */}
-        <button
-          type="button"
-          onClick={() => onNavigate('/subsides/')}
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-fennec-dark/60 hover:text-fennec-dark mb-6 cursor-pointer"
-        >
-          <ArrowLeft className="w-3.5 h-3.5" />
-          <span>Tous les cantons suisses</span>
-        </button>
+        {/* Canton Contextual Navigation Pill */}
+        <div className="flex flex-wrap items-center gap-3 mb-6">
+          <a
+            href={getLocalizedPath('subside', language)}
+            onClick={(e) => { e.preventDefault(); onNavigate(getLocalizedPath('subside', language)); }}
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-fennec-dark/60 hover:text-fennec-dark bg-white border border-fennec-cream/80 px-3.5 py-2 rounded-full cursor-pointer transition-colors shadow-2xs"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Tous les cantons (Subsides)</span>
+          </a>
+
+          <a
+            href={getLocalizedPath(`canton-${canton.slug}` as AppTab, language)}
+            onClick={(e) => { e.preventDefault(); onNavigate(getLocalizedPath(`canton-${canton.slug}` as AppTab, language)); }}
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-fennec-terracotta hover:text-white bg-fennec-terracotta/10 hover:bg-fennec-terracotta border border-fennec-terracotta/30 px-3.5 py-2 rounded-full cursor-pointer transition-all shadow-2xs"
+          >
+            <ShieldCheck className="w-3.5 h-3.5" />
+            <span>Primes assurance maladie {canton.name}</span>
+          </a>
+        </div>
 
         {/* Hero Section */}
         <div className="mb-10 bg-gradient-to-br from-[#FAF7F3] via-white to-orange-50/20 rounded-3xl border border-fennec-cream/80 p-6 sm:p-8 shadow-xs">
@@ -350,6 +364,24 @@ export default function CantonSubsidiesPage({ cantonSlug, onStartComparison, onG
               );
             })}
           </div>
+        </div>
+
+        {/* Semantic Internal Linking Silo */}
+        <RelatedContent
+          currentPath={`/fr/subsides/${canton.slug}/`}
+          topicType="subside"
+          currentSlug={canton.slug}
+          onNavigate={(url) => onNavigate(url)}
+          className="mb-10"
+        />
+
+        {/* 26 Cantons Subsidies Matrix */}
+        <div className="mb-10">
+          <CantonCrossLinks
+            currentCantonSlug={canton.slug}
+            mode="subside"
+            onNavigate={(url) => onNavigate(url)}
+          />
         </div>
 
         {/* Bottom CTA */}

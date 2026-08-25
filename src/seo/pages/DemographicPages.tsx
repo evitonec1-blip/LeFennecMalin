@@ -29,6 +29,9 @@ import SEOHead, { breadcrumbSchema, faqSchema, organizationSchema } from '../com
 import Breadcrumb from '../components/Breadcrumb';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { AppTab } from '../../types';
+import RelatedContent from '../components/RelatedContent';
+import CantonCrossLinks from '../components/CantonCrossLinks';
+import InsurerCrossLinks from '../components/InsurerCrossLinks';
 
 interface Props {
   onNavigate: (tab: AppTab) => void;
@@ -155,6 +158,28 @@ export function FamilyInsurancePage({ onNavigate, onStartComparison }: Props) {
           </div>
         </section>
 
+        {/* Semantic Internal Linking Silo */}
+        <RelatedContent
+          currentPath="/fr/lamal/famille/"
+          topicType="lamal"
+          onNavigate={(url) => {
+            const tab = url.replace(/^\/[a-z]{2}\//, '').replace(/\/$/, '') as AppTab;
+            onNavigate(tab);
+          }}
+          className="mb-12"
+        />
+
+        {/* 26 Cantons Cross Links */}
+        <div className="mb-12">
+          <CantonCrossLinks
+            mode="health"
+            onNavigate={(url) => {
+              const tab = url.replace(/^\/[a-z]{2}\//, '').replace(/\/$/, '') as AppTab;
+              onNavigate(tab);
+            }}
+          />
+        </div>
+
         {/* CTA */}
         <div className="bg-emerald-800 text-white rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
@@ -270,6 +295,28 @@ export function YoungAdultInsurancePage({ onNavigate, onStartComparison }: Props
             ))}
           </div>
         </section>
+
+        {/* Semantic Internal Linking Silo */}
+        <RelatedContent
+          currentPath="/fr/lamal/jeunes-adultes/"
+          topicType="lamal"
+          onNavigate={(url) => {
+            const tab = url.replace(/^\/[a-z]{2}\//, '').replace(/\/$/, '') as AppTab;
+            onNavigate(tab);
+          }}
+          className="mb-12"
+        />
+
+        {/* 26 Cantons Cross Links */}
+        <div className="mb-12">
+          <CantonCrossLinks
+            mode="health"
+            onNavigate={(url) => {
+              const tab = url.replace(/^\/[a-z]{2}\//, '').replace(/\/$/, '') as AppTab;
+              onNavigate(tab);
+            }}
+          />
+        </div>
       </div>
     </>
   );
@@ -371,6 +418,28 @@ export function StudentInsurancePage({ onNavigate, onStartComparison }: Props) {
             ))}
           </div>
         </section>
+
+        {/* Semantic Internal Linking Silo */}
+        <RelatedContent
+          currentPath="/fr/lamal/etudiant/"
+          topicType="lamal"
+          onNavigate={(url) => {
+            const tab = url.replace(/^\/[a-z]{2}\//, '').replace(/\/$/, '') as AppTab;
+            onNavigate(tab);
+          }}
+          className="mb-12"
+        />
+
+        {/* 26 Cantons Cross Links */}
+        <div className="mb-12">
+          <CantonCrossLinks
+            mode="health"
+            onNavigate={(url) => {
+              const tab = url.replace(/^\/[a-z]{2}\//, '').replace(/\/$/, '') as AppTab;
+              onNavigate(tab);
+            }}
+          />
+        </div>
       </div>
     </>
   );
@@ -472,6 +541,28 @@ export function NewResidentInsurancePage({ onNavigate, onStartComparison }: Prop
             ))}
           </div>
         </section>
+
+        {/* Semantic Internal Linking Silo */}
+        <RelatedContent
+          currentPath="/fr/lamal/nouveaux-arrivants/"
+          topicType="lamal"
+          onNavigate={(url) => {
+            const tab = url.replace(/^\/[a-z]{2}\//, '').replace(/\/$/, '') as AppTab;
+            onNavigate(tab);
+          }}
+          className="mb-12"
+        />
+
+        {/* 26 Cantons Cross Links */}
+        <div className="mb-12">
+          <CantonCrossLinks
+            mode="health"
+            onNavigate={(url) => {
+              const tab = url.replace(/^\/[a-z]{2}\//, '').replace(/\/$/, '') as AppTab;
+              onNavigate(tab);
+            }}
+          />
+        </div>
       </div>
     </>
   );

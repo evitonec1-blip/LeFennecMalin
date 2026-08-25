@@ -10,6 +10,9 @@ import Breadcrumb from '../components/Breadcrumb';
 import { CategorySEOData } from '../data/categoriesData';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { AppTab } from '../../types';
+import { getLocalizedPath } from '../multilingualRoutes';
+import RelatedContent from '../components/RelatedContent';
+import CantonCrossLinks from '../components/CantonCrossLinks';
 
 interface CategoryPageProps {
   data: CategorySEOData;
@@ -172,16 +175,36 @@ export default function InsuranceCategoryPage({ data, onStartComparison, onGoHom
           </h3>
           <div className="flex flex-wrap gap-2 pt-1">
             {data.relatedCategories.map(cat => (
-              <button
+              <a
                 key={cat.url}
-                onClick={() => onNavigate(cat.url)}
+                href={cat.url}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate(cat.url);
+                }}
                 className="px-4 py-2 bg-fennec-cream/30 hover:bg-fennec-cream/70 border border-fennec-cream/60 rounded-xl text-xs font-semibold text-fennec-dark transition-all cursor-pointer flex items-center gap-1.5"
               >
                 <span>{cat.name}</span>
                 <ArrowRight className="w-3 h-3 text-fennec-terracotta" />
-              </button>
+              </a>
             ))}
           </div>
+        </div>
+
+        {/* Semantic Internal Linking Silo */}
+        <RelatedContent
+          currentPath={`/${data.slug}/`}
+          topicType="general"
+          onNavigate={(url) => onNavigate(url)}
+          className="mb-10"
+        />
+
+        {/* 26 Cantons Cross Links */}
+        <div className="mb-10">
+          <CantonCrossLinks
+            mode="health"
+            onNavigate={(url) => onNavigate(url)}
+          />
         </div>
 
         {/* CTA Banner */}

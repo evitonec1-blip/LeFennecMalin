@@ -614,6 +614,7 @@ export default function App() {
           <AssuranceMaladie
             onStartComparison={() => startHealthWithCanton()}
             onGoHome={() => setTab('home')}
+            onNavigate={navigateToUrl}
           />
         )}
 

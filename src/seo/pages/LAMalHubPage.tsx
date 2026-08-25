@@ -25,6 +25,9 @@ import SEOHead, { breadcrumbSchema, faqSchema, organizationSchema } from '../com
 import Breadcrumb from '../components/Breadcrumb';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { AppTab } from '../../types';
+import { getLocalizedPath } from '../multilingualRoutes';
+import RelatedContent from '../components/RelatedContent';
+import CantonCrossLinks from '../components/CantonCrossLinks';
 
 interface Props {
   onNavigate: (tab: AppTab) => void;
@@ -159,9 +162,10 @@ export default function LAMalHubPage({ onNavigate, onStartComparison }: Props) {
             Explorez les dossiers spécialisés LAMal
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            <button
-              onClick={() => onNavigate('lamal-franchise')}
-              className="text-left p-5 rounded-xl border border-slate-200 bg-white hover:border-emerald-500 hover:shadow-md transition-all group"
+            <a
+              href={getLocalizedPath('lamal-franchise', language)}
+              onClick={(e) => { e.preventDefault(); onNavigate('lamal-franchise'); }}
+              className="text-left p-5 rounded-xl border border-slate-200 bg-white hover:border-emerald-500 hover:shadow-md transition-all group block"
             >
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-emerald-600">Guide Chiffré</span>
@@ -171,11 +175,12 @@ export default function LAMalHubPage({ onNavigate, onStartComparison }: Props) {
               <p className="text-xs text-slate-500 leading-relaxed">
                 Règle mathématique des 1'800 CHF de frais de santé et pièges des franchises intermédiaires.
               </p>
-            </button>
+            </a>
 
-            <button
-              onClick={() => onNavigate('lamal-modeles')}
-              className="text-left p-5 rounded-xl border border-slate-200 bg-white hover:border-emerald-500 hover:shadow-md transition-all group"
+            <a
+              href={getLocalizedPath('lamal-modeles', language)}
+              onClick={(e) => { e.preventDefault(); onNavigate('lamal-modeles'); }}
+              className="text-left p-5 rounded-xl border border-slate-200 bg-white hover:border-emerald-500 hover:shadow-md transition-all group block"
             >
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-emerald-600">Économies Primes</span>
@@ -185,11 +190,12 @@ export default function LAMalHubPage({ onNavigate, onStartComparison }: Props) {
               <p className="text-xs text-slate-500 leading-relaxed">
                 Standard, Telmed, Médecin de famille et HMO : économisez jusqu'à 25% chaque mois.
               </p>
-            </button>
+            </a>
 
-            <button
-              onClick={() => onNavigate('lamal-moins-chere')}
-              className="text-left p-5 rounded-xl border border-slate-200 bg-white hover:border-emerald-500 hover:shadow-md transition-all group"
+            <a
+              href={getLocalizedPath('caisse-moins-chere', language)}
+              onClick={(e) => { e.preventDefault(); onNavigate('caisse-moins-chere'); }}
+              className="text-left p-5 rounded-xl border border-slate-200 bg-white hover:border-emerald-500 hover:shadow-md transition-all group block"
             >
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-emerald-600">Comparatif Réel</span>
@@ -199,11 +205,12 @@ export default function LAMalHubPage({ onNavigate, onStartComparison }: Props) {
               <p className="text-xs text-slate-500 leading-relaxed">
                 Pourquoi aucune caisse n'est universellement la moins chère et comment trouver la vôtre.
               </p>
-            </button>
+            </a>
 
-            <button
-              onClick={() => onNavigate('meilleure-caisse-maladie')}
-              className="text-left p-5 rounded-xl border border-slate-200 bg-white hover:border-emerald-500 hover:shadow-md transition-all group"
+            <a
+              href={getLocalizedPath('meilleure-caisse-maladie', language)}
+              onClick={(e) => { e.preventDefault(); onNavigate('meilleure-caisse-maladie'); }}
+              className="text-left p-5 rounded-xl border border-slate-200 bg-white hover:border-emerald-500 hover:shadow-md transition-all group block"
             >
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-emerald-600">Classement 2026</span>
@@ -213,11 +220,12 @@ export default function LAMalHubPage({ onNavigate, onStartComparison }: Props) {
               <p className="text-xs text-slate-500 leading-relaxed">
                 Satisfaction client, rapidité de remboursement, solvabilité OFSP et qualité du service.
               </p>
-            </button>
+            </a>
 
-            <button
-              onClick={() => onNavigate('lamal-changer-caisse')}
-              className="text-left p-5 rounded-xl border border-slate-200 bg-white hover:border-emerald-500 hover:shadow-md transition-all group"
+            <a
+              href={getLocalizedPath('lamal-changer-caisse', language)}
+              onClick={(e) => { e.preventDefault(); onNavigate('lamal-changer-caisse'); }}
+              className="text-left p-5 rounded-xl border border-slate-200 bg-white hover:border-emerald-500 hover:shadow-md transition-all group block"
             >
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-emerald-600">Démarches & Lettre</span>
@@ -227,11 +235,12 @@ export default function LAMalHubPage({ onNavigate, onStartComparison }: Props) {
               <p className="text-xs text-slate-500 leading-relaxed">
                 Délai du 30 novembre, modèle de lettre de résiliation gratuit et étapes pas à pas.
               </p>
-            </button>
+            </a>
 
-            <button
-              onClick={() => onNavigate('lamal-vs-lca')}
-              className="text-left p-5 rounded-xl border border-slate-200 bg-white hover:border-emerald-500 hover:shadow-md transition-all group"
+            <a
+              href={getLocalizedPath('lamal-vs-lca', language)}
+              onClick={(e) => { e.preventDefault(); onNavigate('lamal-vs-lca'); }}
+              className="text-left p-5 rounded-xl border border-slate-200 bg-white hover:border-emerald-500 hover:shadow-md transition-all group block"
             >
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-emerald-600">Base vs Privée</span>
@@ -241,7 +250,7 @@ export default function LAMalHubPage({ onNavigate, onStartComparison }: Props) {
               <p className="text-xs text-slate-500 leading-relaxed">
                 Différences juridiques, questionnaires médicaux et stratégie de double affiliation.
               </p>
-            </button>
+            </a>
           </div>
         </section>
 
@@ -280,6 +289,28 @@ export default function LAMalHubPage({ onNavigate, onStartComparison }: Props) {
             })}
           </div>
         </section>
+
+        {/* Semantic Internal Linking Silo */}
+        <RelatedContent
+          currentPath="/fr/lamal/"
+          topicType="lamal"
+          onNavigate={(url) => {
+            const foundTab = url.includes('franchise') ? 'lamal-franchise' : url.includes('modeles') ? 'lamal-modeles' : 'seo-maladie';
+            onNavigate(foundTab as AppTab);
+          }}
+          className="mb-12"
+        />
+
+        {/* 26 Cantons Cross-Links */}
+        <div className="mb-12">
+          <CantonCrossLinks
+            mode="health"
+            onNavigate={(url) => {
+              const cantonPart = url.split('/').filter(Boolean).pop() || '';
+              onNavigate(`canton-${cantonPart}` as AppTab);
+            }}
+          />
+        </div>
 
       </div>
     </>

@@ -10,6 +10,9 @@ import Breadcrumb from '../components/Breadcrumb';
 import { GuideSEOData } from '../data/guidesData';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { AppTab } from '../../types';
+import { getLocalizedPath } from '../multilingualRoutes';
+import RelatedContent from '../components/RelatedContent';
+import CantonCrossLinks from '../components/CantonCrossLinks';
 
 interface Props {
   guide: GuideSEOData;
@@ -208,6 +211,23 @@ export default function GuidePage({ guide, tabKey, onStartComparison, onGoHome, 
             </div>
           </div>
         )}
+
+        {/* Semantic Internal Linking Silo */}
+        <RelatedContent
+          currentPath={`/fr/guides/${guide.slug}/`}
+          topicType="guide"
+          currentSlug={guide.slug}
+          onNavigate={(url) => onNavigate(url)}
+          className="mb-12"
+        />
+
+        {/* 26 Cantons Cross Links */}
+        <div className="mb-12">
+          <CantonCrossLinks
+            mode="health"
+            onNavigate={(url) => onNavigate(url)}
+          />
+        </div>
       </div>
     </>
   );

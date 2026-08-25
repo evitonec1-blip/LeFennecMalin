@@ -3,10 +3,15 @@ import { Shield, CheckCircle, ArrowRight, HelpCircle, ChevronDown, ChevronUp } f
 import SEOHead, { breadcrumbSchema, faqSchema, organizationSchema } from '../components/SEOHead';
 import Breadcrumb from '../components/Breadcrumb';
 import { useLanguage } from '../../i18n/LanguageContext';
+import { getLocalizedPath } from '../multilingualRoutes';
+import RelatedContent from '../components/RelatedContent';
+import CantonCrossLinks from '../components/CantonCrossLinks';
+import InsurerCrossLinks from '../components/InsurerCrossLinks';
 
 interface Props {
   onStartComparison: () => void;
   onGoHome: () => void;
+  onNavigate?: (url: string) => void;
 }
 
 const FAQS = [
@@ -127,24 +132,27 @@ export default function AssuranceMaladie({ onStartComparison, onGoHome }: Props)
           </div>
         </div>
 
-        {/* Canton links */}
+        {/* 26 Cantons Cross Links */}
         <div className="mb-10">
-          <h2 className="font-display font-bold text-xl text-fennec-dark mb-5">Assurance maladie par canton</h2>
-          <p className="text-fennec-dark/60 text-sm mb-4">Les primes LAMal varient selon votre lieu de résidence. Consultez les informations spécifiques à votre canton :</p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-            {[
-              { label: 'Genève', slug: 'geneve' },
-              { label: 'Vaud', slug: 'vaud' },
-              { label: 'Fribourg', slug: 'fribourg' },
-              { label: 'Neuchâtel', slug: 'neuchatel' },
-              { label: 'Valais', slug: 'valais' },
-              { label: 'Jura', slug: 'jura' },
-            ].map(c => (
-              <div key={c.slug} className="bg-fennec-cream/40 rounded-xl p-3 text-center text-sm font-display font-bold text-fennec-dark hover:bg-fennec-cream/70 transition-colors cursor-default">
-                {c.label}
-              </div>
-            ))}
-          </div>
+          <CantonCrossLinks
+            mode="health"
+            onNavigate={(url) => onNavigate ? onNavigate(url) : undefined}
+          />
+        </div>
+
+        {/* Semantic Internal Linking Silo */}
+        <RelatedContent
+          currentPath="/fr/assurance-maladie/"
+          topicType="lamal"
+          onNavigate={(url) => onNavigate ? onNavigate(url) : undefined}
+          className="mb-10"
+        />
+
+        {/* 37 Insurers Matrix */}
+        <div className="mb-10">
+          <InsurerCrossLinks
+            onNavigate={(url) => onNavigate ? onNavigate(url) : undefined}
+          />
         </div>
 
         {/* FAQ */}
