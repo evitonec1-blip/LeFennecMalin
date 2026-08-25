@@ -98,19 +98,24 @@ const COOLDOWN_DURATION_MS = 5 * 60 * 1000; // 5 minutes
  * Fetches and caches the local 2026 premiums database on the client-side.
  */
 async function getClientPremiumsDb(): Promise<Record<string, { premium: number; modelName: string }>> {
-  if (clientPremiumsDbCache) {
+  if (clientPremiumsDbCache && Object.keys(clientPremiumsDbCache).length > 0) {
     return clientPremiumsDbCache;
   }
   try {
     const res = await fetch("/premiums_2026.json", {
       headers: { "Accept": "application/json" },
-      cache: "force-cache"
+      cache: "default"
     });
     if (!res.ok) {
       console.warn(`[PriminfoService] premiums_2026.json status: ${res.status}`);
       return {};
     }
-    const data = await res.json();
+    const text = await res.text();
+    if (!text || !text.trim().startsWith('{')) {
+      console.warn(`[PriminfoService] premiums_2026.json returned invalid or non-JSON content (length: ${text?.length || 0})`);
+      return {};
+    }
+    const data = JSON.parse(text);
     clientPremiumsDbCache = data;
     return data;
   } catch (err) {
@@ -132,17 +137,22 @@ export interface NpaRegionEntry {
 let clientNpaMapCache: Record<string, NpaRegionEntry[]> | null = null;
 
 async function getClientNpaMap(): Promise<Record<string, NpaRegionEntry[]>> {
-  if (clientNpaMapCache) return clientNpaMapCache;
+  if (clientNpaMapCache && Object.keys(clientNpaMapCache).length > 0) return clientNpaMapCache;
   try {
     const res = await fetch('/npa_to_region.json', {
       headers: { "Accept": "application/json" },
-      cache: "force-cache"
+      cache: "default"
     });
     if (!res.ok) {
       console.warn(`[PriminfoService] npa_to_region.json status: ${res.status}`);
       return {};
     }
-    clientNpaMapCache = await res.json();
+    const text = await res.text();
+    if (!text || !text.trim().startsWith('{')) {
+      console.warn(`[PriminfoService] npa_to_region.json returned invalid or non-JSON content`);
+      return {};
+    }
+    clientNpaMapCache = JSON.parse(text);
     return clientNpaMapCache || {};
   } catch (err) {
     console.error("[PriminfoService] Failed to load npa_to_region.json:", err);
