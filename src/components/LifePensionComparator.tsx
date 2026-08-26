@@ -3246,31 +3246,6 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
                                 );
                               })()}
 
-                              {/* Commitment preference */}
-                              <div className="space-y-1.5">
-                                <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">{ui.commitmentLabel}</label>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                  {[
-                                    { id: 'fixed', label: ui.fixedRegular, desc: ui.fixedRegularDesc },
-                                    { id: 'both', label: ui.bothCommitment, desc: ui.bothCommitmentDesc },
-                                  ].map((c) => (
-                                    <button
-                                      key={c.id}
-                                      type="button"
-                                      onClick={() => handleFilterChange('commitmentPreference', c.id as any)}
-                                      className={`p-2.5 rounded-xl border text-center transition-all ${
-                                        filters.commitmentPreference === c.id
-                                          ? 'bg-fennec-dark text-white border-fennec-dark font-bold'
-                                          : 'border-fennec-cream/80 text-fennec-dark bg-white hover:bg-fennec-cream/15'
-                                      }`}
-                                    >
-                                      <span className="text-xs block font-bold">{c.label}</span>
-                                      <span className="text-[9px] block opacity-70 mt-0.5">{c.desc}</span>
-                                    </button>
-                                  ))}
-                                </div>
-                              </div>
-
                               {/* Investment Horizon */}
                               <div className="space-y-1">
                                 <div className="flex justify-between items-baseline">

@@ -57,6 +57,22 @@ app.use((req, res, next) => {
   next();
 });
 
+// Permanent 301 redirect for legacy WordPress / Hello World URLs to homepage
+app.use((req, res, next) => {
+  const cleanPath = req.path.toLowerCase();
+  if (
+    cleanPath.includes('hello-world') ||
+    cleanPath.startsWith('/wp-') ||
+    cleanPath.startsWith('/wordpress') ||
+    cleanPath === '/xmlrpc.php' ||
+    cleanPath.endsWith('/wp-login.php') ||
+    req.query.p === '1'
+  ) {
+    return res.redirect(301, '/');
+  }
+  next();
+});
+
 
 // ─── Verification code storage ────────────────────────────────────────────────
 // On Vercel (serverless), every request may hit a fresh instance — an in-memory

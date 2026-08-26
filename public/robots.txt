@@ -9,10 +9,17 @@ Allow: /en/
 Allow: /es/
 Allow: /pt/
 
-# Block API and share routes from indexing
+# Block API, share routes, and legacy WordPress remnants from indexing
 Disallow: /api/
 Disallow: /share/*
 Disallow: /share/
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /wp-content/
+Disallow: /xmlrpc.php
+Disallow: /hello-world/
+Disallow: /hello-world
+Disallow: /*?p=*
 
 # Sitemaps
 Sitemap: https://www.lefennecmalin.ch/sitemap.xml

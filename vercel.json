@@ -6,6 +6,21 @@
       "destination": "https://www.lefennecmalin.ch/:path*",
       "permanent": true,
       "has": [{ "type": "host", "value": "lefennecmalin.ch" }]
+    },
+    {
+      "source": "/hello-world{/}?",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/wp-:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/xmlrpc.php",
+      "destination": "/",
+      "permanent": true
     }
   ],
   "functions": {
