@@ -8,6 +8,7 @@ import { AppTab } from '../types';
 import { ArrowRight, Sparkles, Activity, Shield, Car, Home, Key, Scale } from 'lucide-react';
 import gsap from 'gsap';
 import { useLanguage } from '../i18n/LanguageContext';
+import { teleportToTop } from '../utils/scrollUtils';
 import fenyAnalyse from '../assets/images/feny_analyse_1783331235825.jpg';
 import fenyResults from '../assets/images/feny_mascot_compare_1783245694484.jpg';
 
@@ -68,7 +69,7 @@ export default function ProductsGrid({ onTabChange }: ProductsGridProps) {
 
   const handleProductClick = (tab: AppTab) => {
     onTabChange(tab);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    teleportToTop();
   };
 
   return (

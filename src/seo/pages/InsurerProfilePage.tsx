@@ -706,8 +706,8 @@ export default function InsurerProfilePage({ insurer, onStartComparison, onGoHom
               <ArrowRight className="w-5 h-5" />
             </button>
             <a
-              href={getLocalizedPath('hub-assureurs', language)}
-              onClick={(e) => { e.preventDefault(); onNavigate(getLocalizedPath('hub-assureurs', language)); }}
+              href={getLocalizedPath('hub-insurers', language)}
+              onClick={(e) => { e.preventDefault(); onNavigate(getLocalizedPath('hub-insurers', language)); }}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold px-6 py-4 rounded-xl border border-white/20 transition-colors text-sm"
             >
               <span>Voir toutes les caisses maladie</span>

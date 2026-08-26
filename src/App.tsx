@@ -42,6 +42,7 @@ import { INSURERS_SEO_DATA } from './seo/data/insurersData';
 import { GUIDES_SEO_DATA } from './seo/data/guidesData';
 import SEOHead, { organizationSchema, websiteSchema } from './seo/components/SEOHead';
 import { resolveRouteFromPath, getLocalizedPath, MULTILINGUAL_ROUTES } from './seo/multilingualRoutes';
+import { teleportToTop } from './utils/scrollUtils';
 
 function pushURL(path: string) {
   if (typeof window !== 'undefined' && window.location.pathname !== path) {
@@ -79,11 +80,12 @@ export default function App() {
   const [selectedCantonPreset, setSelectedCantonPreset] = useState<string | undefined>(undefined);
   const [activeVertical, setActiveVertical] = useState<'health' | 'life'>('health');
 
-  // Sync URL when tab changes
+  // Sync URL when tab changes and teleport to top
   const setTab = (tab: AppTab) => {
     setCurrentTab(tab);
     const targetPath = getLocalizedPath(tab, language);
     pushURL(targetPath);
+    teleportToTop();
   };
 
   // Sync URL when language changes via LanguageSelector
@@ -102,6 +104,7 @@ export default function App() {
       setLanguage(route.language);
     }
     setTab(route.tab);
+    teleportToTop();
   };
 
   const startHealthWithCanton = (cantonCode?: string) => {
@@ -109,8 +112,13 @@ export default function App() {
       setSelectedCantonPreset(cantonCode);
     }
     setTab('health-comparator');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    teleportToTop();
   };
+
+  // Universal Teleport to Top on any tab/route transition
+  useEffect(() => {
+    teleportToTop();
+  }, [currentTab]);
 
   // Handle browser back/forward popstate
   useEffect(() => {
@@ -120,10 +128,37 @@ export default function App() {
       if (route.language !== language) {
         setLanguage(route.language);
       }
+      teleportToTop();
     };
     window.addEventListener('popstate', onPop);
     return () => window.removeEventListener('popstate', onPop);
   }, [language, setLanguage]);
+
+  // Global link and button click interceptor to ensure immediate teleportation to top
+  useEffect(() => {
+    const handleGlobalClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement)?.closest('a, button, [role="button"]');
+      if (!target) return;
+
+      const href = target.getAttribute('href');
+      // If clicking an in-page anchor like #section, allow standard scrollIntoView
+      if (href && href.startsWith('#') && href.length > 1) {
+        const sectionEl = document.querySelector(href);
+        if (sectionEl) {
+          sectionEl.scrollIntoView({ behavior: 'smooth' });
+          return;
+        }
+      }
+
+      // If it's a navigational link (e.g. href starting with / or an internal link or button)
+      if (href || target.hasAttribute('onClick') || target.tagName === 'BUTTON' || target.getAttribute('role') === 'button') {
+        teleportToTop();
+      }
+    };
+
+    document.addEventListener('click', handleGlobalClick, { capture: true });
+    return () => document.removeEventListener('click', handleGlobalClick, { capture: true });
+  }, []);
   
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -187,7 +222,7 @@ export default function App() {
     } else {
       setTab('life-comparator');
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    teleportToTop();
   };
 
   return (
@@ -722,7 +757,7 @@ export default function App() {
         {currentTab.startsWith('compare-') && (
           <InsurerComparisonPage
             comparisonId={currentTab}
-            onNavigate={setTab}
+            onNavigate={navigateToUrl}
             onStartComparison={() => setTab('health-comparator')}
           />
         )}
@@ -862,7 +897,7 @@ export default function App() {
           <button
             onClick={() => {
               setTab('health-comparator');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              teleportToTop();
             }}
             className="w-full min-w-0 py-3 px-2 bg-fennec-red hover:bg-red-600 text-white font-display font-extrabold text-[11px] rounded-xl flex items-center justify-center space-x-1.5 shadow-md shadow-fennec-red/20 transition-all active:scale-95"
           >
@@ -872,7 +907,7 @@ export default function App() {
           <button
             onClick={() => {
               setTab('life-comparator');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              teleportToTop();
             }}
             className="w-full min-w-0 py-3 px-2 bg-fennec-dark hover:bg-fennec-terracotta text-white font-display font-extrabold text-[11px] rounded-xl flex items-center justify-center space-x-1.5 shadow-md shadow-fennec-dark/20 transition-all active:scale-95"
           >

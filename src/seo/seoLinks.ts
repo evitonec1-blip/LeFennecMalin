@@ -83,7 +83,7 @@ export const PILLAR_GUIDES_CONFIG: { tab: AppTab; anchor: string; title: string;
     category: 'guide',
   },
   {
-    tab: 'subside',
+    tab: 'hub-subsides',
     anchor: 'demander un subside d\'assurance maladie',
     title: 'Subsides et réductions de primes en Suisse',
     category: 'health',
@@ -95,7 +95,7 @@ export const PILLAR_GUIDES_CONFIG: { tab: AppTab; anchor: string; title: string;
     category: 'guide',
   },
   {
-    tab: 'caisse-moins-chere',
+    tab: 'lamal-moins-chere',
     anchor: 'trouver la caisse maladie la moins chère dans votre canton',
     title: 'Caisse maladie la moins chère 2026',
     category: 'guide',
@@ -119,25 +119,25 @@ export const PILLAR_GUIDES_CONFIG: { tab: AppTab; anchor: string; title: string;
     category: 'guide',
   },
   {
-    tab: 'guide-famille',
+    tab: 'lamal-famille',
     anchor: 'assurer sa famille et ses enfants au meilleur prix',
     title: 'Assurance maladie pour les familles',
     category: 'guide',
   },
   {
-    tab: 'guide-jeunes-adultes',
+    tab: 'lamal-jeunes-adultes',
     anchor: 'bénéficier des rabais jeunes adultes 19-25 ans',
     title: 'Assurance maladie jeunes adultes',
     category: 'guide',
   },
   {
-    tab: 'guide-etudiants',
+    tab: 'lamal-etudiant',
     anchor: 'optimiser l\'assurance maladie étudiant en Suisse',
     title: 'Assurance maladie pour étudiants',
     category: 'guide',
   },
   {
-    tab: 'guide-nouveaux-arrivants',
+    tab: 'lamal-nouveaux-arrivants',
     anchor: 's\'assurer en Suisse dans le délai légal de 3 mois',
     title: 'Guide pour les nouveaux arrivants en Suisse',
     category: 'guide',
@@ -230,8 +230,8 @@ export function getInsurerInternalLinks(insurerSlug: string, lang: Language = 'f
   priorityCantons: InternalLinkItem[];
 } {
   const directoryLink: InternalLinkItem = {
-    tab: 'hub-assureurs',
-    path: getLocalizedPath('hub-assureurs', lang),
+    tab: 'hub-insurers',
+    path: getLocalizedPath('hub-insurers', lang),
     label: 'Toutes les caisses maladie suisses',
     anchorText: 'comparer l\'ensemble des 37 caisses maladie agréées OFSP',
     category: 'insurer',
@@ -277,8 +277,8 @@ export function getInsurerInternalLinks(insurerSlug: string, lang: Language = 'f
       category: 'guide',
     },
     {
-      tab: 'subside',
-      path: getLocalizedPath('subside', lang),
+      tab: 'hub-subsides',
+      path: getLocalizedPath('hub-subsides', lang),
       label: 'Subsides cantonaux',
       anchorText: 'vérifier votre éligibilité aux subsides',
       category: 'subside',

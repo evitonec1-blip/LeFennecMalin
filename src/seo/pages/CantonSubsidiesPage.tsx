@@ -99,7 +99,7 @@ export default function CantonSubsidiesPage({ cantonSlug, onStartComparison, onG
         <Breadcrumb
           items={[
             { label: 'Accueil', href: getLocalizedPath('home', language), onClick: onGoHome },
-            { label: 'Subsides', href: getLocalizedPath('subside', language), onClick: () => onNavigate(getLocalizedPath('subside', language)) },
+            { label: 'Subsides', href: getLocalizedPath('hub-subsides', language), onClick: () => onNavigate(getLocalizedPath('hub-subsides', language)) },
             { label: `Subside ${canton.name}` }
           ]}
         />
@@ -107,8 +107,8 @@ export default function CantonSubsidiesPage({ cantonSlug, onStartComparison, onG
         {/* Canton Contextual Navigation Pill */}
         <div className="flex flex-wrap items-center gap-3 mb-6">
           <a
-            href={getLocalizedPath('subside', language)}
-            onClick={(e) => { e.preventDefault(); onNavigate(getLocalizedPath('subside', language)); }}
+            href={getLocalizedPath('hub-subsides', language)}
+            onClick={(e) => { e.preventDefault(); onNavigate(getLocalizedPath('hub-subsides', language)); }}
             className="inline-flex items-center gap-1.5 text-xs font-bold text-fennec-dark/60 hover:text-fennec-dark bg-white border border-fennec-cream/80 px-3.5 py-2 rounded-full cursor-pointer transition-colors shadow-2xs"
           >
             <ArrowLeft className="w-3.5 h-3.5" />

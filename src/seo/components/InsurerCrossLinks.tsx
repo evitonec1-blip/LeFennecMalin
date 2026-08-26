@@ -59,7 +59,7 @@ export default function InsurerCrossLinks({
     }
   };
 
-  const directoryPath = getLocalizedPath('hub-assureurs', language);
+  const directoryPath = getLocalizedPath('hub-insurers', language);
 
   return (
     <section className={`bg-white rounded-3xl border border-fennec-cream/70 p-6 sm:p-10 my-12 shadow-xs text-left ${className}`}>

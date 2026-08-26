@@ -193,8 +193,8 @@ export default function LAMalHubPage({ onNavigate, onStartComparison }: Props) {
             </a>
 
             <a
-              href={getLocalizedPath('caisse-moins-chere', language)}
-              onClick={(e) => { e.preventDefault(); onNavigate('caisse-moins-chere'); }}
+              href={getLocalizedPath('lamal-moins-chere', language)}
+              onClick={(e) => { e.preventDefault(); onNavigate('lamal-moins-chere'); }}
               className="text-left p-5 rounded-xl border border-slate-200 bg-white hover:border-emerald-500 hover:shadow-md transition-all group block"
             >
               <div className="flex items-center justify-between mb-2">

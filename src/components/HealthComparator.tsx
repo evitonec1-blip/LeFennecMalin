@@ -15,6 +15,7 @@ import {
   lookupPremium 
 } from '../utils/premiumLookupService';
 import { fetchOfficialPremiums, fetchNpaInfo, NpaLookupResult } from '../services/priminfoService';
+import { teleportToTop } from '../utils/scrollUtils';
 import fenyWinking from '../assets/images/Gemini_Generated_Image_qxhpmlqxhpmlqxhp.png';
 import fenyThinking from '../assets/images/feny_thinking_1783331247759.jpg';
 import fenyAvatar from '../assets/images/feny_mascot_avatar_1783245725195.jpg';
@@ -1823,7 +1824,7 @@ export default function HealthComparator({ isEmbedded = false, initialCanton, on
       timeoutId = setTimeout(() => {
         setIsAnalyzing(false);
         setQuizMode(false);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        teleportToTop();
       }, 5000);
     }
 
@@ -1999,7 +2000,7 @@ export default function HealthComparator({ isEmbedded = false, initialCanton, on
     setSelectedCaisse(caisse);
     setFormSubmitted(false);
     setFormError(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    teleportToTop();
   };
 
   const handleCloseForm = () => {
@@ -2110,18 +2111,10 @@ export default function HealthComparator({ isEmbedded = false, initialCanton, on
     }
   }, [completedFieldsCount, selectedCaisse]);
 
-  // Scroll to top when analysis starts so user can see the analyzing animation
+  // Teleport to top when analysis starts or step changes so user always sees top of view
   useEffect(() => {
-    if (isAnalyzing) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
-      document.body.scrollTo({ top: 0, behavior: 'smooth' });
-      const scrollContainers = document.querySelectorAll('.overflow-y-auto');
-      scrollContainers.forEach(container => {
-        container.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    }
-  }, [isAnalyzing]);
+    teleportToTop();
+  }, [currentStep, quizMode, isAnalyzing]);
 
   // 4. GSAP-driven Staggered Reveal for step inputs/options
   const stepContainerRef = useRef<HTMLDivElement>(null);

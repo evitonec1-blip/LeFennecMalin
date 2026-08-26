@@ -8,6 +8,7 @@ import { AppTab } from '../types';
 import { Shield, ExternalLink, Heart, Mail, Info, X, TrendingUp, Award, Check, Scale, UserCheck } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 import LanguageSelector from './LanguageSelector';
+import { teleportToTop } from '../utils/scrollUtils';
 import fenyAvatar from '../assets/images/feny_mascot_avatar_1783245725195.jpg';
 
 interface FooterProps {
@@ -20,7 +21,7 @@ export default function Footer({ onTabChange }: FooterProps) {
 
   const handleNavClick = (tab: AppTab) => {
     onTabChange(tab);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    teleportToTop();
   };
 
   const fc = {

@@ -6,6 +6,7 @@
 import React from 'react';
 import { UserCheck, ExternalLink, AlertTriangle, Shield, ArrowLeft, Search, CheckCircle, FileCheck } from 'lucide-react';
 import { AppTab } from '../types';
+import { teleportToTop } from '../utils/scrollUtils';
 
 interface QualificationsIntermediaireProps {
   onGoBack?: () => void;
@@ -19,7 +20,7 @@ export default function QualificationsIntermediaire({ onGoBack, onTabChange }: Q
     } else if (onTabChange) {
       onTabChange('home');
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    teleportToTop();
   };
 
   const finmaRegisterUrl = "https://www.finma.ch/fr/surveillance/versicherungsvermittler/registersuche/";
@@ -160,7 +161,7 @@ export default function QualificationsIntermediaire({ onGoBack, onTabChange }: Q
               id="btn-goto-article-45-lsa"
               onClick={() => {
                 onTabChange('article-45-lsa');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                teleportToTop();
               }}
               className="px-4 py-2 bg-fennec-cream/60 hover:bg-fennec-cream text-fennec-dark text-xs font-bold rounded-xl transition-colors cursor-pointer"
             >

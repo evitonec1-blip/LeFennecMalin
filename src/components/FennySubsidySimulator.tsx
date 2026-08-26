@@ -7,6 +7,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { teleportToTop } from '../utils/scrollUtils';
 import {
   Coins,
   ArrowRight,
@@ -174,6 +175,10 @@ export default function FennySubsidySimulator({
     setResult(null);
     trackSubsidyEvent('subsidy_reset');
   };
+
+  useEffect(() => {
+    teleportToTop();
+  }, [step]);
 
   // Fenny mascot message per step
   const getFennyAdvice = () => {

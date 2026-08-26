@@ -37,7 +37,7 @@ const FAQS = [
   },
 ];
 
-export default function AssuranceMaladie({ onStartComparison, onGoHome }: Props) {
+export default function AssuranceMaladie({ onStartComparison, onGoHome, onNavigate }: Props) {
   const [openFaq, setOpenFaq] = React.useState<number | null>(null);
   const { language } = useLanguage();
 

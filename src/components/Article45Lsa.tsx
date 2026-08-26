@@ -7,6 +7,7 @@ import React from 'react';
 import { Scale, ExternalLink, ShieldCheck, FileText, ArrowLeft, BookOpen, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { AppTab } from '../types';
 import { useLanguage } from '../i18n/LanguageContext';
+import { teleportToTop } from '../utils/scrollUtils';
 
 interface Article45LsaProps {
   onGoBack?: () => void;
@@ -22,7 +23,7 @@ export default function Article45Lsa({ onGoBack, onTabChange }: Article45LsaProp
     } else if (onTabChange) {
       onTabChange('home');
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    teleportToTop();
   };
 
   return (
@@ -225,7 +226,7 @@ export default function Article45Lsa({ onGoBack, onTabChange }: Article45LsaProp
               id="btn-goto-qualifications"
               onClick={() => {
                 onTabChange('qualifications-intermediaire');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                teleportToTop();
               }}
               className="px-4 py-2 bg-fennec-cream/60 hover:bg-fennec-cream text-fennec-dark text-xs font-bold rounded-xl transition-colors cursor-pointer"
             >

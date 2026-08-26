@@ -8,6 +8,7 @@ import { AppTab } from '../types';
 import { Menu, X, Shield, Award, HelpCircle } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 import LanguageSelector from './LanguageSelector';
+import { teleportToTop } from '../utils/scrollUtils';
 import fenyWinking from '../assets/images/feny_mascot_avatar_1783245725195.jpg';
 import fenyLogo from '../assets/images/feny_mascot_avatar_1783245725195.jpg';
 
@@ -35,13 +36,13 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
   const handleNavClick = (tab: AppTab) => {
     onTabChange(tab);
     setMobileMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    teleportToTop();
   };
 
   const handleLogoClick = () => {
     onTabChange('home');
     setMobileMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    teleportToTop();
   };
 
   return (

@@ -148,7 +148,7 @@ const COMPARISON_MAP: Record<string, ComparisonData> = {
 
 interface Props {
   comparisonId: string;
-  onNavigate: (tab: AppTab) => void;
+  onNavigate: (tabOrUrl: string) => void;
   onStartComparison: () => void;
 }
 

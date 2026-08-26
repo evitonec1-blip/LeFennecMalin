@@ -49,11 +49,14 @@ export type RelatedTopicType =
   | 'pillar3a'
   | 'category'
   | 'demographic'
-  | 'calculator';
+  | 'calculator'
+  | 'guide'
+  | 'general';
 
 interface RelatedContentProps {
   topicType: RelatedTopicType;
   currentSlug?: string;
+  currentPath?: string;
   onNavigate?: (url: string) => void;
   className?: string;
 }
@@ -363,7 +366,7 @@ export default function RelatedContent({
 
   // 3. INSURER TOPIC
   if (topicType === 'insurer' && currentSlug) {
-    const insurersHubPath = getLocalizedPath('hub-assureurs', language);
+    const insurersHubPath = getLocalizedPath('hub-insurers', language);
     const changerPath = getLocalizedPath('lamal-changer-caisse', language);
     const comparatorPath = getLocalizedPath('health-comparator', language);
 
@@ -480,7 +483,7 @@ export default function RelatedContent({
 
   // 4. COMPARISON TOPIC (Head-to-head)
   if (topicType === 'comparison') {
-    const insurersHubPath = getLocalizedPath('hub-assureurs', language);
+    const insurersHubPath = getLocalizedPath('hub-insurers', language);
     const lamalHubPath = getLocalizedPath('hub-lamal', language);
     const comparatorPath = getLocalizedPath('health-comparator', language);
 
@@ -564,7 +567,7 @@ export default function RelatedContent({
     const familyPath = getLocalizedPath('assurance-famille', language);
     const jeunePath = getLocalizedPath('assurance-jeune-adulte', language);
     const etudiantPath = getLocalizedPath('assurance-etudiant', language);
-    const frontalierPath = getLocalizedPath('guide-frontalier', language);
+    const frontalierPath = getLocalizedPath('guide-frontalier-assurance-maladie', language);
 
     return (
       <div className={`bg-white rounded-3xl border border-fennec-cream/70 p-6 sm:p-8 my-10 shadow-xs text-left ${className}`}>
@@ -751,7 +754,7 @@ export default function RelatedContent({
     const lifeCompPath = getLocalizedPath('life-comparator', language);
     const taxCalcPath = getLocalizedPath('tool-calculateur-impot-3a', language);
     const healthCompPath = getLocalizedPath('health-comparator', language);
-    const guide3aPath = getLocalizedPath('guide-3eme-pilier', language);
+    const guide3aPath = getLocalizedPath('guide-3eme-pilier-3a-vs-3b', language);
 
     return (
       <div className={`bg-white rounded-3xl border border-fennec-cream/70 p-6 sm:p-8 my-10 shadow-xs text-left ${className}`}>
@@ -836,10 +839,10 @@ export default function RelatedContent({
   if (topicType === 'category') {
     const healthCompPath = getLocalizedPath('health-comparator', language);
     const lifeCompPath = getLocalizedPath('life-comparator', language);
-    const autoPath = getLocalizedPath('cat-auto', language);
-    const menagePath = getLocalizedPath('cat-menage', language);
-    const rcPath = getLocalizedPath('cat-rc-privee', language);
-    const juridiquePath = getLocalizedPath('cat-protection-juridique', language);
+    const autoPath = getLocalizedPath('category-assurance-auto', language);
+    const menagePath = getLocalizedPath('category-assurance-menage', language);
+    const rcPath = getLocalizedPath('category-assurance-rc', language);
+    const juridiquePath = getLocalizedPath('category-protection-juridique', language);
 
     return (
       <div className={`bg-white rounded-3xl border border-fennec-cream/70 p-6 sm:p-8 my-10 shadow-xs text-left ${className}`}>
