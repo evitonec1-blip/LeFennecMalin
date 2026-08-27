@@ -2738,12 +2738,12 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
                       <div className="flex space-x-6 animate-scroll-left w-max">
                         {['swisslife', 'axa', 'zurich', 'helvetia', 'allianz', 'generali', 'mobiliere'].map((logo, idx) => (
                           <div key={`${logo}-${idx}`} className="shrink-0">
-                            <CompanyLogo id={logo} className="w-20 h-11 bg-white" />
+                            <CompanyLogo id={logo} className="w-28 h-14 bg-white" />
                           </div>
                         ))}
                         {['swisslife', 'axa', 'zurich', 'helvetia', 'allianz', 'generali', 'mobiliere'].map((logo, idx) => (
                           <div key={`${logo}-dup-${idx}`} className="shrink-0">
-                            <CompanyLogo id={logo} className="w-20 h-11 bg-white" />
+                            <CompanyLogo id={logo} className="w-28 h-14 bg-white" />
                           </div>
                         ))}
                       </div>
@@ -4395,7 +4395,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
                         {/* Left: Logo and description */}
                         <div className="flex items-center space-x-4 w-full lg:w-auto shrink-0">
                           {/* Real company logo */}
-                          <CompanyLogo id={company.id} className="w-14 h-14 shrink-0 bg-[#FAF8F5] p-1 rounded-2xl border border-fennec-cream/20" />
+                          <CompanyLogo id={company.id} className="w-20 h-20 shrink-0 bg-[#FAF8F5] p-1 rounded-2xl border border-fennec-cream/20" />
                           <div>
                             <div className="flex flex-wrap items-center gap-2">
                               <h4 className="font-display font-bold text-lg text-fennec-dark">

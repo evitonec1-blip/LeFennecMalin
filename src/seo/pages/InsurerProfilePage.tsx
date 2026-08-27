@@ -137,8 +137,8 @@ export default function InsurerProfilePage({ insurer, onStartComparison, onGoHom
         {/* 1. HERO HEADER CARD */}
         <div id={`insurer-hero-${insurer.slug}`} className="bg-white rounded-2xl border border-stone-200 shadow-sm p-6 sm:p-8 mb-8">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-stone-100">
-            <div className="flex items-start sm:items-center gap-4">
-              <CompanyLogo id={insurer.slug || insurer.id || insurer.name} className="w-16 h-16 sm:w-20 sm:h-20 shrink-0" />
+            <div className="flex items-start sm:items-center gap-5">
+              <CompanyLogo id={insurer.slug || insurer.id || insurer.name} className="w-20 h-20 sm:w-24 sm:h-24 shrink-0" />
               <div>
                 <div className="flex flex-wrap items-center gap-2">
                   <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-900 tracking-tight">
@@ -548,8 +548,8 @@ export default function InsurerProfilePage({ insurer, onStartComparison, onGoHom
               {insurer.competitorComparisons.map((comp, idx) => (
                 <div key={idx} className="bg-stone-50 rounded-xl p-5 border border-stone-200">
                   <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-3">
-                      <CompanyLogo id={comp.competitorSlug || comp.competitorName} className="w-10 h-10 shrink-0" />
+                    <div className="flex items-center gap-3.5">
+                      <CompanyLogo id={comp.competitorSlug || comp.competitorName} className="w-14 h-14 shrink-0" />
                       <h3 className="font-bold text-stone-900 text-base">
                         {insurer.name} vs {comp.competitorName}
                       </h3>

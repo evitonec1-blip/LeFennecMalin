@@ -2370,12 +2370,12 @@ export default function HealthComparator({ isEmbedded = false, initialCanton, on
                       <div className="flex space-x-6 animate-scroll-left w-max">
                         {['assura', 'css', 'helsana', 'swica', 'visana', 'sanitas', 'concordia', 'kpt', 'mutuel', 'okk', 'sympany', 'atupri'].map((logo, idx) => (
                           <div key={`${logo}-${idx}`} className="shrink-0">
-                            <CompanyLogo id={logo} className="w-20 h-11 bg-white" />
+                            <CompanyLogo id={logo} className="w-28 h-14 bg-white" />
                           </div>
                         ))}
                         {['assura', 'css', 'helsana', 'swica', 'visana', 'sanitas', 'concordia', 'kpt', 'mutuel', 'okk', 'sympany', 'atupri'].map((logo, idx) => (
                           <div key={`${logo}-dup-${idx}`} className="shrink-0">
-                            <CompanyLogo id={logo} className="w-20 h-11 bg-white" />
+                            <CompanyLogo id={logo} className="w-28 h-14 bg-white" />
                           </div>
                         ))}
                       </div>
@@ -3998,7 +3998,7 @@ export default function HealthComparator({ isEmbedded = false, initialCanton, on
                       {/* Left: Brand logo & satisfaction */}
                       <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
                         {/* Real circular insurer logo badge */}
-                        <CompanyLogo id={caisse.insurerId || caisse.id || caisse.name} className="w-16 h-16 shrink-0" />
+                        <CompanyLogo id={caisse.insurerId || caisse.id || caisse.name} className="w-20 h-20 shrink-0" />
 
                         <div className="text-center sm:text-left">
                           <div className="flex items-center flex-wrap gap-2 mt-1 justify-center sm:justify-start">

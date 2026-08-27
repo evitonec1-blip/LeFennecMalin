@@ -87,7 +87,7 @@ export default function InsurerCrossLinks({
       </div>
 
       {/* Grid of Insurers */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5 mb-8">
         {TOP_INSURERS.map(ins => {
           const tabKey = `insurer-${ins.id}` as AppTab;
           const path = getLocalizedPath(tabKey, language);
@@ -105,8 +105,8 @@ export default function InsurerCrossLinks({
               }`}
             >
               <div>
-                <div className="w-8 h-8 rounded-lg bg-white border border-fennec-cream/80 p-1 flex items-center justify-center mb-2 shadow-2xs">
-                  <CompanyLogo id={ins.id} className="w-full h-full object-contain" />
+                <div className="w-full h-14 sm:h-16 mb-3 flex items-center justify-center">
+                  <CompanyLogo id={ins.id} className="w-full h-full" />
                 </div>
                 <span className="font-display font-bold text-xs sm:text-sm text-fennec-dark block truncate">
                   {ins.name}

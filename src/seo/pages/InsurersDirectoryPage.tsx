@@ -154,8 +154,8 @@ export default function InsurersDirectoryPage({ onStartComparison, onGoHome, onN
               <div>
                 {/* Header */}
                 <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <CompanyLogo id={ins.slug || ins.id || ins.name} className="w-12 h-12 shrink-0" />
+                  <div className="flex items-center gap-3.5">
+                    <CompanyLogo id={ins.slug || ins.id || ins.name} className="w-16 h-16 shrink-0" />
                     <div>
                       <h2 className="font-extrabold text-stone-900 text-lg leading-snug">
                         {ins.name}

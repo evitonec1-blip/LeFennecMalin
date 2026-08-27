@@ -218,8 +218,8 @@ export default function InsurerComparisonPage({ comparisonId, onNavigate, onStar
             {/* Insurer A */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <CompanyLogo id={comp.tabA.replace('insurer-', '')} className="w-12 h-12 shrink-0" />
+                <div className="flex items-center gap-3.5">
+                  <CompanyLogo id={comp.tabA.replace('insurer-', '')} className="w-16 h-16 sm:w-20 sm:h-20 shrink-0" />
                   <h2 className="text-2xl font-bold text-slate-900">{comp.nameA}</h2>
                 </div>
                 <a
@@ -261,8 +261,8 @@ export default function InsurerComparisonPage({ comparisonId, onNavigate, onStar
             {/* Insurer B */}
             <div className="space-y-4 md:pl-8 pt-6 md:pt-0">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <CompanyLogo id={comp.tabB.replace('insurer-', '')} className="w-12 h-12 shrink-0" />
+                <div className="flex items-center gap-3.5">
+                  <CompanyLogo id={comp.tabB.replace('insurer-', '')} className="w-16 h-16 sm:w-20 sm:h-20 shrink-0" />
                   <h2 className="text-2xl font-bold text-slate-900">{comp.nameB}</h2>
                 </div>
                 <a
