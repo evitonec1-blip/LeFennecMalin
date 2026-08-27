@@ -233,6 +233,8 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     lastName: "Nom *",
     email: "Adresse E-mail *",
     phone: "Téléphone Mobile Suisse *",
+    consentCheckboxLabel: "J'accepte les conditions d'utilisation et la politique de confidentialité (nLPD), et je consens expressément à recevoir mon comparatif personnalisé gratuit et à être recontacté(e) sans engagement.",
+    errConsentRequired: "Le consentement au traitement des données (nLPD) est obligatoire pour continuer.",
     sendCodeBtn: "Recevoir mon code de validation par E-mail",
     sendingCodeBtn: "Envoi du code e-mail en cours...",
     codeSentNotice: "💡 Code de sécurité envoyé par e-mail ! Veuillez vérifier la boîte de réception de",
@@ -542,6 +544,8 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     lastName: "Nachname *",
     email: "E-Mail-Adresse *",
     phone: "Schweizer Handynummer *",
+    consentCheckboxLabel: "Ich akzeptiere die Nutzungsbedingungen und die Datenschutzerklärung (nDSG) und stimme ausdrücklich zu, meine kostenlose persönliche Vergleichsanalyse zu erhalten und unverbindlich kontaktiert zu werden.",
+    errConsentRequired: "Die Zustimmung zur Datenverarbeitung (nDSG) ist erforderlich, um fortzufahren.",
     sendCodeBtn: "Bestätigungscode per E-Mail anfordern",
     sendingCodeBtn: "Code wird per E-Mail gesendet...",
     codeSentNotice: "💡 Sicherheitscode per E-Mail gesendet! Bitte prüfen Sie den Posteingang von",
@@ -851,6 +855,8 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     lastName: "Last Name *",
     email: "Email Address *",
     phone: "Swiss Mobile Number *",
+    consentCheckboxLabel: "I accept the terms of use and privacy policy (nLPD/FADP), and I expressly consent to receiving my free personalized comparison and being contacted without obligation.",
+    errConsentRequired: "Consent to data processing (nLPD) is mandatory to continue.",
     sendCodeBtn: "Receive validation code by Email",
     sendingCodeBtn: "Sending email code...",
     codeSentNotice: "💡 Security code sent by email! Please check the inbox of",
@@ -1160,6 +1166,8 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     lastName: "Cognome *",
     email: "Indirizzo E-mail *",
     phone: "Numero di cellulare svizzero *",
+    consentCheckboxLabel: "Accetto le condizioni d'uso e l'informativa sulla privacy (nLPD), e acconsento espressamente a ricevere il mio confronto personalizzato gratuito e ad essere ricontattato(a) senza impegno.",
+    errConsentRequired: "Il consenso al trattamento dei dati (nLPD) è obbligatorio per continuare.",
     sendCodeBtn: "Ricevi il codice di verifica via E-mail",
     sendingCodeBtn: "Invio codice in corso...",
     codeSentNotice: "💡 Codice di sicurezza inviato via e-mail! Controlla la casella di posta di",
@@ -1810,6 +1818,8 @@ export default function HealthComparator({ isEmbedded = false, initialCanton, on
   const [verificationError, setVerificationError] = useState<string | null>(null);
   const [isSendingCode, setIsSendingCode] = useState<boolean>(false);
   const [verificationToken, setVerificationToken] = useState<string | null>(null);
+  const [consentAccepted, setConsentAccepted] = useState<boolean>(false);
+  const [modalConsentAccepted, setModalConsentAccepted] = useState<boolean>(false);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
@@ -2000,18 +2010,24 @@ export default function HealthComparator({ isEmbedded = false, initialCanton, on
     setSelectedCaisse(caisse);
     setFormSubmitted(false);
     setFormError(null);
+    setModalConsentAccepted(false);
     teleportToTop();
   };
 
   const handleCloseForm = () => {
     setSelectedCaisse(null);
     setFormError(null);
+    setModalConsentAccepted(false);
   };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
       setFormError(ui.formErrorLabel);
+      return;
+    }
+    if (!modalConsentAccepted) {
+      setFormError(ui.errConsentRequired || "Le consentement au traitement des données (nLPD) est obligatoire.");
       return;
     }
     setFormError(null);
@@ -3394,6 +3410,22 @@ export default function HealthComparator({ isEmbedded = false, initialCanton, on
                                   />
                                 </div>
 
+                                {/* Mandatory Client Consent */}
+                                <div className="pt-1">
+                                  <label className="flex items-start space-x-2.5 cursor-pointer bg-fennec-cream/15 p-3 rounded-xl border border-fennec-cream/70 hover:bg-fennec-cream/25 transition-colors">
+                                    <input 
+                                      type="checkbox" 
+                                      required
+                                      checked={consentAccepted} 
+                                      onChange={(e) => setConsentAccepted(e.target.checked)} 
+                                      className="mt-0.5 w-4 h-4 rounded text-fennec-terracotta focus:ring-fennec-terracotta border-fennec-cream/80 cursor-pointer" 
+                                    />
+                                    <span className="text-[11px] text-fennec-dark/80 leading-snug select-none">
+                                      {ui.consentCheckboxLabel}
+                                    </span>
+                                  </label>
+                                </div>
+
                                 {verificationError && (
                                   <div className="text-[11px] font-semibold text-fennec-red bg-red-50 p-2.5 rounded-xl border border-red-200">
                                     {verificationError}
@@ -3406,6 +3438,10 @@ export default function HealthComparator({ isEmbedded = false, initialCanton, on
                                   onClick={async () => {
                                     if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
                                       setVerificationError(ui.errFillRequired);
+                                      return;
+                                    }
+                                    if (!consentAccepted) {
+                                      setVerificationError(ui.errConsentRequired);
                                       return;
                                     }
                                     setVerificationError(null);
@@ -4218,9 +4254,24 @@ export default function HealthComparator({ isEmbedded = false, initialCanton, on
                     </select>
                   </div>
 
+                  <div className="modal-stagger-item pt-1">
+                    <label className="flex items-start space-x-2.5 cursor-pointer bg-fennec-cream/15 p-3 rounded-xl border border-fennec-cream/70 hover:bg-fennec-cream/25 transition-colors">
+                      <input 
+                        type="checkbox" 
+                        required
+                        checked={modalConsentAccepted} 
+                        onChange={(e) => setModalConsentAccepted(e.target.checked)} 
+                        className="mt-0.5 w-4 h-4 rounded text-fennec-terracotta focus:ring-fennec-terracotta border-fennec-cream/80 cursor-pointer" 
+                      />
+                      <span className="text-[11px] text-fennec-dark/80 leading-snug select-none">
+                        {ui.consentCheckboxLabel || "J'accepte les conditions d'utilisation et la politique de confidentialité (nLPD), et je consens expressément à recevoir mon comparatif personnalisé gratuit."}
+                      </span>
+                    </label>
+                  </div>
+
                   {formError && (
                     <div className="p-3 bg-red-50 text-red-700 text-xs font-bold rounded-xl border border-red-200">
-                      {ui.formErrorLabel}
+                      {formError}
                     </div>
                   )}
 

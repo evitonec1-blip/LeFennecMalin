@@ -35,7 +35,11 @@ import {
   TrendingUp,
   Award,
   ArrowLeft,
-  AlertCircle
+  AlertCircle,
+  Mail,
+  CheckCircle,
+  CheckCircle2,
+  PhoneCall
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import gsap from 'gsap';
@@ -298,11 +302,18 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     lastNamePlaceholder: "Ex: Rochat",
     emailLabel: "Adresse E-mail *",
     phoneLabel: "Téléphone Mobile Suisse *",
+    consentCheckboxLabel: "J'accepte les conditions d'utilisation et la politique de confidentialité (nLPD), et je consens expressément à recevoir mon étude de prévoyance gratuite et à être recontacté(e) sans engagement.",
+    errConsentRequired: "Le consentement au traitement des données (nLPD) est obligatoire pour continuer.",
     errFillRequired: "Veuillez remplir tous les champs obligatoires.",
     errSendingCode: "Erreur lors de l'envoi du code par e-mail.",
     errContactServer: "Impossible de contacter le serveur de vérification.",
     sendingCodeBtn: "Envoi du code e-mail en cours...",
     receiveCodeBtn: "Recevoir mon code de validation par E-mail",
+    modalReceiveCodeBtn: "Recevoir mon code de confirmation par E-mail",
+    modalSendingCodeBtn: "Envoi du code de confirmation...",
+    modalValidateCodeBtn: "Valider le code & confirmer ma demande",
+    modalCodeSentTitle: "Code de confirmation envoyé !",
+    modalCodeSentBody: "Un code de sécurité à 4 chiffres a été envoyé à {email}. Saisissez-le pour finaliser votre demande.",
     codeSentTitle: "Code de sécurité envoyé par e-mail !",
     codeSentBody: "Veuillez vérifier la boîte de réception de {email} et saisir le code à 4 chiffres ci-dessous.",
     enterCodeLabel: "Saisir le Code de Sécurité *",
@@ -597,11 +608,18 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     lastNamePlaceholder: "Z.B.: Rochat",
     emailLabel: "E-Mail-Adresse *",
     phoneLabel: "Schweizer Mobiltelefon *",
+    consentCheckboxLabel: "Ich akzeptiere die Nutzungsbedingungen und die Datenschutzerklärung (nDSG) und willige ein, meine kostenlose Vorsorgestudie unverbindlich zu erhalten.",
+    errConsentRequired: "Die Einwilligung zur Datenverarbeitung (nDSG) ist erforderlich, um fortzufahren.",
     errFillRequired: "Bitte füllen Sie alle Pflichtfelder aus.",
     errSendingCode: "Fehler beim Senden des E-Mail-Codes.",
     errContactServer: "Server konnte nicht erreicht werden.",
     sendingCodeBtn: "E-Mail-Code wird gesendet...",
     receiveCodeBtn: "Bestätigungscode per E-Mail anfordern",
+    modalReceiveCodeBtn: "Bestätigungscode per E-Mail anfordern",
+    modalSendingCodeBtn: "Bestätigungscode wird gesendet...",
+    modalValidateCodeBtn: "Code bestätigen & Anfrage abschliessen",
+    modalCodeSentTitle: "Bestätigungscode gesendet!",
+    modalCodeSentBody: "Ein 4-stelliger Sicherheitscode wurde an {email} gesendet. Bitte geben Sie ihn unten ein.",
     codeSentTitle: "Sicherheitscode per E-Mail gesendet!",
     codeSentBody: "Bitte prüfen Sie das Postfach von {email} und geben Sie den 4-stelligen Code ein.",
     enterCodeLabel: "Sicherheitscode eingeben *",
@@ -896,11 +914,18 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     lastNamePlaceholder: "E.g.: Rochat",
     emailLabel: "Email Address *",
     phoneLabel: "Swiss Mobile Phone *",
+    consentCheckboxLabel: "I accept the terms of use and privacy policy (nDPA), and I consent to receive my free personalized pension simulation with no obligation.",
+    errConsentRequired: "Consent to data processing (nDPA) is required to continue.",
     errFillRequired: "Please fill in all required fields.",
     errSendingCode: "Error sending the email code.",
     errContactServer: "Unable to contact verification server.",
     sendingCodeBtn: "Sending email code...",
     receiveCodeBtn: "Receive my validation code by Email",
+    modalReceiveCodeBtn: "Receive confirmation code by Email",
+    modalSendingCodeBtn: "Sending confirmation code...",
+    modalValidateCodeBtn: "Validate code & confirm request",
+    modalCodeSentTitle: "Confirmation code sent!",
+    modalCodeSentBody: "A 4-digit security code has been sent to {email}. Please enter it below to confirm your request.",
     codeSentTitle: "Security code sent by email!",
     codeSentBody: "Please check the inbox of {email} and enter the 4-digit code below.",
     enterCodeLabel: "Enter Security Code *",
@@ -1195,11 +1220,18 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     lastNamePlaceholder: "Es: Rochat",
     emailLabel: "Indirizzo E-mail *",
     phoneLabel: "Telefono Cellulare Svizzero *",
+    consentCheckboxLabel: "Accetto i termini di utilizzo e l'informativa sulla privacy (nLPD) e acconsento a ricevere il mio studio previdenziale gratuito e senza impegno.",
+    errConsentRequired: "Il consenso al trattamento dei dati (nLPD) è obbligatorio per continuare.",
     errFillRequired: "Compila tutti i campi obbligatori.",
     errSendingCode: "Errore nell'invio del codice e-mail.",
     errContactServer: "Impossibile contattare il server di verifica.",
     sendingCodeBtn: "Invio codice e-mail in corso...",
     receiveCodeBtn: "Ricevi il codice di verifica via E-mail",
+    modalReceiveCodeBtn: "Ricevi il codice di conferma via E-mail",
+    modalSendingCodeBtn: "Invio codice di conferma...",
+    modalValidateCodeBtn: "Convalida codice & conferma richiesta",
+    modalCodeSentTitle: "Codice di conferma inviato!",
+    modalCodeSentBody: "Un codice di sicurezza a 4 cifre è stato inviato a {email}. Inseriscilo qui sotto per confermare la richiesta.",
     codeSentTitle: "Codice di sicurezza inviato via e-mail!",
     codeSentBody: "Controlla la casella di posta di {email} e inserisci il codice a 4 cifre qui sotto.",
     enterCodeLabel: "Inserisci il Codice di Sicurezza *",
@@ -1397,11 +1429,18 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     prioritySecureDesc: "Sin riesgo de mercado",
     step5Title: "5. ¿Cuántos años de contrato?",
     step5Subtitle: "La duración influye en el capital final acumulado.",
+    consentCheckboxLabel: "Acepto los términos de uso y la política de privacidad (nLPD), y doy mi consentimiento para recibir mi estudio de previsión gratuito sin compromiso.",
+    errConsentRequired: "El consentimiento para el tratamiento de datos (nLPD) es obligatorio para continuar.",
     errFillRequired: "Por favor, rellena todos los campos obligatorios.",
     errSendingCode: "Error al enviar el código de verificación.",
     errContactServer: "No se puede contactar con el servidor de verificación.",
     sendingCodeBtn: "Enviando código...",
     receiveCodeBtn: "Recibir mi código de validación por e-mail",
+    modalReceiveCodeBtn: "Recibir mi código de confirmación por E-mail",
+    modalSendingCodeBtn: "Enviando código de confirmación...",
+    modalValidateCodeBtn: "Validar código y confirmar solicitud",
+    modalCodeSentTitle: "¡Código de confirmación enviado!",
+    modalCodeSentBody: "Se ha enviado un código de 4 dígitos a {email}. Introdúcelo a continuación para confirmar tu solicitud.",
     codeSentTitle: "¡Código de seguridad enviado por e-mail!",
     codeSentBody: "Comprueba la bandeja de entrada de {email} e introduce el código de 4 dígitos a continuación.",
     enterCodeLabel: "Introducir el código de seguridad *",
@@ -1688,11 +1727,18 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     prioritySecureDesc: "Sem risco de mercado",
     step5Title: "5. Quantos anos de contrato?",
     step5Subtitle: "A duração influencia o capital final acumulado.",
+    consentCheckboxLabel: "Aceito os termos de utilização e a política de privacidade (nLPD), e dou o meu consentimento para receber o meu estudo de previdência gratuito e sem compromisso.",
+    errConsentRequired: "O consentimento para o tratamento de dados (nLPD) é obrigatório para continuar.",
     errFillRequired: "Por favor, preencha todos os campos obrigatórios.",
     errSendingCode: "Erro ao enviar o código de verificação.",
     errContactServer: "Não é possível contactar o servidor de verificação.",
     sendingCodeBtn: "A enviar código...",
     receiveCodeBtn: "Receber o meu código de validação por e-mail",
+    modalReceiveCodeBtn: "Receber o meu código de confirmação por E-mail",
+    modalSendingCodeBtn: "A enviar código de confirmação...",
+    modalValidateCodeBtn: "Validar código e confirmar pedido",
+    modalCodeSentTitle: "Código de confirmação enviado!",
+    modalCodeSentBody: "Foi enviado um código de segurança de 4 dígitos para {email}. Introduza-o abaixo para confirmar o seu pedido.",
     codeSentTitle: "Código de segurança enviado por e-mail!",
     codeSentBody: "Verifique a caixa de entrada de {email} e introduza o código de 4 dígitos abaixo.",
     enterCodeLabel: "Introduzir o código de segurança *",
@@ -2111,6 +2157,24 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
   const [verificationError, setVerificationError] = useState<string | null>(null);
   const [isSendingCode, setIsSendingCode] = useState<boolean>(false);
   const [verificationToken, setVerificationToken] = useState<string | null>(null);
+  const [consentAccepted, setConsentAccepted] = useState<boolean>(false);
+
+  // Modal contact form verification state
+  const [selectedAssureur, setSelectedAssureur] = useState<AssureurVie | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    profession: 'salaried', // salaried or independent
+  });
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [modalVerificationStep, setModalVerificationStep] = useState<'details' | 'code'>('details');
+  const [modalVerificationCodeInput, setModalVerificationCodeInput] = useState<string>('');
+  const [modalVerificationToken, setModalVerificationToken] = useState<string | null>(null);
+  const [modalIsSendingCode, setModalIsSendingCode] = useState<boolean>(false);
+  const [modalConsentAccepted, setModalConsentAccepted] = useState<boolean>(false);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
@@ -2134,18 +2198,6 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
       if (timeoutId) clearTimeout(timeoutId);
     };
   }, [isAnalyzing]);
-
-  // Modal contact form state
-  const [selectedAssureur, setSelectedAssureur] = useState<AssureurVie | null>(null);
-  const [formError, setFormError] = useState<string | null>(null);
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    profession: 'salaried', // salaried or independent
-  });
-  const [formSubmitted, setFormSubmitted] = useState(false);
 
   // Synchronize lead status profession with quiz answers
   useEffect(() => {
@@ -2359,45 +2411,129 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
     setSelectedAssureur(assureur);
     setFormSubmitted(false);
     setFormError(null);
+    setModalVerificationStep('details');
+    setModalVerificationCodeInput('');
+    setModalVerificationToken(null);
+    setModalIsSendingCode(false);
+    setModalConsentAccepted(false);
     teleportToTop();
   };
 
   const handleCloseForm = () => {
     setSelectedAssureur(null);
     setFormError(null);
+    setModalVerificationStep('details');
+    setModalVerificationCodeInput('');
+    setModalVerificationToken(null);
+    setModalIsSendingCode(false);
+    setModalConsentAccepted(false);
   };
 
-  const handleFormSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleModalSendCode = async () => {
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
-      setFormError("Veuillez remplir tous les champs obligatoires.");
+      setFormError(ui.errFillRequired);
+      return;
+    }
+    if (!modalConsentAccepted) {
+      setFormError(ui.errConsentRequired);
       return;
     }
     setFormError(null);
-    
+    setModalIsSendingCode(true);
+
     try {
-      await fetch('/api/submit-lead', {
+      const res = await fetch('/api/send-verification-code', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          type: 'life_pension',
-          lead: formData,
-          details: {
-            monthlyAmount,
-            duration,
-            pillarType: filters.type,
-            currentPillar: "Non spécifié"
-          },
-          assureur: selectedAssureur
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          email: formData.email, 
+          firstName: formData.firstName, 
+          lastName: formData.lastName, 
+          phone: formData.phone 
         })
       });
-    } catch (err) {
-      console.error("[SubmitError]", err);
-    }
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setFormError(data.error || ui.errSendingCode);
+        setModalIsSendingCode(false);
+        return;
+      }
+      if (data.verificationToken) setModalVerificationToken(data.verificationToken);
+      
+      // Log lead as modal pre-verify
+      fetch('/api/submit-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          type: 'life_pension_modal_pre_verify', 
+          lead: formData, 
+          filters,
+          assureur: selectedAssureur
+        })
+      }).catch(() => {});
 
-    setFormSubmitted(true);
+      setModalIsSendingCode(false);
+      setModalVerificationStep('code');
+    } catch(err) {
+      setModalIsSendingCode(false);
+      setFormError(ui.errContactServer);
+    }
+  };
+
+  const handleModalVerifyCode = async () => {
+    if (!modalVerificationCodeInput || modalVerificationCodeInput.length < 4) {
+      setFormError(ui.errEnter4Digits);
+      return;
+    }
+    setFormError(null);
+    setModalIsSendingCode(true);
+
+    try {
+      const res = await fetch('/api/verify-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: formData.email,
+          code: modalVerificationCodeInput,
+          verificationToken: modalVerificationToken
+        })
+      });
+      const data = await res.json();
+      setModalIsSendingCode(false);
+
+      if (!res.ok || !data.verified) {
+        setFormError(data.error || ui.errIncorrectCode);
+        return;
+      }
+
+      // Submit verified lead
+      try {
+        await fetch('/api/submit-lead', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            type: 'life_pension',
+            lead: formData,
+            details: {
+              monthlyAmount,
+              duration,
+              pillarType: filters.type,
+              currentPillar: "Non spécifié"
+            },
+            assureur: selectedAssureur
+          })
+        });
+      } catch (err) {
+        console.error("[SubmitError]", err);
+      }
+
+      setFormSubmitted(true);
+    } catch(err) {
+      setModalIsSendingCode(false);
+      setFormError(ui.errVerifyCode);
+    }
   };
 
   // Tax savings summary
@@ -3730,6 +3866,22 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
                                   />
                                 </div>
 
+                                {/* Mandatory Client Consent */}
+                                <div className="pt-1">
+                                  <label className="flex items-start space-x-2.5 cursor-pointer bg-fennec-cream/15 p-3 rounded-xl border border-fennec-cream/70 hover:bg-fennec-cream/25 transition-colors">
+                                    <input 
+                                      type="checkbox" 
+                                      required
+                                      checked={consentAccepted} 
+                                      onChange={(e) => setConsentAccepted(e.target.checked)} 
+                                      className="mt-0.5 w-4 h-4 rounded text-fennec-terracotta focus:ring-fennec-terracotta border-fennec-cream/80 cursor-pointer" 
+                                    />
+                                    <span className="text-[11px] text-fennec-dark/80 leading-snug select-none">
+                                      {ui.consentCheckboxLabel}
+                                    </span>
+                                  </label>
+                                </div>
+
                                 {verificationError && (
                                   <div className="text-[11px] font-semibold text-fennec-red bg-red-50 p-2.5 rounded-xl border border-red-200">
                                     {verificationError}
@@ -3742,6 +3894,10 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
                                   onClick={async () => {
                                     if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
                                       setVerificationError(ui.errFillRequired);
+                                      return;
+                                    }
+                                    if (!consentAccepted) {
+                                      setVerificationError(ui.errConsentRequired);
                                       return;
                                     }
                                     setVerificationError(null);
@@ -4474,124 +4630,211 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
             {/* Modal Body */}
             <div className="p-6 overflow-y-auto flex-1">
               {!formSubmitted ? (
-                <form onSubmit={handleFormSubmit} className="space-y-4">
-                  <div className="p-3.5 bg-emerald-50 rounded-xl border border-emerald-200 text-xs text-emerald-900 leading-normal">
+                <div>
+                  <div className="p-3.5 mb-4 bg-emerald-50 rounded-xl border border-emerald-200 text-xs text-emerald-900 leading-normal">
                     <strong>{ui.summaryProjectionLabel}</strong><br />
                     {ui.monthlySavingsPrefix} <strong>CHF {monthlyAmount}.-</strong> {ui.monthlySavingsMiddle1} <strong>{duration} {ui.yearsUnit}</strong>. {ui.monthlySavingsMiddle2} <strong>CHF {(selectedAssureur.expectedSum || 0).toLocaleString()}.-</strong> {ui.monthlySavingsMiddle3} {selectedAssureur.name}. {ui.monthlySavingsMiddle4} <strong>CHF {((selectedAssureur.taxSavingsPerYear || 0) * duration).toLocaleString()}.-</strong> {ui.monthlySavingsSuffix}
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="modal-stagger-item space-y-1.5">
-                      <label className="text-xs font-bold text-fennec-dark block">{ui.firstNameLabel}</label>
-                      <input 
-                        type="text" 
-                        required
-                        placeholder={ui.firstNamePlaceholder}
-                        value={formData.firstName}
-                        onChange={(e) => setFormData(prev => ({...prev, firstName: e.target.value}))}
-                        onMouseEnter={() => setFenyAdvice(LIFE_ADVICE_MAP.firstName)}
-                        onMouseLeave={() => setFenyAdvice(null)}
-                        onFocus={() => setFenyAdvice(LIFE_ADVICE_MAP.firstName)}
-                        onBlur={() => setFenyAdvice(null)}
-                        className="w-full bg-fennec-cream/5 border border-fennec-cream/70 rounded-xl px-3 py-2 text-base md:text-sm text-fennec-dark focus:outline-none focus:border-fennec-tan font-medium"
-                      />
+                  {modalVerificationStep === 'details' ? (
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="modal-stagger-item space-y-1.5">
+                          <label className="text-xs font-bold text-fennec-dark block">{ui.firstNameLabel}</label>
+                          <input 
+                            type="text" 
+                            required
+                            placeholder={ui.firstNamePlaceholder}
+                            value={formData.firstName}
+                            onChange={(e) => setFormData(prev => ({...prev, firstName: e.target.value}))}
+                            onMouseEnter={() => setFenyAdvice(LIFE_ADVICE_MAPS.fr.personal)}
+                            onMouseLeave={() => setFenyAdvice(null)}
+                            onFocus={() => setFenyAdvice(LIFE_ADVICE_MAPS.fr.personal)}
+                            onBlur={() => setFenyAdvice(null)}
+                            className="w-full bg-fennec-cream/5 border border-fennec-cream/70 rounded-xl px-3 py-2 text-base md:text-sm text-fennec-dark focus:outline-none focus:border-fennec-tan font-medium"
+                          />
+                        </div>
+                        <div className="modal-stagger-item space-y-1.5">
+                          <label className="text-xs font-bold text-fennec-dark block">{ui.lastNameLabel}</label>
+                          <input 
+                            type="text" 
+                            required
+                            placeholder={ui.lastNamePlaceholder}
+                            value={formData.lastName}
+                            onChange={(e) => setFormData(prev => ({...prev, lastName: e.target.value}))}
+                            onMouseEnter={() => setFenyAdvice(LIFE_ADVICE_MAPS.fr.personal)}
+                            onMouseLeave={() => setFenyAdvice(null)}
+                            onFocus={() => setFenyAdvice(LIFE_ADVICE_MAPS.fr.personal)}
+                            onBlur={() => setFenyAdvice(null)}
+                            className="w-full bg-fennec-cream/5 border border-fennec-cream/70 rounded-xl px-3 py-2 text-base md:text-sm text-fennec-dark focus:outline-none focus:border-fennec-tan font-medium"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="modal-stagger-item space-y-1.5">
+                        <label className="text-xs font-bold text-fennec-dark block">{ui.emailLabel}</label>
+                        <input 
+                          type="email" 
+                          required
+                          placeholder="sophie.rochat@bluewin.ch"
+                          value={formData.email}
+                          onChange={(e) => setFormData(prev => ({...prev, email: e.target.value}))}
+                          onMouseEnter={() => setFenyAdvice(LIFE_ADVICE_MAPS.fr.personal)}
+                          onMouseLeave={() => setFenyAdvice(null)}
+                          onFocus={() => setFenyAdvice(LIFE_ADVICE_MAPS.fr.personal)}
+                          onBlur={() => setFenyAdvice(null)}
+                          className="w-full bg-fennec-cream/5 border border-fennec-cream/70 rounded-xl px-3 py-2 text-base md:text-sm text-fennec-dark focus:outline-none focus:border-fennec-tan font-medium"
+                        />
+                      </div>
+
+                      <div className="modal-stagger-item space-y-1.5">
+                        <label className="text-xs font-bold text-fennec-dark block">{ui.phoneLabel}</label>
+                        <input 
+                          type="tel" 
+                          required
+                          placeholder="078 987 65 43"
+                          value={formData.phone}
+                          onChange={(e) => setFormData(prev => ({...prev, phone: e.target.value}))}
+                          onMouseEnter={() => setFenyAdvice(LIFE_ADVICE_MAPS.fr.personal)}
+                          onMouseLeave={() => setFenyAdvice(null)}
+                          onFocus={() => setFenyAdvice(LIFE_ADVICE_MAPS.fr.personal)}
+                          onBlur={() => setFenyAdvice(null)}
+                          className="w-full bg-fennec-cream/5 border border-fennec-cream/70 rounded-xl px-3 py-2 text-base md:text-sm text-fennec-dark focus:outline-none focus:border-fennec-tan font-medium"
+                        />
+                      </div>
+
+                      <div className="modal-stagger-item space-y-1.5">
+                        <label className="text-xs font-bold text-fennec-dark block">{ui.activityStatusLabel}</label>
+                        <div className="grid grid-cols-2 gap-2">
+                          <button
+                            type="button"
+                            onClick={() => setFormData(prev => ({...prev, profession: 'salaried'}))}
+                            className={`py-2 rounded-xl text-xs font-bold border transition-colors ${
+                              formData.profession === 'salaried'
+                                ? 'bg-fennec-tan text-white border-fennec-tan shadow-2xs'
+                                : 'bg-white text-fennec-dark border-fennec-cream/60 hover:bg-fennec-cream/10'
+                            }`}
+                          >
+                            {ui.salariedWithLpp}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setFormData(prev => ({...prev, profession: 'independent'}))}
+                            className={`py-2 rounded-xl text-xs font-bold border transition-colors ${
+                              formData.profession === 'independent'
+                                ? 'bg-fennec-tan text-white border-fennec-tan shadow-2xs'
+                                : 'bg-white text-fennec-dark border-fennec-cream/60 hover:bg-fennec-cream/10'
+                            }`}
+                          >
+                            {ui.independentWithoutLpp}
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Mandatory Client Consent */}
+                      <div className="modal-stagger-item pt-1">
+                        <label className="flex items-start space-x-2.5 cursor-pointer bg-fennec-cream/15 p-3 rounded-xl border border-fennec-cream/70 hover:bg-fennec-cream/25 transition-colors">
+                          <input 
+                            type="checkbox" 
+                            required
+                            checked={modalConsentAccepted} 
+                            onChange={(e) => setModalConsentAccepted(e.target.checked)} 
+                            className="mt-0.5 w-4 h-4 rounded text-fennec-terracotta focus:ring-fennec-terracotta border-fennec-cream/80 cursor-pointer" 
+                          />
+                          <span className="text-[11px] text-fennec-dark/80 leading-snug select-none">
+                            {ui.consentCheckboxLabel}
+                          </span>
+                        </label>
+                      </div>
+
+                      {formError && (
+                        <div className="p-3 bg-red-50 text-red-700 text-xs font-bold rounded-xl border border-red-200">
+                          {formError}
+                        </div>
+                      )}
+
+                      <div className="modal-stagger-item pt-2">
+                        <button
+                          type="button"
+                          disabled={modalIsSendingCode}
+                          onClick={handleModalSendCode}
+                          className="w-full py-3.5 bg-fennec-terracotta hover:bg-fennec-dark text-white font-display font-extrabold text-sm rounded-full shadow-md shadow-fennec-terracotta/20 transition-all flex items-center justify-center space-x-2 cursor-pointer"
+                        >
+                          {modalIsSendingCode ? (
+                            <>
+                              <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                              <span>{ui.modalSendingCodeBtn}</span>
+                            </>
+                          ) : (
+                            <>
+                              <Mail className="w-4 h-4" />
+                              <span>{ui.modalReceiveCodeBtn}</span>
+                            </>
+                          )}
+                        </button>
+                        <span className="text-[10px] text-fennec-dark/50 text-center block mt-2">
+                          🔒 Vos données sont confidentielles. Conformité nLPD stricte. Aucun engagement.
+                        </span>
+                      </div>
                     </div>
-                    <div className="modal-stagger-item space-y-1.5">
-                      <label className="text-xs font-bold text-fennec-dark block">{ui.lastNameLabel}</label>
-                      <input 
-                        type="text" 
-                        required
-                        placeholder={ui.lastNamePlaceholder}
-                        value={formData.lastName}
-                        onChange={(e) => setFormData(prev => ({...prev, lastName: e.target.value}))}
-                        onMouseEnter={() => setFenyAdvice(LIFE_ADVICE_MAP.lastName)}
-                        onMouseLeave={() => setFenyAdvice(null)}
-                        onFocus={() => setFenyAdvice(LIFE_ADVICE_MAP.lastName)}
-                        onBlur={() => setFenyAdvice(null)}
-                        className="w-full bg-fennec-cream/5 border border-fennec-cream/70 rounded-xl px-3 py-2 text-base md:text-sm text-fennec-dark focus:outline-none focus:border-fennec-tan font-medium"
-                      />
-                    </div>
-                  </div>
+                  ) : (
+                    <div className="space-y-4">
+                      <div className="bg-amber-50 border border-amber-200 text-[11px] text-amber-800 p-3.5 rounded-xl leading-relaxed">
+                        <strong>💡 {ui.modalCodeSentTitle}</strong> {ui.modalCodeSentBody.replace('{email}', formData.email)}
+                      </div>
 
-                  <div className="modal-stagger-item space-y-1.5">
-                    <label className="text-xs font-bold text-fennec-dark block">{ui.emailLabel}</label>
-                    <input 
-                      type="email" 
-                      required
-                      placeholder="sophie.rochat@bluewin.ch"
-                      value={formData.email}
-                      onChange={(e) => setFormData(prev => ({...prev, email: e.target.value}))}
-                      onMouseEnter={() => setFenyAdvice(LIFE_ADVICE_MAP.email)}
-                      onMouseLeave={() => setFenyAdvice(null)}
-                      onFocus={() => setFenyAdvice(LIFE_ADVICE_MAP.email)}
-                      onBlur={() => setFenyAdvice(null)}
-                      className="w-full bg-fennec-cream/5 border border-fennec-cream/70 rounded-xl px-3 py-2 text-base md:text-sm text-fennec-dark focus:outline-none focus:border-fennec-tan font-medium"
-                    />
-                  </div>
+                      <div className="space-y-1">
+                        <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">{ui.enterCodeLabel}</label>
+                        <input 
+                          type="text" 
+                          maxLength={4}
+                          placeholder="Ex: 8392"
+                          value={modalVerificationCodeInput}
+                          onChange={(e) => setModalVerificationCodeInput(e.target.value)}
+                          className="w-full text-center tracking-[0.5em] font-mono bg-white border border-fennec-cream/80 rounded-xl px-3 py-3 text-sm text-fennec-dark focus:ring-1 focus:ring-fennec-terracotta"
+                        />
+                      </div>
 
-                  <div className="modal-stagger-item space-y-1.5">
-                    <label className="text-xs font-bold text-fennec-dark block">{ui.phoneLabel}</label>
-                    <input 
-                      type="tel" 
-                      required
-                      placeholder="078 987 65 43"
-                      value={formData.phone}
-                      onChange={(e) => setFormData(prev => ({...prev, phone: e.target.value}))}
-                      onMouseEnter={() => setFenyAdvice(LIFE_ADVICE_MAP.phone)}
-                      onMouseLeave={() => setFenyAdvice(null)}
-                      onFocus={() => setFenyAdvice(LIFE_ADVICE_MAP.phone)}
-                      onBlur={() => setFenyAdvice(null)}
-                      className="w-full bg-fennec-cream/5 border border-fennec-cream/70 rounded-xl px-3 py-2 text-base md:text-sm text-fennec-dark focus:outline-none focus:border-fennec-tan font-medium"
-                    />
-                  </div>
+                      {formError && (
+                        <div className="text-[11px] font-semibold text-fennec-red bg-red-50 p-2.5 rounded-xl border border-red-200">
+                          {formError}
+                        </div>
+                      )}
 
-                  <div className="modal-stagger-item space-y-1.5">
-                    <label className="text-xs font-bold text-fennec-dark block">{ui.activityStatusLabel}</label>
-                    <div className="grid grid-cols-2 gap-2">
                       <button
                         type="button"
-                        onClick={() => setFormData(prev => ({...prev, profession: 'salaried'}))}
-                        className={`py-2 rounded-xl text-xs font-bold border transition-colors ${
-                          formData.profession === 'salaried'
-                            ? 'bg-fennec-tan text-white border-fennec-tan shadow-2xs'
-                            : 'bg-white text-fennec-dark border-fennec-cream/60 hover:bg-fennec-cream/10'
-                        }`}
+                        disabled={modalIsSendingCode}
+                        onClick={handleModalVerifyCode}
+                        className="w-full py-3.5 bg-fennec-terracotta hover:bg-fennec-dark text-white font-display font-extrabold text-sm rounded-full shadow-md shadow-fennec-terracotta/20 transition-all flex items-center justify-center space-x-2 cursor-pointer"
                       >
-                        {ui.salariedWithLpp}
+                        {modalIsSendingCode ? (
+                          <>
+                            <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                            <span>{ui.verifyingBtn}</span>
+                          </>
+                        ) : (
+                          <>
+                            <CheckCircle2 className="w-4 h-4" />
+                            <span>{ui.modalValidateCodeBtn}</span>
+                          </>
+                        )}
                       </button>
-                      <button
-                        type="button"
-                        onClick={() => setFormData(prev => ({...prev, profession: 'independent'}))}
-                        className={`py-2 rounded-xl text-xs font-bold border transition-colors ${
-                          formData.profession === 'independent'
-                            ? 'bg-fennec-tan text-white border-fennec-tan shadow-2xs'
-                            : 'bg-white text-fennec-dark border-fennec-cream/60 hover:bg-fennec-cream/10'
-                        }`}
-                      >
-                        {ui.independentWithoutLpp}
-                      </button>
-                    </div>
-                  </div>
 
-                  {formError && (
-                    <div className="p-3 bg-red-50 text-red-700 text-xs font-bold rounded-xl border border-red-200">
-                      Veuillez remplir tous les champs obligatoires.
+                      <div className="text-center pt-1">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setModalVerificationStep('details');
+                            setFormError(null);
+                          }}
+                          className="text-xs font-bold text-fennec-dark/60 hover:text-fennec-terracotta underline cursor-pointer"
+                        >
+                          {ui.editDetailsBtn}
+                        </button>
+                      </div>
                     </div>
                   )}
-
-                  <div className="modal-stagger-item pt-2">
-                    <button
-                      type="submit"
-                      className="w-full py-3.5 bg-fennec-terracotta hover:bg-fennec-dark text-white font-display font-extrabold text-sm rounded-full shadow-md shadow-fennec-terracotta/20 transition-all flex items-center justify-center space-x-2"
-                    >
-                      <Calculator className="w-4 h-4" />
-                      <span>{ui.submitBtnLabel}</span>
-                    </button>
-                    <span className="text-[10px] text-fennec-dark/50 text-center block mt-2">
-                      🔒 Vos données sont confidentielles. Conformité nLPD stricte. Aucun engagement.
-                    </span>
-                  </div>
-                </form>
+                </div>
               ) : (
                 <div className="text-center py-6 space-y-4">
                   <div className="inline-flex p-3 bg-emerald-100 text-emerald-600 rounded-full border border-emerald-200">

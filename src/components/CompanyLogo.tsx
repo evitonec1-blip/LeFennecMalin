@@ -5,8 +5,6 @@
 
 import React, { useState, useEffect } from 'react';
 import sanitasLogo from '../assets/images/logos/sanitas.png';
-import paxLogo from '../assets/images/logos/pax.png';
-import retraitepopulaireLogo from '../assets/images/logos/retraitepopulaire.png';
 
 interface CompanyLogoProps {
   id: string;
@@ -614,16 +612,36 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
 
     case 'pax':
       return (
-        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex items-center justify-center p-1 shadow-2xs overflow-hidden`}>
-          <img src={paxLogo} alt="PAX" className="w-full h-full object-contain" />
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-2 shadow-2xs relative overflow-hidden group`}>
+          <svg viewBox="0 0 110 38" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* PAX wordmark - bold modern Swiss typography */}
+            <text x="8" y="27" fontFamily="'Helvetica Neue', Arial, sans-serif" fontSize="26" fontWeight="900" fill="#002D54" letterSpacing="-1">pax</text>
+            {/* Pax iconic cyan sphere accent */}
+            <circle cx="86" cy="12" r="5.5" fill="#00A3E0" />
+            {/* Professional Swiss Vorsorge / Prévoyance subtitle */}
+            <text x="8" y="36" fontFamily="'Helvetica Neue', Arial, sans-serif" fontSize="5.5" fontWeight="800" fill="#00A3E0" letterSpacing="1.8">VORSORGE · PRÉVOYANCE</text>
+          </svg>
         </div>
       );
 
     case 'retraitepopulaire':
     case 'retraite populaire':
+    case 'retraites populaires':
+    case 'retraitespopulaires':
       return (
-        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex items-center justify-center p-1 shadow-2xs overflow-hidden`}>
-          <img src={retraitepopulaireLogo} alt="Retraites Populaires" className="w-full h-full object-contain" />
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-1.5 shadow-2xs relative overflow-hidden`}>
+          <svg viewBox="0 0 135 40" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* Retraites Populaires iconic interlocking burgundy circles */}
+            <g transform="translate(2, 4)">
+              <circle cx="14" cy="16" r="12" stroke="#9E1B42" strokeWidth="2.5" fill="none" opacity="0.9" />
+              <circle cx="21" cy="16" r="12" stroke="#9E1B42" strokeWidth="2.5" fill="none" opacity="0.9" />
+              <circle cx="17.5" cy="12" r="7" fill="#9E1B42" opacity="0.22" />
+            </g>
+            {/* Retraites Populaires Swiss wordmark */}
+            <text x="44" y="16" fontFamily="'Helvetica Neue', Arial, sans-serif" fontSize="9.5" fontWeight="800" fill="#222222" letterSpacing="0.2">RETRAITES</text>
+            <text x="44" y="27" fontFamily="'Helvetica Neue', Arial, sans-serif" fontSize="9.5" fontWeight="800" fill="#9E1B42" letterSpacing="0.2">POPULAIRES</text>
+            <text x="44" y="36" fontFamily="'Helvetica Neue', Arial, sans-serif" fontSize="5" fontWeight="700" fill="#777777" letterSpacing="0.8">POUR LA VIE.</text>
+          </svg>
         </div>
       );
 
