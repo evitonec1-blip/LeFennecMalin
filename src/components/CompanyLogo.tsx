@@ -612,14 +612,22 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
 
     case 'pax':
       return (
-        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-2 shadow-2xs relative overflow-hidden group`}>
-          <svg viewBox="0 0 110 38" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* PAX wordmark - bold modern Swiss typography */}
-            <text x="8" y="27" fontFamily="'Helvetica Neue', Arial, sans-serif" fontSize="26" fontWeight="900" fill="#002D54" letterSpacing="-1">pax</text>
-            {/* Pax iconic cyan sphere accent */}
-            <circle cx="86" cy="12" r="5.5" fill="#00A3E0" />
-            {/* Professional Swiss Vorsorge / Prévoyance subtitle */}
-            <text x="8" y="36" fontFamily="'Helvetica Neue', Arial, sans-serif" fontSize="5.5" fontWeight="800" fill="#00A3E0" letterSpacing="1.8">VORSORGE · PRÉVOYANCE</text>
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex items-center justify-center p-2 shadow-2xs relative overflow-hidden group`}>
+          <svg viewBox="0 0 170 58" className="w-full h-full object-contain" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* Dark square dot at bottom left */}
+            <rect x="2" y="38" width="15" height="15" fill="#35344E" rx="0.5" />
+            {/* Vibrant Lime Green "Pax" brand wordmark */}
+            <text 
+              x="22" 
+              y="50" 
+              fontFamily="'Arial Black', 'Helvetica Neue', Arial, sans-serif" 
+              fontSize="54" 
+              fontWeight="900" 
+              fill="#84CC16" 
+              letterSpacing="-2.5"
+            >
+              Pax
+            </text>
           </svg>
         </div>
       );
@@ -629,18 +637,54 @@ export default function CompanyLogo({ id, className = "w-16 h-16" }: CompanyLogo
     case 'retraites populaires':
     case 'retraitespopulaires':
       return (
-        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex flex-col items-center justify-center p-1.5 shadow-2xs relative overflow-hidden`}>
-          <svg viewBox="0 0 135 40" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* Retraites Populaires iconic interlocking burgundy circles */}
-            <g transform="translate(2, 4)">
-              <circle cx="14" cy="16" r="12" stroke="#9E1B42" strokeWidth="2.5" fill="none" opacity="0.9" />
-              <circle cx="21" cy="16" r="12" stroke="#9E1B42" strokeWidth="2.5" fill="none" opacity="0.9" />
-              <circle cx="17.5" cy="12" r="7" fill="#9E1B42" opacity="0.22" />
+        <div className={`${className} bg-white rounded-2xl border border-fennec-cream/70 flex items-center justify-center p-1.5 shadow-2xs relative overflow-hidden`}>
+          <svg viewBox="0 0 110 80" className="w-full h-full object-contain" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="rp-leaf-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#00A36C" />
+                <stop offset="100%" stopColor="#00B377" />
+              </linearGradient>
+              <linearGradient id="rp-leaf-accent" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#34D399" stopOpacity="0.9" />
+                <stop offset="100%" stopColor="#00A36C" stopOpacity="0.8" />
+              </linearGradient>
+            </defs>
+            {/* Iconic Green Leaf Arc */}
+            <g transform="translate(10, 4)">
+              {/* Lower dynamic curved leaf body */}
+              <path 
+                d="M 2,28 C 4,14 16,4 46,1 C 32,10 18,18 2,28 Z" 
+                fill="url(#rp-leaf-grad)" 
+              />
+              {/* Translucent overlapping upper arch */}
+              <path 
+                d="M 28,6 C 38,3 48,3 52,4 C 44,9 36,13 28,13 C 25,10 26,7 28,6 Z" 
+                fill="url(#rp-leaf-accent)" 
+              />
             </g>
-            {/* Retraites Populaires Swiss wordmark */}
-            <text x="44" y="16" fontFamily="'Helvetica Neue', Arial, sans-serif" fontSize="9.5" fontWeight="800" fill="#222222" letterSpacing="0.2">RETRAITES</text>
-            <text x="44" y="27" fontFamily="'Helvetica Neue', Arial, sans-serif" fontSize="9.5" fontWeight="800" fill="#9E1B42" letterSpacing="0.2">POPULAIRES</text>
-            <text x="44" y="36" fontFamily="'Helvetica Neue', Arial, sans-serif" fontSize="5" fontWeight="700" fill="#777777" letterSpacing="0.8">POUR LA VIE.</text>
+            {/* Wordmark: Retraites Populaires */}
+            <text 
+              x="26" 
+              y="52" 
+              fontFamily="'Century Gothic', 'Tw Cen MT', 'Poppins', 'Helvetica Neue', Arial, sans-serif" 
+              fontSize="14.5" 
+              fontWeight="700" 
+              fill="#1C1C1C" 
+              letterSpacing="-0.2"
+            >
+              Retraites
+            </text>
+            <text 
+              x="26" 
+              y="68" 
+              fontFamily="'Century Gothic', 'Tw Cen MT', 'Poppins', 'Helvetica Neue', Arial, sans-serif" 
+              fontSize="14.5" 
+              fontWeight="700" 
+              fill="#1C1C1C" 
+              letterSpacing="-0.2"
+            >
+              Populaires
+            </text>
           </svg>
         </div>
       );
