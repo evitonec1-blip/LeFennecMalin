@@ -1931,5 +1931,5 @@ export function resolveRouteFromPath(pathname: string): { tab: AppTab; language:
   if (normalized.startsWith('/es/') || normalized.startsWith('/sp/')) return { tab: 'home', language: 'es' };
   if (normalized.startsWith('/pt/')) return { tab: 'home', language: 'pt' };
 
-  return { tab: 'home', language: 'fr' };
+  return { tab: 'not-found', language: 'fr' };
 }

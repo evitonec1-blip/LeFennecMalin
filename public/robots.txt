@@ -1,31 +1,16 @@
 User-agent: *
 Allow: /
+Disallow: /api/send-verification-code
+Disallow: /api/verify-code
+Disallow: /api/submit-lead
+Disallow: /api/debug-priminfo
+Disallow: /api/debug-config
 
-# Multilingual sections
-Allow: /fr/
-Allow: /de/
-Allow: /it/
-Allow: /en/
-Allow: /es/
-Allow: /pt/
-
-# Block API, share routes, and legacy WordPress remnants from indexing
-Disallow: /api/
-Disallow: /share/*
-Disallow: /share/
-Disallow: /wp-admin/
-Disallow: /wp-includes/
-Disallow: /wp-content/
-Disallow: /xmlrpc.php
-Disallow: /hello-world/
-Disallow: /hello-world
-Disallow: /*?p=*
+# AI crawlers — additional agent resources
+# Agent instructions: https://www.lefennecmalin.ch/llms.txt
+# OpenAPI spec: https://www.lefennecmalin.ch/openapi.json
+# API docs: https://www.lefennecmalin.ch/api/docs
 
 # Sitemaps
 Sitemap: https://www.lefennecmalin.ch/sitemap.xml
 Sitemap: https://www.lefennecmalin.ch/sitemap-fr.xml
-Sitemap: https://www.lefennecmalin.ch/sitemap-de.xml
-Sitemap: https://www.lefennecmalin.ch/sitemap-it.xml
-Sitemap: https://www.lefennecmalin.ch/sitemap-en.xml
-Sitemap: https://www.lefennecmalin.ch/sitemap-es.xml
-Sitemap: https://www.lefennecmalin.ch/sitemap-pt.xml

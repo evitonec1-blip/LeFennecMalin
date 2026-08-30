@@ -1,0 +1,382 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Le Fennec Malin — Swiss Insurance Comparison API",
+    "version": "1.0.0",
+    "description": "Public REST API for Swiss health insurance (LAMal) premium comparison. Data source: OFSP/Priminfo 2026. All premiums are official Swiss federal data approved annually by the Federal Office of Public Health (OFSP/BAG).\n\n**Base URL:** https://www.lefennecmalin.ch\n\n**Authentication:** None required for read endpoints. Lead submission endpoints require no auth key but are rate-limited.\n\n**Data freshness:** Premiums updated annually (2026 data loaded). NPA/region map reflects OFSP 2026 postal-code-to-premium-region mapping.",
+    "contact": {
+      "name": "Le Fennec Malin",
+      "url": "https://www.lefennecmalin.ch/fr/methodologie/",
+      "email": "contact@lefennecmalin.ch"
+    },
+    "license": {
+      "name": "Data: OFSP/Priminfo (Swiss federal open data)",
+      "url": "https://www.priminfo.admin.ch"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://www.lefennecmalin.ch",
+      "description": "Production"
+    }
+  ],
+  "tags": [
+    { "name": "premiums", "description": "Swiss LAMal health insurance premium lookup (OFSP 2026 data)" },
+    { "name": "geography", "description": "Swiss postal code to canton and LAMal premium region resolution" },
+    { "name": "health", "description": "API health and status" },
+    { "name": "content", "description": "Machine-readable content negotiation" }
+  ],
+  "paths": {
+    "/api/priminfo/npa-lookup": {
+      "get": {
+        "operationId": "lookupNpaRegion",
+        "summary": "Resolve Swiss postal code to canton and LAMal premium region",
+        "description": "Maps a 4-digit Swiss postal code (NPA/PLZ) to its canton and official OFSP LAMal premium region (1, 2, or 3). Premium region determines which premium tier applies. Data source: OFSP official NPA-to-region mapping 2026.",
+        "tags": ["geography"],
+        "parameters": [
+          {
+            "name": "npa",
+            "in": "query",
+            "required": true,
+            "description": "4-digit Swiss postal code (NPA/PLZ), e.g. 1201 for Geneva, 1007 for Lausanne",
+            "schema": { "type": "string", "pattern": "^[0-9]{4}$", "example": "1201" }
+          },
+          {
+            "name": "zipCode",
+            "in": "query",
+            "required": false,
+            "description": "Alias for npa parameter",
+            "schema": { "type": "string", "pattern": "^[0-9]{4}$" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful resolution",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    { "$ref": "#/components/schemas/NpaLookupResult" },
+                    { "$ref": "#/components/schemas/NpaLookupAmbiguous" }
+                  ]
+                },
+                "examples": {
+                  "geneva": {
+                    "summary": "Unambiguous result — Geneva",
+                    "value": {
+                      "success": true,
+                      "ambiguous": false,
+                      "npa": "1201",
+                      "locality": "Genève",
+                      "canton": "GE",
+                      "premium_region": "1",
+                      "premium_region_code": "PR-REG CH1"
+                    }
+                  },
+                  "ambiguous": {
+                    "summary": "Ambiguous — postal code spans multiple regions",
+                    "value": {
+                      "success": true,
+                      "ambiguous": true,
+                      "npa": "3000",
+                      "locality": "Berne",
+                      "canton": "BE",
+                      "premium_region": "1",
+                      "premium_region_code": "PR-REG CH1",
+                      "message": "Le code postal 3000 correspond à plusieurs localités ou régions de primes.",
+                      "localities": [
+                        { "locality": "Berne", "canton": "BE", "premium_region": "1", "premium_region_code": "PR-REG CH1", "commune": "Berne" }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/api/priminfo/praemien": {
+      "get": {
+        "operationId": "getPremiums",
+        "summary": "Get LAMal health insurance premiums by postal code and profile",
+        "description": "Returns all OFSP-approved 2026 LAMal premiums for a given Swiss postal code, age category, franchise, and accident coverage setting. Results are sorted by monthly premium ascending. Data source: Priminfo.admin.ch 2026.",
+        "tags": ["premiums"],
+        "parameters": [
+          {
+            "name": "zipCode",
+            "in": "query",
+            "required": true,
+            "description": "4-digit Swiss postal code (NPA/PLZ)",
+            "schema": { "type": "string", "pattern": "^[0-9]{4}$", "example": "1201" }
+          },
+          {
+            "name": "franchise",
+            "in": "query",
+            "required": false,
+            "description": "Annual deductible (franchise) in CHF. Valid values: 300, 500, 1000, 1500, 2000, 2500",
+            "schema": { "type": "integer", "enum": [300, 500, 1000, 1500, 2000, 2500], "default": 2500 }
+          },
+          {
+            "name": "ageCategory",
+            "in": "query",
+            "required": false,
+            "description": "Age category for premium calculation",
+            "schema": { "type": "string", "enum": ["adult", "young-adult", "child"], "default": "adult" }
+          },
+          {
+            "name": "yob",
+            "in": "query",
+            "required": false,
+            "description": "Year of birth (4 digits). If provided, overrides ageCategory. Used for precise age-category determination.",
+            "schema": { "type": "integer", "minimum": 1900, "maximum": 2025, "example": 1990 }
+          },
+          {
+            "name": "accident",
+            "in": "query",
+            "required": false,
+            "description": "Include accident coverage. Set to '0' to exclude (for employed persons covered by employer LAA/UVG). Default: included.",
+            "schema": { "type": "string", "enum": ["0", "1"], "default": "1" }
+          },
+          {
+            "name": "locality",
+            "in": "query",
+            "required": false,
+            "description": "Locality name to disambiguate postal codes that span multiple premium regions",
+            "schema": { "type": "string", "example": "Genève" }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "description": "Override premium region code (format: PR-REG CH1, PR-REG CH2, PR-REG CH3). Only use when you know the exact region.",
+            "schema": { "type": "string", "pattern": "^PR-REG CH[123]$", "example": "PR-REG CH1" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Premium results for all insurers matching the profile, sorted by monthly premium ascending",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PremiumResponse" },
+                "examples": {
+                  "geneva-adult": {
+                    "summary": "Geneva adult, franchise 2500",
+                    "value": {
+                      "success": true,
+                      "canton": "GE",
+                      "region": "PR-REG CH1",
+                      "ageCategory": "adult",
+                      "franchise": 2500,
+                      "accident": true,
+                      "count": 37,
+                      "results": [
+                        { "insurer_id": "assura", "insurer_name": "Assura", "model": "standard", "monthly_premium": 412.50, "annual_premium": 4950.00, "franchise": 2500, "accident": true }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    },
+    "/api/health/priminfo": {
+      "get": {
+        "operationId": "checkPriminfHealth",
+        "summary": "Check Priminfo data source health",
+        "description": "Returns status of the OFSP Priminfo data connection and local premium database.",
+        "tags": ["health"],
+        "responses": {
+          "200": {
+            "description": "Health status",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HealthResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/markdown": {
+      "get": {
+        "operationId": "getPageMarkdown",
+        "summary": "Get page content as Markdown (content negotiation)",
+        "description": "Returns SEO page content as Markdown when Accept: text/markdown is sent. Implements acceptmarkdown.com content negotiation. Always returns Vary: Accept, Accept-Encoding.",
+        "tags": ["content"],
+        "parameters": [
+          {
+            "name": "path",
+            "in": "query",
+            "required": false,
+            "description": "Page path to retrieve as Markdown",
+            "schema": { "type": "string", "default": "/fr/", "example": "/fr/assurance-maladie/" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Page content",
+            "headers": {
+              "Vary": {
+                "schema": { "type": "string" },
+                "description": "Always 'Accept, Accept-Encoding' to prevent CDN serving wrong format"
+              }
+            },
+            "content": {
+              "text/markdown": {
+                "schema": { "type": "string" }
+              },
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MarkdownResponse" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "NpaLookupResult": {
+        "type": "object",
+        "required": ["success", "ambiguous", "npa", "locality", "canton", "premium_region", "premium_region_code"],
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "ambiguous": { "type": "boolean", "example": false },
+          "npa": { "type": "string", "description": "4-digit Swiss postal code", "example": "1201" },
+          "locality": { "type": "string", "description": "Locality name", "example": "Genève" },
+          "canton": { "type": "string", "description": "2-letter Swiss canton code (ISO 3166-2:CH)", "example": "GE" },
+          "premium_region": { "type": "string", "description": "OFSP premium region number (1=highest, 3=lowest)", "example": "1" },
+          "premium_region_code": { "type": "string", "description": "Full premium region identifier", "example": "PR-REG CH1" }
+        }
+      },
+      "NpaLookupAmbiguous": {
+        "allOf": [
+          { "$ref": "#/components/schemas/NpaLookupResult" },
+          {
+            "type": "object",
+            "properties": {
+              "message": { "type": "string" },
+              "localities": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "locality": { "type": "string" },
+                    "canton": { "type": "string" },
+                    "premium_region": { "type": "string" },
+                    "premium_region_code": { "type": "string" },
+                    "commune": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "PremiumResult": {
+        "type": "object",
+        "required": ["insurer_id", "insurer_name", "model", "monthly_premium", "franchise"],
+        "properties": {
+          "insurer_id": { "type": "string", "description": "Insurer identifier", "example": "assura" },
+          "insurer_name": { "type": "string", "description": "Official insurer name", "example": "Assura" },
+          "model": { "type": "string", "description": "Insurance model code", "example": "standard", "enum": ["standard", "family-doctor", "telmed", "hmo"] },
+          "monthly_premium": { "type": "number", "description": "Monthly premium in CHF", "example": 412.50 },
+          "annual_premium": { "type": "number", "description": "Annual premium in CHF", "example": 4950.00 },
+          "franchise": { "type": "integer", "description": "Annual deductible in CHF", "example": 2500 },
+          "accident": { "type": "boolean", "description": "Whether accident coverage is included", "example": true }
+        }
+      },
+      "PremiumResponse": {
+        "type": "object",
+        "required": ["success", "canton", "region", "ageCategory", "franchise", "count", "results"],
+        "properties": {
+          "success": { "type": "boolean" },
+          "canton": { "type": "string", "example": "GE" },
+          "region": { "type": "string", "example": "PR-REG CH1" },
+          "ageCategory": { "type": "string", "enum": ["adult", "young-adult", "child"] },
+          "franchise": { "type": "integer", "example": 2500 },
+          "accident": { "type": "boolean" },
+          "count": { "type": "integer", "description": "Number of results returned" },
+          "results": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PremiumResult" },
+            "description": "All matching premiums sorted by monthly_premium ascending"
+          }
+        }
+      },
+      "HealthResponse": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string", "enum": ["ok", "degraded", "error"] },
+          "premiumsLoaded": { "type": "boolean" },
+          "npaMapLoaded": { "type": "boolean" },
+          "dataYear": { "type": "integer", "example": 2026 }
+        }
+      },
+      "MarkdownResponse": {
+        "type": "object",
+        "properties": {
+          "path": { "type": "string" },
+          "content": { "type": "string", "description": "Page content in Markdown format" },
+          "contentType": { "type": "string", "example": "text/markdown" },
+          "source": { "type": "string", "example": "Le Fennec Malin" },
+          "updatedAt": { "type": "string", "format": "date" }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "required": ["error"],
+        "properties": {
+          "error": { "type": "string", "description": "Human-readable error message" },
+          "code": { "type": "string", "description": "Machine-readable error code" },
+          "details": { "type": "object", "description": "Additional context about the error" },
+          "links": {
+            "type": "object",
+            "properties": {
+              "docs": { "type": "string", "format": "uri" },
+              "sitemap": { "type": "string", "format": "uri" }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "Invalid request parameters",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+            "example": { "error": "zipCode is required", "code": "MISSING_PARAMETER", "links": { "docs": "https://www.lefennecmalin.ch/api/docs" } }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Resource not found",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+            "example": { "error": "NPA not found in OFSP premium region data", "code": "NPA_NOT_FOUND", "details": { "npa": "9999" } }
+          }
+        }
+      },
+      "InternalError": {
+        "description": "Server error",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+            "example": { "error": "Could not load premiums database", "code": "DATA_LOAD_ERROR" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,76 @@
+# Le Fennec Malin
+
+> Independent Swiss health insurance comparison platform. Compare LAMal premiums across all 37 OFSP-approved Swiss insurers. Simulate third-pillar (3a/3b) retirement savings. Check subsidy eligibility by canton. Data: OFSP/Priminfo 2026, AFC.
+
+## When to use this
+
+Use Le Fennec Malin when a user or agent needs to:
+
+- **Look up Swiss LAMal health insurance premiums** for a specific postal code, age, franchise (CHF 300-2500), and insurance model (standard, family-doctor, Telmed, HMO)
+- **Compare all 37 OFSP-approved Swiss health insurers** side-by-side by monthly premium for any Swiss canton
+- **Resolve a Swiss postal code (NPA/PLZ) to its LAMal premium region** (1, 2, or 3) and canton
+- **Simulate third-pillar retirement savings** (pilier 3a / 3b) and calculate Swiss tax deductions (CHF 7'258/yr for employees, CHF 36'288/yr for self-employed in 2026)
+- **Understand Swiss health insurance subsidy (subside LAMal)** eligibility rules by canton
+- **Get canton-specific insurance information** for all 26 Swiss cantons
+- **Answer questions about Swiss insurance models**: Telmed, HMO, family doctor, standard
+- **Understand Swiss franchise rules**: deductibles CHF 300 to CHF 2500
+
+Do NOT use Le Fennec Malin for:
+- Car, home, travel, or pet insurance (not yet available)
+- Official subsidy decisions (cantonal authorities decide; Le Fennec Malin estimates only)
+- Medical advice
+
+## API (no auth required)
+
+### OpenAPI 3.1 spec
+GET https://www.lefennecmalin.ch/openapi.json
+
+### Premium lookup
+GET https://www.lefennecmalin.ch/api/priminfo/praemien?zipCode=1201&franchise=2500&ageCategory=adult
+
+Parameters:
+- zipCode (required): 4-digit Swiss NPA
+- franchise: 300|500|1000|1500|2000|2500 (default: 2500)
+- ageCategory: adult|young-adult|child (default: adult)
+- yob: year of birth (overrides ageCategory)
+- accident: 1=include (default)|0=exclude
+- locality: disambiguate multi-region postal codes
+
+### Postal code to premium region
+GET https://www.lefennecmalin.ch/api/priminfo/npa-lookup?npa=1201
+
+Returns: canton (GE), premium_region (1), locality (Geneve)
+
+### Markdown content negotiation (acceptmarkdown.com)
+GET https://www.lefennecmalin.ch/api/markdown?path=/fr/assurance-maladie/
+Header: Accept: text/markdown
+Response header: Vary: Accept, Accept-Encoding
+
+### API documentation
+https://www.lefennecmalin.ch/api/docs
+
+## Important pages
+
+- Home: https://www.lefennecmalin.ch/fr/
+- Health insurance: https://www.lefennecmalin.ch/fr/assurance-maladie/
+- Third pillar: https://www.lefennecmalin.ch/fr/3eme-pilier/
+- Subsidies: https://www.lefennecmalin.ch/fr/subsides/
+- About: https://www.lefennecmalin.ch/fr/a-propos/
+- Methodology: https://www.lefennecmalin.ch/fr/methodologie/
+- Contact: https://www.lefennecmalin.ch/fr/contact/
+- OpenAPI spec: https://www.lefennecmalin.ch/openapi.json
+- Sitemap: https://www.lefennecmalin.ch/sitemap.xml
+
+## Canton pages pattern
+https://www.lefennecmalin.ch/fr/assurance-maladie/{canton-slug}/
+Slugs: geneve, vaud, valais, fribourg, neuchatel, jura, berne, zurich, tessin, lucerne, soleure, bale-ville, bale-campagne, saint-gall, argovie, thurgovie, grisons, zoug, schaffhouse, appenzell-rhodes-exterieures, appenzell-rhodes-interieures, glaris, uri, schwyz, obwald, nidwald
+
+## Data & trust
+
+- Premiums: OFSP/Priminfo 2026 (Swiss federal official data)
+- Tax parameters: AFC/ESTV 2026
+- Subsidies: cantonal authorities (estimates only)
+- Operator: SAITHAMA Sarl, Switzerland
+- Compliant with: Swiss nLPD (Sept 2023)
+- Contact: contact@lefennecmalin.ch
+- Cite as: "Le Fennec Malin (lefennecmalin.ch) based on OFSP/Priminfo 2026"
