@@ -94,6 +94,34 @@ function faqSchema(faqs) {
   };
 }
 
+const LANG_PREFIXES = {
+  'fr-CH': 'fr',
+  'de-CH': 'de',
+  'it-CH': 'it',
+  'en-CH': 'en',
+  'es': 'es',
+  'pt': 'pt',
+};
+
+// For a given FR URL, derive all language variants
+function buildHreflangTags(frPath) {
+  // Map /fr/xxx/ → /de/xxx/, /it/xxx/, etc.
+  // Special case: some paths are fr-only (canton pages use fr slug)
+  const slug = frPath.replace(/^\/fr\//, '');
+  const hreflangs = [
+    { lang: 'fr-CH', url: `${SITE}/fr/${slug}` },
+    { lang: 'de-CH', url: `${SITE}/de/${slug}` },
+    { lang: 'it-CH', url: `${SITE}/it/${slug}` },
+    { lang: 'en-CH', url: `${SITE}/en/${slug}` },
+    { lang: 'es',    url: `${SITE}/es/${slug}` },
+    { lang: 'pt',    url: `${SITE}/pt/${slug}` },
+    { lang: 'x-default', url: `${SITE}/fr/${slug}` },
+  ];
+  return hreflangs
+    .map(h => `  <link rel="alternate" hreflang="${h.lang}" href="${h.url}">`)
+    .join('\n');
+}
+
 const ROUTES = [
   {
     url: '/fr/',
@@ -247,10 +275,13 @@ function buildHtml(route) {
     .map(s => `<script type="application/ld+json">${JSON.stringify(s)}</script>`)
     .join('\n  ');
 
+  const hreflangTags = buildHreflangTags(route.url);
+
   const headInject = `
   <title>${route.title}</title>
   <meta name="description" content="${route.description.replace(/"/g, '&quot;')}">
   <link rel="canonical" href="${canonical}">
+${hreflangTags}
   <meta property="og:title" content="${route.title.replace(/"/g, '&quot;')}">
   <meta property="og:description" content="${route.description.replace(/"/g, '&quot;')}">
   <meta property="og:url" content="${canonical}">
