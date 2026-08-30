@@ -6,14 +6,12 @@
   "scripts": {
     "postinstall": "node scripts/download-premiums.js",
     "dev": "tsx server.ts",
-    "build": "tsx scripts/generateSitemaps.ts && vite build && node scripts/prerender.mjs && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
+    "build": "tsx scripts/generateSitemaps.ts && vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
     "generate-sitemaps": "tsx scripts/generateSitemaps.ts",
     "validate-sitemaps": "tsx scripts/validateSitemaps.ts",
     "start": "node dist/server.cjs",
     "clean": "rm -rf dist server.js",
-    "lint": "tsc --noEmit",
-    "validate:agentic": "node scripts/validate-agentic.mjs",
-    "validate:agentic:local": "node scripts/validate-agentic.mjs http://localhost:3000"
+    "lint": "tsc --noEmit"
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.61.3",

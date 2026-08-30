@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Le Fennec Malin — Comparateur d'Assurances Suisse 🇨🇭</title>
+    <title>Le Fennec Malin — Comparateur d'Assurances Suisse 🇨🇭 100% Neutre</title>
     <link rel="icon" type="image/jpeg" href="/fennec-logo.jpg" />
     <link rel="apple-touch-icon" href="/fennec-logo.jpg" />
     <link rel="canonical" href="https://www.lefennecmalin.ch/" />
 
-    <!-- SEO -->
-    <meta name="description" content="Comparez les assurances maladie (LAMal/LCA), 3ème pilier, auto et prévoyance en Suisse. Données officielles OFSP 2026. Gratuit, neutre et sans engagement." />
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Comparez gratuitement les assurances maladie (LAMal/LCA), 3ème pilier et prévoyance en Suisse. Données officielles OFSP 2026. Calculez vos économies en 2 minutes." />
     <meta name="robots" content="index, follow" />
     <meta name="author" content="Le Fennec Malin" />
     <meta name="geo.region" content="CH" />
@@ -18,15 +18,13 @@
     <link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/" />
     <link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/" />
     <link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/" />
-    <link rel="alternate" hreflang="es" href="https://www.lefennecmalin.ch/es/" />
-    <link rel="alternate" hreflang="pt" href="https://www.lefennecmalin.ch/pt/" />
-    <link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/" />
+    <link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/" />
 
     <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Le Fennec Malin" />
     <meta property="og:title" content="Le Fennec Malin — Comparateur d'Assurances Suisse" />
-    <meta property="og:description" content="Comparez les assurances maladie et prévoyance en Suisse. Trouvez la meilleure offre pour votre profil en quelques clics." />
+    <meta property="og:description" content="Comparez les assurances maladie et prévoyance en Suisse. Données officielles OFSP 2026." />
     <meta property="og:image" content="https://www.lefennecmalin.ch/fennec-avatar.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -36,11 +34,165 @@
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Le Fennec Malin — Comparateur d'Assurances Suisse" />
-    <meta name="twitter:description" content="Comparez les assurances maladie et prévoyance en Suisse." />
+    <meta name="twitter:description" content="Comparez les assurances maladie et prévoyance en Suisse avec les données officielles OFSP 2026." />
     <meta name="twitter:image" content="https://www.lefennecmalin.ch/fennec-avatar.jpg" />
+
+    <!-- JSON-LD Structured Data for Crawlers & AI Agents (Fix 4) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": ["Organization", "FinancialService"],
+          "@id": "https://www.lefennecmalin.ch/#organization",
+          "name": "Le Fennec Malin",
+          "legalName": "FENY SA",
+          "url": "https://www.lefennecmalin.ch/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.lefennecmalin.ch/fennec-logo.jpg",
+            "caption": "Logo Le Fennec Malin"
+          },
+          "image": "https://www.lefennecmalin.ch/fennec-avatar.jpg",
+          "description": "Comparateur d'assurances suisse indépendant et neutre : assurance maladie de base (LAMal), assurances complémentaires (LCA), et prévoyance vieillesse (3ème pilier 3a/3b). Données certifiées OFSP 2026.",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "CH"
+          },
+          "areaServed": {
+            "@type": "Country",
+            "name": "Switzerland",
+            "identifier": "CH"
+          },
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "email": "contact@lefennecmalin.ch",
+            "availableLanguage": ["French", "German", "Italian", "English"]
+          },
+          "taxID": "CHE-272.095.360",
+          "sameAs": [
+            "https://www.lefennecmalin.ch/",
+            "https://www.lefennecmalin.ch/llms.txt"
+          ],
+          "knowsAbout": [
+            "Assurance Maladie Suisse LAMal",
+            "Assurances Complémentaires LCA",
+            "Prévoyance 3ème Pilier 3a et 3b",
+            "Primes officielles OFSP / Priminfo 2026",
+            "Subsides d'assurance maladie cantonaux"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.lefennecmalin.ch/#website",
+          "name": "Le Fennec Malin",
+          "url": "https://www.lefennecmalin.ch/",
+          "inLanguage": ["fr-CH", "de-CH", "it-CH", "en"],
+          "publisher": {
+            "@id": "https://www.lefennecmalin.ch/#organization"
+          },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.lefennecmalin.ch/fr/comparateur-assurance-suisse/?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://www.lefennecmalin.ch/#software",
+          "name": "Comparateur Primes Assurance & Prévoyance Suisse",
+          "applicationCategory": "FinanceApplication",
+          "operatingSystem": "All",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "CHF"
+          },
+          "featureList": [
+            "Comparaison officielle primes LAMal 2026",
+            "Calcul d'économies par franchise (300 à 2500 CHF)",
+            "Optimisation fiscale 3ème pilier 3a",
+            "Simulateur de subsides cantonaux"
+          ]
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <!-- Fallback Content for AI Crawlers & Non-JS Visitors (Fix 2) -->
+    <div id="root">
+      <header style="background: #2F2921; color: #FFFFFF; padding: 24px; text-align: center;">
+        <p style="font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: #ECE1D4; margin: 0 0 8px 0;">Le Fennec Malin 🇨🇭</p>
+        <h1 style="font-size: 28px; margin: 0; font-weight: 800; color: #FFFFFF;">Le Fennec Malin — Comparateur d'Assurances Suisse Neutre &amp; Officiel (Primes 2026)</h1>
+        <p style="font-size: 16px; color: #D36D53; margin: 8px 0 0 0; font-weight: 600;">Données certifiées de l'Office Fédéral de la Santé Publique (OFSP / BAG / UFSP)</p>
+      </header>
+
+      <main style="max-width: 1000px; margin: 0 auto; padding: 32px 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #2F2921;">
+        <section style="margin-bottom: 32px;">
+          <h2 style="font-size: 22px; color: #D36D53;">Comparateur d'Assurances Neutre et Indépendant en Suisse</h2>
+          <p style="font-size: 16px;">
+            Bienvenue sur <strong>Le Fennec Malin</strong> (<em>lefennecmalin.ch</em>), la plateforme suisse de référence pour comparer gratuitement, en toute transparence et sans parti pris commercial l'ensemble de vos assurances : <strong>Assurance Maladie de Base (LAMal)</strong>, <strong>Assurances Complémentaires (LCA)</strong> et <strong>Prévoyance Retraite (3ème Pilier 3a / 3b)</strong>.
+          </p>
+          <p style="font-size: 16px;">
+            Notre moteur de calcul intègre l'intégralité du registre officiel des primes 2026 de l'Office Fédéral de la Santé Publique (OFSP / Priminfo), couvrant les 26 cantons suisses et les 37 caisses maladie agréées par la Confédération.
+          </p>
+        </section>
+
+        <section style="margin-bottom: 32px; background: #FAF4EC; border: 1px solid #ECE1D4; border-radius: 12px; padding: 24px;">
+          <h2 style="font-size: 20px; color: #2F2921; margin-top: 0;">Nos Services &amp; Simulateurs de Calcul</h2>
+          <ul style="font-size: 15px; padding-left: 20px;">
+            <li style="margin-bottom: 10px;">
+              <strong>Assurance Maladie LAMal (Primes Officielles 2026)</strong> : Comparez les tarifs mensuels par canton, code postal (NPA), tranche d'âge (Enfant 0-18 ans, Jeune adulte 19-25 ans, Adulte 26+ ans), franchise annuelle (CHF 300 à CHF 2'500) et modèles de soins alternatifs (Standard, Telmed, Médecin de famille, HMO).
+            </li>
+            <li style="margin-bottom: 10px;">
+              <strong>Prévoyance &amp; 3ème Pilier (Pilier 3a / 3b)</strong> : Calculez vos déductions fiscales annuelles jusqu'à <strong>CHF 7'258</strong> pour les salariés affiliés au 2ème pilier et jusqu'à <strong>CHF 36'288</strong> pour les indépendants. Simulez l'évolution de votre capital retraite et vos gains d'impôts cantonaux.
+            </li>
+            <li style="margin-bottom: 10px;">
+              <strong>Subsides d'Assurance Maladie (Prämienverbilligung)</strong> : Consultez les conditions d'octroi, barèmes de revenus et formulaires de demande de réductions de prime auprès des services cantonaux (OVAM Vaud, SAM Genève, CCVs Valais, ECAS Fribourg, OCAS Neuchâtel, SVA, etc.).
+            </li>
+            <li style="margin-bottom: 10px;">
+              <strong>Guides Pratiques &amp; Modèles de Lettre</strong> : Résiliez et changez facilement d'assurance avant l'échéance légale du 30 novembre grâce à nos guides et simulateurs d'optimisation de franchise.
+            </li>
+          </ul>
+        </section>
+
+        <section style="margin-bottom: 32px;">
+          <h2 style="font-size: 20px; color: #D36D53;">Caisses Maladie et Compagnies d'Assurance Référencées</h2>
+          <p style="font-size: 15px;">
+            Nous analysons les offres des principaux assureurs de Suisse : Helsana, CSS, Swica, Groupe Mutuel, Sanitas, Concordia, Visana, Atupri, Sympany, KPT, Assura, AXA, Swiss Life, Generali, Zurich, La Mobilière et Helvetia.
+          </p>
+        </section>
+
+        <section style="margin-bottom: 32px; background: #FFFFFF; border: 1px solid #ECE1D4; border-radius: 12px; padding: 24px;">
+          <h2 style="font-size: 20px; color: #2F2921; margin-top: 0;">Ressources pour Agents IA &amp; Développeurs</h2>
+          <p style="font-size: 14px; color: #4A4036;">
+            Le Fennec Malin met à disposition des endpoints et des fichiers normalisés pour les assistants et agents d'IA :
+          </p>
+          <ul style="font-size: 14px; padding-left: 20px;">
+            <li><strong>Directives &amp; Spécifications Agents (llms.txt)</strong> : <a href="/llms.txt">https://www.lefennecmalin.ch/llms.txt</a></li>
+            <li><strong>Index LLMs Étendu (llms-full.txt)</strong> : <a href="/llms-full.txt">https://www.lefennecmalin.ch/llms-full.txt</a></li>
+            <li><strong>Plan du site XML (Sitemaps)</strong> : <a href="/sitemap.xml">https://www.lefennecmalin.ch/sitemap.xml</a></li>
+            <li><strong>API Primes Maladie 2026</strong> : <code>GET /api/priminfo/praemien?zipCode=1003&amp;franchise=2500&amp;yob=1990&amp;accident=1</code></li>
+            <li><strong>API Résolution Code Postal (NPA)</strong> : <code>GET /api/npa-lookup?npa=1003</code></li>
+            <li><strong>Négociation de Contenu Markdown</strong> : Envoyez l'en-tête <code>Accept: text/markdown</code> sur n'importe quelle URL.</li>
+          </ul>
+        </section>
+
+        <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #ECE1D4; font-size: 13px; color: #7F7366; text-align: center;">
+          <p>© FENY SA — Le Fennec Malin 🇨🇭 | Registre IDE : CHE-272.095.360 | Intermédiaire neutre selon l'article 45 LSA.</p>
+          <p>Contact : <a href="mailto:contact@lefennecmalin.ch" style="color: #D36D53;">contact@lefennecmalin.ch</a> | Suisse</p>
+        </footer>
+      </main>
+    </div>
+
+    <noscript>
+      <div style="padding: 20px; background: #FFF3F0; border-bottom: 2px solid #D36D53; text-align: center; font-family: sans-serif;">
+        <strong>JavaScript désactivé :</strong> Vous consultez la version accessible statique de Le Fennec Malin. Pour utiliser nos simulateurs interactifs de calcul de primes, veuillez activer JavaScript dans votre navigateur.
+      </div>
+    </noscript>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

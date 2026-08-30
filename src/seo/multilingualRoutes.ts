@@ -1846,7 +1846,34 @@ export function resolveRouteFromPath(pathname: string): { tab: AppTab; language:
     }
   }
 
-  // 4. Handle Subsidies Slugs dynamically (/fr/subsides/:slug/, /es/subsides/:slug/, /de/praemienverbilligung/:slug/)
+  // 4. Handle Local SEO Communes / Municipalities dynamically (/fr/local/:canton/:city/)
+  const localCityMatch = normalized.match(/(?:\/(fr|de|it|en|es|sp|pt))?\/local\/([a-z0-9-]+)\/([a-z0-9-]+)\/?$/);
+  if (localCityMatch) {
+    const rawLang = localCityMatch[1] || 'fr';
+    const lang = (rawLang === 'sp' ? 'es' : rawLang) as Language;
+    const cantonSlug = localCityMatch[2];
+    const citySlug = localCityMatch[3];
+    return { tab: `local-city-${cantonSlug}-${citySlug}` as AppTab, language: lang };
+  }
+
+  // 5. Handle Local SEO Canton Hubs dynamically (/fr/local/:canton/)
+  const localCantonMatch = normalized.match(/(?:\/(fr|de|it|en|es|sp|pt))?\/local\/([a-z0-9-]+)\/?$/);
+  if (localCantonMatch) {
+    const rawLang = localCantonMatch[1] || 'fr';
+    const lang = (rawLang === 'sp' ? 'es' : rawLang) as Language;
+    const cantonSlug = localCantonMatch[2];
+    return { tab: `local-canton-${cantonSlug}` as AppTab, language: lang };
+  }
+
+  // 6. Handle Master Local SEO Hub (/fr/local/)
+  const localHubMatch = normalized.match(/(?:\/(fr|de|it|en|es|sp|pt))?\/local\/?$/);
+  if (localHubMatch) {
+    const rawLang = localHubMatch[1] || 'fr';
+    const lang = (rawLang === 'sp' ? 'es' : rawLang) as Language;
+    return { tab: 'local-hub', language: lang };
+  }
+
+  // 7. Handle Subsidies Slugs dynamically (/fr/subsides/:slug/, /es/subsides/:slug/, /de/praemienverbilligung/:slug/)
   const subsidyMatch = normalized.match(/(?:\/(fr|de|it|en|es|sp|pt))?\/(?:subsides|praemienverbilligung|sussidi-cassa-malati|health-insurance-subsidies)\/([a-z0-9-]+)\/?$/);
   if (subsidyMatch) {
     const rawLang = subsidyMatch[1] || 'fr';
@@ -1931,5 +1958,5 @@ export function resolveRouteFromPath(pathname: string): { tab: AppTab; language:
   if (normalized.startsWith('/es/') || normalized.startsWith('/sp/')) return { tab: 'home', language: 'es' };
   if (normalized.startsWith('/pt/')) return { tab: 'home', language: 'pt' };
 
-  return { tab: 'not-found', language: 'fr' };
+  return { tab: 'home', language: 'fr' };
 }

@@ -36,6 +36,10 @@ import { FamilyInsurancePage, YoungAdultInsurancePage, StudentInsurancePage, New
 import LamalVsLcaPage from './seo/pages/LamalVsLcaPage';
 import AccidentCoveragePage from './seo/pages/AccidentCoveragePage';
 import InsurerComparisonPage from './seo/pages/InsurerComparisonPage';
+import { LocalCityPage } from './seo/pages/LocalCityPage';
+import { LocalCantonHubPage } from './seo/pages/LocalCantonHubPage';
+import { LocalHubPage } from './seo/pages/LocalHubPage';
+import { getMunicipalityBySlug, getCantonLocalHubData } from './seo/data/municipalitiesData';
 import { CANTONS_SEO_DATA } from './seo/data/cantonsData';
 import { CATEGORIES_SEO_DATA } from './seo/data/categoriesData';
 import { INSURERS_SEO_DATA } from './seo/data/insurersData';
@@ -882,7 +886,78 @@ export default function App() {
           );
         })()}
 
-        {!MULTILINGUAL_ROUTES[currentTab] && (
+        {/* Local SEO Layer: Master Directory, Canton Hubs, and Municipality Pages */}
+        {currentTab === 'local-hub' && (
+          <LocalHubPage
+            lang={language}
+            onOpenComparator={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab.startsWith('local-canton-') && (() => {
+          const cantonSlug = currentTab.replace('local-canton-', '');
+          const hubData = getCantonLocalHubData(cantonSlug);
+          if (!hubData) return null;
+          return (
+            <LocalCantonHubPage
+              hubData={hubData}
+              lang={language}
+              onOpenComparator={() => {
+                setSelectedCantonPreset(hubData.cantonName);
+                setTab('health-comparator');
+              }}
+            />
+          );
+        })()}
+
+        {currentTab.startsWith('local-city-') && (() => {
+          // Format: local-city-{cantonSlug}-{citySlug}
+          const raw = currentTab.replace('local-city-', '');
+          const parts = raw.split('-');
+          const cantonSlug = parts[0];
+          const citySlug = parts.slice(1).join('-');
+          const municipality = getMunicipalityBySlug(cantonSlug, citySlug);
+          if (!municipality) return null;
+          return (
+            <LocalCityPage
+              municipality={municipality}
+              lang={language}
+              onOpenComparator={() => {
+                setSelectedCantonPreset(municipality.canton);
+                setTab('health-comparator');
+              }}
+              onNavigate={navigateToUrl}
+            />
+          );
+        })()}
+
+        {!MULTILINGUAL_ROUTES[currentTab] &&
+         !currentTab.startsWith('canton-') &&
+         !currentTab.startsWith('subside-') &&
+         !currentTab.startsWith('insurer-') &&
+         !currentTab.startsWith('guide-') &&
+         !currentTab.startsWith('category-') &&
+         !currentTab.startsWith('compare-') &&
+         !currentTab.startsWith('local-') &&
+         currentTab !== 'health-comparator' &&
+         currentTab !== 'life-comparator' &&
+         currentTab !== 'about' &&
+         currentTab !== 'faq' &&
+         currentTab !== 'methodologie' &&
+         currentTab !== 'comment-fonctionne-le-comparateur' &&
+         currentTab !== 'legal' &&
+         currentTab !== 'privacy' &&
+         currentTab !== 'article-45-lsa' &&
+         currentTab !== 'qualifications-intermediaire' &&
+         currentTab !== 'hub-subsides' &&
+         currentTab !== 'hub-insurers' &&
+         currentTab !== 'home' &&
+         currentTab !== 'seo-maladie' &&
+         currentTab !== 'seo-pilier' &&
+         currentTab !== 'seo-comparateur' &&
+         currentTab !== 'tool-calculateur-franchise' &&
+         currentTab !== 'tool-calculateur-impot-3a' &&
+         currentTab !== 'tool-simulateur-frontalier' && (
           <NotFound onGoHome={() => setTab('home')} />
         )}
 

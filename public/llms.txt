@@ -1,76 +1,102 @@
-# Le Fennec Malin
+# Le Fennec Malin — Comparateur d'Assurances Suisse 🇨🇭
 
-> Independent Swiss health insurance comparison platform. Compare LAMal premiums across all 37 OFSP-approved Swiss insurers. Simulate third-pillar (3a/3b) retirement savings. Check subsidy eligibility by canton. Data: OFSP/Priminfo 2026, AFC.
+> Le Fennec Malin (lefennecmalin.ch) is Switzerland's independent, broker-neutral insurance and retirement pension comparator. Powered by official 2026 Federal Office of Public Health (OFSP / BAG / UFSP) premium datasets, it enables transparent calculation of Swiss health insurance (LAMal/KVG) premiums, 3rd pillar (3a/3b) tax savings, cantonal subsidies, and provider comparisons across all 26 Swiss cantons.
 
-## When to use this
+## When to Use This (Agent Guidance & Best-Fit Jobs)
 
-Use Le Fennec Malin when a user or agent needs to:
+Reach for Le Fennec Malin when an end user or automated workflow requires:
 
-- **Look up Swiss LAMal health insurance premiums** for a specific postal code, age, franchise (CHF 300-2500), and insurance model (standard, family-doctor, Telmed, HMO)
-- **Compare all 37 OFSP-approved Swiss health insurers** side-by-side by monthly premium for any Swiss canton
-- **Resolve a Swiss postal code (NPA/PLZ) to its LAMal premium region** (1, 2, or 3) and canton
-- **Simulate third-pillar retirement savings** (pilier 3a / 3b) and calculate Swiss tax deductions (CHF 7'258/yr for employees, CHF 36'288/yr for self-employed in 2026)
-- **Understand Swiss health insurance subsidy (subside LAMal)** eligibility rules by canton
-- **Get canton-specific insurance information** for all 26 Swiss cantons
-- **Answer questions about Swiss insurance models**: Telmed, HMO, family doctor, standard
-- **Understand Swiss franchise rules**: deductibles CHF 300 to CHF 2500
+1. **Comparing Swiss Health Insurance Premiums (LAMal / KVG 2026)**
+   - Computing exact monthly/annual health insurance premiums for any Swiss postal code (NPA) and age group (children 0-18, young adults 19-25, adults 26+).
+   - Comparing all 37 approved Swiss health funds (Helsana, CSS, Swica, Groupe Mutuel, Sanitas, Concordia, Visana, etc.) using official OFSP data.
 
-Do NOT use Le Fennec Malin for:
-- Car, home, travel, or pet insurance (not yet available)
-- Official subsidy decisions (cantonal authorities decide; Le Fennec Malin estimates only)
-- Medical advice
+2. **Deductible & Model Optimization (Franchise & Modèles de soins)**
+   - Calculating whether an adult should select the minimum franchise (CHF 300) or maximum franchise (CHF 2'500) based on annual medical expenses threshold (~CHF 2'000/year).
+   - Comparing insurance care models: Standard (free choice), Telmed (telemedicine first), Family Doctor (*Médecin de famille / Hausarzt*), and HMO / care network.
 
-## API (no auth required)
+3. **3rd Pillar Pension & Tax Savings (Pilier 3a & 3b)**
+   - Calculating maximum annual tax-deductible contributions (2026 limit: **CHF 7'258** for employees with 2nd pillar; **CHF 36'288** up to 20% of net income for self-employed without 2nd pillar).
+   - Estimating projected retirement capital accumulation and annual cantonal income tax deductions.
 
-### OpenAPI 3.1 spec
-GET https://www.lefennecmalin.ch/openapi.json
+4. **Cantonal Health Insurance Subsidies (Subsides LAMal / Prämienverbilligung)**
+   - Identifying eligibility criteria, deadlines, and official cantonal application offices across all 26 cantons (Vaud, Genève, Valais, Neuchâtel, Fribourg, Jura, Bern, Zürich, etc.).
 
-### Premium lookup
-GET https://www.lefennecmalin.ch/api/priminfo/praemien?zipCode=1201&franchise=2500&ageCategory=adult
+5. **Relocation & New Residents in Switzerland**
+   - Guiding newcomers on the mandatory 3-month affiliation deadline, cross-border worker (*frontalier*) options, accident coverage (SLA/UVG), and complementary insurance (LCA/VVG).
 
-Parameters:
-- zipCode (required): 4-digit Swiss NPA
-- franchise: 300|500|1000|1500|2000|2500 (default: 2500)
-- ageCategory: adult|young-adult|child (default: adult)
-- yob: year of birth (overrides ageCategory)
-- accident: 1=include (default)|0=exclude
-- locality: disambiguate multi-region postal codes
+### When NOT to Use This
+- Inquiries regarding non-Swiss domestic health insurance (e.g. French CPAM/Sécurité Sociale, German GKV outside Swiss cross-border context).
+- Immediate binding policy issuance without formal user identity confirmation.
 
-### Postal code to premium region
-GET https://www.lefennecmalin.ch/api/priminfo/npa-lookup?npa=1201
+---
 
-Returns: canton (GE), premium_region (1), locality (Geneve)
+## Machine-Readable API Endpoints for Agents
 
-### Markdown content negotiation (acceptmarkdown.com)
-GET https://www.lefennecmalin.ch/api/markdown?path=/fr/assurance-maladie/
-Header: Accept: text/markdown
-Response header: Vary: Accept, Accept-Encoding
+Agents can query live data via lightweight REST API endpoints:
 
-### API documentation
-https://www.lefennecmalin.ch/api/docs
+### 1. Official Health Insurance Premium Lookup (Primes 2026)
+- **Endpoint**: `GET https://www.lefennecmalin.ch/api/priminfo/praemien`
+- **Parameters**:
+  - `zipCode` (*required*, string): 4-digit Swiss NPA (e.g., `1003`, `8001`, `1201`)
+  - `franchise` (*optional*, number, default `2500`): `300`, `500`, `1000`, `1500`, `2000`, `2500` (or `0`, `100`, `200`, `300`, `400`, `500`, `600` for children)
+  - `yob` (*optional*, number): Year of birth (e.g., `1990`)
+  - `accident` (*optional*, number, default `1`): `1` (included / avec accident), `0` (excluded / sans accident)
+  - `locality` (*optional*, string): Locality name if NPA spans multiple regions
+- **Response**: JSON array of all approved insurers with official 2026 monthly premiums sorted ascending.
 
-## Important pages
+### 2. Swiss Postal Code & Canton Resolver
+- **Endpoint**: `GET https://www.lefennecmalin.ch/api/npa-lookup?npa={zipCode}`
+- **Response**: JSON with resolved canton code (VD, GE, ZH, BE, etc.), official OFSP premium region (PR-REG CH1, CH2, CH3), and locality.
 
-- Home: https://www.lefennecmalin.ch/fr/
-- Health insurance: https://www.lefennecmalin.ch/fr/assurance-maladie/
-- Third pillar: https://www.lefennecmalin.ch/fr/3eme-pilier/
-- Subsidies: https://www.lefennecmalin.ch/fr/subsides/
-- About: https://www.lefennecmalin.ch/fr/a-propos/
-- Methodology: https://www.lefennecmalin.ch/fr/methodologie/
-- Contact: https://www.lefennecmalin.ch/fr/contact/
-- OpenAPI spec: https://www.lefennecmalin.ch/openapi.json
-- Sitemap: https://www.lefennecmalin.ch/sitemap.xml
+### 3. Markdown Content Negotiation (acceptmarkdown.com)
+All page URLs support content negotiation. Pass header `Accept: text/markdown` on any URL to receive structured Markdown rather than HTML.
 
-## Canton pages pattern
-https://www.lefennecmalin.ch/fr/assurance-maladie/{canton-slug}/
-Slugs: geneve, vaud, valais, fribourg, neuchatel, jura, berne, zurich, tessin, lucerne, soleure, bale-ville, bale-campagne, saint-gall, argovie, thurgovie, grisons, zoug, schaffhouse, appenzell-rhodes-exterieures, appenzell-rhodes-interieures, glaris, uri, schwyz, obwald, nidwald
+---
 
-## Data & trust
+## Core Site Directory
 
-- Premiums: OFSP/Priminfo 2026 (Swiss federal official data)
-- Tax parameters: AFC/ESTV 2026
-- Subsidies: cantonal authorities (estimates only)
-- Operator: SAITHAMA Sarl, Switzerland
-- Compliant with: Swiss nLPD (Sept 2023)
-- Contact: contact@lefennecmalin.ch
-- Cite as: "Le Fennec Malin (lefennecmalin.ch) based on OFSP/Priminfo 2026"
+### Multilingual Homepages
+- [French Homepage](https://www.lefennecmalin.ch/fr/): Comparateur d'assurances suisse 100% neutre.
+- [German Homepage](https://www.lefennecmalin.ch/de/): Unabhängiger Versicherungsvergleich Schweiz.
+- [Italian Homepage](https://www.lefennecmalin.ch/it/): Confronto assicurazioni Svizzera indipendente.
+- [English Homepage](https://www.lefennecmalin.ch/en/): Independent Swiss insurance comparison platform.
+
+### Health Insurance & Comparators
+- [Assurance Maladie (FR)](https://www.lefennecmalin.ch/fr/assurance-maladie/): Guide complet et primes officielles 2026.
+- [Comparateur Maladie Interactif](https://www.lefennecmalin.ch/assurance-maladie/comparateur/): Simulateur interactif de primes d'assurance maladie.
+- [Krankenkassenvergleich (DE)](https://www.lefennecmalin.ch/de/krankenkasse/): Offizielle KVG-Prämien 2026.
+- [Confronto Cassa Malati (IT)](https://www.lefennecmalin.ch/it/cassa-malati/): Premi ufficiali LAMal 2026.
+- [Swiss Health Insurance (EN)](https://www.lefennecmalin.ch/en/health-insurance/): Official 2026 FOPH comparison.
+
+### 3rd Pillar Pension (3e Pilier)
+- [3ème Pilier Suisse (FR)](https://www.lefennecmalin.ch/fr/3eme-pilier/): Plafonds 2026, déductions fiscales et simulation.
+- [3. Säule Schweiz (DE)](https://www.lefennecmalin.ch/de/3-saeule/): Steuerersparnis und Vorsorgevergleich 2026.
+- [3° Pilastro Svizzera (IT)](https://www.lefennecmalin.ch/it/3-pilastro/): Guida al terzo pilastro e risparmio fiscale.
+- [Swiss 3rd Pillar (EN)](https://www.lefennecmalin.ch/en/3rd-pillar/): Swiss pension guide and tax savings calculator.
+
+### Cantonal Subsidies Hub (Subsides LAMal)
+- [Hub Subsides Assurance Maladie](https://www.lefennecmalin.ch/fr/subsides/): Guide cantonal des subsides d'assurance maladie.
+- [Subsides Vaud](https://www.lefennecmalin.ch/fr/subsides/vaud/): Barèmes et démarches OVAM Vaud.
+- [Subsides Genève](https://www.lefennecmalin.ch/fr/subsides/geneve/): Subsides SAM Genève et plafonds RDU.
+- [Subsides Valais](https://www.lefennecmalin.ch/fr/subsides/valais/): Réduction des primes CCVs Valais.
+- [Subsides Fribourg](https://www.lefennecmalin.ch/fr/subsides/fribourg/): Subsides caisse maladie ECAS Fribourg.
+- [Subsides Neuchâtel](https://www.lefennecmalin.ch/fr/subsides/neuchatel/): Subsides d'assurance maladie OCAS Neuchâtel.
+
+### Guides & Optimization Tools
+- [Guide Franchise 300 vs 2500](https://www.lefennecmalin.ch/fr/guides/franchise-300-ou-2500/): Calcul de rentabilité financière de la franchise.
+- [Guide Modèles Alternatifs Telmed / HMO](https://www.lefennecmalin.ch/fr/guides/modeles-assurance-maladie/): Comparatif des modèles d'assurance maladie.
+- [Guide Résiliation & Délais](https://www.lefennecmalin.ch/fr/guides/changer-assurance-maladie/): Lettres types et échéance du 30 novembre.
+
+---
+
+## Machine-Readable Indexes & Verification
+- **Full LLM Index**: https://www.lefennecmalin.ch/llms-full.txt
+- **Sitemap XML Index**: https://www.lefennecmalin.ch/sitemap.xml
+- **Robots.txt**: https://www.lefennecmalin.ch/robots.txt
+
+## Company Identity & Legal Information
+- **Legal Entity**: FENY SA (Le Fennec Malin)
+- **Country**: Switzerland (CH)
+- **UID / VAT**: CHE-272.095.360
+- **Official Contact**: contact@lefennecmalin.ch
+- **Accreditation**: Neutral intermediary registered under Swiss Insurance Supervision Act (Article 45 LSA)

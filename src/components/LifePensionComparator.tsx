@@ -222,25 +222,8 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     premiumExemptionDesc: "L'assureur paie à votre place en cas d'invalidité.",
     dependentsTitle: "Personnes à charge",
     dependentsDesc: "Conjoint ou enfants à charge légale.",
-    step5Title: "5. Déterminez votre capacité d'épargne",
-    step5Subtitle: "Définissez la fréquence, le montant à épargner et la durée souhaitée. Vous pouvez modifier ces valeurs à tout moment.",
-    frequencyLabel: "Fréquence de versement",
-    monthly: "Mensuel",
-    yearly: "Annuel",
-    estimatedSaving: "Versement estimé",
-    estimatedTaxSavings: "Gain fiscal estimé : ~CHF",
-    perYear: "/ an",
-    perMonth: "/ mois",
-    commitmentLabel: "Niveau d'engagement contractuel",
-    fixedRegular: "Fixe régulier",
-    fixedRegularDesc: "Prévoyance assurée",
-    bothCommitment: "Les deux",
-    bothCommitmentDesc: "Solution hybride",
-    investmentHorizonLabel: "Horizon de placement",
-    estimatedRetirementYear: "retraite estimée en",
-    yearsUnit: "ans",
-    step6Title: "6. Déterminez votre profil de risque boursier",
-    step6Subtitle: "Si vous choisissez d'allouer une part d'actions (solutions titres), votre tolérance détermine la volatilité maximale acceptable.",
+    step5Title: "5. Déterminez votre profil de risque boursier",
+    step5Subtitle: "Si vous choisissez d'allouer une part d'actions (solutions titres), votre tolérance détermine la volatilité maximale acceptable.",
     temperamentLabel: "Votre tempérament face aux fluctuations",
     prudent: "Prudent (0-25% actions)",
     prudentDesc: "Recherche de sécurité, gains modestes.",
@@ -256,8 +239,8 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     buyMore: "J'en profite pour réinvestir",
     esgTitle: "Fonds durables / Critères ESG uniquement",
     esgDesc: "Exclure l'armement, le charbon, etc. et privilégier l'éco-responsable.",
-    step7Title: "7. Envisagez-vous un retrait anticipé du capital ?",
-    step7Subtitle: "En Suisse, la loi autorise le retrait anticipé du Pilier 3a dans des cas bien précis. L'indiquer permet de calibrer la durée d'engagement optimale.",
+    step6Title: "6. Envisagez-vous un retrait anticipé du capital ?",
+    step6Subtitle: "En Suisse, la loi autorise le retrait anticipé du Pilier 3a dans des cas bien précis. L'indiquer permet de calibrer la durée d'engagement optimale.",
     residenceOption: "Oui, pour l'achat de ma résidence principale",
     residenceOptionDesc: "Acquisition immobilière ou amortissement hypothécaire.",
     independentOption: "Oui, pour me lancer comme indépendant (LPP)",
@@ -270,8 +253,8 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     under5Years: "Moins de 5 ans",
     from5to10Years: "5 à 10 ans",
     over10Years: "Plus de 10 ans",
-    step8Title: "8. Possédez-vous déjà un 3ème Pilier ?",
-    step8Subtitle: "Si vous possédez déjà un 3e pilier bancaire ou d'assurance, nous pouvons analyser s'il est plus judicieux de le racheter ou de le compléter.",
+    step7Title: "7. Possédez-vous déjà un 3ème Pilier ?",
+    step7Subtitle: "Si vous possédez déjà un 3e pilier bancaire ou d'assurance, nous pouvons analyser s'il est plus judicieux de le racheter ou de le compléter.",
     hasPillarQuestion: "Détenez-vous un 3ème pilier actuellement ?",
     hasPillarDesc: "Qu'il s'agisse d'un compte bancaire ou d'une police d'assurance active.",
     insurerNameLabel: "Nom de l'assureur/banque actuel",
@@ -279,8 +262,8 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     stepGoalTitle: "Quel est votre objectif de démarche ?",
     newContract: "Un nouveau contrat complémentaire",
     transferContract: "Transfert / Rachat de mon contrat actuel",
-    step9Title: "9. Quelles sont vos priorités de comparaison ?",
-    step9Subtitle: "Cliquez sur les options pour attribuer la priorité n°1 et la priorité n°2 de votre recherche de rendement et de couverture.",
+    step8Title: "8. Quelles sont vos priorités de comparaison ?",
+    step8Subtitle: "Cliquez sur les options pour attribuer la priorité n°1 et la priorité n°2 de votre recherche de rendement et de couverture.",
     yieldPriority: "Rendement potentiel le plus élevé",
     yieldPriorityDesc: "Allocation boursière ou titres performants visée.",
     feesPriority: "Frais d'entrée et coûts de gestion les plus bas",
@@ -294,6 +277,23 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     priority1: "Priorité 1",
     priority2: "Priorité 2",
     selectBtn: "Sélectionner",
+    step9Title: "Informations personnelles",
+    step9Subtitle: "Ces données réglementaires permettent d'appliquer les barèmes légaux précis de l'OFSP et d'estimer vos risques pour les complémentaires.",
+    frequencyLabel: "Fréquence de versement",
+    monthly: "Mensuel",
+    yearly: "Annuel",
+    estimatedSaving: "Versement estimé",
+    estimatedTaxSavings: "Gain fiscal estimé : ~CHF",
+    perYear: "/ an",
+    perMonth: "/ mois",
+    commitmentLabel: "Niveau d'engagement contractuel",
+    fixedRegular: "Fixe régulier",
+    fixedRegularDesc: "Prévoyance assurée",
+    bothCommitment: "Les deux",
+    bothCommitmentDesc: "Solution hybride",
+    investmentHorizonLabel: "Horizon de placement",
+    estimatedRetirementYear: "retraite estimée en",
+    yearsUnit: "ans",
     step10Title: "Informations personnelles",
     step10Subtitle: "Ces données réglementaires permettent d'appliquer les barèmes légaux précis de l'OFSP et d'estimer vos risques pour les complémentaires.",
     firstNameLabel: "Prénom *",
@@ -441,8 +441,8 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     companiesAnalyzedLabel: "Compagnies d'assurance analysées :",
     fennyAdvisesLabel: "Fenny conseille",
     quitBtn: "Quitter",
-    questionOfLabel: "Question {n} sur 9",
-    actionLabel: "Action 9/9",
+    questionOfLabel: "Question {n} sur 8",
+    actionLabel: "Action 8/8",
     completedLabel: "% complété",
     cantonZH: "Zurich (ZH)", cantonGE: "Genève (GE)", cantonVD: "Vaud (VD)", cantonBE: "Berne (BE)",
     cantonFR: "Fribourg (FR)", cantonNE: "Neuchâtel (NE)", cantonVS: "Valais (VS)", cantonJU: "Jura (JU)",
@@ -528,25 +528,8 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     premiumExemptionDesc: "Die Versicherung zahlt die Prämien bei Erwerbsunfähigkeit weiter.",
     dependentsTitle: "Unterhaltsberechtigte Personen",
     dependentsDesc: "Ehepartner oder unterhaltsberechtigte Kinder.",
-    step5Title: "5. Bestimmen Sie Ihre Sparkapazität",
-    step5Subtitle: "Legen Sie Häufigkeit, Betrag und gewünschte Laufzeit fest. Sie können dies jederzeit anpassen.",
-    frequencyLabel: "Einzahlungshäufigkeit",
-    monthly: "Monatlich",
-    yearly: "Jährlich",
-    estimatedSaving: "Geschätzte Einzahlung",
-    estimatedTaxSavings: "Geschätzter Steuervorteil: ~CHF",
-    perYear: "/ Jahr",
-    perMonth: "/ Monat",
-    commitmentLabel: "Vertragliche Verbindlichkeit",
-    fixedRegular: "Regelmässig fest",
-    fixedRegularDesc: "Garantierte Vorsorge",
-    bothCommitment: "Beides",
-    bothCommitmentDesc: "Hybridlösung",
-    investmentHorizonLabel: "Anlagehorizont",
-    estimatedRetirementYear: "geschätzte Pensionierung im Jahr",
-    yearsUnit: "Jahre",
-    step6Title: "6. Bestimmen Sie Ihr Risikoprofil",
-    step6Subtitle: "Falls Sie einen Aktienanteil wählen, bestimmt Ihre Toleranz die maximale akzeptable Volatilität.",
+    step5Title: "5. Bestimmen Sie Ihr Risikoprofil",
+    step5Subtitle: "Falls Sie einen Aktienanteil wählen, bestimmt Ihre Toleranz die maximale akzeptable Volatilität.",
     temperamentLabel: "Einstellung zu Schwankungen",
     prudent: "Konservativ (0-25% Aktien)",
     prudentDesc: "Sicherheit steht im Vordergrund, bescheidene Gewinne.",
@@ -562,8 +545,8 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     buyMore: "Ich nutze die Chance zum Nachkaufen",
     esgTitle: "Nachhaltige Fonds / Nur ESG-Kriterien",
     esgDesc: "Ausschluss von Waffen, Kohle usw. zugunsten ökologischer Anlagen.",
-    step7Title: "7. Planen Sie einen Vorbezug des Kapitals?",
-    step7Subtitle: "In der Schweiz erlaubt das Gesetz den Vorbezug der Säule 3a in bestimmten Fällen.",
+    step6Title: "6. Planen Sie einen Vorbezug des Kapitals?",
+    step6Subtitle: "In der Schweiz erlaubt das Gesetz den Vorbezug der Säule 3a in bestimmten Fällen.",
     residenceOption: "Ja, für den Kauf von Wohneigentum",
     residenceOptionDesc: "Immobilienerwerb oder Hypothekaramortisation.",
     independentOption: "Ja, für den Schritt in die Selbstständigkeit",
@@ -576,8 +559,8 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     under5Years: "Unter 5 Jahren",
     from5to10Years: "5 bis 10 Jahre",
     over10Years: "Über 10 Jahre",
-    step8Title: "8. Besitzen Sie bereits eine 3. Säule?",
-    step8Subtitle: "Falls Sie bereits eine 3. Säule bei einer Bank oder Versicherung haben, analysieren wir die Optimierung.",
+    step7Title: "7. Besitzen Sie bereits eine 3. Säule?",
+    step7Subtitle: "Falls Sie bereits eine 3. Säule bei einer Bank oder Versicherung haben, analysieren wir die Optimierung.",
     hasPillarQuestion: "Haben Sie aktuell eine 3. Säule?",
     hasPillarDesc: "Egal ob Bankkonto oder aktive Versicherungspolice.",
     insurerNameLabel: "Name der aktuellen Gesellschaft/Bank",
@@ -585,8 +568,8 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     stepGoalTitle: "Was ist Ihr Ziel?",
     newContract: "Ein neuer Zusatzvertrag",
     transferContract: "Übertrag / Rückkauf des aktuellen Vertrags",
-    step9Title: "9. Was sind Ihre Prioritäten beim Vergleich?",
-    step9Subtitle: "Klicken Sie auf die Optionen, um Priorität 1 und Priorität 2 festzulegen.",
+    step8Title: "8. Was sind Ihre Prioritäten beim Vergleich?",
+    step8Subtitle: "Klicken Sie auf die Optionen, um Priorität 1 und Priorität 2 festzulegen.",
     yieldPriority: "Höchstmögliche Rendite",
     yieldPriorityDesc: "Fokus auf ertragreiche Wertschriften und Fonds.",
     feesPriority: "Niedrigste Abschluss- und Verwaltungsgebühren",
@@ -600,6 +583,23 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     priority1: "Priorität 1",
     priority2: "Priorität 2",
     selectBtn: "Auswählen",
+    step9Title: "Persönliche Angaben",
+    step9Subtitle: "Diese rechtlichen Angaben ermöglichen die Anwendung der genauen gesetzlichen Tarife und Risikobewertungen.",
+    frequencyLabel: "Einzahlungshäufigkeit",
+    monthly: "Monatlich",
+    yearly: "Jährlich",
+    estimatedSaving: "Geschätzte Einzahlung",
+    estimatedTaxSavings: "Geschätzter Steuervorteil: ~CHF",
+    perYear: "/ Jahr",
+    perMonth: "/ Monat",
+    commitmentLabel: "Vertragliche Verbindlichkeit",
+    fixedRegular: "Regelmässig fest",
+    fixedRegularDesc: "Garantierte Vorsorge",
+    bothCommitment: "Beides",
+    bothCommitmentDesc: "Hybridlösung",
+    investmentHorizonLabel: "Anlagehorizont",
+    estimatedRetirementYear: "geschätzte Pensionierung im Jahr",
+    yearsUnit: "Jahre",
     step10Title: "Persönliche Angaben",
     step10Subtitle: "Diese rechtlichen Angaben ermöglichen die Anwendung der genauen gesetzlichen Tarife und Risikobewertungen.",
     firstNameLabel: "Vorname *",
@@ -747,8 +747,8 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     companiesAnalyzedLabel: "Analysierte Versicherungsgesellschaften:",
     fennyAdvisesLabel: "Fenny empfiehlt",
     quitBtn: "Beenden",
-    questionOfLabel: "Frage {n} von 9",
-    actionLabel: "Aktion 9/9",
+    questionOfLabel: "Frage {n} von 8",
+    actionLabel: "Aktion 8/8",
     completedLabel: "% abgeschlossen",
     cantonZH: "Zürich (ZH)", cantonGE: "Genf (GE)", cantonVD: "Waadt (VD)", cantonBE: "Bern (BE)",
     cantonFR: "Freiburg (FR)", cantonNE: "Neuenburg (NE)", cantonVS: "Wallis (VS)", cantonJU: "Jura (JU)",
@@ -834,25 +834,8 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     premiumExemptionDesc: "The insurer pays your premiums in case of disability.",
     dependentsTitle: "Dependents",
     dependentsDesc: "Spouse or legally dependent children.",
-    step5Title: "5. Determine your savings capacity",
-    step5Subtitle: "Set frequency, contribution amount, and desired duration. You can adjust these anytime.",
-    frequencyLabel: "Contribution Frequency",
-    monthly: "Monthly",
-    yearly: "Yearly",
-    estimatedSaving: "Estimated Contribution",
-    estimatedTaxSavings: "Estimated tax savings: ~CHF",
-    perYear: "/ year",
-    perMonth: "/ month",
-    commitmentLabel: "Contractual Commitment Level",
-    fixedRegular: "Fixed regular",
-    fixedRegularDesc: "Guaranteed savings plan",
-    bothCommitment: "Both",
-    bothCommitmentDesc: "Hybrid solution",
-    investmentHorizonLabel: "Investment Horizon",
-    estimatedRetirementYear: "estimated retirement in",
-    yearsUnit: "years",
-    step6Title: "6. Determine your risk profile",
-    step6Subtitle: "If you allocate an equity share, your tolerance determines maximum acceptable volatility.",
+    step5Title: "5. Determine your risk profile",
+    step5Subtitle: "If you allocate an equity share, your tolerance determines maximum acceptable volatility.",
     temperamentLabel: "Attitude toward market fluctuations",
     prudent: "Prudent (0-25% equities)",
     prudentDesc: "Focus on security and modest gains.",
@@ -868,8 +851,8 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     buyMore: "I take advantage to buy more",
     esgTitle: "Sustainable Funds / ESG criteria only",
     esgDesc: "Exclude weapons, coal, etc. in favor of eco-responsible investments.",
-    step7Title: "7. Are you planning an early capital withdrawal?",
-    step7Subtitle: "In Switzerland, the law permits early Pillar 3a withdrawal under specific circumstances.",
+    step6Title: "6. Are you planning an early capital withdrawal?",
+    step6Subtitle: "In Switzerland, the law permits early Pillar 3a withdrawal under specific circumstances.",
     residenceOption: "Yes, to purchase my primary residence",
     residenceOptionDesc: "Real estate acquisition or mortgage repayment.",
     independentOption: "Yes, to become self-employed",
@@ -882,8 +865,8 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     under5Years: "Less than 5 years",
     from5to10Years: "5 to 10 years",
     over10Years: "More than 10 years",
-    step8Title: "8. Do you already have a 3rd Pillar?",
-    step8Subtitle: "If you already hold a 3rd pillar with a bank or insurer, we can analyze optimization opportunities.",
+    step7Title: "7. Do you already have a 3rd Pillar?",
+    step7Subtitle: "If you already hold a 3rd pillar with a bank or insurer, we can analyze optimization opportunities.",
     hasPillarQuestion: "Do you currently hold a 3rd pillar?",
     hasPillarDesc: "Whether a bank account or an active insurance policy.",
     insurerNameLabel: "Name of current provider/bank",
@@ -891,8 +874,8 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     stepGoalTitle: "What is your main goal?",
     newContract: "A new additional contract",
     transferContract: "Transfer / Buyout of my existing contract",
-    step9Title: "9. What are your comparison priorities?",
-    step9Subtitle: "Click options to set Priority #1 and Priority #2 for your search.",
+    step8Title: "8. What are your comparison priorities?",
+    step8Subtitle: "Click options to set Priority #1 and Priority #2 for your search.",
     yieldPriority: "Highest potential return",
     yieldPriorityDesc: "Focus on high-performing funds and stocks.",
     feesPriority: "Lowest entry and management fees",
@@ -906,6 +889,23 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     priority1: "Priority 1",
     priority2: "Priority 2",
     selectBtn: "Select",
+    step9Title: "Personal information",
+    step9Subtitle: "These regulatory data allow applying precise legal scales from the FOPH and evaluating complementary risks.",
+    frequencyLabel: "Contribution Frequency",
+    monthly: "Monthly",
+    yearly: "Yearly",
+    estimatedSaving: "Estimated Contribution",
+    estimatedTaxSavings: "Estimated tax savings: ~CHF",
+    perYear: "/ year",
+    perMonth: "/ month",
+    commitmentLabel: "Contractual Commitment Level",
+    fixedRegular: "Fixed regular",
+    fixedRegularDesc: "Guaranteed savings plan",
+    bothCommitment: "Both",
+    bothCommitmentDesc: "Hybrid solution",
+    investmentHorizonLabel: "Investment Horizon",
+    estimatedRetirementYear: "estimated retirement in",
+    yearsUnit: "years",
     step10Title: "Personal information",
     step10Subtitle: "These regulatory data allow applying precise legal scales from the FOPH and evaluating complementary risks.",
     firstNameLabel: "First Name *",
@@ -1053,8 +1053,8 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     companiesAnalyzedLabel: "Insurance companies analyzed:",
     fennyAdvisesLabel: "Fenny recommends",
     quitBtn: "Exit",
-    questionOfLabel: "Question {n} of 9",
-    actionLabel: "Action 9/9",
+    questionOfLabel: "Question {n} of 8",
+    actionLabel: "Action 8/8",
     completedLabel: "% complete",
     cantonZH: "Zurich (ZH)", cantonGE: "Geneva (GE)", cantonVD: "Vaud (VD)", cantonBE: "Bern (BE)",
     cantonFR: "Fribourg (FR)", cantonNE: "Neuchâtel (NE)", cantonVS: "Valais (VS)", cantonJU: "Jura (JU)",
@@ -1140,8 +1140,63 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     premiumExemptionDesc: "L'assicuratore paga i premi al posto tuo in caso di invalidità.",
     dependentsTitle: "Persone a carico",
     dependentsDesc: "Coniuge o figli a carico legale.",
-    step5Title: "5. Determina la tua capacità di risparmio",
-    step5Subtitle: "Imposta frequenza, importo e durata desiderata. Puoi modificarli in qualsiasi momento.",
+    step5Title: "5. Determina il tuo profilo di rischio",
+    step5Subtitle: "Se scegli una quota azionaria, la tua tolleranza definisce la volatilità massima accettabile.",
+    temperamentLabel: "Atteggiamento verso le oscillazioni",
+    prudent: "Prudent (0-25% azioni)",
+    prudentDesc: "Ricerca di sicurezza, guadagni modesti.",
+    balanced: "Equilibrato (25-50% azioni)",
+    balancedDesc: "Compromesso perfetto tra crescita e stabilità.",
+    dynamic: "Dinamico (50-75% azioni)",
+    dynamicDesc: "Pronto ad accettare moderate fluttuazioni.",
+    offensive: "Offensivo (100% azioni)",
+    offensiveDesc: "Volatilità massima accettata per rendimenti elevati.",
+    marketDropTitle: "Se i mercati calano del 20% in pochi mesi:",
+    sellAll: "Vendo tutto per paura",
+    holdWise: "Aspetto con pazienza",
+    buyMore: "Ne approfitto per riacquistare",
+    esgTitle: "Fondi sostenibili / Solo criteri ESG",
+    esgDesc: "Escludi armi, carbone, ecc. a favore di investimenti eco-responsabili.",
+    step6Title: "6. Prevedi un prelievo anticipato del capitale?",
+    step6Subtitle: "In Svizzera, la legge consente il prelievo anticipato del 3a in casi specifici.",
+    residenceOption: "Sì, per l'acquisto della residenza principale",
+    residenceOptionDesc: "Acquisto immobiliare o ammortamento ipotecario.",
+    independentOption: "Sì, per avviare un'attività indipendente",
+    independentOptionDesc: "Creazione di un'impresa individuale o inizio attività commerciale.",
+    abroadOption: "Sì, perché intendo lasciare la Svizzera",
+    abroadOptionDesc: "Partenza definitiva dalla Svizzera.",
+    noneOption: "No, nessun prelievo prima della pensione",
+    noneOptionDesc: "Lasciar fruttare i miei risparmi fino all'età legale.",
+    withdrawalHorizonTitle: "In quale orizzonte temporale stimi questo prelievo?",
+    under5Years: "Meno di 5 anni",
+    from5to10Years: "Da 5 a 10 anni",
+    over10Years: "Più di 10 anni",
+    step7Title: "7. Possiedi già un 3° Pilastro?",
+    step7Subtitle: "Se possiedi già un 3° pilastro bancario o assicurativo, possiamo analizzarne l'ottimizzazione.",
+    hasPillarQuestion: "Possiedi attualmente un 3° pilastro?",
+    hasPillarDesc: "Che si tratti di un conto bancario o di una polizza attiva.",
+    insurerNameLabel: "Nome dell'assicuratore/banca attuale",
+    accumulatedAmountLabel: "Importo già accumulato (CHF)",
+    stepGoalTitle: "Qual è il tuo obiettivo?",
+    newContract: "Un nuovo contratto complementare",
+    transferContract: "Trasferimento / Riscatto del contratto attuale",
+    step8Title: "8. Quali sono le tue priorità di confronto?",
+    step8Subtitle: "Clicca sulle opzioni per assegnare la Priorità 1 e la Priorità 2.",
+    yieldPriority: "Rendimento potenziale più elevato",
+    yieldPriorityDesc: "Focus su fondi e azioni performanti.",
+    feesPriority: "Spese e costi di gestione più bassi",
+    feesPriorityDesc: "Minimizzare l'impatto dei costi amministrativi.",
+    flexibilityPriority: "Flessibilità totale nei versamenti liberi",
+    flexibilityPriorityDesc: "Versa quanto vuoi, quando vuoi.",
+    securityPriority: "Sicurezza e capitale garantito contrattualmente",
+    securityPriorityDesc: "Nessun rischio di borsa sul capitale accumulato.",
+    coveragePriority: "Protezione completa (Decesso/Invalidità)",
+    coveragePriorityDesc: "Proteggere al meglio coniuge e figli.",
+    priority1: "Priorità 1",
+    priority2: "Priorità 2",
+    selectBtn: "Seleziona",
+    step9Title: "Informazioni personali",
+    step9Subtitle: "Questi dati normativi consentono di applicare le tariffe legali precise dell'UFSP e valutare i rischi per le complementari.",
     frequencyLabel: "Frequenza di versamento",
     monthly: "Mensile",
     yearly: "Annuale",
@@ -1157,61 +1212,6 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     investmentHorizonLabel: "Orizzonte di investimento",
     estimatedRetirementYear: "pensione stimata nel",
     yearsUnit: "anni",
-    step6Title: "6. Determina il tuo profilo di rischio",
-    step6Subtitle: "Se scegli una quota azionaria, la tua tolleranza definisce la volatilità massima accettabile.",
-    temperamentLabel: "Atteggiamento verso le oscillazioni",
-    prudent: "Prudente (0-25% azioni)",
-    prudentDesc: "Ricerca di sicurezza, guadagni modesti.",
-    balanced: "Equilibrato (25-50% azioni)",
-    balancedDesc: "Compromesso perfetto tra crescita e stabilità.",
-    dynamic: "Dinamico (50-75% azioni)",
-    dynamicDesc: "Pronto ad accettare moderate fluttuazioni.",
-    offensive: "Offensivo (100% azioni)",
-    offensiveDesc: "Volatilità massima accettata per rendimenti elevati.",
-    marketDropTitle: "Se i mercati calano del 20% in pochi mesi:",
-    sellAll: "Vendo tutto per paura",
-    holdWise: "Aspetto con pazienza",
-    buyMore: "Ne approfitto per riacquistare",
-    esgTitle: "Fondi sostenibili / Solo criteri ESG",
-    esgDesc: "Escludi armi, carbone, ecc. a favore di investimenti eco-responsabili.",
-    step7Title: "7. Prevedi un prelievo anticipato del capitale?",
-    step7Subtitle: "In Svizzera, la legge consente il prelievo anticipato del 3a in casi specifici.",
-    residenceOption: "Sì, per l'acquisto della residenza principale",
-    residenceOptionDesc: "Acquisto immobiliare o ammortamento ipotecario.",
-    independentOption: "Sì, per avviare un'attività indipendente",
-    independentOptionDesc: "Creazione di un'impresa individuale o inizio attività commerciale.",
-    abroadOption: "Sì, perché intendo lasciare la Svizzera",
-    abroadOptionDesc: "Partenza definitiva dalla Svizzera.",
-    noneOption: "No, nessun prelievo prima della pensione",
-    noneOptionDesc: "Lasciar fruttare i miei risparmi fino all'età legale.",
-    withdrawalHorizonTitle: "In quale orizzonte temporale stimi questo prelievo?",
-    under5Years: "Meno di 5 anni",
-    from5to10Years: "Da 5 a 10 anni",
-    over10Years: "Più di 10 anni",
-    step8Title: "8. Possiedi già un 3° Pilastro?",
-    step8Subtitle: "Se possiedi già un 3° pilastro bancario o assicurativo, possiamo analizzarne l'ottimizzazione.",
-    hasPillarQuestion: "Possiedi attualmente un 3° pilastro?",
-    hasPillarDesc: "Che si tratti di un conto bancario o di una polizza attiva.",
-    insurerNameLabel: "Nome dell'assicuratore/banca attuale",
-    accumulatedAmountLabel: "Importo già accumulato (CHF)",
-    stepGoalTitle: "Qual è il tuo obiettivo?",
-    newContract: "Un nuovo contratto complementare",
-    transferContract: "Trasferimento / Riscatto del contratto attuale",
-    step9Title: "9. Quali sono le tue priorità di confronto?",
-    step9Subtitle: "Clicca sulle opzioni per assegnare la Priorità 1 e la Priorità 2.",
-    yieldPriority: "Rendimento potenziale più elevato",
-    yieldPriorityDesc: "Focus su fondi e azioni performanti.",
-    feesPriority: "Spese e costi di gestione più bassi",
-    feesPriorityDesc: "Minimizzare l'impatto dei costi amministrativi.",
-    flexibilityPriority: "Flessibilità totale nei versamenti liberi",
-    flexibilityPriorityDesc: "Versa quanto vuoi, quando vuoi.",
-    securityPriority: "Sicurezza e capitale garantito contrattualmente",
-    securityPriorityDesc: "Nessun rischio di borsa sul capitale accumulato.",
-    coveragePriority: "Protezione completa (Decesso/Invalidità)",
-    coveragePriorityDesc: "Proteggere al meglio coniuge e figli.",
-    priority1: "Priorità 1",
-    priority2: "Priorità 2",
-    selectBtn: "Seleziona",
     step10Title: "Informazioni personali",
     step10Subtitle: "Questi dati normativi consentono di applicare le tariffe legali precise dell'UFSP e valutare i rischi per le complementari.",
     firstNameLabel: "Nome *",
@@ -1359,8 +1359,8 @@ const LIFE_UI_TEXTS: Record<string, Record<string, string>> = {
     companiesAnalyzedLabel: "Compagnie assicurative analizzate:",
     fennyAdvisesLabel: "Fenny consiglia",
     quitBtn: "Esci",
-    questionOfLabel: "Domanda {n} di 9",
-    actionLabel: "Azione 9/9",
+    questionOfLabel: "Domanda {n} di 8",
+    actionLabel: "Azione 8/8",
     completedLabel: "% completato",
     cantonZH: "Zurigo (ZH)", cantonGE: "Ginevra (GE)", cantonVD: "Vaud (VD)", cantonBE: "Berna (BE)",
     cantonFR: "Friburgo (FR)", cantonNE: "Neuchâtel (NE)", cantonVS: "Vallese (VS)", cantonJU: "Giura (JU)",
@@ -2259,11 +2259,10 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
       else if (currentStep === 2) setFenyAdvice(adviceMap.personal);
       else if (currentStep === 3) setFenyAdvice(adviceMap.product);
       else if (currentStep === 4) setFenyAdvice(adviceMap.coverage);
-      else if (currentStep === 5) setFenyAdvice(adviceMap.savings);
-      else if (currentStep === 6) setFenyAdvice(adviceMap.risk);
-      else if (currentStep === 7) setFenyAdvice(adviceMap.withdrawal);
-      else if (currentStep === 8) setFenyAdvice(adviceMap.existing);
-      else if (currentStep === 9) setFenyAdvice(adviceMap.priority);
+      else if (currentStep === 5) setFenyAdvice(adviceMap.risk);
+      else if (currentStep === 6) setFenyAdvice(adviceMap.withdrawal);
+      else if (currentStep === 7) setFenyAdvice(adviceMap.existing);
+      else if (currentStep === 8) setFenyAdvice(adviceMap.priority);
     } else {
       setFenyAdvice(null);
     }
@@ -2545,7 +2544,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
 
   // Next step handler in wizard
   const nextStep = () => {
-    if (currentStep < 10) {
+    if (currentStep < 9) {
       setCurrentStep(prev => prev + 1);
     }
   };
@@ -2662,14 +2661,14 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
 
               <div className="flex-1 max-w-md mx-6 text-center space-y-1.5">
                 <div className="flex justify-between items-center text-[10px] text-fennec-brown font-black uppercase tracking-widest">
-                  <span>{currentStep >= 9 ? ui.actionLabel : ui.questionOfLabel.replace('{n}', String(currentStep))}</span>
-                  <span>{Math.min(100, Math.round((currentStep / 9) * 100))}{ui.completedLabel}</span>
+                  <span>{currentStep >= 8 ? ui.actionLabel : ui.questionOfLabel.replace('{n}', String(currentStep))}</span>
+                  <span>{Math.min(100, Math.round((currentStep / 8) * 100))}{ui.completedLabel}</span>
                 </div>
                 <div className="h-1.5 w-full bg-fennec-cream/40 rounded-full overflow-hidden relative">
                   <div 
                     ref={progressBarRef}
                     className="h-full bg-fennec-terracotta rounded-full origin-left"
-                    style={{ width: `${Math.min(100, (currentStep / 9) * 100)}%` }}
+                    style={{ width: `${Math.min(100, (currentStep / 8) * 100)}%` }}
                   />
                 </div>
               </div>
@@ -3276,7 +3275,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
                           </motion.div>
                         )}
 
-                        {/* STEP 5: SAVINGS CAPACITY & HORIZON */}
+                        {/* STEP 5: RISK PROFILE */}
                         {currentStep === 5 && (
                           <motion.div
                             key="p-step-5"
@@ -3288,139 +3287,13 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
                           >
                             <div className="space-y-2">
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
-                                <PiggyBank className="w-5 h-5 shrink-0" />
+                                <Award className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
                                   {ui.step5Title}
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
                                 {ui.step5Subtitle}
-                              </p>
-                            </div>
-
-                            <div className="space-y-4">
-                              {/* Frequency selector */}
-                              <div className="flex items-center justify-between">
-                                <span className="text-xs font-black uppercase text-fennec-brown tracking-wider">{ui.frequencyLabel}</span>
-                                <div className="flex bg-fennec-cream/45 p-1 rounded-xl">
-                                  {[
-                                    { id: 'monthly', label: ui.monthly },
-                                    { id: 'yearly', label: ui.yearly },
-                                  ].map((f) => (
-                                    <button
-                                      key={f.id}
-                                      type="button"
-                                      onClick={() => {
-                                        const isIndependent = filters.employmentStatus === 'independent';
-                                        const maxAmount = isIndependent 
-                                          ? (f.id === 'yearly' ? 36288 : 3024) 
-                                          : (f.id === 'yearly' ? 7258 : 604);
-                                        const newAmount = f.id === 'yearly' 
-                                          ? Math.min((filters.savingAmount || 300) * 12, maxAmount)
-                                          : Math.min(Math.round((filters.savingAmount || 3600) / 12), maxAmount);
-                                        setFilters(prev => ({
-                                          ...prev,
-                                          savingFrequency: f.id as any,
-                                          savingAmount: newAmount
-                                        }));
-                                      }}
-                                      className={`px-4 py-1.5 rounded-lg text-xs font-black transition-all ${
-                                        filters.savingFrequency === f.id
-                                          ? 'bg-fennec-terracotta text-white shadow-3xs'
-                                          : 'text-fennec-dark hover:bg-fennec-cream/20'
-                                      }`}
-                                    >
-                                      {f.label}
-                                    </button>
-                                  ))}
-                                </div>
-                              </div>
-
-                              {/* Amount display */}
-                              {(() => {
-                                const isIndependent = filters.employmentStatus === 'independent';
-                                const isYearly = filters.savingFrequency === 'yearly';
-                                const maxAmount = isIndependent 
-                                  ? (isYearly ? 36288 : 3024) 
-                                  : (isYearly ? 7258 : 604);
-                                const minAmount = isYearly ? 500 : 50;
-                                const stepAmount = isIndependent 
-                                  ? (isYearly ? 500 : 50) 
-                                  : (isYearly ? 100 : 10);
-                                const currentSavingAmount = Math.min(filters.savingAmount || (isYearly ? 3000 : 300), maxAmount);
-
-                                return (
-                                  <>
-                                    <div className="bg-fennec-cream/10 border-2 border-fennec-cream/60 rounded-2xl p-5 text-center">
-                                      <span className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">{ui.estimatedSaving}</span>
-                                      <span className="font-display text-3xl font-black text-fennec-terracotta block">
-                                        CHF {currentSavingAmount.toLocaleString()}.- <span className="text-sm font-bold text-fennec-dark/60">{isYearly ? ui.perYear : ui.perMonth}</span>
-                                      </span>
-                                      <span className="text-xs text-emerald-700 font-bold block bg-emerald-50 max-w-max mx-auto px-2.5 py-0.5 rounded-full mt-1.5">
-                                        {ui.estimatedTaxSavings} {Math.round((isYearly ? currentSavingAmount : currentSavingAmount * 12) * 0.22).toLocaleString()}.- {ui.perYear}
-                                      </span>
-                                    </div>
-
-                                    {/* Amount slider */}
-                                    <div className="space-y-1">
-                                      <input 
-                                        type="range"
-                                        min={minAmount}
-                                        max={maxAmount}
-                                        step={stepAmount}
-                                        value={currentSavingAmount}
-                                        onChange={(e) => handleFilterChange('savingAmount', Number(e.target.value))}
-                                        className="w-full accent-fennec-terracotta cursor-pointer"
-                                      />
-                                      <div className="flex justify-between text-[10px] font-mono text-fennec-brown/60">
-                                        <span>CHF {minAmount.toLocaleString()}.-</span>
-                                        <span className="font-bold text-fennec-terracotta">Max: CHF {maxAmount.toLocaleString()}.-</span>
-                                        <span>CHF {maxAmount.toLocaleString()}.- {isYearly ? ui.perYear : ui.perMonth}</span>
-                                      </div>
-                                    </div>
-                                  </>
-                                );
-                              })()}
-
-                              {/* Investment Horizon */}
-                              <div className="space-y-1">
-                                <div className="flex justify-between items-baseline">
-                                  <label className="text-[10px] font-bold text-fennec-brown uppercase tracking-wider block">{ui.investmentHorizonLabel}</label>
-                                  <span className="text-xs font-black text-fennec-terracotta">{filters.investmentHorizon || 25} {ui.yearsUnit} ({ui.estimatedRetirementYear} {2026 + (filters.investmentHorizon || 25)})</span>
-                                </div>
-                                <input 
-                                  type="range"
-                                  min="5"
-                                  max="45"
-                                  step="1"
-                                  value={filters.investmentHorizon || 25}
-                                  onChange={(e) => handleFilterChange('investmentHorizon', Number(e.target.value))}
-                                  className="w-full accent-fennec-terracotta cursor-pointer"
-                                />
-                              </div>
-                            </div>
-                          </motion.div>
-                        )}
-
-                        {/* STEP 6: RISK PROFILE */}
-                        {currentStep === 6 && (
-                          <motion.div
-                            key="p-step-6"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.25 }}
-                            className="space-y-6 text-left w-full animate-in fade-in duration-300"
-                          >
-                            <div className="space-y-2">
-                              <div className="flex items-center space-x-2 text-fennec-terracotta">
-                                <Award className="w-5 h-5 shrink-0" />
-                                <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  {ui.step6Title}
-                                </h3>
-                              </div>
-                              <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                {ui.step6Subtitle}
                               </p>
                             </div>
 
@@ -3504,10 +3377,10 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
                           </motion.div>
                         )}
 
-                        {/* STEP 7: EARLY WITHDRAWAL PROJECTS */}
-                        {currentStep === 7 && (
+                        {/* STEP 6: EARLY WITHDRAWAL PROJECTS */}
+                        {currentStep === 6 && (
                           <motion.div
-                            key="p-step-7"
+                            key="p-step-6"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
@@ -3518,11 +3391,11 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
                                 <TrendingUp className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  {ui.step7Title}
+                                  {ui.step6Title}
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                {ui.step7Subtitle}
+                                {ui.step6Subtitle}
                               </p>
                             </div>
 
@@ -3595,11 +3468,11 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
                           </motion.div>
                         )}
 
-                        {/* STEP 8: EXISTING SITUATION */}
-                        {/* STEP 8: EXISTING THIRD PILLAR */}
-                        {currentStep === 8 && (
+                        {/* STEP 7: EXISTING SITUATION */}
+                        {/* STEP 7: EXISTING THIRD PILLAR */}
+                        {currentStep === 7 && (
                           <motion.div
-                            key="p-step-8"
+                            key="p-step-7"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
@@ -3610,11 +3483,11 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
                                 <Shield className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  {ui.step8Title}
+                                  {ui.step7Title}
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                {ui.step8Subtitle}
+                                {ui.step7Subtitle}
                               </p>
                             </div>
 
@@ -3652,7 +3525,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
                                     <div className="space-y-1">
                                       <label className="text-[10px] font-black uppercase text-fennec-brown block">{ui.insurerNameLabel}</label>
                                       <input 
-                                        type="text"
+                                        type="text" 
                                         placeholder="Ex: Swiss Life, AXA, etc."
                                         value={filters.existingInsurer || ''}
                                         onChange={(e) => handleFilterChange('existingInsurer', e.target.value)}
@@ -3662,7 +3535,7 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
                                     <div className="space-y-1">
                                       <label className="text-[10px] font-black uppercase text-fennec-brown block">{ui.accumulatedAmountLabel}</label>
                                       <input 
-                                        type="number"
+                                        type="number" 
                                         min="0"
                                         placeholder="Ex: 15'000"
                                         value={filters.existingAmount || ''}
@@ -3703,10 +3576,10 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
                           </motion.div>
                         )}
 
-                        {/* STEP 9: COMPARISON PRIORITIES */}
-                        {currentStep === 9 && (
+                        {/* STEP 8: COMPARISON PRIORITIES */}
+                        {currentStep === 8 && (
                           <motion.div
-                            key="p-step-9"
+                            key="p-step-8"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
@@ -3717,11 +3590,11 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
                               <div className="flex items-center space-x-2 text-fennec-terracotta">
                                 <Award className="w-5 h-5 shrink-0" />
                                 <h3 className="font-display font-black text-xl md:text-2xl text-fennec-dark">
-                                  {ui.step9Title}
+                                  {ui.step8Title}
                                 </h3>
                               </div>
                               <p className="text-xs text-fennec-dark/65 leading-relaxed">
-                                {ui.step9Subtitle}
+                                {ui.step8Subtitle}
                               </p>
                             </div>
 
@@ -3793,10 +3666,10 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
                           </motion.div>
                         )}
 
-                        {/* STEP 10: SMS & Email Verification */}
-                        {currentStep === 10 && (
+                        {/* STEP 9: SMS & Email Verification */}
+                        {currentStep === 9 && (
                           <motion.div
-                            key="p-step-10"
+                            key="p-step-9"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
@@ -4065,13 +3938,13 @@ export default function LifePensionComparator({ isEmbedded = false, onStartQuiz,
                         <span>{ui.backBtn}</span>
                       </button>
 
-                      {currentStep < 10 && (
+                      {currentStep < 9 && (
                         <button
                           type="button"
                           onClick={nextStep}
                           className="flex items-center text-xs font-bold font-display px-6 py-2.5 rounded-full bg-fennec-dark hover:bg-fennec-terracotta text-white transition-all shadow-sm"
                         >
-                          <span>{currentStep === 9 ? ui.verificationStepBtn : ui.continueBtn}</span>
+                          <span>{currentStep === 8 ? ui.verificationStepBtn : ui.continueBtn}</span>
                           <ChevronRight className="w-4 h-4 ml-1.5" />
                         </button>
                       )}

@@ -140,6 +140,13 @@ export type AppTab =
   | 'tool-calculateur-franchise'
   | 'tool-calculateur-impot-3a'
   | 'tool-simulateur-frontalier'
+  // Local SEO Layer (Swiss Communes & Cantons Hubs)
+  | 'local-hub'
+  | 'local-canton'
+  | 'local-city'
+  | 'local-seo-dashboard'
+  | `local-city-${string}`
+  | `local-canton-${string}`
   // Categories
   | 'category-assurance-auto'
   | 'category-assurance-menage'
