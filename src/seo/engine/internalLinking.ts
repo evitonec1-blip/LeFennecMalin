@@ -97,8 +97,9 @@ export function getInternalLinksForTab(tab: AppTab, lang: Language = 'fr'): Inte
     addLink('health-comparator', lang === 'de' ? 'Prämienrechner Senioren' : 'Comparateur de primes senior', 'tool');
   }
 
-  // 7. PRIMES 2026 / ETUDES
-  else if (tab.includes('primes-2026') || tab === 'lamal-primes-2026') {
+  // 7. PRIMES 2026 / ETUDES & OBSERVATOIRE
+  else if (tab.includes('primes-2026') || tab === 'lamal-primes-2026' || tab === 'observatoire') {
+    addLink('observatoire', lang === 'de' ? 'Prämien-Observatorium Schweiz' : 'Observatoire des Primes & Données Santé', 'topic');
     addLink('lamal-primes-2026', lang === 'de' ? 'BAG Prämienstatistik 2026' : 'Étude Statistique Primes OFSP 2026', 'topic');
     addLink('health-comparator', lang === 'de' ? 'Prämienrechner 2026' : 'Comparateur officiel 2026', 'tool');
     addLink('hub-lamal', lang === 'de' ? 'KVG Grundversicherung' : 'Assurance de base LAMal', 'topic');
@@ -110,6 +111,7 @@ export function getInternalLinksForTab(tab: AppTab, lang: Language = 'fr'): Inte
   else {
     addLink('hub-insurers', lang === 'de' ? 'Alle Schweizer Krankenkassen' : 'Annuaire de toutes les caisses suisses', 'insurer');
     addLink('hub-lamal', lang === 'de' ? 'Grundversicherung LAMal' : 'Assurance obligatoire LAMal', 'topic');
+    addLink('observatoire', lang === 'de' ? 'Prämien-Observatorium' : 'Observatoire des Primes (Open Data)', 'topic');
     addLink('lamal-primes-2026', lang === 'de' ? 'Offizielle Prämienstatistik 2026' : 'Barème & Statistiques Primes 2026', 'topic');
     addLink('hub-subsides', lang === 'de' ? 'Prämienverbilligungen' : 'Subsides cantonaux 2026', 'subside');
     addLink('health-comparator', lang === 'de' ? 'Krankenkassenvergleich 2026' : 'Comparateur de primes 2026', 'tool');

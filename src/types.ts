@@ -119,6 +119,7 @@ export type AppTab =
   | 'lamal-frontalier'
   | 'lamal-seniors'
   | 'lamal-primes-2026'
+  | 'observatoire'
   | 'lamal-vs-lca'
   | 'lamal-assurance-accident'
   // Guides & Hubs

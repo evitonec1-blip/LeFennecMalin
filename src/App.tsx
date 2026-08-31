@@ -30,6 +30,7 @@ import SourcesPage from './seo/pages/SourcesPage';
 import FrontalierInsurancePage from './seo/pages/FrontalierInsurancePage';
 import SeniorInsurancePage from './seo/pages/SeniorInsurancePage';
 import PremiumsDataStudyPage from './seo/pages/PremiumsDataStudyPage';
+import ResearchObservatoryPage from './seo/pages/ResearchObservatoryPage';
 import LAMalHubPage from './seo/pages/LAMalHubPage';
 import FranchiseGuidePage from './seo/pages/FranchiseGuidePage';
 import InsuranceModelsPage from './seo/pages/InsuranceModelsPage';
@@ -727,6 +728,13 @@ export default function App() {
           />
         )}
 
+        {currentTab === 'observatoire' && (
+          <ResearchObservatoryPage
+            onNavigate={setTab}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
         {currentTab === 'lamal-franchise' && (
           <FranchiseGuidePage
             onNavigate={setTab}
@@ -997,6 +1005,7 @@ export default function App() {
          currentTab !== 'article-45-lsa' &&
          currentTab !== 'qualifications-intermediaire' &&
          currentTab !== 'sources' &&
+         currentTab !== 'observatoire' &&
          currentTab !== 'hub-subsides' &&
          currentTab !== 'hub-insurers' &&
          currentTab !== 'home' &&

@@ -245,7 +245,7 @@ export function financialServiceSchema(name: string, description: string, url: s
   };
 }
 
-export function articleSchema(title: string, description: string, url: string, datePublished = '2026-01-15', dateModified = '2026-02-01', authorName = 'Rédaction Le Fennec Malin') {
+export function articleSchema(title: string, description: string, url: string, datePublished = '2026-01-15', dateModified = '2026-08-20', authorName = 'Équipe d\'experts Le Fennec Malin') {
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -259,7 +259,8 @@ export function articleSchema(title: string, description: string, url: string, d
     author: {
       '@type': 'Person',
       name: authorName,
-      url: BASE_URL,
+      url: `${BASE_URL}/sources-officielles/`,
+      jobTitle: 'Analyste Prévoyance & Assurance LAMal'
     },
     publisher: {
       '@type': 'Organization',
@@ -274,4 +275,67 @@ export function articleSchema(title: string, description: string, url: string, d
     dateModified: dateModified,
   };
 }
+
+export function datasetSchema({
+  name,
+  description,
+  url,
+  temporalCoverage = '2026',
+  keywords = ['Primes maladie Suisse', 'OFSP', 'Priminfo', 'LAMal', 'Statistiques santé Suisse'],
+  dateModified = '2026-08-20'
+}: {
+  name: string;
+  description: string;
+  url: string;
+  temporalCoverage?: string;
+  keywords?: string[];
+  dateModified?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name,
+    description,
+    url: url.startsWith('http') ? url : `${BASE_URL}${url}`,
+    keywords,
+    temporalCoverage,
+    spatialCoverage: {
+      '@type': 'Place',
+      geo: {
+        '@type': 'GeoCoordinates',
+        addressCountry: 'CH'
+      }
+    },
+    creator: {
+      '@type': 'Organization',
+      name: 'Le Fennec Malin',
+      url: BASE_URL
+    },
+    license: 'https://creativecommons.org/licenses/by/4.0/',
+    isAccessibleForFree: true,
+    dateModified: dateModified,
+    variableMeasured: [
+      'Prime mensuelle adulte franchise 300 CHF',
+      'Prime mensuelle adulte franchise 2500 CHF',
+      'Prime mensuelle jeune adulte 19-25 ans',
+      'Prime mensuelle enfant 0-18 ans',
+      'Seuil de rentabilité franchise santé'
+    ]
+  };
+}
+
+export function definedTermSetSchema(name: string, terms: { name: string; description: string; url?: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'DefinedTermSet',
+    name,
+    definedTerm: terms.map(term => ({
+      '@type': 'DefinedTerm',
+      name: term.name,
+      description: term.description,
+      url: term.url ? (term.url.startsWith('http') ? term.url : `${BASE_URL}${term.url}`) : undefined
+    }))
+  };
+}
+
 

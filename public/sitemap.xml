@@ -1613,6 +1613,20 @@
   </url>
 
   <url>
+    <loc>https://www.lefennecmalin.ch/fr/observatoire/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/observatoire/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemien-observatorium/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/osservatorio-premi/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/insurance-observatory/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/observatoire/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/observatoire/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/observatoire/"/>
+  </url>
+
+  <url>
     <loc>https://www.lefennecmalin.ch/fr/article-45-lsa/</loc>
     <lastmod>2026-08-31</lastmod>
     <changefreq>yearly</changefreq>
@@ -3290,6 +3304,20 @@
     <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/sources-officielles/"/>
     <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/sources-officielles/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/sources-officielles/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/praemien-observatorium/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/observatoire/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemien-observatorium/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/osservatorio-premi/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/insurance-observatory/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/observatoire/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/observatoire/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/observatoire/"/>
   </url>
 
   <url>
@@ -4973,6 +5001,20 @@
   </url>
 
   <url>
+    <loc>https://www.lefennecmalin.ch/it/osservatorio-premi/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/observatoire/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemien-observatorium/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/osservatorio-premi/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/insurance-observatory/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/observatoire/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/observatoire/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/observatoire/"/>
+  </url>
+
+  <url>
     <loc>https://www.lefennecmalin.ch/it/articolo-45-lsa/</loc>
     <lastmod>2026-08-31</lastmod>
     <changefreq>yearly</changefreq>
@@ -6650,6 +6692,20 @@
     <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/sources-officielles/"/>
     <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/sources-officielles/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/sources-officielles/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/en/insurance-observatory/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/observatoire/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemien-observatorium/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/osservatorio-premi/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/insurance-observatory/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/observatoire/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/observatoire/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/observatoire/"/>
   </url>
 
   <url>
@@ -8333,6 +8389,20 @@
   </url>
 
   <url>
+    <loc>https://www.lefennecmalin.ch/es/observatoire/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/observatoire/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemien-observatorium/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/osservatorio-premi/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/insurance-observatory/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/observatoire/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/observatoire/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/observatoire/"/>
+  </url>
+
+  <url>
     <loc>https://www.lefennecmalin.ch/es/article-45-lsa/</loc>
     <lastmod>2026-08-31</lastmod>
     <changefreq>yearly</changefreq>
@@ -10010,6 +10080,20 @@
     <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/sources-officielles/"/>
     <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/sources-officielles/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/sources-officielles/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/observatoire/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/observatoire/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/praemien-observatorium/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/osservatorio-premi/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/insurance-observatory/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/observatoire/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/observatoire/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/observatoire/"/>
   </url>
 
   <url>

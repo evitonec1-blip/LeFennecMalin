@@ -1135,6 +1135,19 @@ export const MULTILINGUAL_ROUTES: Record<AppTab, MultilingualRouteConfig> = ({
       en: { path: '/en/official-sources/', title: "Official Data Sources & References (FOPH, FINMA, Fedlex) | Le Fennec Malin", description: "Explore all official government and regulatory data sources used by Le Fennec Malin: FOPH, Priminfo, FINMA, Fedlex, and FSO.", h1: "Official Data Sources & Regulatory Framework", breadcrumbLabel: "Official Sources", primaryKeyword: "official swiss insurance sources", secondaryKeywords: ["foph open data", "finma regulation", "fedlex swiss law"] }
     }
   },
+  'observatoire': {
+    id: 'observatoire',
+    category: 'trust',
+    priority: 0.9,
+    changefreq: 'weekly',
+    lastModified: '2026-08-20',
+    locales: {
+      fr: { path: '/fr/observatoire/', title: "Observatoire des Primes & Recherche Santé Suisse 2026 | Le Fennec Malin", description: "Études statistiques originales, séries chronologiques 2016-2026 et jeux de données ouverts sur l'assurance maladie suisse (OFSP, OFS, Priminfo).", h1: "Observatoire des Primes & Données de Recherche Santé 2026", breadcrumbLabel: "Observatoire & Données", primaryKeyword: "observatoire primes suisse", secondaryKeywords: ["statistiques lamal ofsp", "recherche sante suisse", "donnees ouvertes primes maladie"] },
+      de: { path: '/de/praemien-observatorium/', title: "Prämien-Observatorium & Gesundheitsdaten Schweiz 2026 | Le Fennec Malin", description: "Originale statistische Studien, Zeitreihen 2016-2026 und offene Datensätze zur Schweizer Krankenversicherung (BAG, BFS, Priminfo).", h1: "Prämien-Observatorium & Forschungsdaten 2026", breadcrumbLabel: "Observatorium", primaryKeyword: "praemien observatorium schweiz", secondaryKeywords: ["bag krankenkassen statistik", "gesundheitsdaten schweiz open data"] },
+      it: { path: '/it/osservatorio-premi/', title: "Osservatorio Premi & Ricerca Sanitaria Svizzera 2026 | Le Fennec Malin", description: "Studi statistici originali, serie storiche 2016-2026 e open data sull'assicurazione malattia svizzera (UFSP, UST, Priminfo).", h1: "Osservatorio Premi & Dati di Ricerca 2026", breadcrumbLabel: "Osservatorio", primaryKeyword: "osservatorio premi svizzera", secondaryKeywords: ["statistiche lamal ufsp", "ricerca cassa malati svizzera"] },
+      en: { path: '/en/insurance-observatory/', title: "Swiss Health Premium Observatory & Research Data 2026 | Le Fennec Malin", description: "Original research studies, historical time-series 2016-2026, and open datasets on Swiss health insurance (FOPH, FSO, Priminfo).", h1: "Swiss Health Premium Observatory & Research Data 2026", breadcrumbLabel: "Observatory", primaryKeyword: "swiss health insurance observatory", secondaryKeywords: ["foph premium statistics", "swiss healthcare research open data"] }
+    }
+  },
   'article-45-lsa': {
     id: 'article-45-lsa',
     category: 'legal',

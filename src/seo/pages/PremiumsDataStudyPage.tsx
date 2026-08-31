@@ -25,7 +25,13 @@ import {
   Calendar,
   Layers
 } from 'lucide-react';
-import SEOHead, { breadcrumbSchema, faqSchema, organizationSchema } from '../components/SEOHead';
+import SEOHead, { 
+  breadcrumbSchema, 
+  faqSchema, 
+  organizationSchema, 
+  articleSchema, 
+  datasetSchema 
+} from '../components/SEOHead';
 import Breadcrumb from '../components/Breadcrumb';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { AppTab } from '../../types';
@@ -111,6 +117,18 @@ export default function PremiumsDataStudyPage({ onNavigate, onStartComparison }:
 
   const structured = [
     organizationSchema,
+    articleSchema(
+      "Primes Assurance Maladie Suisse 2026 : Données Officielles OFSP & Classement des 26 Cantons",
+      "Étude statistique complète des primes LAMal 2026 : classement des 26 cantons suisses, prix moyens par âge, modèles de soins et seuils de rentabilité.",
+      "/fr/lamal/primes-2026/"
+    ),
+    datasetSchema({
+      name: "Tableau Comparatif des Primes LAMal 2026 dans les 26 Cantons Suisses",
+      description: "Données consolidées officielles des primes moyennes adultes, jeunes adultes, enfants et assureurs les plus économiques par canton en Suisse pour 2026.",
+      url: "/fr/lamal/primes-2026/",
+      temporalCoverage: "2026",
+      keywords: ["Primes 2026 cantons suisses", "Données OFSP", "Priminfo", "Comparatif primes LAMal"]
+    }),
     breadcrumbSchema([
       { name: 'Accueil', url: '/' },
       { name: 'LAMal', url: '/fr/lamal/' },
