@@ -79,21 +79,42 @@ export function getInternalLinksForTab(tab: AppTab, lang: Language = 'fr'): Inte
   }
 
   // 5. FRONTALIER / TRANSFRONTALIER
-  else if (tab.includes('frontalier')) {
+  else if (tab.includes('frontalier') || tab === 'lamal-frontalier') {
+    addLink('lamal-frontalier', lang === 'de' ? 'Grenzgänger KVG vs CMU' : 'Guide LAMal Frontalier vs CMU', 'topic');
     addLink('tool-simulateur-frontalier', lang === 'de' ? 'Grenzgänger Rechner' : 'Simulateur LAMal vs CMU', 'tool');
     addLink('guide-frontalier-assurance-maladie', lang === 'de' ? 'Optionsrecht Grenzgänger' : 'Guide Droit d’option & Formulaire S1', 'guide');
-    addLink('canton-geneve', 'Frontaliers Genève', 'canton');
-    addLink('canton-vaud', 'Frontaliers Vaud', 'canton');
+    addLink('canton-geneve', 'Frontaliers Genève (SAM)', 'canton');
+    addLink('canton-vaud', 'Frontaliers Vaud (OVAM)', 'canton');
     addLink('insurer-helsana', 'Helsana Progrès Frontalier', 'insurer');
   }
 
-  // 6. DEFAULT / HUB PAGES
+  // 6. SENIORS / RETRAITES
+  else if (tab.includes('senior') || tab === 'lamal-seniors') {
+    addLink('lamal-seniors', lang === 'de' ? 'Krankenkasse ab 65 Jahren' : 'Assurance Maladie Senior (65+ ans)', 'topic');
+    addLink('lamal-franchise', lang === 'de' ? 'Franchise 300 für Rentner' : 'Pourquoi choisir la Franchise 300', 'tool');
+    addLink('hub-subsides', lang === 'de' ? 'Prämienverbilligung AHV' : 'Subsides de primes pour rentiers AVS', 'subside');
+    addLink('guide-modeles-assurance', lang === 'de' ? 'Hausarztmodell für Senioren' : 'Modèle Médecin de famille senior', 'guide');
+    addLink('health-comparator', lang === 'de' ? 'Prämienrechner Senioren' : 'Comparateur de primes senior', 'tool');
+  }
+
+  // 7. PRIMES 2026 / ETUDES
+  else if (tab.includes('primes-2026') || tab === 'lamal-primes-2026') {
+    addLink('lamal-primes-2026', lang === 'de' ? 'BAG Prämienstatistik 2026' : 'Étude Statistique Primes OFSP 2026', 'topic');
+    addLink('health-comparator', lang === 'de' ? 'Prämienrechner 2026' : 'Comparateur officiel 2026', 'tool');
+    addLink('hub-lamal', lang === 'de' ? 'KVG Grundversicherung' : 'Assurance de base LAMal', 'topic');
+    addLink('lamal-franchise', lang === 'de' ? 'Franchisen-Vergleich' : 'Franchise 300 vs 2500', 'tool');
+    addLink('sources', lang === 'de' ? 'Offizielle BAG Datenquellen' : 'Sources Officielles & Données OFSP', 'topic');
+  }
+
+  // 8. DEFAULT / HUB PAGES
   else {
     addLink('hub-insurers', lang === 'de' ? 'Alle Schweizer Krankenkassen' : 'Annuaire de toutes les caisses suisses', 'insurer');
     addLink('hub-lamal', lang === 'de' ? 'Grundversicherung LAMal' : 'Assurance obligatoire LAMal', 'topic');
+    addLink('lamal-primes-2026', lang === 'de' ? 'Offizielle Prämienstatistik 2026' : 'Barème & Statistiques Primes 2026', 'topic');
     addLink('hub-subsides', lang === 'de' ? 'Prämienverbilligungen' : 'Subsides cantonaux 2026', 'subside');
     addLink('health-comparator', lang === 'de' ? 'Krankenkassenvergleich 2026' : 'Comparateur de primes 2026', 'tool');
     addLink('seo-pilier', lang === 'de' ? 'Säule 3a Steuerrechner' : '3ème pilier 3a & Déduction fiscale', 'tool');
+    addLink('sources', lang === 'de' ? 'Offizielle Quellen' : 'Sources Officielles (OFSP)', 'topic');
   }
 
   return links;

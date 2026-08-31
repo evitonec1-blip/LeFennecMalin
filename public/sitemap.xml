@@ -1319,6 +1319,48 @@
   </url>
 
   <url>
+    <loc>https://www.lefennecmalin.ch/fr/lamal/frontalier/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/lamal/frontalier/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/kvg/grenzgaenger/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/lamal/frontalieri/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/lamal/cross-border-workers/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/lamal/frontalier/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/lamal/frontalier/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/lamal/frontalier/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/fr/lamal/seniors/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/lamal/seniors/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/kvg/senioren/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/lamal/anziani-pensionati/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/lamal/seniors-retirees/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/lamal/seniors/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/lamal/seniors/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/lamal/seniors/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/fr/lamal/primes-2026/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/lamal/primes-2026/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/kvg/praemien-2026/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/lamal/premi-2026/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/lamal/premiums-2026/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/lamal/primes-2026/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/lamal/primes-2026/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/lamal/primes-2026/"/>
+  </url>
+
+  <url>
     <loc>https://www.lefennecmalin.ch/fr/lamal-vs-lca/</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
@@ -1554,6 +1596,20 @@
     <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/comment-fonctionne-le-comparateur/"/>
     <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/comment-fonctionne-le-comparateur/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/comment-fonctionne-le-comparateur/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/fr/sources-officielles/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/sources-officielles/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/offizielle-quellen/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/fonti-ufficiali/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/official-sources/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/sources-officielles/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/sources-officielles/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/sources-officielles/"/>
   </url>
 
   <url>
@@ -2943,6 +2999,48 @@
   </url>
 
   <url>
+    <loc>https://www.lefennecmalin.ch/de/kvg/grenzgaenger/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/lamal/frontalier/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/kvg/grenzgaenger/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/lamal/frontalieri/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/lamal/cross-border-workers/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/lamal/frontalier/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/lamal/frontalier/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/lamal/frontalier/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/kvg/senioren/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/lamal/seniors/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/kvg/senioren/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/lamal/anziani-pensionati/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/lamal/seniors-retirees/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/lamal/seniors/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/lamal/seniors/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/lamal/seniors/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/kvg/praemien-2026/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/lamal/primes-2026/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/kvg/praemien-2026/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/lamal/premi-2026/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/lamal/premiums-2026/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/lamal/primes-2026/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/lamal/primes-2026/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/lamal/primes-2026/"/>
+  </url>
+
+  <url>
     <loc>https://www.lefennecmalin.ch/de/kvg-vs-vvg/</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
@@ -3178,6 +3276,20 @@
     <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/comment-fonctionne-le-comparateur/"/>
     <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/comment-fonctionne-le-comparateur/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/comment-fonctionne-le-comparateur/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/de/offizielle-quellen/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/sources-officielles/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/offizielle-quellen/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/fonti-ufficiali/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/official-sources/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/sources-officielles/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/sources-officielles/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/sources-officielles/"/>
   </url>
 
   <url>
@@ -4567,6 +4679,48 @@
   </url>
 
   <url>
+    <loc>https://www.lefennecmalin.ch/it/lamal/frontalieri/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/lamal/frontalier/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/kvg/grenzgaenger/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/lamal/frontalieri/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/lamal/cross-border-workers/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/lamal/frontalier/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/lamal/frontalier/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/lamal/frontalier/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/it/lamal/anziani-pensionati/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/lamal/seniors/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/kvg/senioren/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/lamal/anziani-pensionati/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/lamal/seniors-retirees/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/lamal/seniors/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/lamal/seniors/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/lamal/seniors/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/it/lamal/premi-2026/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/lamal/primes-2026/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/kvg/praemien-2026/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/lamal/premi-2026/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/lamal/premiums-2026/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/lamal/primes-2026/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/lamal/primes-2026/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/lamal/primes-2026/"/>
+  </url>
+
+  <url>
     <loc>https://www.lefennecmalin.ch/it/lamal-vs-lca/</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
@@ -4802,6 +4956,20 @@
     <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/comment-fonctionne-le-comparateur/"/>
     <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/comment-fonctionne-le-comparateur/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/comment-fonctionne-le-comparateur/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/it/fonti-ufficiali/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/sources-officielles/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/offizielle-quellen/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/fonti-ufficiali/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/official-sources/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/sources-officielles/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/sources-officielles/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/sources-officielles/"/>
   </url>
 
   <url>
@@ -6191,6 +6359,48 @@
   </url>
 
   <url>
+    <loc>https://www.lefennecmalin.ch/en/lamal/cross-border-workers/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/lamal/frontalier/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/kvg/grenzgaenger/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/lamal/frontalieri/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/lamal/cross-border-workers/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/lamal/frontalier/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/lamal/frontalier/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/lamal/frontalier/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/en/lamal/seniors-retirees/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/lamal/seniors/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/kvg/senioren/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/lamal/anziani-pensionati/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/lamal/seniors-retirees/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/lamal/seniors/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/lamal/seniors/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/lamal/seniors/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/en/lamal/premiums-2026/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/lamal/primes-2026/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/kvg/praemien-2026/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/lamal/premi-2026/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/lamal/premiums-2026/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/lamal/primes-2026/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/lamal/primes-2026/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/lamal/primes-2026/"/>
+  </url>
+
+  <url>
     <loc>https://www.lefennecmalin.ch/en/lamal-vs-vvg/</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
@@ -6426,6 +6636,20 @@
     <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/comment-fonctionne-le-comparateur/"/>
     <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/comment-fonctionne-le-comparateur/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/comment-fonctionne-le-comparateur/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/en/official-sources/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/sources-officielles/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/offizielle-quellen/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/fonti-ufficiali/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/official-sources/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/sources-officielles/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/sources-officielles/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/sources-officielles/"/>
   </url>
 
   <url>
@@ -7815,6 +8039,48 @@
   </url>
 
   <url>
+    <loc>https://www.lefennecmalin.ch/es/lamal/frontalier/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/lamal/frontalier/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/kvg/grenzgaenger/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/lamal/frontalieri/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/lamal/cross-border-workers/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/lamal/frontalier/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/lamal/frontalier/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/lamal/frontalier/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/es/lamal/seniors/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/lamal/seniors/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/kvg/senioren/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/lamal/anziani-pensionati/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/lamal/seniors-retirees/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/lamal/seniors/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/lamal/seniors/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/lamal/seniors/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/es/lamal/primes-2026/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/lamal/primes-2026/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/kvg/praemien-2026/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/lamal/premi-2026/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/lamal/premiums-2026/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/lamal/primes-2026/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/lamal/primes-2026/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/lamal/primes-2026/"/>
+  </url>
+
+  <url>
     <loc>https://www.lefennecmalin.ch/es/lamal-vs-lca/</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
@@ -8050,6 +8316,20 @@
     <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/comment-fonctionne-le-comparateur/"/>
     <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/comment-fonctionne-le-comparateur/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/comment-fonctionne-le-comparateur/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/es/sources-officielles/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/sources-officielles/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/offizielle-quellen/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/fonti-ufficiali/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/official-sources/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/sources-officielles/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/sources-officielles/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/sources-officielles/"/>
   </url>
 
   <url>
@@ -9439,6 +9719,48 @@
   </url>
 
   <url>
+    <loc>https://www.lefennecmalin.ch/pt/lamal/frontalier/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/lamal/frontalier/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/kvg/grenzgaenger/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/lamal/frontalieri/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/lamal/cross-border-workers/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/lamal/frontalier/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/lamal/frontalier/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/lamal/frontalier/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/lamal/seniors/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/lamal/seniors/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/kvg/senioren/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/lamal/anziani-pensionati/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/lamal/seniors-retirees/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/lamal/seniors/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/lamal/seniors/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/lamal/seniors/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/lamal/primes-2026/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/lamal/primes-2026/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/kvg/praemien-2026/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/lamal/premi-2026/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/lamal/premiums-2026/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/lamal/primes-2026/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/lamal/primes-2026/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/lamal/primes-2026/"/>
+  </url>
+
+  <url>
     <loc>https://www.lefennecmalin.ch/pt/lamal-vs-lca/</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
@@ -9674,6 +9996,20 @@
     <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/comment-fonctionne-le-comparateur/"/>
     <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/comment-fonctionne-le-comparateur/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/comment-fonctionne-le-comparateur/"/>
+  </url>
+
+  <url>
+    <loc>https://www.lefennecmalin.ch/pt/sources-officielles/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/sources-officielles/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/offizielle-quellen/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/fonti-ufficiali/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/official-sources/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/sources-officielles/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/sources-officielles/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/sources-officielles/"/>
   </url>
 
   <url>

@@ -733,6 +733,144 @@ export const MULTILINGUAL_ROUTES: Record<AppTab, MultilingualRouteConfig> = ({
     }
   },
 
+  'lamal-frontalier': {
+    id: 'lamal-frontalier',
+    category: 'health',
+    priority: 0.95,
+    changefreq: 'weekly',
+    lastModified: '2026-08-20',
+    locales: {
+      fr: {
+        path: '/fr/lamal/frontalier/',
+        title: "Assurance Maladie Frontalier Suisse 2026 : LAMal vs CMU & Droit d'Option | Le Fennec Malin",
+        description: "Guide complet frontalier suisse 2026 : comparatif officiel LAMal vs CMU (8%), simulateur d'économies, document S1 / E106 et délai légal des 3 mois.",
+        h1: "Assurance Maladie Frontalier Suisse : LAMal vs CMU & Droit d'Option",
+        breadcrumbLabel: "Frontaliers Suisse",
+        primaryKeyword: "assurance maladie frontalier suisse",
+        secondaryKeywords: ["lamal frontalier", "droit d'option frontalier suisse", "simulateur cmu lamal", "formulaire s1 cpam"]
+      },
+      de: {
+        path: '/de/kvg/grenzgaenger/',
+        title: "Krankenversicherung für Grenzgänger Schweiz 2026 — KVG vs. Wohnland | Le Fennec Malin",
+        description: "Grenzgänger-Krankenversicherung Schweiz: Optionsrecht (3-Monats-Frist), Formular S1 / E106, Prämienvergleich und Kostenanalyse.",
+        h1: "Krankenversicherung für Grenzgänger in die Schweiz: KVG & Optionsrecht",
+        breadcrumbLabel: "Grenzgänger",
+        primaryKeyword: "krankenkasse grenzgaenger schweiz",
+        secondaryKeywords: ["optionsrecht grenzgaenger", "kvg grenzgaenger praemien", "formular s1"]
+      },
+      it: {
+        path: '/it/lamal/frontalieri/',
+        title: "Cassa Malati Frontalieri Svizzera 2026 — Diritto d'Opzione LAMal | Le Fennec Malin",
+        description: "Guida per frontalieri in Svizzera: diritto d'opzione entro 3 mesi, formulario S1, confronto costi e copertura sanitaria bilaterale.",
+        h1: "Assicurazione Malattia per Frontalieri in Svizzera: Guida LAMal 2026",
+        breadcrumbLabel: "Frontalieri",
+        primaryKeyword: "cassa malati frontalieri svizzera",
+        secondaryKeywords: ["diritto opzione frontalieri", "premio lamal frontalieri", "formulario s1"]
+      },
+      en: {
+        path: '/en/lamal/cross-border-workers/',
+        title: "Swiss Cross-Border Health Insurance 2026 — LAMal vs CMU Guide | Le Fennec Malin",
+        description: "Complete guide for cross-border commuters in Switzerland: 3-month legal option right, S1/E106 form, flat vs income-based premium savings calculator.",
+        h1: "Cross-Border Commuters Health Insurance (LAMal Option Right)",
+        breadcrumbLabel: "Cross-Border Workers",
+        primaryKeyword: "cross border health insurance switzerland",
+        secondaryKeywords: ["swiss frontalier health insurance", "lamal vs cmu", "s1 form switzerland"]
+      }
+    }
+  },
+
+  'lamal-seniors': {
+    id: 'lamal-seniors',
+    category: 'health',
+    priority: 0.9,
+    changefreq: 'monthly',
+    lastModified: '2026-08-20',
+    locales: {
+      fr: {
+        path: '/fr/lamal/seniors/',
+        title: "Assurance Maladie Senior & Retraité Suisse 2026 : Primes, Franchise 300 & EMS | Le Fennec Malin",
+        description: "Guide officiel assurance maladie pour les personnes de 65 ans et plus en Suisse : franchise optimale 300 CHF, soins Spitex/CMS, génériques et subsides AVS.",
+        h1: "Assurance Maladie Senior & Retraité en Suisse : Optimisation 2026",
+        breadcrumbLabel: "Seniors & Retraités",
+        primaryKeyword: "assurance maladie senior suisse",
+        secondaryKeywords: ["caisse maladie retraite suisse", "franchise 300 senior", "soins spitex lamal"]
+      },
+      de: {
+        path: '/de/kvg/senioren/',
+        title: "Krankenkasse für Senioren & Rentner Schweiz 2026 — Franchise & Spitex | Le Fennec Malin",
+        description: "Krankenversicherung ab 65 Jahren in der Schweiz: Optimale Franchise CHF 300, Spitex-Leistungen, Generika-Regeln und Prämienverbilligung für AHV-Rentner.",
+        h1: "Krankenkasse für Senioren und Rentner in der Schweiz: Leitfaden 2026",
+        breadcrumbLabel: "Senioren & Rentner",
+        primaryKeyword: "krankenkasse senioren schweiz",
+        secondaryKeywords: ["krankenkasse ab 65", "franchise 300 rentner", "spitex grundversicherung"]
+      },
+      it: {
+        path: '/it/lamal/anziani-pensionati/',
+        title: "Cassa Malati per Anziani e Pensionati Svizzera 2026 | Le Fennec Malin",
+        description: "Assicurazione malattia per over 65 in Svizzera: franchigia 300 CHF raccomandata, cure a domicilio Spitex, farmaci generici e sussidi AVS.",
+        h1: "Cassa Malati per Anziani e Pensionati in Svizzera: Guida 2026",
+        breadcrumbLabel: "Anziani & Pensionati",
+        primaryKeyword: "cassa malati anziani svizzera",
+        secondaryKeywords: ["cassa malati pensionati", "franchigia 300 anziani", "cure a domicilio lamal"]
+      },
+      en: {
+        path: '/en/lamal/seniors-retirees/',
+        title: "Swiss Health Insurance for Seniors & Retirees (65+) 2026 | Le Fennec Malin",
+        description: "Official guide to health insurance for retirees in Switzerland: CHF 300 deductible strategy, home care (Spitex), nursing homes, and AHV subsidies.",
+        h1: "Swiss Health Insurance for Seniors & Retirees: 2026 Guide",
+        breadcrumbLabel: "Seniors & Retirees",
+        primaryKeyword: "health insurance seniors switzerland",
+        secondaryKeywords: ["retiree health insurance swiss", "deductible 300 seniors", "spitex coverage"]
+      }
+    }
+  },
+
+  'lamal-primes-2026': {
+    id: 'lamal-primes-2026',
+    category: 'health',
+    priority: 0.95,
+    changefreq: 'weekly',
+    lastModified: '2026-08-20',
+    locales: {
+      fr: {
+        path: '/fr/lamal/primes-2026/',
+        title: "Primes Assurance Maladie Suisse 2026 : Données Officielles OFSP & Classement des 26 Cantons | Le Fennec Malin",
+        description: "Étude statistique complète des primes LAMal 2026 : classement des 26 cantons suisses, prix moyens par âge, modèles de soins et seuils de rentabilité.",
+        h1: "Prix & Primes de l'Assurance Maladie en Suisse en 2026",
+        breadcrumbLabel: "Primes 2026 (Étude)",
+        primaryKeyword: "primes assurance maladie 2026",
+        secondaryKeywords: ["prix assurance maladie suisse", "tableau primes cantons 2026", "statistiques ofsp priminfo"]
+      },
+      de: {
+        path: '/de/kvg/praemien-2026/',
+        title: "Krankenkassenprämien Schweiz 2026 : Offizielle BAG-Daten & Kantonsvergleich | Le Fennec Malin",
+        description: "Umfassende Statistik der KVG-Prämien 2026: Ranking aller 26 Kantone, Durchschnittspreise nach Altersgruppen, Sparmodelle und Analysemethodik.",
+        h1: "Krankenkassenprämien in der Schweiz 2026: Offizielle BAG-Statistik",
+        breadcrumbLabel: "Prämien 2026 (Studie)",
+        primaryKeyword: "krankenkassenpraemien 2026",
+        secondaryKeywords: ["praemienvergleich 26 kantone", "bag priminfo daten", "kosten grundversicherung"]
+      },
+      it: {
+        path: '/it/lamal/premi-2026/',
+        title: "Premi Cassa Malati Svizzera 2026 : Dati Ufficiali UFSP & Classifica 26 Cantoni | Le Fennec Malin",
+        description: "Studio statistico completo dei premi LAMal 2026: graduatoria dei 26 cantoni svizzeri, prezzi medi per fascia d'età e modelli di risparmio.",
+        h1: "Prezzi e Premi dell'Assicurazione Malattia in Svizzera nel 2026",
+        breadcrumbLabel: "Premi 2026 (Studio)",
+        primaryKeyword: "premi cassa malati 2026",
+        secondaryKeywords: ["classifica premi cantoni svizzeri", "dati ufsp priminfo", "prezzo cassa malati"]
+      },
+      en: {
+        path: '/en/lamal/premiums-2026/',
+        title: "Swiss Health Insurance Premiums 2026 : Official FOPH Data & 26 Cantons Ranking | Le Fennec Malin",
+        description: "Comprehensive 2026 Swiss health insurance premium study: ranking of all 26 cantons, average prices by age group, care models and break-even math.",
+        h1: "Swiss Health Insurance Prices & Premiums in 2026",
+        breadcrumbLabel: "2026 Premiums (Study)",
+        primaryKeyword: "swiss health insurance premiums 2026",
+        secondaryKeywords: ["switzerland 26 cantons premium ranking", "official foph data", "average healthcare costs"]
+      }
+    }
+  },
+
   'lamal-vs-lca': {
     id: 'lamal-vs-lca',
     category: 'health',
@@ -982,6 +1120,19 @@ export const MULTILINGUAL_ROUTES: Record<AppTab, MultilingualRouteConfig> = ({
       de: { path: '/de/wie-funktioniert-der-vergleich/', title: "Wie funktioniert der Vergleichsrechner? | Le Fennec Malin", description: "Schritt-für-Schritt-Anleitung für den Schweizer Versicherungsvergleich.", h1: "Wie funktioniert der Vergleich?", breadcrumbLabel: "Funktionsweise", primaryKeyword: "wie funktioniert versicherungsvergleich", secondaryKeywords: [] },
       it: { path: '/it/come-funziona-il-confronto/', title: "Come Funziona il Nostro Comparatore? | Le Fennec Malin", description: "Guida passo dopo passo all'uso del calcolatore assicurativo.", h1: "Come funziona il confronto?", breadcrumbLabel: "Funzionamento", primaryKeyword: "come funziona comparatore", secondaryKeywords: [] },
       en: { path: '/en/how-the-comparator-works/', title: "How Does the Comparison Engine Work? | Le Fennec Malin", description: "Step-by-step guide on how our Swiss insurance comparator works.", h1: "How Does the Comparator Work?", breadcrumbLabel: "How it works", primaryKeyword: "how swiss comparator works", secondaryKeywords: [] }
+    }
+  },
+  'sources': {
+    id: 'sources',
+    category: 'trust',
+    priority: 0.75,
+    changefreq: 'monthly',
+    lastModified: '2026-08-20',
+    locales: {
+      fr: { path: '/fr/sources-officielles/', title: "Sources Officielles & Jeux de Données (OFSP, FINMA, Fedlex) | Le Fennec Malin", description: "Consultez l'ensemble des sources officielles et bases réglementaires utilisées par Le Fennec Malin : OFSP, Priminfo, FINMA, Fedlex, OFS.", h1: "Sources Officielles & Références Réglementaires", breadcrumbLabel: "Sources", primaryKeyword: "sources officielles assurance suisse", secondaryKeywords: ["donnees ofsp priminfo", "references finma lsa", "fedlex lamal"] },
+      de: { path: '/de/offizielle-quellen/', title: "Offizielle Quellen & Datensätze (BAG, FINMA, Fedlex) | Le Fennec Malin", description: "Übersicht aller offiziellen Datenquellen und gesetzlichen Grundlagen von Le Fennec Malin : BAG, Priminfo, FINMA, Fedlex, BFS.", h1: "Offizielle Quellen & Datenbasis", breadcrumbLabel: "Quellen", primaryKeyword: "offizielle quellen krankenkasse schweiz", secondaryKeywords: ["bag priminfo daten", "finma aufsicht", "fedlex kvg"] },
+      it: { path: '/it/fonti-ufficiali/', title: "Fonti Ufficiali & Banche Dati (UFSP, FINMA, Fedlex) | Le Fennec Malin", description: "Elenco completo delle fonti ufficiali utilizzate da Le Fennec Malin: UFSP, Priminfo, FINMA, Fedlex e UST.", h1: "Fonti Ufficiali & Riferimenti Normativi", breadcrumbLabel: "Fonti", primaryKeyword: "fonti ufficiali cassa malati svizzera", secondaryKeywords: ["dati ufsp priminfo", "finma lsa", "fedlex lamal"] },
+      en: { path: '/en/official-sources/', title: "Official Data Sources & References (FOPH, FINMA, Fedlex) | Le Fennec Malin", description: "Explore all official government and regulatory data sources used by Le Fennec Malin: FOPH, Priminfo, FINMA, Fedlex, and FSO.", h1: "Official Data Sources & Regulatory Framework", breadcrumbLabel: "Official Sources", primaryKeyword: "official swiss insurance sources", secondaryKeywords: ["foph open data", "finma regulation", "fedlex swiss law"] }
     }
   },
   'article-45-lsa': {

@@ -562,11 +562,17 @@ export default function Footer({ onTabChange }: FooterProps) {
               📐 Simulateurs d'optimisation & Guides d'experts :
             </span>
             <div className="flex flex-wrap gap-x-3 gap-y-2">
+              <button onClick={() => handleNavClick('lamal-primes-2026')} className="hover:text-white hover:underline cursor-pointer font-bold text-fennec-sand">Étude Primes OFSP 2026 (26 Cantons)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('lamal-frontalier')} className="hover:text-white hover:underline cursor-pointer">Frontaliers (LAMal vs CMU 8%)</button>
+              <span>·</span>
+              <button onClick={() => handleNavClick('lamal-seniors')} className="hover:text-white hover:underline cursor-pointer">Seniors & Retraités (Franchise 300)</button>
+              <span>·</span>
               <button onClick={() => handleNavClick('tool-calculateur-franchise')} className="hover:text-white hover:underline cursor-pointer">Calculateur Franchise (300 vs 2500)</button>
               <span>·</span>
               <button onClick={() => handleNavClick('tool-calculateur-impot-3a')} className="hover:text-white hover:underline cursor-pointer">Simulateur Impôts 3ème Pilier 3a</button>
               <span>·</span>
-              <button onClick={() => handleNavClick('tool-simulateur-frontalier')} className="hover:text-white hover:underline cursor-pointer">Simulateur Frontalier (LAMal vs CMU)</button>
+              <button onClick={() => handleNavClick('tool-simulateur-frontalier')} className="hover:text-white hover:underline cursor-pointer">Simulateur Droit d'Option</button>
               <span>·</span>
               <button onClick={() => handleNavClick('guide-modeles-assurance')} className="hover:text-white hover:underline cursor-pointer">Modèles Telmed / HMO / Médecin</button>
               <span>·</span>
@@ -574,7 +580,7 @@ export default function Footer({ onTabChange }: FooterProps) {
               <span>·</span>
               <button onClick={() => handleNavClick('guide-resiliation-assurance-maladie')} className="hover:text-white hover:underline cursor-pointer">Délais & Résiliation 30 Novembre</button>
               <span>·</span>
-              <button onClick={() => handleNavClick('guide-3eme-pilier-fiscalite')} className="hover:text-white hover:underline cursor-pointer">Fiscalité Prévoyance 3a 2026</button>
+              <button onClick={() => handleNavClick('sources')} className="hover:text-white hover:underline cursor-pointer text-fennec-cream/90">Sources Officielles (OFSP & FINMA)</button>
             </div>
           </div>
 

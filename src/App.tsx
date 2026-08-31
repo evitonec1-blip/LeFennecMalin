@@ -26,6 +26,10 @@ import GuidePage from './seo/pages/GuidePage';
 import CalculatorPage from './seo/pages/CalculatorPage';
 import MethodologyPage from './seo/pages/MethodologyPage';
 import HowItWorksPage from './seo/pages/HowItWorksPage';
+import SourcesPage from './seo/pages/SourcesPage';
+import FrontalierInsurancePage from './seo/pages/FrontalierInsurancePage';
+import SeniorInsurancePage from './seo/pages/SeniorInsurancePage';
+import PremiumsDataStudyPage from './seo/pages/PremiumsDataStudyPage';
 import LAMalHubPage from './seo/pages/LAMalHubPage';
 import FranchiseGuidePage from './seo/pages/FranchiseGuidePage';
 import InsuranceModelsPage from './seo/pages/InsuranceModelsPage';
@@ -649,6 +653,28 @@ export default function App() {
           </div>
         )}
 
+        {currentTab === 'methodologie' && (
+          <MethodologyPage
+            onGoHome={() => setTab('home')}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab === 'comment-fonctionne-le-comparateur' && (
+          <HowItWorksPage
+            onGoHome={() => setTab('home')}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab === 'sources' && (
+          <SourcesPage
+            onGoHome={() => setTab('home')}
+            onNavigate={navigateToUrl}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
         {currentTab === 'seo-maladie' && (
           <AssuranceMaladie
             onStartComparison={() => startHealthWithCanton()}
@@ -672,9 +698,30 @@ export default function App() {
           />
         )}
 
-        {/* 12 Master Semantic SEO Cluster Hubs */}
+        {/* 15 Master Semantic SEO Cluster Hubs */}
         {currentTab === 'hub-lamal' && (
           <LAMalHubPage
+            onNavigate={setTab}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab === 'lamal-frontalier' && (
+          <FrontalierInsurancePage
+            onNavigate={setTab}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab === 'lamal-seniors' && (
+          <SeniorInsurancePage
+            onNavigate={setTab}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab === 'lamal-primes-2026' && (
+          <PremiumsDataStudyPage
             onNavigate={setTab}
             onStartComparison={() => setTab('health-comparator')}
           />
@@ -949,6 +996,7 @@ export default function App() {
          currentTab !== 'privacy' &&
          currentTab !== 'article-45-lsa' &&
          currentTab !== 'qualifications-intermediaire' &&
+         currentTab !== 'sources' &&
          currentTab !== 'hub-subsides' &&
          currentTab !== 'hub-insurers' &&
          currentTab !== 'home' &&

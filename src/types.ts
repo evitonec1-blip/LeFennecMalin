@@ -15,6 +15,7 @@ export type AppTab =
   | 'qualifications-intermediaire'
   | 'methodologie'
   | 'comment-fonctionne-le-comparateur'
+  | 'sources'
   | 'seo-maladie'
   | 'seo-pilier'
   | 'seo-comparateur'
@@ -115,6 +116,9 @@ export type AppTab =
   | 'lamal-etudiant'
   | 'lamal-nouveau-resident'
   | 'lamal-nouveaux-arrivants'
+  | 'lamal-frontalier'
+  | 'lamal-seniors'
+  | 'lamal-primes-2026'
   | 'lamal-vs-lca'
   | 'lamal-assurance-accident'
   // Guides & Hubs
