@@ -6,3 +6,14 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Exclude Image Assets to prevent image corruption/blank glitches
+public/fennec-avatar.jpg
+public/fennec-logo.jpg
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.svg
+*.ico
+

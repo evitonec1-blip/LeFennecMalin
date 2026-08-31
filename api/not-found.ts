@@ -1,4 +1,16 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+type VercelRequest = {
+  headers: Record<string, string | string[] | undefined>;
+  query?: Record<string, string | string[] | undefined>;
+  url?: string;
+};
+
+type VercelResponse = {
+  setHeader: (key: string, value: string) => VercelResponse;
+  status: (code: number) => VercelResponse;
+  json: (body: any) => void;
+  send: (body: string) => void;
+  redirect: (code: number, url: string) => void;
+};
 import fs from 'fs';
 import path from 'path';
 

@@ -2,94 +2,98 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
  * 
- * Centralized Internal Linking Graph & Semantic Anchor System
- * Connects Cantons <-> Insurers <-> LAMal Topics <-> Comparisons <-> Calculators
+ * Centralized Internal Linking Graph & Semantic Anchor System (2026)
+ * Connects Cantons <-> Communes <-> Insurers <-> LAMal Topics <-> Subsidies <-> Franchises <-> Comparisons <-> Calculators
  */
 
 import { AppTab } from '../../types';
 import { Language } from '../../i18n/translations';
-import { MULTILINGUAL_ROUTES, getMultilingualRoute } from '../multilingualRoutes';
+import { getMultilingualRoute } from '../multilingualRoutes';
 
 export interface InternalLinkItem {
   tab: AppTab;
   path: string;
   anchorText: string;
   relTitle?: string;
-  category: 'canton' | 'insurer' | 'topic' | 'comparison' | 'tool';
+  category: 'canton' | 'insurer' | 'topic' | 'comparison' | 'tool' | 'subside' | 'guide';
 }
 
 export function getInternalLinksForTab(tab: AppTab, lang: Language = 'fr'): InternalLinkItem[] {
   const links: InternalLinkItem[] = [];
 
-  // If on a canton page -> Link to top insurers, LAMal hub, and franchise calculator
+  const addLink = (targetTab: AppTab, fallbackAnchor: string, category: InternalLinkItem['category']) => {
+    try {
+      const route = getMultilingualRoute(targetTab);
+      const path = route.locales[lang]?.path || route.locales.fr?.path || '/';
+      const label = route.locales[lang]?.breadcrumbLabel || fallbackAnchor;
+      links.push({
+        tab: targetTab,
+        path,
+        anchorText: label,
+        category
+      });
+    } catch {
+      // safe fallback
+    }
+  };
+
+  // 1. CANTON PAGES
   if (tab.startsWith('canton-')) {
-    const topInsurers: AppTab[] = ['insurer-css', 'insurer-helsana', 'insurer-swica', 'insurer-assura'];
-    topInsurers.forEach(insTab => {
-      const route = getMultilingualRoute(insTab);
-      links.push({
-        tab: insTab,
-        path: route.locales[lang]?.path || route.locales.fr.path,
-        anchorText: lang === 'de' ? `Krankenkasse ${insTab.replace('insurer-', '').toUpperCase()}` : `Assurance ${insTab.replace('insurer-', '').toUpperCase()}`,
-        category: 'insurer'
-      });
-    });
-
-    const lamalRoute = getMultilingualRoute('hub-lamal');
-    links.push({
-      tab: 'hub-lamal',
-      path: lamalRoute.locales[lang]?.path || lamalRoute.locales.fr.path,
-      anchorText: lang === 'de' ? 'Offizieller LAMal/KVG Leitfaden' : 'Guide Officiel LAMal Suisse',
-      category: 'topic'
-    });
-
-    const franchiseRoute = getMultilingualRoute('lamal-franchise');
-    links.push({
-      tab: 'lamal-franchise',
-      path: franchiseRoute.locales[lang]?.path || franchiseRoute.locales.fr.path,
-      anchorText: lang === 'de' ? 'Franchise 300 oder 2500 wählen' : 'Choisir sa franchise 300 ou 2500',
-      category: 'tool'
-    });
+    addLink('hub-lamal', lang === 'de' ? 'Offizieller LAMal Leitfaden' : 'Guide Officiel LAMal', 'topic');
+    addLink('hub-subsides', lang === 'de' ? 'Prämienverbilligung beantragen' : 'Subsides d’assurance maladie', 'subside');
+    addLink('lamal-franchise', lang === 'de' ? 'Franchise 300 vs 2500 berechnen' : 'Optimiser sa franchise 300 ou 2500', 'tool');
+    addLink('guide-modeles-assurance', lang === 'de' ? 'Krankenkassenmodelle im Vergleich' : 'Modèles Telmed, HMO et Médecin de famille', 'guide');
+    addLink('health-comparator', lang === 'de' ? 'Prämien 2026 vergleichen' : 'Calculer mes primes 2026', 'tool');
+    addLink('insurer-css', 'CSS Assurance-maladie', 'insurer');
+    addLink('insurer-helsana', 'Helsana Assurances', 'insurer');
+    addLink('insurer-swica', 'SWICA Organisation de santé', 'insurer');
   }
 
-  // If on an insurer page -> Link to major cantons, comparisons, and cancellation guide
+  // 2. INSURER PAGES
   else if (tab.startsWith('insurer-')) {
-    const majorCantons: AppTab[] = ['canton-geneve', 'canton-vaud', 'canton-valais', 'canton-zurich', 'canton-berne'];
-    majorCantons.forEach(canTab => {
-      const route = getMultilingualRoute(canTab);
-      links.push({
-        tab: canTab,
-        path: route.locales[lang]?.path || route.locales.fr.path,
-        anchorText: route.locales[lang]?.breadcrumbLabel || 'Canton',
-        category: 'canton'
-      });
-    });
-
-    const switchRoute = getMultilingualRoute('lamal-changer-caisse');
-    links.push({
-      tab: 'lamal-changer-caisse',
-      path: switchRoute.locales[lang]?.path || switchRoute.locales.fr.path,
-      anchorText: lang === 'de' ? 'Krankenkasse kündigen & wechseln' : 'Comment résilier et changer de caisse',
-      category: 'topic'
-    });
+    addLink('canton-geneve', 'Primes LAMal Genève', 'canton');
+    addLink('canton-vaud', 'Primes LAMal Vaud', 'canton');
+    addLink('canton-valais', 'Primes LAMal Valais', 'canton');
+    addLink('canton-fribourg', 'Primes LAMal Fribourg', 'canton');
+    addLink('canton-zurich', 'Krankenkassenprämien Zürich', 'canton');
+    addLink('lamal-changer-caisse', lang === 'de' ? 'Kündigungsfrist & Wechsel 2026' : 'Délais de résiliation & changement de caisse', 'topic');
+    addLink('health-comparator', lang === 'de' ? 'Direkter Prämienvergleich' : 'Comparateur de primes immédiat', 'tool');
   }
 
-  // If on a comparison page or topic page -> Link to relevant insurers and comparator
-  else {
-    const hubRoute = getMultilingualRoute('hub-insurers');
-    links.push({
-      tab: 'hub-insurers',
-      path: hubRoute.locales[lang]?.path || hubRoute.locales.fr.path,
-      anchorText: lang === 'de' ? 'Verzeichnis aller Schweizer Krankenkassen' : 'Annuaire complet des caisses maladie',
-      category: 'insurer'
-    });
+  // 3. SUBSIDIES PAGES
+  else if (tab.startsWith('subside-') || tab === 'hub-subsides') {
+    addLink('hub-subsides', lang === 'de' ? 'Rechner Prämienverbilligung' : 'Simulateur officiel de subsides', 'tool');
+    addLink('canton-geneve', 'Subsides canton de Genève', 'canton');
+    addLink('canton-vaud', 'Subsides canton de Vaud (OVAM)', 'canton');
+    addLink('canton-valais', 'Subsides canton du Valais', 'canton');
+    addLink('canton-fribourg', 'Subsides canton de Fribourg', 'canton');
+    addLink('hub-lamal', lang === 'de' ? 'LAMal Gesetzliche Grundlagen' : 'Base légale LAMal & RIP', 'topic');
+  }
 
-    const compRoute = getMultilingualRoute('health-comparator');
-    links.push({
-      tab: 'health-comparator',
-      path: compRoute.locales[lang]?.path || compRoute.locales.fr.path,
-      anchorText: lang === 'de' ? 'Krankenkassenvergleich 2026 starten' : 'Calculer mes primes 2026',
-      category: 'tool'
-    });
+  // 4. FRANCHISE & CALCULATORS
+  else if (tab.includes('franchise') || tab.includes('calculateur')) {
+    addLink('tool-calculateur-franchise', lang === 'de' ? 'Franchisen-Optimierer' : 'Calculateur de franchise mathématique', 'tool');
+    addLink('health-comparator', lang === 'de' ? 'Prämienrechner Schweiz' : 'Calculateur de primes cantonal', 'tool');
+    addLink('guide-modeles-assurance', lang === 'de' ? 'Telmed & HMO Rabatte' : 'Rabais de modèles Telmed & HMO', 'guide');
+    addLink('lamal-changer-caisse', lang === 'de' ? 'Krankenkasse wechseln' : 'Comment changer de caisse', 'topic');
+  }
+
+  // 5. FRONTALIER / TRANSFRONTALIER
+  else if (tab.includes('frontalier')) {
+    addLink('tool-simulateur-frontalier', lang === 'de' ? 'Grenzgänger Rechner' : 'Simulateur LAMal vs CMU', 'tool');
+    addLink('guide-frontalier-assurance-maladie', lang === 'de' ? 'Optionsrecht Grenzgänger' : 'Guide Droit d’option & Formulaire S1', 'guide');
+    addLink('canton-geneve', 'Frontaliers Genève', 'canton');
+    addLink('canton-vaud', 'Frontaliers Vaud', 'canton');
+    addLink('insurer-helsana', 'Helsana Progrès Frontalier', 'insurer');
+  }
+
+  // 6. DEFAULT / HUB PAGES
+  else {
+    addLink('hub-insurers', lang === 'de' ? 'Alle Schweizer Krankenkassen' : 'Annuaire de toutes les caisses suisses', 'insurer');
+    addLink('hub-lamal', lang === 'de' ? 'Grundversicherung LAMal' : 'Assurance obligatoire LAMal', 'topic');
+    addLink('hub-subsides', lang === 'de' ? 'Prämienverbilligungen' : 'Subsides cantonaux 2026', 'subside');
+    addLink('health-comparator', lang === 'de' ? 'Krankenkassenvergleich 2026' : 'Comparateur de primes 2026', 'tool');
+    addLink('seo-pilier', lang === 'de' ? 'Säule 3a Steuerrechner' : '3ème pilier 3a & Déduction fiscale', 'tool');
   }
 
   return links;
