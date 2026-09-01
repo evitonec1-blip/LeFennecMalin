@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { AppTab } from './types';
 import { TESTIMONIALS } from './data';
 import { useLanguage } from './i18n/LanguageContext';
@@ -13,45 +13,85 @@ import TrustStrip from './components/TrustStrip';
 import HowItWorks from './components/HowItWorks';
 import ProductsGrid from './components/ProductsGrid';
 import AboutSection from './components/AboutSection';
-import AssuranceMaladie from './seo/pages/AssuranceMaladie';
-import TroisiemePilier from './seo/pages/TroisiemePilier';
-import ComparateurAssuranceSuisse from './seo/pages/ComparateurAssuranceSuisse';
-import CantonPage from './seo/pages/CantonPage';
-import SubsidiesHubPage from './seo/pages/SubsidiesHubPage';
-import CantonSubsidiesPage from './seo/pages/CantonSubsidiesPage';
-import InsuranceCategoryPage from './seo/pages/InsuranceCategoryPage';
-import InsurerProfilePage from './seo/pages/InsurerProfilePage';
-import InsurersDirectoryPage from './seo/pages/InsurersDirectoryPage';
-import GuidePage from './seo/pages/GuidePage';
-import CalculatorPage from './seo/pages/CalculatorPage';
-import MethodologyPage from './seo/pages/MethodologyPage';
-import HowItWorksPage from './seo/pages/HowItWorksPage';
-import SourcesPage from './seo/pages/SourcesPage';
-import FrontalierInsurancePage from './seo/pages/FrontalierInsurancePage';
-import SeniorInsurancePage from './seo/pages/SeniorInsurancePage';
-import PremiumsDataStudyPage from './seo/pages/PremiumsDataStudyPage';
-import ResearchObservatoryPage from './seo/pages/ResearchObservatoryPage';
-import LAMalHubPage from './seo/pages/LAMalHubPage';
-import FranchiseGuidePage from './seo/pages/FranchiseGuidePage';
-import InsuranceModelsPage from './seo/pages/InsuranceModelsPage';
-import CheapestInsurancePage from './seo/pages/CheapestInsurancePage';
-import BestInsurancePage from './seo/pages/BestInsurancePage';
-import SwitchingInsurancePage from './seo/pages/SwitchingInsurancePage';
-import { FamilyInsurancePage, YoungAdultInsurancePage, StudentInsurancePage, NewResidentInsurancePage } from './seo/pages/DemographicPages';
-import LamalVsLcaPage from './seo/pages/LamalVsLcaPage';
-import AccidentCoveragePage from './seo/pages/AccidentCoveragePage';
-import InsurerComparisonPage from './seo/pages/InsurerComparisonPage';
-import { LocalCityPage } from './seo/pages/LocalCityPage';
-import { LocalCantonHubPage } from './seo/pages/LocalCantonHubPage';
-import { LocalHubPage } from './seo/pages/LocalHubPage';
-import { getMunicipalityBySlug, getCantonLocalHubData } from './seo/data/municipalitiesData';
-import { CANTONS_SEO_DATA } from './seo/data/cantonsData';
-import { CATEGORIES_SEO_DATA } from './seo/data/categoriesData';
-import { INSURERS_SEO_DATA } from './seo/data/insurersData';
-import { GUIDES_SEO_DATA } from './seo/data/guidesData';
 import SEOHead, { organizationSchema, websiteSchema } from './seo/components/SEOHead';
 import { resolveRouteFromPath, getLocalizedPath, MULTILINGUAL_ROUTES } from './seo/multilingualRoutes';
 import { teleportToTop } from './utils/scrollUtils';
+import FAQSection from './components/FAQSection';
+import LegalSection from './components/LegalSection';
+import CookieConsent from './components/CookieConsent';
+import NotFound from './components/NotFound';
+import { ArrowRight, ShieldCheck, HelpCircle, ArrowUpRight, Scale, Sparkles, CheckCircle, Calendar } from 'lucide-react';
+import gsap from 'gsap';
+
+import fenyAnalyse from './assets/images/IMG_20260804_161612_upscaled.jpg';
+import fenyWinking from './assets/images/feny_mascot_avatar_1783245725195.jpg';
+import fenyResults from './assets/images/feny_mascot_compare_1783245694484.jpg';
+
+// Heavy comparators — lazy loaded so they don't block the homepage
+const HealthComparator = lazy(() => import('./components/HealthComparator'));
+const LifePensionComparator = lazy(() => import('./components/LifePensionComparator'));
+
+// SEO pages — lazy loaded, only needed when navigating to those routes
+const AssuranceMaladie = lazy(() => import('./seo/pages/AssuranceMaladie'));
+const TroisiemePilier = lazy(() => import('./seo/pages/TroisiemePilier'));
+const ComparateurAssuranceSuisse = lazy(() => import('./seo/pages/ComparateurAssuranceSuisse'));
+const CantonPage = lazy(() => import('./seo/pages/CantonPage'));
+const SubsidiesHubPage = lazy(() => import('./seo/pages/SubsidiesHubPage'));
+const CantonSubsidiesPage = lazy(() => import('./seo/pages/CantonSubsidiesPage'));
+const InsuranceCategoryPage = lazy(() => import('./seo/pages/InsuranceCategoryPage'));
+const InsurerProfilePage = lazy(() => import('./seo/pages/InsurerProfilePage'));
+const InsurersDirectoryPage = lazy(() => import('./seo/pages/InsurersDirectoryPage'));
+const GuidePage = lazy(() => import('./seo/pages/GuidePage'));
+const CalculatorPage = lazy(() => import('./seo/pages/CalculatorPage'));
+const MethodologyPage = lazy(() => import('./seo/pages/MethodologyPage'));
+const HowItWorksPage = lazy(() => import('./seo/pages/HowItWorksPage'));
+const LAMalHubPage = lazy(() => import('./seo/pages/LAMalHubPage'));
+const FranchiseGuidePage = lazy(() => import('./seo/pages/FranchiseGuidePage'));
+const InsuranceModelsPage = lazy(() => import('./seo/pages/InsuranceModelsPage'));
+const CheapestInsurancePage = lazy(() => import('./seo/pages/CheapestInsurancePage'));
+const BestInsurancePage = lazy(() => import('./seo/pages/BestInsurancePage'));
+const SwitchingInsurancePage = lazy(() => import('./seo/pages/SwitchingInsurancePage'));
+const LamalVsLcaPage = lazy(() => import('./seo/pages/LamalVsLcaPage'));
+const AccidentCoveragePage = lazy(() => import('./seo/pages/AccidentCoveragePage'));
+const InsurerComparisonPage = lazy(() => import('./seo/pages/InsurerComparisonPage'));
+const Article45Lsa = lazy(() => import('./components/Article45Lsa'));
+const QualificationsIntermediaire = lazy(() => import('./components/QualificationsIntermediaire'));
+
+const DemographicPages = lazy(() => import('./seo/pages/DemographicPages'));
+const FamilyInsurancePage = lazy(() => import('./seo/pages/DemographicPages').then(m => ({ default: m.FamilyInsurancePage })));
+const YoungAdultInsurancePage = lazy(() => import('./seo/pages/DemographicPages').then(m => ({ default: m.YoungAdultInsurancePage })));
+const StudentInsurancePage = lazy(() => import('./seo/pages/DemographicPages').then(m => ({ default: m.StudentInsurancePage })));
+const NewResidentInsurancePage = lazy(() => import('./seo/pages/DemographicPages').then(m => ({ default: m.NewResidentInsurancePage })));
+
+// SEO data — lazy loaded via dynamic import in route handler
+let CANTONS_SEO_DATA: any = null;
+let CATEGORIES_SEO_DATA: any = null;
+let INSURERS_SEO_DATA: any = null;
+let GUIDES_SEO_DATA: any = null;
+
+async function loadSeoData() {
+  if (!CANTONS_SEO_DATA) {
+    const [c, cat, ins, g] = await Promise.all([
+      import('./seo/data/cantonsData'),
+      import('./seo/data/categoriesData'),
+      import('./seo/data/insurersData'),
+      import('./seo/data/guidesData'),
+    ]);
+    CANTONS_SEO_DATA = c.CANTONS_SEO_DATA;
+    CATEGORIES_SEO_DATA = cat.CATEGORIES_SEO_DATA;
+    INSURERS_SEO_DATA = ins.INSURERS_SEO_DATA;
+    GUIDES_SEO_DATA = g.GUIDES_SEO_DATA;
+  }
+}
+
+// Spinner shown while lazy chunks load
+function PageLoader() {
+  return (
+    <div className="flex items-center justify-center min-h-[40vh]">
+      <div className="w-8 h-8 border-4 border-fennec-tan border-t-fennec-terracotta rounded-full animate-spin" />
+    </div>
+  );
+}
 
 function pushURL(path: string) {
   if (typeof window !== 'undefined' && window.location.pathname !== path) {
@@ -63,16 +103,7 @@ function pushURL(path: string) {
     }
   }
 }
-import FAQSection from './components/FAQSection';
-import LegalSection from './components/LegalSection';
-import Article45Lsa from './components/Article45Lsa';
-import QualificationsIntermediaire from './components/QualificationsIntermediaire';
-import HealthComparator from './components/HealthComparator';
-import LifePensionComparator from './components/LifePensionComparator';
-import CookieConsent from './components/CookieConsent';
-import NotFound from './components/NotFound';
 import { ArrowRight, ShieldCheck, HelpCircle, ArrowUpRight, Scale, Sparkles, CheckCircle, Calendar } from 'lucide-react';
-import gsap from 'gsap';
 
 import fenyAnalyse from './assets/images/IMG_20260804_161612_upscaled.jpg';
 import fenyWinking from './assets/images/feny_mascot_avatar_1783245725195.jpg';
@@ -127,6 +158,18 @@ export default function App() {
   // Universal Teleport to Top on any tab/route transition
   useEffect(() => {
     teleportToTop();
+  }, [currentTab]);
+
+  // Preload SEO data when navigating to any SEO route
+  useEffect(() => {
+    const needsSeoData = currentTab.startsWith('canton-') ||
+      currentTab.startsWith('insurer-') ||
+      currentTab.startsWith('guide-') ||
+      currentTab.startsWith('category-') ||
+      currentTab.startsWith('seo-');
+    if (needsSeoData) {
+      loadSeoData();
+    }
   }, [currentTab]);
 
   // Handle browser back/forward popstate
@@ -242,6 +285,7 @@ export default function App() {
 
       {/* Main Content Area */}
       <main ref={contentRef} className={`flex-grow ${(currentTab === 'home' || currentTab === 'about' || currentTab === 'faq') ? 'pb-24 md:pb-0' : ''}`}>
+        <Suspense fallback={<PageLoader />}>
         
         {currentTab === 'home' && (
           <div className="space-y-20 pb-24">
@@ -654,28 +698,6 @@ export default function App() {
           </div>
         )}
 
-        {currentTab === 'methodologie' && (
-          <MethodologyPage
-            onGoHome={() => setTab('home')}
-            onStartComparison={() => setTab('health-comparator')}
-          />
-        )}
-
-        {currentTab === 'comment-fonctionne-le-comparateur' && (
-          <HowItWorksPage
-            onGoHome={() => setTab('home')}
-            onStartComparison={() => setTab('health-comparator')}
-          />
-        )}
-
-        {currentTab === 'sources' && (
-          <SourcesPage
-            onGoHome={() => setTab('home')}
-            onNavigate={navigateToUrl}
-            onStartComparison={() => setTab('health-comparator')}
-          />
-        )}
-
         {currentTab === 'seo-maladie' && (
           <AssuranceMaladie
             onStartComparison={() => startHealthWithCanton()}
@@ -699,37 +721,9 @@ export default function App() {
           />
         )}
 
-        {/* 15 Master Semantic SEO Cluster Hubs */}
+        {/* 12 Master Semantic SEO Cluster Hubs */}
         {currentTab === 'hub-lamal' && (
           <LAMalHubPage
-            onNavigate={setTab}
-            onStartComparison={() => setTab('health-comparator')}
-          />
-        )}
-
-        {currentTab === 'lamal-frontalier' && (
-          <FrontalierInsurancePage
-            onNavigate={setTab}
-            onStartComparison={() => setTab('health-comparator')}
-          />
-        )}
-
-        {currentTab === 'lamal-seniors' && (
-          <SeniorInsurancePage
-            onNavigate={setTab}
-            onStartComparison={() => setTab('health-comparator')}
-          />
-        )}
-
-        {currentTab === 'lamal-primes-2026' && (
-          <PremiumsDataStudyPage
-            onNavigate={setTab}
-            onStartComparison={() => setTab('health-comparator')}
-          />
-        )}
-
-        {currentTab === 'observatoire' && (
-          <ResearchObservatoryPage
             onNavigate={setTab}
             onStartComparison={() => setTab('health-comparator')}
           />
@@ -941,83 +935,11 @@ export default function App() {
           );
         })()}
 
-        {/* Local SEO Layer: Master Directory, Canton Hubs, and Municipality Pages */}
-        {currentTab === 'local-hub' && (
-          <LocalHubPage
-            lang={language}
-            onOpenComparator={() => setTab('health-comparator')}
-          />
-        )}
-
-        {currentTab.startsWith('local-canton-') && (() => {
-          const cantonSlug = currentTab.replace('local-canton-', '');
-          const hubData = getCantonLocalHubData(cantonSlug);
-          if (!hubData) return null;
-          return (
-            <LocalCantonHubPage
-              hubData={hubData}
-              lang={language}
-              onOpenComparator={() => {
-                setSelectedCantonPreset(hubData.cantonName);
-                setTab('health-comparator');
-              }}
-            />
-          );
-        })()}
-
-        {currentTab.startsWith('local-city-') && (() => {
-          // Format: local-city-{cantonSlug}-{citySlug}
-          const raw = currentTab.replace('local-city-', '');
-          const parts = raw.split('-');
-          const cantonSlug = parts[0];
-          const citySlug = parts.slice(1).join('-');
-          const municipality = getMunicipalityBySlug(cantonSlug, citySlug);
-          if (!municipality) return null;
-          return (
-            <LocalCityPage
-              municipality={municipality}
-              lang={language}
-              onOpenComparator={() => {
-                setSelectedCantonPreset(municipality.canton);
-                setTab('health-comparator');
-              }}
-              onNavigate={navigateToUrl}
-            />
-          );
-        })()}
-
-        {!MULTILINGUAL_ROUTES[currentTab] &&
-         !currentTab.startsWith('canton-') &&
-         !currentTab.startsWith('subside-') &&
-         !currentTab.startsWith('insurer-') &&
-         !currentTab.startsWith('guide-') &&
-         !currentTab.startsWith('category-') &&
-         !currentTab.startsWith('compare-') &&
-         !currentTab.startsWith('local-') &&
-         currentTab !== 'health-comparator' &&
-         currentTab !== 'life-comparator' &&
-         currentTab !== 'about' &&
-         currentTab !== 'faq' &&
-         currentTab !== 'methodologie' &&
-         currentTab !== 'comment-fonctionne-le-comparateur' &&
-         currentTab !== 'legal' &&
-         currentTab !== 'privacy' &&
-         currentTab !== 'article-45-lsa' &&
-         currentTab !== 'qualifications-intermediaire' &&
-         currentTab !== 'sources' &&
-         currentTab !== 'observatoire' &&
-         currentTab !== 'hub-subsides' &&
-         currentTab !== 'hub-insurers' &&
-         currentTab !== 'home' &&
-         currentTab !== 'seo-maladie' &&
-         currentTab !== 'seo-pilier' &&
-         currentTab !== 'seo-comparateur' &&
-         currentTab !== 'tool-calculateur-franchise' &&
-         currentTab !== 'tool-calculateur-impot-3a' &&
-         currentTab !== 'tool-simulateur-frontalier' && (
+        {!MULTILINGUAL_ROUTES[currentTab] && (
           <NotFound onGoHome={() => setTab('home')} />
         )}
 
+        </Suspense>
       </main>
 
       {/* Footer Navigation */}

@@ -9,7 +9,6 @@ import crypto from "crypto";
 import { fileURLToPath } from "url";
 import { getInsurerDisplayName, getInsurerModelFallbackName, translateModelNameToFrench, lookupPremium, getAgeCategoryFromYob, getRegionCode, ACTIVE_INSURER_IDS } from "./src/utils/premiumLookupService.js";
 import { resolveZipCode } from "./src/utils/swissZipCodes.js";
-import { matchAppRoute, generatePageMarkdown, generate404Markdown, generate404Html } from "./src/seo/agentContentService.js";
 
 // Safe __dirname for both tsx (ESM) and esbuild (CJS bundle)
 const __dirname_resolved = typeof __dirname !== "undefined" 
@@ -46,6 +45,37 @@ const PORT = 3000;
 
 
 app.use(express.json());
+
+// Global error handler — always returns JSON, never HTML
+// This satisfies Fix 4: JSON error responses for agents
+app.use((err: any, req: any, res: any, next: any) => {
+  const status = err.status || err.statusCode || 500;
+  const accept = req.headers['accept'] || '';
+  
+  // Always respond JSON to API paths and JSON-accepting clients
+  if (req.path.startsWith('/api/') || (accept.includes('application/json') && !accept.includes('text/html'))) {
+    return res.status(status).json({
+      error: err.message || 'Internal server error',
+      code: err.code || 'INTERNAL_ERROR',
+      links: {
+        docs: 'https://www.lefennecmalin.ch/api/docs',
+        sitemap: 'https://www.lefennecmalin.ch/sitemap.xml',
+      }
+    });
+  }
+  next(err);
+});
+
+// Ensure all /api/* errors return JSON, not HTML
+app.use('/api', (req: any, res: any) => {
+  if (!res.headersSent) {
+    res.status(404).json({
+      error: `API endpoint ${req.method} ${req.path} not found`,
+      code: 'ENDPOINT_NOT_FOUND',
+      links: { docs: 'https://www.lefennecmalin.ch/api/docs' }
+    });
+  }
+});
 
 // Enable CORS for all routes (important for Vercel Serverless)
 app.use((req, res, next) => {
@@ -1226,58 +1256,6 @@ app.get("/api/debug-config", (req, res) => {
   });
 });
 
-// ─── Agent-Friendly Route Matching, Markdown Negotiation & Real 404 Interceptor ──────
-app.use((req, res, next) => {
-  // Only intercept GET / HEAD requests that are NOT API or known static asset extensions
-  if (req.method !== 'GET' && req.method !== 'HEAD') {
-    return next();
-  }
-
-  const cleanPath = req.path.split('?')[0].split('#')[0];
-  
-  // Skip API routes, Vite internal endpoints, node_modules, and standard static asset extensions
-  if (
-    cleanPath.startsWith('/api/') ||
-    cleanPath.startsWith('/@vite') ||
-    cleanPath.startsWith('/@fs') ||
-    cleanPath.startsWith('/@id') ||
-    cleanPath.startsWith('/src/') ||
-    cleanPath.startsWith('/node_modules/') ||
-    /\.(js|ts|tsx|jsx|css|scss|png|jpg|jpeg|gif|svg|ico|json|txt|xml|woff|woff2|ttf|eot|map|webmanifest)$/i.test(cleanPath)
-  ) {
-    return next();
-  }
-
-  const routeMatch = matchAppRoute(cleanPath);
-  const acceptsMarkdown = 
-    (req.headers['accept'] && req.headers['accept'].includes('text/markdown')) ||
-    req.headers['x-accept'] === 'text/markdown' ||
-    req.query.format === 'markdown' ||
-    cleanPath.endsWith('.md');
-
-  // If route is NOT valid, return genuine HTTP 404 status (Never soft-200!)
-  if (!routeMatch.isValid) {
-    res.status(404);
-    if (acceptsMarkdown) {
-      res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
-      return res.send(generate404Markdown(cleanPath));
-    }
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    return res.send(generate404Html(cleanPath));
-  }
-
-  // If valid route and Markdown is requested via acceptmarkdown.com negotiation
-  if (acceptsMarkdown) {
-    res.status(200);
-    res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
-    res.setHeader('Vary', 'Accept');
-    return res.send(generatePageMarkdown(cleanPath, routeMatch.tab, routeMatch.language));
-  }
-
-  // Otherwise continue to HTML delivery
-  next();
-});
-
 export { app };
 
 // Serve frontend assets & mount Vite middleware in development
@@ -1298,14 +1276,55 @@ async function startServer() {
         }
       }
     }));
+
+    // Known valid path prefixes that should serve the SPA shell
+    const KNOWN_PREFIXES = [
+      '/fr/', '/de/', '/it/', '/en/', '/es/', '/pt/', '/sp/',
+      '/assets/', '/api/',
+      '/sitemap', '/robots', '/llms', '/openapi',
+      '/fennec', '/premiums', '/npa_to', '/pilier3a',
+    ];
+    const KNOWN_EXACT = new Set(['/', '/fr', '/de', '/it', '/en', '/es', '/pt',
+      '/sitemap.xml', '/robots.txt', '/llms.txt', '/openapi.json']);
+
     app.get('*', (req, res) => {
-      const cleanPath = req.path.split('?')[0].split('#')[0];
-      const match = matchAppRoute(cleanPath);
-      if (!match.isValid) {
-        res.status(404);
-        return res.send(generate404Html(cleanPath));
+      const pathname = req.path || '/';
+
+      // Check if this is a known route
+      const isKnown = KNOWN_EXACT.has(pathname) ||
+        KNOWN_EXACT.has(pathname.replace(/\/$/, '')) ||
+        KNOWN_PREFIXES.some(p => pathname.startsWith(p));
+
+      if (isKnown) {
+        return res.sendFile(path.join(distPath, 'index.html'));
       }
-      res.sendFile(path.join(distPath, 'index.html'));
+
+      // Real 404 for unknown paths — agents get structured response
+      const accept = req.headers['accept'] || '';
+      res.setHeader('X-Robots-Tag', 'noindex');
+
+      if (accept.includes('application/json') && !accept.includes('text/html')) {
+        return res.status(404).json({
+          error: 'Not Found',
+          code: 'ROUTE_NOT_FOUND',
+          path: pathname,
+          message: 'This path does not exist on Le Fennec Malin.',
+          links: {
+            sitemap: 'https://www.lefennecmalin.ch/sitemap.xml',
+            llms: 'https://www.lefennecmalin.ch/llms.txt',
+            docs: 'https://www.lefennecmalin.ch/api/docs',
+            home: 'https://www.lefennecmalin.ch/',
+          }
+        });
+      }
+
+      if (accept.includes('text/markdown')) {
+        res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
+        res.setHeader('Vary', 'Accept, Accept-Encoding');
+        return res.status(404).send(`# 404 — Page Not Found\n\nThe path \`${pathname}\` does not exist.\n\n- [Sitemap](https://www.lefennecmalin.ch/sitemap.xml)\n- [Agent instructions](https://www.lefennecmalin.ch/llms.txt)\n- [Homepage](https://www.lefennecmalin.ch/)\n`);
+      }
+
+      return res.status(404).sendFile(path.join(distPath, 'index.html'));
     });
   }
 
