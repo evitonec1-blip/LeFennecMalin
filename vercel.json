@@ -30,8 +30,12 @@
     "api/not-found.ts": {
       "includeFiles": "dist/index.html"
     },
-    "api/docs.ts": {},
-    "api/markdown.ts": {}
+    "api/docs.ts": {
+      "memory": 128
+    },
+    "api/markdown.ts": {
+      "memory": 128
+    }
   },
   "headers": [
     {
