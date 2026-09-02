@@ -6,29 +6,11 @@
       "destination": "https://www.lefennecmalin.ch/:path*",
       "permanent": true,
       "has": [{ "type": "host", "value": "lefennecmalin.ch" }]
-    },
-    {
-      "source": "/hello-world{/}?",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/wp-:path*",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/xmlrpc.php",
-      "destination": "/",
-      "permanent": true
     }
   ],
   "functions": {
     "api/index.ts": {
       "includeFiles": "public/**"
-    },
-    "api/not-found.ts": {
-      "includeFiles": "dist/index.html"
     },
     "api/docs.ts": {
       "memory": 128
@@ -41,19 +23,11 @@
     {
       "source": "/premiums_2026.json",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=3600" },
-        { "key": "Content-Type", "value": "application/json" }
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=3600" }
       ]
     },
     {
       "source": "/npa_to_region.json",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=3600" },
-        { "key": "Content-Type", "value": "application/json" }
-      ]
-    },
-    {
-      "source": "/pilier3a.json",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=3600" }
       ]
@@ -67,17 +41,13 @@
     {
       "source": "/openapi.json",
       "headers": [
-        { "key": "Content-Type", "value": "application/json; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=86400" },
         { "key": "Access-Control-Allow-Origin", "value": "*" }
       ]
     },
     {
       "source": "/llms.txt",
       "headers": [
-        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=86400" },
-        { "key": "X-Robots-Tag", "value": "noindex" }
+        { "key": "Content-Type", "value": "text/plain; charset=utf-8" }
       ]
     },
     {
@@ -85,12 +55,6 @@
       "headers": [
         { "key": "Vary", "value": "Accept, Accept-Encoding" },
         { "key": "Access-Control-Allow-Origin", "value": "*" }
-      ]
-    },
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" }
       ]
     }
   ],
@@ -113,4 +77,3 @@
     }
   ]
 }
-
