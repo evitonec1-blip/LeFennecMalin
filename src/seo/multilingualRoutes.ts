@@ -9,6 +9,7 @@ import { SITE_URL } from './site';
 import { CANTONS_SEO_DATA, ALL_26_CANTONS } from './data/cantonsData';
 import { INSURERS_SEO_DATA } from './data/insurersData';
 import { GUIDES_SEO_DATA } from './data/guidesData';
+import { ALL_MUNICIPALITIES, getActiveCantonSlugs } from './data/municipalitiesData';
 
 export interface LocalizedRouteInfo {
   path: string;
@@ -1943,6 +1944,165 @@ function generateAllCategoryRoutes(): Record<string, MultilingualRouteConfig> {
   return configs;
 }
 
+/**
+ * Dynamically generates multilingual route configs for all Swiss local city pages and canton hubs
+ */
+export function generateAllLocalRoutes(): Record<string, MultilingualRouteConfig> {
+  const configs: Record<string, MultilingualRouteConfig> = {};
+
+  // 1. Master Local Hub (/fr/local/)
+  configs['local-hub'] = {
+    id: 'local-hub' as AppTab,
+    category: 'canton',
+    priority: 0.88,
+    changefreq: 'weekly',
+    locales: {
+      fr: {
+        path: '/fr/local/',
+        title: "Assurance Maladie par Ville & Commune Suisse 2026 — Répertoire Officiel",
+        description: "Explorez les primes d'assurance maladie LAMal 2026 pour toutes les villes et communes de Suisse. Comparatif par canton, subsides et caisses les moins chères.",
+        h1: "Répertoire de l'Assurance Maladie par Ville & Commune en Suisse",
+        breadcrumbLabel: "Villes & Communes",
+        primaryKeyword: "assurance maladie villes suisse",
+        secondaryKeywords: ["primes maladie communes suisses", "comparateur assurance local suisse"]
+      },
+      de: {
+        path: '/de/local/',
+        title: "Krankenkassen nach Stadt & Gemeinde Schweiz 2026 — Offizielles Verzeichnis",
+        description: "Übersicht der Krankenkassenprämien 2026 nach Schweizer Städten und Gemeinden. Prämienvergleich, Prämienverbilligung und günstige Kassen.",
+        h1: "Krankenkassen-Verzeichnis nach Schweizer Gemeinden",
+        breadcrumbLabel: "Städte & Gemeinden",
+        primaryKeyword: "krankenkasse stadt gemeinde schweiz",
+        secondaryKeywords: ["praemien nach gemeinde", "krankenkassenvergleich lokal"]
+      },
+      it: {
+        path: '/it/local/',
+        title: "Cassa Malati per Città e Comune Svizzera 2026 — Elenco Ufficiale",
+        description: "Confronta i premi cassa malati LAMal 2026 per tutte le città e i comuni svizzeri. Guida per cantone, sussidi RIPAM e casse più convenienti.",
+        h1: "Guida Cassa Malati per Città e Comuni in Svizzera",
+        breadcrumbLabel: "Città e Comuni",
+        primaryKeyword: "cassa malati citta svizzera",
+        secondaryKeywords: ["premi cassa malati comune", "confronto locale assicurazione malattia"]
+      },
+      en: {
+        path: '/en/local/',
+        title: "Swiss Health Insurance by City & Municipality 2026 — Official Directory",
+        description: "Explore official 2026 health insurance premiums across all Swiss cities and municipalities. Canton-by-canton comparison, subsidies, and top insurers.",
+        h1: "Swiss Health Insurance Directory by City & Municipality",
+        breadcrumbLabel: "Cities & Municipalities",
+        primaryKeyword: "swiss health insurance by city",
+        secondaryKeywords: ["health premiums swiss municipalities", "local insurance comparison switzerland"]
+      }
+    }
+  };
+
+  // 2. Canton Local Hubs (/fr/local/:canton/)
+  const activeCantonSlugs = getActiveCantonSlugs();
+  for (const cantonSlug of activeCantonSlugs) {
+    const tabKey = `local-canton-${cantonSlug}` as AppTab;
+    const cantonCities = ALL_MUNICIPALITIES.filter(m => m.cantonSlug === cantonSlug);
+    if (cantonCities.length === 0) continue;
+    const first = cantonCities[0];
+
+    configs[tabKey] = {
+      id: tabKey,
+      category: 'canton',
+      priority: 0.85,
+      changefreq: 'monthly',
+      locales: {
+        fr: {
+          path: `/fr/local/${cantonSlug}/`,
+          title: `Assurance Maladie Canton de ${first.canton} — Villes & Communes 2026`,
+          description: `Guide des primes d'assurance maladie 2026 pour les communes du Canton de ${first.canton} (${first.cantonCode}). Tarifs OFSP, caisses économiques et subsides.`,
+          h1: `Assurance Maladie dans le Canton de ${first.canton} — Communes & Villes`,
+          breadcrumbLabel: `${first.canton}`,
+          primaryKeyword: `assurance maladie ${first.canton.toLowerCase()} communes`,
+          secondaryKeywords: [`primes ${first.canton.toLowerCase()}`, `caisses maladie ${first.canton.toLowerCase()}`]
+        },
+        de: {
+          path: `/de/local/${cantonSlug}/`,
+          title: `Krankenkassen Kanton ${first.canton} — Städte & Gemeinden 2026`,
+          description: `Krankenkassenprämien 2026 für Gemeinden im Kanton ${first.canton} (${first.cantonCode}). BAG-Tarife, günstigste Kassen und IPV.`,
+          h1: `Krankenkassen im Kanton ${first.canton} — Gemeinden`,
+          breadcrumbLabel: `${first.canton}`,
+          primaryKeyword: `krankenkasse ${first.canton.toLowerCase()} gemeinden`,
+          secondaryKeywords: [`praemien ${first.canton.toLowerCase()}`]
+        },
+        it: {
+          path: `/it/local/${cantonSlug}/`,
+          title: `Cassa Malati Cantone ${first.canton} — Comuni & Città 2026`,
+          description: `Premi cassa malati 2026 per i comuni del Cantone ${first.canton} (${first.cantonCode}). Tariffe UFSP, casse convenienti e sussidi.`,
+          h1: `Cassa Malati nel Cantone ${first.canton} — Comuni`,
+          breadcrumbLabel: `${first.canton}`,
+          primaryKeyword: `cassa malati ${first.canton.toLowerCase()} comuni`,
+          secondaryKeywords: [`premi ${first.canton.toLowerCase()}`]
+        },
+        en: {
+          path: `/en/local/${cantonSlug}/`,
+          title: `Health Insurance Canton of ${first.canton} — Cities & Municipalities 2026`,
+          description: `Official 2026 health insurance rates for municipalities in Canton of ${first.canton} (${first.cantonCode}). FOPH premiums, subsidies, and comparison.`,
+          h1: `Health Insurance in Canton ${first.canton} — Municipalities`,
+          breadcrumbLabel: `${first.canton}`,
+          primaryKeyword: `health insurance ${first.canton.toLowerCase()} municipalities`,
+          secondaryKeywords: [`premiums ${first.canton.toLowerCase()}`]
+        }
+      }
+    };
+  }
+
+  // 3. Individual Municipality Pages (/fr/local/:canton/:city/)
+  for (const mun of ALL_MUNICIPALITIES) {
+    const tabKey = `local-city-${mun.cantonSlug}-${mun.slug}` as AppTab;
+
+    configs[tabKey] = {
+      id: tabKey,
+      category: 'canton',
+      priority: mun.priority === 1 ? 0.85 : 0.75,
+      changefreq: 'monthly',
+      locales: {
+        fr: {
+          path: `/fr/local/${mun.cantonSlug}/${mun.slug}/`,
+          title: mun.seoTitle,
+          description: mun.metaDescription,
+          h1: mun.h1,
+          breadcrumbLabel: mun.name,
+          primaryKeyword: `assurance maladie ${mun.name.toLowerCase()}`,
+          secondaryKeywords: [`primes ${mun.name.toLowerCase()}`, `caisse maladie ${mun.name.toLowerCase()}`, `subsides ${mun.name.toLowerCase()}`]
+        },
+        de: {
+          path: `/de/local/${mun.cantonSlug}/${mun.slug}/`,
+          title: `Krankenkassen ${mun.name} 2026 — Prämienvergleich & Günstigste Kassen`,
+          description: `Krankenkassenprämien 2026 in ${mun.name} (${mun.cantonCode}). Offizielle BAG-Daten, günstige Modelle, Spitäler und Prämienverbilligung.`,
+          h1: `Krankenkassen in ${mun.name} — Prämien 2026`,
+          breadcrumbLabel: mun.name,
+          primaryKeyword: `krankenkasse ${mun.name.toLowerCase()}`,
+          secondaryKeywords: [`praemien ${mun.name.toLowerCase()}`]
+        },
+        it: {
+          path: `/it/local/${mun.cantonSlug}/${mun.slug}/`,
+          title: `Cassa Malati ${mun.name} 2026 — Confronto Premi & Sussidi`,
+          description: `Premi cassa malati 2026 a ${mun.name} (${mun.cantonCode}). Dati ufficiali UFSP, casse più economiche, ospedali e sussidi RIPAM.`,
+          h1: `Cassa Malati a ${mun.name} — Premi 2026`,
+          breadcrumbLabel: mun.name,
+          primaryKeyword: `cassa malati ${mun.name.toLowerCase()}`,
+          secondaryKeywords: [`premi ${mun.name.toLowerCase()}`]
+        },
+        en: {
+          path: `/en/local/${mun.cantonSlug}/${mun.slug}/`,
+          title: `Health Insurance ${mun.name} 2026 — Rates, Top Insurers & Subsidies`,
+          description: `Compare 2026 mandatory health insurance premiums in ${mun.name} (${mun.cantonCode}). Official FOPH data, cheapest models, and subsidies.`,
+          h1: `Health Insurance in ${mun.name} — 2026 Rates`,
+          breadcrumbLabel: mun.name,
+          primaryKeyword: `health insurance ${mun.name.toLowerCase()}`,
+          secondaryKeywords: [`premiums ${mun.name.toLowerCase()}`]
+        }
+      }
+    };
+  }
+
+  return configs;
+}
+
 // Merge all dynamically generated routes into MULTILINGUAL_ROUTES
 Object.assign(
   MULTILINGUAL_ROUTES,
@@ -1952,7 +2112,8 @@ Object.assign(
   generateAllComparisonRoutes(),
   generateAllGuideRoutes(),
   generateAllToolRoutes(),
-  generateAllCategoryRoutes()
+  generateAllCategoryRoutes(),
+  generateAllLocalRoutes()
 );
 
 /**

@@ -1006,8 +1006,9 @@ export default function App() {
         })()}
 
         {currentTab.startsWith('local-city') && (() => {
-          const citySlug = currentTab.replace('local-city-', '');
-          const mun = ALL_MUNICIPALITIES.find(m => m.slug === citySlug || `${m.cantonSlug}-${m.slug}` === citySlug);
+          const rest = currentTab.replace('local-city-', '');
+          // Match either "canton-city" or just "city"
+          const mun = ALL_MUNICIPALITIES.find(m => `${m.cantonSlug}-${m.slug}` === rest || m.slug === rest || m.id === rest);
           if (!mun) return null;
           return (
             <LocalCityPage
