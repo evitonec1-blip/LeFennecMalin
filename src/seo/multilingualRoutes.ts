@@ -1961,15 +1961,23 @@ export function getHreflangAlternates(tab: AppTab): Record<string, string> {
  * Resolves path into { tab: AppTab, language: Language }
  */
 export function resolveRouteFromPath(pathname: string): { tab: AppTab; language: Language } {
-  const raw = pathname.trim();
-  const normalized = raw.endsWith('/') && raw.length > 1 ? raw : `${raw}/`;
+  if (!pathname) return { tab: 'home', language: 'fr' };
+  let clean = pathname.trim().split('?')[0].split('#')[0];
+  if (clean === '/index.html' || clean === '' || clean === '/') {
+    return { tab: 'home', language: 'fr' };
+  }
+  if (!clean.startsWith('/')) {
+    clean = `/${clean}`;
+  }
+  const normalized = clean.endsWith('/') ? clean : `${clean}/`;
+  const withoutTrailingSlash = clean.endsWith('/') && clean.length > 1 ? clean.slice(0, -1) : clean;
 
   // 1. Check direct match in MULTILINGUAL_ROUTES across all tabs and locales
   for (const tabKey of Object.keys(MULTILINGUAL_ROUTES) as AppTab[]) {
     const route = MULTILINGUAL_ROUTES[tabKey];
     if (!route?.locales) continue;
     for (const [langKey, info] of Object.entries(route.locales)) {
-      if (info && (info.path === normalized || info.path === raw)) {
+      if (info && (info.path === normalized || info.path === clean || info.path === withoutTrailingSlash)) {
         return { tab: route.id, language: langKey as Language };
       }
     }
@@ -1977,12 +1985,12 @@ export function resolveRouteFromPath(pathname: string): { tab: AppTab; language:
 
   // 2. Handle root language routes
   if (normalized === '/' || normalized === '') return { tab: 'home', language: 'fr' };
-  if (normalized === '/de/') return { tab: 'home', language: 'de' };
-  if (normalized === '/it/') return { tab: 'home', language: 'it' };
-  if (normalized === '/en/') return { tab: 'home', language: 'en' };
-  if (normalized === '/es/' || normalized === '/sp/') return { tab: 'home', language: 'es' };
-  if (normalized === '/pt/') return { tab: 'home', language: 'pt' };
-  if (normalized === '/fr/') return { tab: 'home', language: 'fr' };
+  if (normalized === '/de/' || clean === '/de') return { tab: 'home', language: 'de' };
+  if (normalized === '/it/' || clean === '/it') return { tab: 'home', language: 'it' };
+  if (normalized === '/en/' || clean === '/en') return { tab: 'home', language: 'en' };
+  if (normalized === '/es/' || normalized === '/sp/' || clean === '/es' || clean === '/sp') return { tab: 'home', language: 'es' };
+  if (normalized === '/pt/' || clean === '/pt') return { tab: 'home', language: 'pt' };
+  if (normalized === '/fr/' || clean === '/fr') return { tab: 'home', language: 'fr' };
 
   // 2b. Check if path starts with /es/, /sp/ or /pt/ and matches a localized version of a French route
   if (normalized.startsWith('/es/') || normalized.startsWith('/sp/') || normalized.startsWith('/pt/')) {
