@@ -23,6 +23,10 @@ import NotFound from './components/NotFound';
 import { ArrowRight, ShieldCheck, HelpCircle, ArrowUpRight, Scale, Sparkles, CheckCircle, Calendar } from 'lucide-react';
 import gsap from 'gsap';
 import { ALL_MUNICIPALITIES, getCantonLocalHubData } from './seo/data/municipalitiesData';
+import { CANTONS_SEO_DATA } from './seo/data/cantonsData';
+import { CATEGORIES_SEO_DATA } from './seo/data/categoriesData';
+import { INSURERS_SEO_DATA } from './seo/data/insurersData';
+import { GUIDES_SEO_DATA } from './seo/data/guidesData';
 
 import fenyAnalyse from './assets/images/IMG_20260804_161612_upscaled.jpg';
 import fenyWinking from './assets/images/feny_mascot_avatar_1783245725195.jpg';
@@ -71,27 +75,6 @@ const SourcesPage = lazy(() => import('./seo/pages/SourcesPage'));
 const LocalHubPage = lazy(() => import('./seo/pages/LocalHubPage').then(m => ({ default: m.LocalHubPage })));
 const LocalCantonHubPage = lazy(() => import('./seo/pages/LocalCantonHubPage').then(m => ({ default: m.LocalCantonHubPage })));
 const LocalCityPage = lazy(() => import('./seo/pages/LocalCityPage').then(m => ({ default: m.LocalCityPage })));
-
-// SEO data — lazy loaded via dynamic import in route handler
-let CANTONS_SEO_DATA: any = null;
-let CATEGORIES_SEO_DATA: any = null;
-let INSURERS_SEO_DATA: any = null;
-let GUIDES_SEO_DATA: any = null;
-
-async function loadSeoData() {
-  if (!CANTONS_SEO_DATA) {
-    const [c, cat, ins, g] = await Promise.all([
-      import('./seo/data/cantonsData'),
-      import('./seo/data/categoriesData'),
-      import('./seo/data/insurersData'),
-      import('./seo/data/guidesData'),
-    ]);
-    CANTONS_SEO_DATA = c.CANTONS_SEO_DATA;
-    CATEGORIES_SEO_DATA = cat.CATEGORIES_SEO_DATA;
-    INSURERS_SEO_DATA = ins.INSURERS_SEO_DATA;
-    GUIDES_SEO_DATA = g.GUIDES_SEO_DATA;
-  }
-}
 
 // Spinner shown while lazy chunks load
 function PageLoader() {
@@ -162,18 +145,6 @@ export default function App() {
   // Universal Teleport to Top on any tab/route transition
   useEffect(() => {
     teleportToTop();
-  }, [currentTab]);
-
-  // Preload SEO data when navigating to any SEO route
-  useEffect(() => {
-    const needsSeoData = currentTab.startsWith('canton-') ||
-      currentTab.startsWith('insurer-') ||
-      currentTab.startsWith('guide-') ||
-      currentTab.startsWith('category-') ||
-      currentTab.startsWith('seo-');
-    if (needsSeoData) {
-      loadSeoData();
-    }
   }, [currentTab]);
 
   // Handle browser back/forward popstate
