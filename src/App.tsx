@@ -22,6 +22,7 @@ import CookieConsent from './components/CookieConsent';
 import NotFound from './components/NotFound';
 import { ArrowRight, ShieldCheck, HelpCircle, ArrowUpRight, Scale, Sparkles, CheckCircle, Calendar } from 'lucide-react';
 import gsap from 'gsap';
+import { ALL_MUNICIPALITIES, getCantonLocalHubData } from './seo/data/municipalitiesData';
 
 import fenyAnalyse from './assets/images/IMG_20260804_161612_upscaled.jpg';
 import fenyWinking from './assets/images/feny_mascot_avatar_1783245725195.jpg';
@@ -57,11 +58,19 @@ const InsurerComparisonPage = lazy(() => import('./seo/pages/InsurerComparisonPa
 const Article45Lsa = lazy(() => import('./components/Article45Lsa'));
 const QualificationsIntermediaire = lazy(() => import('./components/QualificationsIntermediaire'));
 
-const DemographicPages = lazy(() => import('./seo/pages/DemographicPages'));
+const DemographicPages = lazy(() => import('./seo/pages/DemographicPages').then(m => ({ default: m.FamilyInsurancePage })));
 const FamilyInsurancePage = lazy(() => import('./seo/pages/DemographicPages').then(m => ({ default: m.FamilyInsurancePage })));
 const YoungAdultInsurancePage = lazy(() => import('./seo/pages/DemographicPages').then(m => ({ default: m.YoungAdultInsurancePage })));
 const StudentInsurancePage = lazy(() => import('./seo/pages/DemographicPages').then(m => ({ default: m.StudentInsurancePage })));
 const NewResidentInsurancePage = lazy(() => import('./seo/pages/DemographicPages').then(m => ({ default: m.NewResidentInsurancePage })));
+const FrontalierInsurancePage = lazy(() => import('./seo/pages/FrontalierInsurancePage'));
+const SeniorInsurancePage = lazy(() => import('./seo/pages/SeniorInsurancePage'));
+const PremiumsDataStudyPage = lazy(() => import('./seo/pages/PremiumsDataStudyPage'));
+const ResearchObservatoryPage = lazy(() => import('./seo/pages/ResearchObservatoryPage'));
+const SourcesPage = lazy(() => import('./seo/pages/SourcesPage'));
+const LocalHubPage = lazy(() => import('./seo/pages/LocalHubPage').then(m => ({ default: m.LocalHubPage })));
+const LocalCantonHubPage = lazy(() => import('./seo/pages/LocalCantonHubPage').then(m => ({ default: m.LocalCantonHubPage })));
+const LocalCityPage = lazy(() => import('./seo/pages/LocalCityPage').then(m => ({ default: m.LocalCityPage })));
 
 // SEO data — lazy loaded via dynamic import in route handler
 let CANTONS_SEO_DATA: any = null;
@@ -103,11 +112,6 @@ function pushURL(path: string) {
     }
   }
 }
-import { ArrowRight, ShieldCheck, HelpCircle, ArrowUpRight, Scale, Sparkles, CheckCircle, Calendar } from 'lucide-react';
-
-import fenyAnalyse from './assets/images/IMG_20260804_161612_upscaled.jpg';
-import fenyWinking from './assets/images/feny_mascot_avatar_1783245725195.jpg';
-import fenyResults from './assets/images/feny_mascot_compare_1783245694484.jpg';
 
 export default function App() {
   const { t, language, setLanguage } = useLanguage();
@@ -186,7 +190,7 @@ export default function App() {
     return () => window.removeEventListener('popstate', onPop);
   }, [language, setLanguage]);
 
-  // Global link and button click interceptor to ensure immediate teleportation to top
+  // Global link and button click interceptor to ensure SPA routing and immediate teleportation to top
   useEffect(() => {
     const handleGlobalClick = (e: MouseEvent) => {
       const target = (e.target as HTMLElement)?.closest('a, button, [role="button"]');
@@ -202,6 +206,35 @@ export default function App() {
         }
       }
 
+      // Check for internal SPA link navigation
+      if (href && target.tagName === 'A' && !target.getAttribute('target') && !target.getAttribute('download')) {
+        const isInternal = href.startsWith('/') ||
+          href.startsWith('https://www.lefennecmalin.ch') ||
+          href.startsWith('http://localhost:3000') ||
+          href.startsWith('http://127.0.0.1:3000');
+
+        if (isInternal) {
+          const cleanPath = href
+            .replace('https://www.lefennecmalin.ch', '')
+            .replace('http://localhost:3000', '')
+            .replace('http://127.0.0.1:3000', '');
+
+          const isAsset = cleanPath.startsWith('/api/') ||
+            cleanPath.endsWith('.xml') ||
+            cleanPath.endsWith('.json') ||
+            cleanPath.endsWith('.txt') ||
+            cleanPath.endsWith('.csv') ||
+            cleanPath.endsWith('.pdf') ||
+            cleanPath.startsWith('/assets/');
+
+          if (!isAsset) {
+            e.preventDefault();
+            navigateToUrl(cleanPath);
+            return;
+          }
+        }
+      }
+
       // If it's a navigational link (e.g. href starting with / or an internal link or button)
       if (href || target.hasAttribute('onClick') || target.tagName === 'BUTTON' || target.getAttribute('role') === 'button') {
         teleportToTop();
@@ -210,7 +243,7 @@ export default function App() {
 
     document.addEventListener('click', handleGlobalClick, { capture: true });
     return () => document.removeEventListener('click', handleGlobalClick, { capture: true });
-  }, []);
+  }, [language]);
   
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -935,7 +968,80 @@ export default function App() {
           );
         })()}
 
-        {!MULTILINGUAL_ROUTES[currentTab] && (
+        {/* New Demographic & Study Pages */}
+        {(currentTab === 'lamal-frontalier' || currentTab === 'guide-frontalier-assurance-maladie') && (
+          <FrontalierInsurancePage
+            onNavigate={setTab}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab === 'lamal-seniors' && (
+          <SeniorInsurancePage
+            onNavigate={setTab}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab === 'lamal-primes-2026' && (
+          <PremiumsDataStudyPage
+            onNavigate={setTab}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab === 'observatoire' && (
+          <ResearchObservatoryPage
+            onNavigate={setTab}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab === 'sources' && (
+          <SourcesPage
+            onStartComparison={() => setTab('health-comparator')}
+            onGoHome={() => setTab('home')}
+            onNavigate={navigateToUrl}
+          />
+        )}
+
+        {/* Local Directory Pages (Villes & Communes) */}
+        {currentTab === 'local-hub' && (
+          <LocalHubPage
+            lang={language}
+            onOpenComparator={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab.startsWith('local-canton') && (() => {
+          const slug = currentTab === 'local-canton' ? 'geneve' : currentTab.replace('local-canton-', '');
+          const hubData = getCantonLocalHubData(slug);
+          if (!hubData) return null;
+          return (
+            <LocalCantonHubPage
+              hubData={hubData}
+              lang={language}
+              onOpenComparator={() => setTab('health-comparator')}
+            />
+          );
+        })()}
+
+        {currentTab.startsWith('local-city') && (() => {
+          const citySlug = currentTab.replace('local-city-', '');
+          const mun = ALL_MUNICIPALITIES.find(m => m.slug === citySlug || `${m.cantonSlug}-${m.slug}` === citySlug);
+          if (!mun) return null;
+          return (
+            <LocalCityPage
+              municipality={mun}
+              lang={language}
+              onOpenComparator={() => setTab('health-comparator')}
+              onNavigate={navigateToUrl}
+            />
+          );
+        })()}
+
+        {/* Not Found / 404 Fallback */}
+        {(currentTab === 'not-found' || (!MULTILINGUAL_ROUTES[currentTab] && !currentTab.startsWith('canton-') && !currentTab.startsWith('subside-') && !currentTab.startsWith('insurer-') && !currentTab.startsWith('guide-') && !currentTab.startsWith('compare-') && !currentTab.startsWith('category-') && !currentTab.startsWith('local-'))) && (
           <NotFound onGoHome={() => setTab('home')} />
         )}
 

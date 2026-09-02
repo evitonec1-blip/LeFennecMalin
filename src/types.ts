@@ -16,6 +16,7 @@ export type AppTab =
   | 'methodologie'
   | 'comment-fonctionne-le-comparateur'
   | 'sources'
+  | 'not-found'
   | 'seo-maladie'
   | 'seo-pilier'
   | 'seo-comparateur'

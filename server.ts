@@ -66,17 +66,6 @@ app.use((err: any, req: any, res: any, next: any) => {
   next(err);
 });
 
-// Ensure all /api/* errors return JSON, not HTML
-app.use('/api', (req: any, res: any) => {
-  if (!res.headersSent) {
-    res.status(404).json({
-      error: `API endpoint ${req.method} ${req.path} not found`,
-      code: 'ENDPOINT_NOT_FOUND',
-      links: { docs: 'https://www.lefennecmalin.ch/api/docs' }
-    });
-  }
-});
-
 // Enable CORS for all routes (important for Vercel Serverless)
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -1256,6 +1245,17 @@ app.get("/api/debug-config", (req, res) => {
   });
 });
 
+// Ensure all unhandled /api/* requests return JSON 404, not HTML
+app.use('/api', (req: any, res: any) => {
+  if (!res.headersSent) {
+    res.status(404).json({
+      error: `API endpoint ${req.method} ${req.path} not found`,
+      code: 'ENDPOINT_NOT_FOUND',
+      links: { docs: 'https://www.lefennecmalin.ch/api/docs' }
+    });
+  }
+});
+
 export { app };
 
 // Serve frontend assets & mount Vite middleware in development
@@ -1280,17 +1280,28 @@ async function startServer() {
     // Known valid path prefixes that should serve the SPA shell
     const KNOWN_PREFIXES = [
       '/fr/', '/de/', '/it/', '/en/', '/es/', '/pt/', '/sp/',
+      '/assurance-maladie', '/3eme-pilier', '/comparateur', '/subsides',
+      '/lamal', '/local', '/guide', '/outil', '/caisse',
+      '/observatoire', '/sources', '/faq', '/a-propos', '/methodologie',
+      '/comment-fonctionne', '/article-45', '/qualifications',
+      '/mentions-legales', '/confidentialite',
       '/assets/', '/api/',
       '/sitemap', '/robots', '/llms', '/openapi',
       '/fennec', '/premiums', '/npa_to', '/pilier3a',
     ];
-    const KNOWN_EXACT = new Set(['/', '/fr', '/de', '/it', '/en', '/es', '/pt',
-      '/sitemap.xml', '/robots.txt', '/llms.txt', '/openapi.json']);
+    const KNOWN_EXACT = new Set([
+      '/', '/fr', '/de', '/it', '/en', '/es', '/pt',
+      '/assurance-maladie', '/3eme-pilier', '/comparateur', '/subsides',
+      '/lamal', '/local', '/guide', '/observatoire', '/sources', '/faq',
+      '/a-propos', '/methodologie', '/article-45-lsa', '/qualifications-intermediaire',
+      '/mentions-legales', '/confidentialite',
+      '/sitemap.xml', '/robots.txt', '/llms.txt', '/openapi.json'
+    ]);
 
     app.get('*', (req, res) => {
       const pathname = req.path || '/';
 
-      // Check if this is a known route
+      // Check if this is a known route or standard browser page request
       const isKnown = KNOWN_EXACT.has(pathname) ||
         KNOWN_EXACT.has(pathname.replace(/\/$/, '')) ||
         KNOWN_PREFIXES.some(p => pathname.startsWith(p));
