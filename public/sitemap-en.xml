@@ -1361,6 +1361,20 @@
   </url>
 
   <url>
+    <loc>https://www.lefennecmalin.ch/en/health-insurance/compare-insurers-2026-premiums/</loc>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://www.lefennecmalin.ch/fr/assurance-maladie/comparer-assureurs-primes-2026/"/>
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://www.lefennecmalin.ch/de/krankenkassen/neue-praemien-2026-vergleichen/"/>
+    <xhtml:link rel="alternate" hreflang="it-CH" href="https://www.lefennecmalin.ch/it/casse-malati/confronta-nuovi-premi-2026/"/>
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://www.lefennecmalin.ch/en/health-insurance/compare-insurers-2026-premiums/"/>
+    <xhtml:link rel="alternate" hreflang="es-CH" href="https://www.lefennecmalin.ch/es/seguro-medico/comparar-aseguradoras-primas-2026/"/>
+    <xhtml:link rel="alternate" hreflang="pt-CH" href="https://www.lefennecmalin.ch/pt/seguro-saude/comparar-seguradoras-premios-2026/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lefennecmalin.ch/fr/assurance-maladie/comparer-assureurs-primes-2026/"/>
+  </url>
+
+  <url>
     <loc>https://www.lefennecmalin.ch/en/lamal-vs-vvg/</loc>
     <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>

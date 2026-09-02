@@ -562,6 +562,8 @@ export default function Footer({ onTabChange }: FooterProps) {
               📐 Simulateurs d'optimisation & Guides d'experts :
             </span>
             <div className="flex flex-wrap gap-x-3 gap-y-2">
+              <button onClick={() => handleNavClick('comparer-assureurs-primes-2026')} className="hover:text-white hover:underline cursor-pointer font-bold text-amber-300">Comparez les Assureurs (Nouvelles Primes 2026)</button>
+              <span>·</span>
               <button onClick={() => handleNavClick('lamal-primes-2026')} className="hover:text-white hover:underline cursor-pointer font-bold text-fennec-sand">Étude Primes OFSP 2026 (26 Cantons)</button>
               <span>·</span>
               <button onClick={() => handleNavClick('observatoire')} className="hover:text-white hover:underline cursor-pointer font-bold text-emerald-300">Observatoire des Primes (Open Data)</button>

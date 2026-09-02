@@ -871,6 +871,70 @@ export const MULTILINGUAL_ROUTES: Record<AppTab, MultilingualRouteConfig> = ({
     }
   },
 
+  'comparer-assureurs-primes-2026': {
+    id: 'comparer-assureurs-primes-2026',
+    category: 'health',
+    priority: 0.95,
+    changefreq: 'weekly',
+    lastModified: '2026-09-02',
+    locales: {
+      fr: {
+        path: '/fr/assurance-maladie/comparer-assureurs-primes-2026/',
+        title: "Comparez les Assureurs & Nouvelles Primes 2026 en Suisse | Le Fennec Malin",
+        description: "Comparez les nouvelles primes 2026 de toutes les caisses maladie suisses (CSS, Helsana, Swica, Mutuel, Assura, Concordia, Visana, Sanitas, KPT). Données officielles OFSP, classements par canton et économies jusqu'à 1'800 CHF/an.",
+        h1: "Comparez les assureurs et les nouvelles primes 2026 en Suisse",
+        breadcrumbLabel: "Nouvelles Primes 2026",
+        primaryKeyword: "comparez les assureurs nouvelles primes 2026",
+        secondaryKeywords: ["comparer assureurs primes 2026", "nouvelles primes assurance maladie 2026", "comparatif caisses maladie 2026", "primes ofsp 2026"]
+      },
+      de: {
+        path: '/de/krankenkassen/neue-praemien-2026-vergleichen/',
+        title: "Krankenkassen & Neue Prämien 2026 Vergleichen | Le Fennec Malin",
+        description: "Vergleichen Sie die neuen Krankenkassenprämien 2026 aller Schweizer Kassen (CSS, Helsana, Swica, Sanitas, Visana usw.). Offizielle BAG-Daten, Spartipps und Wechselrechner.",
+        h1: "Krankenkassen vergleichen: Neue Prämien 2026 in der Schweiz",
+        breadcrumbLabel: "Neue Prämien 2026 vergleichen",
+        primaryKeyword: "neue krankenkassenpraemien 2026 vergleichen",
+        secondaryKeywords: ["krankenkassen vergleich 2026", "neue bag praemien 2026", "sparpotenzial krankenkasse"]
+      },
+      it: {
+        path: '/it/casse-malati/confronta-nuovi-premi-2026/',
+        title: "Confronta le Casse Malati e i Nuovi Premi 2026 | Le Fennec Malin",
+        description: "Confronta i nuovi premi 2026 di tutte le casse malati svizzere. Dati ufficiali UFSP, classifiche cantonali e simulatore di risparmio fino a 1'800 CHF all'anno.",
+        h1: "Confronta le casse malati e i nuovi premi 2026 in Svizzera",
+        breadcrumbLabel: "Confronta Premi 2026",
+        primaryKeyword: "confronta assicuratori nuovi premi 2026",
+        secondaryKeywords: ["nuovi premi cassa malati 2026", "confronto casse malati 2026", "risparmio cassa malati"]
+      },
+      en: {
+        path: '/en/health-insurance/compare-insurers-2026-premiums/',
+        title: "Compare Swiss Health Insurers & New 2026 Premiums | Le Fennec Malin",
+        description: "Compare new 2026 health insurance premiums across all Swiss providers (CSS, Helsana, Swica, Sanitas, Assura, Mutuel, Visana). Official FOPH rates & savings simulator.",
+        h1: "Compare Swiss Insurers & New 2026 Health Premiums",
+        breadcrumbLabel: "Compare 2026 Premiums",
+        primaryKeyword: "compare insurers new premiums 2026",
+        secondaryKeywords: ["swiss health insurance comparison 2026", "new foph premiums 2026", "switch health fund switzerland"]
+      },
+      es: {
+        path: '/es/seguro-medico/comparar-aseguradoras-primas-2026/',
+        title: "Compare las Aseguradoras y Nuevas Primas 2026 en Suiza | Le Fennec Malin",
+        description: "Compare las nuevas primas 2026 de todas las cajas de salud suizas. Datos oficiales OFSP, comparativa por cantón y ahorros de hasta 1'800 CHF/año.",
+        h1: "Comparar aseguradoras y nuevas primas de seguro de salud 2026 en Suiza",
+        breadcrumbLabel: "Comparar Primas 2026",
+        primaryKeyword: "comparar aseguradoras nuevas primas 2026",
+        secondaryKeywords: ["nuevas primas seguro suiza 2026", "ahorrar seguro enfermedad suiza"]
+      },
+      pt: {
+        path: '/pt/seguro-saude/comparar-seguradoras-premios-2026/',
+        title: "Compare as Seguradoras e Novos Prémios 2026 na Suíça | Le Fennec Malin",
+        description: "Compare os novos prémios 2026 de todas as caixas de saúde suíças. Dados oficiais OFSP, classificações cantonais e simulador de poupança até 1'800 CHF/ano.",
+        h1: "Comparar seguradoras e novos prémios de saúde 2026 na Suíça",
+        breadcrumbLabel: "Comparar Prémios 2026",
+        primaryKeyword: "comparar seguradoras novos premios 2026",
+        secondaryKeywords: ["novos premios saude suica 2026", "poupar seguro saude suica"]
+      }
+    }
+  },
+
   'lamal-vs-lca': {
     id: 'lamal-vs-lca',
     category: 'health',

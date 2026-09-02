@@ -70,6 +70,7 @@ const NewResidentInsurancePage = lazy(() => import('./seo/pages/DemographicPages
 const FrontalierInsurancePage = lazy(() => import('./seo/pages/FrontalierInsurancePage'));
 const SeniorInsurancePage = lazy(() => import('./seo/pages/SeniorInsurancePage'));
 const PremiumsDataStudyPage = lazy(() => import('./seo/pages/PremiumsDataStudyPage'));
+const CompareInsurers2026Page = lazy(() => import('./seo/pages/CompareInsurers2026Page'));
 const ResearchObservatoryPage = lazy(() => import('./seo/pages/ResearchObservatoryPage'));
 const SourcesPage = lazy(() => import('./seo/pages/SourcesPage'));
 const LocalHubPage = lazy(() => import('./seo/pages/LocalHubPage').then(m => ({ default: m.LocalHubPage })));
@@ -956,6 +957,13 @@ export default function App() {
 
         {currentTab === 'lamal-primes-2026' && (
           <PremiumsDataStudyPage
+            onNavigate={setTab}
+            onStartComparison={() => setTab('health-comparator')}
+          />
+        )}
+
+        {currentTab === 'comparer-assureurs-primes-2026' && (
+          <CompareInsurers2026Page
             onNavigate={setTab}
             onStartComparison={() => setTab('health-comparator')}
           />
