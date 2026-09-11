@@ -2237,10 +2237,8 @@ export function resolveRouteFromPath(pathname: string): { tab: AppTab; language:
     const rawLang = cantonMatch[1] || 'fr';
     const lang = (rawLang === 'sp' ? 'es' : rawLang) as Language;
     const slug = cantonMatch[2];
-    const candidateTab = `canton-${slug}` as AppTab;
-    if (MULTILINGUAL_ROUTES[candidateTab]) {
-      return { tab: candidateTab, language: lang };
-    }
+    // Accept all canton slugs — data validation happens in the component
+    return { tab: `canton-${slug}` as AppTab, language: lang };
   }
 
   // 4. Handle Local SEO Communes / Municipalities dynamically (/fr/local/:canton/:city/)
@@ -2277,9 +2275,7 @@ export function resolveRouteFromPath(pathname: string): { tab: AppTab; language:
     const lang = (rawLang === 'sp' ? 'es' : rawLang) as Language;
     const slug = subsidyMatch[2];
     const candidateTab = `subside-${slug}` as AppTab;
-    if (MULTILINGUAL_ROUTES[candidateTab]) {
-      return { tab: candidateTab, language: lang };
-    }
+    return { tab: candidateTab, language: lang };
   }
 
   // 5. Handle Subsidies Hub dynamically
@@ -2297,9 +2293,7 @@ export function resolveRouteFromPath(pathname: string): { tab: AppTab; language:
     const lang = (rawLang === 'sp' ? 'es' : rawLang) as Language;
     const slug = insurerMatch[2];
     const candidateTab = `insurer-${slug}` as AppTab;
-    if (MULTILINGUAL_ROUTES[candidateTab]) {
-      return { tab: candidateTab, language: lang };
-    }
+    return { tab: candidateTab, language: lang };
   }
 
   // 7. Handle Guides Slugs dynamically (/fr/guides/:slug/)
@@ -2309,9 +2303,7 @@ export function resolveRouteFromPath(pathname: string): { tab: AppTab; language:
     const lang = (rawLang === 'sp' ? 'es' : rawLang) as Language;
     const slug = guideMatch[2];
     const candidateTab = (slug.startsWith('guide-') ? slug : `guide-${slug}`) as AppTab;
-    if (MULTILINGUAL_ROUTES[candidateTab]) {
-      return { tab: candidateTab, language: lang };
-    }
+    return { tab: candidateTab, language: lang };
   }
 
   // 8. Handle Tools Slugs dynamically (/fr/outils/:slug/)
