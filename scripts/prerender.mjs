@@ -441,6 +441,124 @@ for (const c of ADDITIONAL_CANTONS) {
   });
 }
 
+// Insurer pages
+const INSURERS = [
+  { slug: 'css', name: 'CSS Assurance', desc: 'Plus de 1.5 million d\'assurés. Large gamme de produits LAMal et complémentaires.' },
+  { slug: 'helsana', name: 'Helsana', desc: 'Deuxième plus grande caisse suisse. Bonus santé et large réseau de partenaires.' },
+  { slug: 'swica', name: 'SWICA', desc: 'Leader en médecines alternatives. Excellents scores de satisfaction client.' },
+  { slug: 'sanitas', name: 'Sanitas', desc: 'Reconnue pour ses complémentaires dentaires et médecines alternatives.' },
+  { slug: 'groupe-mutuel', name: 'Groupe Mutuel', desc: 'Groupe suisse présent dans toute la Suisse romande et alémanique.' },
+  { slug: 'assura', name: 'Assura', desc: 'Primes parmi les plus compétitives du marché, forte présence en Romandie.' },
+  { slug: 'concordia', name: 'Concordia', desc: 'Engagement fort en prévention et médecines naturelles.' },
+  { slug: 'visana', name: 'Visana', desc: 'Caisse nationale avec bons programmes de promotion de la santé.' },
+  { slug: 'kpt', name: 'KPT', desc: 'Forte présence en Suisse alémanique, primes compétitives.' },
+  { slug: 'atupri', name: 'Atupri', desc: 'Caisse digitale avec app moderne et primes attractives.' },
+  { slug: 'sympany', name: 'Sympany', desc: 'Service client reconnu, offre claire et transparente.' },
+  { slug: 'egk', name: 'EGK', desc: 'Spécialisée en médecines complémentaires et naturopathie.' },
+];
+
+for (const ins of INSURERS) {
+  ROUTES.push({
+    url: `/fr/assureurs/${ins.slug}/`,
+    title: `${ins.name} — Avis, primes et produits 2026 | Le Fennec Malin`,
+    description: `Tout savoir sur ${ins.name} : produits LAMal, modèles de soins, forces et points clés. Comparez ${ins.name} avec les autres caisses. Données OFSP 2026.`,
+    h1: `${ins.name} — Assurance maladie 2026`,
+    schemas: [
+      org,
+      breadcrumb([
+        { name: 'Accueil', url: '/fr/' },
+        { name: 'Assureurs', url: '/fr/assureurs/' },
+        { name: ins.name, url: `/fr/assureurs/${ins.slug}/` },
+      ]),
+    ],
+    body: `<p>${ins.desc}</p>
+<p>Comparez les primes de ${ins.name} avec toutes les autres caisses agréées OFSP 2026 pour votre profil, canton et franchise.</p>
+<h2>Produits LAMal de ${ins.name}</h2>
+<ul>
+<li>Assurance de base (LAMal) — modèles standard, médecin de famille, Telmed, HMO</li>
+<li>Assurances complémentaires ambulatoires et hospitalières</li>
+</ul>
+<h2>Comparer ${ins.name}</h2>
+<p>Les prestations de base LAMal sont identiques dans toutes les caisses. Seul le prix varie. <a href="/fr/assurance-maladie/">Utilisez notre comparateur</a> pour vérifier si ${ins.name} est la caisse la moins chère pour votre profil.</p>
+<p><a href="/fr/assureurs/">Voir toutes les caisses maladie</a> · <a href="/fr/assurance-maladie/">Comparateur LAMal</a></p>`,
+  });
+}
+
+// Hub pages
+const HUBS = [
+  {
+    url: '/fr/assureurs/',
+    title: 'Toutes les Caisses Maladie Suisses 2026 — Comparatif | Le Fennec Malin',
+    description: 'Comparez toutes les caisses maladie suisses agréées OFSP. CSS, Helsana, SWICA, Sanitas, Assura, Concordia et bien d\'autres. Données officielles 2026.',
+    h1: 'Toutes les caisses maladie suisses — Guide 2026',
+    body: `<p>La Suisse compte 37 caisses maladie agréées par l'OFSP pour l'assurance de base (LAMal). Les prestations de base sont identiques dans toutes les caisses — seul le prix varie.</p>
+<h2>Principales caisses maladie</h2>
+<ul>
+<li><a href="/fr/assureurs/css/">CSS Assurance</a> — plus de 1.5 million d'assurés</li>
+<li><a href="/fr/assureurs/helsana/">Helsana</a> — deuxième plus grande caisse suisse</li>
+<li><a href="/fr/assureurs/swica/">SWICA</a> — leader médecines alternatives</li>
+<li><a href="/fr/assureurs/sanitas/">Sanitas</a> — reconnue pour ses complémentaires</li>
+<li><a href="/fr/assureurs/assura/">Assura</a> — primes très compétitives</li>
+<li><a href="/fr/assureurs/concordia/">Concordia</a> — focus prévention</li>
+<li><a href="/fr/assureurs/groupe-mutuel/">Groupe Mutuel</a> — forte présence romande</li>
+</ul>
+<p><a href="/fr/assurance-maladie/">Comparer les primes de toutes les caisses</a></p>`,
+  },
+  {
+    url: '/fr/franchise/',
+    title: 'Franchise Assurance Maladie Suisse 2026 — Quel Montant Choisir ?',
+    description: 'Tout comprendre sur la franchise LAMal en Suisse. CHF 300 à CHF 2\'500 — comment choisir, calcul de rentabilité, impact sur la prime. Guide complet 2026.',
+    h1: 'Franchise assurance maladie : comment choisir en 2026 ?',
+    body: `<p>La franchise LAMal est le montant annuel que vous payez avant que votre caisse commence à rembourser. En 2026, six niveaux disponibles : CHF 300, 500, 1\'000, 1\'500, 2\'000 ou 2\'500.</p>
+<h2>Quel niveau de franchise choisir ?</h2>
+<ul>
+<li><strong>CHF 300</strong> — prime plus élevée, idéale si vous consultez souvent le médecin</li>
+<li><strong>CHF 500–1\'500</strong> — compromis selon votre santé</li>
+<li><strong>CHF 2\'500</strong> — prime la plus basse, rentable si peu de soins</li>
+</ul>
+<h2>Calcul de rentabilité</h2>
+<p>Passer de CHF 300 à CHF 2\'500 économise typiquement CHF 100–180/mois sur la prime, soit CHF 1\'200–2\'160/an. Rentable si vos frais médicaux annuels restent sous ce montant.</p>
+<p><a href="/fr/assurance-maladie/">Comparer les primes selon la franchise</a> · <a href="/fr/guides/">Voir nos guides</a></p>`,
+  },
+  {
+    url: '/fr/modeles-de-soins/',
+    title: 'Modèles de Soins LAMal Suisse 2026 — Telmed, HMO, Médecin de Famille',
+    description: 'Comprendre les modèles d\'assurance maladie suisses : standard, médecin de famille, Telmed, HMO. Économies possibles et conditions. Guide OFSP 2026.',
+    h1: 'Modèles de soins LAMal : lequel choisir en 2026 ?',
+    body: `<p>En choisissant un modèle alternatif, vous acceptez un itinéraire de soins précis en échange d'une réduction de prime de 8 à 25%.</p>
+<h2>Comparatif des modèles</h2>
+<ul>
+<li><strong>Standard</strong> — libre choix du médecin, prime la plus élevée</li>
+<li><strong>Médecin de famille</strong> — médecin référent obligatoire, −8 à −12%</li>
+<li><strong>Telmed</strong> — appel médical en premier, −8 à −15%</li>
+<li><strong>HMO</strong> — centre médical dédié, −15 à −25%</li>
+</ul>
+<p>En cas d'urgence médicale réelle, vous pouvez toujours aller directement aux urgences quel que soit votre modèle.</p>
+<p><a href="/fr/assurance-maladie/">Comparer par modèle de soins</a></p>`,
+  },
+  {
+    url: '/fr/calculateurs/',
+    title: 'Calculateurs Assurance Maladie Suisse 2026 | Le Fennec Malin',
+    description: 'Calculateurs gratuits : franchise optimale, économies LAMal, coût annuel, comparateur de primes, calcul subside. Outils officiels OFSP 2026.',
+    h1: 'Calculateurs assurance maladie suisse',
+    body: `<p>Nos outils de calcul gratuits vous aident à optimiser votre assurance maladie et votre prévoyance en Suisse.</p>
+<h2>Outils disponibles</h2>
+<ul>
+<li><a href="/fr/assurance-maladie/">Comparateur de primes LAMal</a> — trouvez la caisse la moins chère</li>
+<li><a href="/fr/franchise/">Calculateur de franchise</a> — franchise 300 ou 2500 ?</li>
+<li><a href="/fr/3eme-pilier/">Simulateur 3ème pilier</a> — capital retraite et économies fiscales</li>
+<li><a href="/fr/subsides/">Estimateur de subside</a> — êtes-vous éligible ?</li>
+</ul>`,
+  },
+];
+
+for (const hub of HUBS) {
+  ROUTES.push({
+    ...hub,
+    schemas: [org, breadcrumb([{ name: 'Accueil', url: '/fr/' }, { name: hub.h1.split('—')[0].trim(), url: hub.url }])],
+  });
+}
+
 // Generate all routes
 let count = 0;
 for (const route of ROUTES) {

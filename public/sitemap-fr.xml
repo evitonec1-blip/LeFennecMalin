@@ -2341,3 +2341,28 @@
   </url>
 
 </urlset>
+  <!-- Insurer pages -->
+  <url><loc>https://www.lefennecmalin.ch/fr/assureurs/css/</loc><lastmod>2026-08-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.lefennecmalin.ch/fr/assureurs/helsana/</loc><lastmod>2026-08-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.lefennecmalin.ch/fr/assureurs/swica/</loc><lastmod>2026-08-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.lefennecmalin.ch/fr/assureurs/sanitas/</loc><lastmod>2026-08-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.lefennecmalin.ch/fr/assureurs/concordia/</loc><lastmod>2026-08-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.lefennecmalin.ch/fr/assureurs/assura/</loc><lastmod>2026-08-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.lefennecmalin.ch/fr/assureurs/groupe-mutuel/</loc><lastmod>2026-08-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.lefennecmalin.ch/fr/assureurs/visana/</loc><lastmod>2026-08-27</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.lefennecmalin.ch/fr/assureurs/kpt/</loc><lastmod>2026-08-27</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.lefennecmalin.ch/fr/assureurs/sympany/</loc><lastmod>2026-08-27</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.lefennecmalin.ch/fr/assureurs/atupri/</loc><lastmod>2026-08-27</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.lefennecmalin.ch/fr/assureurs/aquilana/</loc><lastmod>2026-08-27</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.lefennecmalin.ch/fr/assureurs/egk/</loc><lastmod>2026-08-27</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.lefennecmalin.ch/fr/assureurs/oekk/</loc><lastmod>2026-08-27</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <!-- Hub pages -->
+  <url><loc>https://www.lefennecmalin.ch/fr/assureurs/</loc><lastmod>2026-08-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.lefennecmalin.ch/fr/franchise/</loc><lastmod>2026-08-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.lefennecmalin.ch/fr/modeles-de-soins/</loc><lastmod>2026-08-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.lefennecmalin.ch/fr/subsides/</loc><lastmod>2026-08-27</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.lefennecmalin.ch/fr/assurance-frontalier/</loc><lastmod>2026-08-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.lefennecmalin.ch/fr/assurance-famille/</loc><lastmod>2026-08-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.lefennecmalin.ch/fr/assurance-complementaire/</loc><lastmod>2026-08-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.lefennecmalin.ch/fr/calculateurs/</loc><lastmod>2026-08-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+</urlset>
