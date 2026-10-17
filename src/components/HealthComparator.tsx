@@ -228,7 +228,7 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     prioFlexibilityDesc: "Accès sans contrainte standard",
 
     verifyTitle: "Vérification de sécurité",
-    verifySubtitle: "Avant d'accéder au comparatif officiel des caisses maladie 2026, veuillez valider vos coordonnées. Un code de sécurité unique vous sera envoyé gratuitement.",
+    verifySubtitle: "Avant d'accéder au comparatif officiel des caisses maladie 2027, veuillez valider vos coordonnées. Un code de sécurité unique vous sera envoyé gratuitement.",
     firstName: "Prénom *",
     lastName: "Nom *",
     email: "Adresse E-mail *",
@@ -242,7 +242,7 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     validateCodeBtn: "Valider le code & afficher les résultats",
     verifyingCodeBtn: "Vérification en cours...",
     modifyDetails: "Modifier mes coordonnées",
-    fennyMessage: "Afin de valider votre dossier et de vous présenter les vraies primes certifiées 2026, un code de sécurité à 4 chiffres vient d'être généré et envoyé à l'adresse",
+    fennyMessage: "Afin de valider votre dossier et de vous présenter les vraies primes certifiées 2027, un code de sécurité à 4 chiffres vient d'être généré et envoyé à l'adresse",
 
     backBtn: "Retour",
     continueBtn: "Continuer",
@@ -251,10 +251,10 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     embeddedTitle: "Simulez vos primes d'assurance maladie suisse avec Fenny",
     embeddedSubtitle: "Répondez à 5 questions simples en moins de 2 minutes. Notre algorithme indépendant compare l'intégralité des 37 caisses d'assurance maladie suisses agréées OFSP pour identifier le tarif le plus compétitif de votre canton.",
     embeddedStat1: "37 caisses agréées comparées (LAMal)",
-    embeddedStat2: "Données officielles OFSP & Priminfo 2026",
+    embeddedStat2: "Données officielles OFSP & Priminfo 2027",
     embeddedStat3: "100% gratuit, anonyme & conforme nLPD",
     embeddedBtn: "Lancer le comparateur maladie",
-    resultsBadge: "Comparateur Officiel 2026",
+    resultsBadge: "Comparateur Officiel 2027",
     resultsTitle: "Comparez les primes d'assurance maladie suisse",
     resultsSubtitle: "Trouvez instantanément le tarif le plus avantageux et adapté à vos besoins réels.",
     questionOf: "Question {n} sur 7",
@@ -263,7 +263,7 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     quitBtn: "Quitter",
     analyzingTitle: "Analyse comparative en cours...",
     analyzingDescPre: "Fenny interroge les bases de données officielles de l'",
-    analyzingOfsp: "OFSP (OFAS) 2026",
+    analyzingOfsp: "OFSP (OFAS) 2027",
     analyzingDescMid: " et compare en temps réel ",
     analyzing37: "37 caisses maladie",
     analyzingDescEnd: " pour la région de",
@@ -275,10 +275,10 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     savingsGapDesc: "{ui.savingsGapDesc}",
     smartAdviceBadge: "Conseil Malin",
     cheapestLabel: "Le plus avantageux",
-    netPriceLabel: "Prix total net 2026",
+    netPriceLabel: "Prix total net 2027",
     notAvailableLabel: "Non disponible",
     envTaxLabel: "-5.15 CHF déduits (taxe environnementale)",
-    sourceLabel: "Source : OFSP/priminfo, primes 2026",
+    sourceLabel: "Source : OFSP/priminfo, primes 2027",
     modelLabel: "Modèle :",
     getOfferBtn: "Obtenir l'offre",
     unavailableBtn: "Indisponible",
@@ -539,7 +539,7 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     prioFlexibilityDesc: "Standard freie Wahl",
 
     verifyTitle: "Sicherheitsprüfung",
-    verifySubtitle: "Bevor Sie auf den offiziellen Krankenkassenvergleich 2026 zugreifen, bestätigen Sie bitte Ihre Kontaktdaten.",
+    verifySubtitle: "Bevor Sie auf den offiziellen Krankenkassenvergleich 2027 zugreifen, bestätigen Sie bitte Ihre Kontaktdaten.",
     firstName: "Vorname *",
     lastName: "Nachname *",
     email: "E-Mail-Adresse *",
@@ -553,7 +553,7 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     validateCodeBtn: "Code bestätigen & Ergebnisse anzeigen",
     verifyingCodeBtn: "Überprüfung läuft...",
     modifyDetails: "Kontaktdaten ändern",
-    fennyMessage: "Um Ihre Daten zu bestätigen und die echten zertifizierten Prämien 2026 anzuzeigen, wurde ein 4-stelliger Code gesendet an",
+    fennyMessage: "Um Ihre Daten zu bestätigen und die echten zertifizierten Prämien 2027 anzuzeigen, wurde ein 4-stelliger Code gesendet an",
 
     backBtn: "Zurück",
     continueBtn: "Weiter",
@@ -562,10 +562,10 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     embeddedTitle: "Simulieren Sie Ihre Schweizer Krankenkassenprämien mit Fenny",
     embeddedSubtitle: "Beantworten Sie 5 einfache Fragen in weniger als 2 Minuten. Unser unabhängiger Algorithmus vergleicht alle 37 BAG-zugelassenen Schweizer Krankenkassen, um den günstigsten Tarif in Ihrem Kanton zu ermitteln.",
     embeddedStat1: "37 zugelassene Kassen verglichen (KVG)",
-    embeddedStat2: "Offizielle BAG- & Priminfo-Daten 2026",
+    embeddedStat2: "Offizielle BAG- & Priminfo-Daten 2027",
     embeddedStat3: "100% kostenlos, anonym & nDSG-konform",
     embeddedBtn: "Krankenkassenvergleich starten",
-    resultsBadge: "Offizieller Vergleich 2026",
+    resultsBadge: "Offizieller Vergleich 2027",
     resultsTitle: "Vergleichen Sie Schweizer Krankenkassenprämien",
     resultsSubtitle: "Finden Sie sofort den günstigsten Tarif, der zu Ihren tatsächlichen Bedürfnissen passt.",
     questionOf: "Frage {n} von 7",
@@ -574,7 +574,7 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     quitBtn: "Beenden",
     analyzingTitle: "Vergleichsanalyse läuft...",
     analyzingDescPre: "Fenny durchsucht die offiziellen Datenbanken des ",
-    analyzingOfsp: "BAG (2026)",
+    analyzingOfsp: "BAG (2027)",
     analyzingDescMid: " und vergleicht in Echtzeit ",
     analyzing37: "37 Krankenkassen",
     analyzingDescEnd: " für die Region",
@@ -586,10 +586,10 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     savingsGapDesc: "Dies ist die durchschnittliche Differenz in Ihrem Kanton zwischen dem teuersten und dem günstigsten Angebot.",
     smartAdviceBadge: "Kluger Tipp",
     cheapestLabel: "Günstigstes Angebot",
-    netPriceLabel: "Nettopreis 2026",
+    netPriceLabel: "Nettopreis 2027",
     notAvailableLabel: "Nicht verfügbar",
     envTaxLabel: "-5.15 CHF abgezogen (Umweltsteuer)",
-    sourceLabel: "Quelle: BAG/priminfo, Prämien 2026",
+    sourceLabel: "Quelle: BAG/priminfo, Prämien 2027",
     modelLabel: "Modell:",
     getOfferBtn: "Angebot erhalten",
     unavailableBtn: "Nicht verfügbar",
@@ -850,7 +850,7 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     prioFlexibilityDesc: "Standard free choice access",
 
     verifyTitle: "Security verification",
-    verifySubtitle: "Before accessing the official 2026 health fund comparison, please confirm your contact details.",
+    verifySubtitle: "Before accessing the official 2027 health fund comparison, please confirm your contact details.",
     firstName: "First Name *",
     lastName: "Last Name *",
     email: "Email Address *",
@@ -864,7 +864,7 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     validateCodeBtn: "Validate code & view results",
     verifyingCodeBtn: "Verifying...",
     modifyDetails: "Modify my contact details",
-    fennyMessage: "To validate your file and present certified 2026 premiums, a 4-digit code was sent to",
+    fennyMessage: "To validate your file and present certified 2027 premiums, a 4-digit code was sent to",
 
     backBtn: "Back",
     continueBtn: "Continue",
@@ -873,10 +873,10 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     embeddedTitle: "Simulate your Swiss health insurance premiums with Fenny",
     embeddedSubtitle: "Answer 5 simple questions in under 2 minutes. Our independent algorithm compares all 37 BAG-approved Swiss health insurers to find the most competitive rate in your canton.",
     embeddedStat1: "37 approved insurers compared (LAMal)",
-    embeddedStat2: "Official FOPH & Priminfo 2026 data",
+    embeddedStat2: "Official FOPH & Priminfo 2027 data",
     embeddedStat3: "100% free, anonymous & Swiss nDPA compliant",
     embeddedBtn: "Launch health insurance comparator",
-    resultsBadge: "Official 2026 Comparator",
+    resultsBadge: "Official 2027 Comparator",
     resultsTitle: "Compare Swiss health insurance premiums",
     resultsSubtitle: "Instantly find the best rate suited to your actual needs.",
     questionOf: "Question {n} of 7",
@@ -885,7 +885,7 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     quitBtn: "Quit",
     analyzingTitle: "Comparative analysis in progress...",
     analyzingDescPre: "Fenny is querying the official ",
-    analyzingOfsp: "FOPH (2026)",
+    analyzingOfsp: "FOPH (2027)",
     analyzingDescMid: " databases and comparing ",
     analyzing37: "37 health insurers",
     analyzingDescEnd: " in real time for the region",
@@ -897,10 +897,10 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     savingsGapDesc: "This is the average gap observed in your canton between the most expensive and the most competitive offer.",
     smartAdviceBadge: "Smart Tip",
     cheapestLabel: "Best value",
-    netPriceLabel: "Net price 2026",
+    netPriceLabel: "Net price 2027",
     notAvailableLabel: "Not available",
     envTaxLabel: "-CHF 5.15 deducted (environmental tax)",
-    sourceLabel: "Source: FOPH/priminfo, 2026 premiums",
+    sourceLabel: "Source: FOPH/priminfo, 2027 premiums",
     modelLabel: "Model:",
     getOfferBtn: "Get offer",
     unavailableBtn: "Unavailable",
@@ -1161,7 +1161,7 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     prioFlexibilityDesc: "Accesso standard senza vincoli",
 
     verifyTitle: "Verifica di sicurezza",
-    verifySubtitle: "Prima di accedere al confronto ufficiale delle casse malati 2026, conferma i tuoi dati di contatto.",
+    verifySubtitle: "Prima di accedere al confronto ufficiale delle casse malati 2027, conferma i tuoi dati di contatto.",
     firstName: "Nome *",
     lastName: "Cognome *",
     email: "Indirizzo E-mail *",
@@ -1175,7 +1175,7 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     validateCodeBtn: "Conferma codice e mostra risultati",
     verifyingCodeBtn: "Verifica in corso...",
     modifyDetails: "Modifica i miei dati",
-    fennyMessage: "Per convalidare la tua richiesta e mostrare i premi certificati 2026, è stato inviato un codice a 4 cifre a",
+    fennyMessage: "Per convalidare la tua richiesta e mostrare i premi certificati 2027, è stato inviato un codice a 4 cifre a",
 
     backBtn: "Indietro",
     continueBtn: "Continua",
@@ -1184,10 +1184,10 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     embeddedTitle: "Simula i tuoi premi dell'assicurazione malattia svizzera con Fenny",
     embeddedSubtitle: "Rispondi a 5 semplici domande in meno di 2 minuti. Il nostro algoritmo indipendente confronta tutte le 37 casse malati svizzere autorizzate dall'UFSP per trovare la tariffa più conveniente nel tuo cantone.",
     embeddedStat1: "37 casse autorizzate confrontate (LAMal)",
-    embeddedStat2: "Dati ufficiali UFSP e Priminfo 2026",
+    embeddedStat2: "Dati ufficiali UFSP e Priminfo 2027",
     embeddedStat3: "100% gratuito, anonimo e conforme alla nLPD",
     embeddedBtn: "Avvia il comparatore casse malati",
-    resultsBadge: "Comparatore Ufficiale 2026",
+    resultsBadge: "Comparateur Ufficiale 2027",
     resultsTitle: "Confronta i premi dell'assicurazione malattia svizzera",
     resultsSubtitle: "Trova immediatamente la tariffa più vantaggiosa e adatta alle tue reali esigenze.",
     questionOf: "Domanda {n} su 7",
@@ -1196,7 +1196,7 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     quitBtn: "Esci",
     analyzingTitle: "Analisi comparativa in corso...",
     analyzingDescPre: "Fenny consulta i database ufficiali dell'",
-    analyzingOfsp: "UFSP (2026)",
+    analyzingOfsp: "UFSP (2027)",
     analyzingDescMid: " e confronta in tempo reale ",
     analyzing37: "37 casse malati",
     analyzingDescEnd: " per la regione",
@@ -1208,10 +1208,10 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     savingsGapDesc: "Questo è il divario medio osservato nel tuo cantone tra l'offerta più cara e quella più competitiva.",
     smartAdviceBadge: "Consiglio Furbo",
     cheapestLabel: "Il più vantaggioso",
-    netPriceLabel: "Prezzo netto 2026",
+    netPriceLabel: "Prezzo netto 2027",
     notAvailableLabel: "Non disponibile",
     envTaxLabel: "-CHF 5.15 dedotti (tassa ambientale)",
-    sourceLabel: "Fonte: UFSP/priminfo, premi 2026",
+    sourceLabel: "Fonte: UFSP/priminfo, premi 2027",
     modelLabel: "Modello:",
     getOfferBtn: "Ottieni l'offerta",
     unavailableBtn: "Non disponibile",
@@ -1414,7 +1414,7 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     fennyQuoteResults: "¡He encontrado las mejores ofertas para tu perfil suizo!",
     noResultsTitle: "Sin resultados",
     noResultsDesc: "No se han encontrado ofertas para este perfil. Prueba con otros criterios.",
-    officialDataBadge: "Datos OFSP & Priminfo 2026",
+    officialDataBadge: "Datos OFSP & Priminfo 2027",
     sortByPrice: "Precio",
     sortByRating: "Valoración",
     filterLabel: "Filtrar",
@@ -1508,7 +1508,7 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     fennyQuoteResults: "Encontrei as melhores ofertas para o seu perfil suíço!",
     noResultsTitle: "Sem resultados",
     noResultsDesc: "Não foram encontradas ofertas para este perfil. Tente outros critérios.",
-    officialDataBadge: "Dados OFSP & Priminfo 2026",
+    officialDataBadge: "Dados OFSP & Priminfo 2027",
     sortByPrice: "Preço",
     sortByRating: "Avaliação",
     filterLabel: "Filtrar",
@@ -1716,7 +1716,7 @@ export default function HealthComparator({ isEmbedded = false, initialCanton, on
         const d = parseInt(day, 10);
         const m = parseInt(month, 10);
         const y = parseInt(year, 10);
-        if (d >= 1 && d <= 31 && m >= 1 && m <= 12 && y >= 1900 && y <= 2026) {
+        if (d >= 1 && d <= 31 && m >= 1 && m <= 12 && y >= 1900 && y <= 2027) {
           return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
         }
       }
@@ -1773,7 +1773,7 @@ export default function HealthComparator({ isEmbedded = false, initialCanton, on
     handleFilterChange('birthDate', dateVal);
     if (dateVal) {
       const birthYear = new Date(dateVal).getFullYear();
-      const currentYear = 2026;
+      const currentYear = 2027;
       const age = currentYear - birthYear;
       let category: 'adult' | 'young' | 'child' = 'adult';
       if (age <= 18) {
@@ -3971,7 +3971,7 @@ export default function HealthComparator({ isEmbedded = false, initialCanton, on
                       {ui.noResultsDesc.replace('{zip}', filters.zipCode).replace('{franchise}', String(filters.franchise))}
                     </p>
                     <span className="inline-block text-[10px] text-fennec-dark/60 font-medium bg-fennec-cream/20 px-3 py-1 rounded-full border border-fennec-cream">
-                      Source : OFSP/priminfo, primes 2026
+                      Source : OFSP/priminfo, primes 2027
                     </span>
                   </div>
                 )}

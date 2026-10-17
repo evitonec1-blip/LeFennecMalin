@@ -955,14 +955,14 @@ export default function App() {
           />
         )}
 
-        {currentTab === 'lamal-primes-2026' && (
+        {(currentTab === 'lamal-primes-2027' || currentTab === 'lamal-primes-2026') && (
           <PremiumsDataStudyPage
             onNavigate={setTab}
             onStartComparison={() => setTab('health-comparator')}
           />
         )}
 
-        {currentTab === 'comparer-assureurs-primes-2026' && (
+        {(currentTab === 'comparer-assureurs-primes-2027' || currentTab === 'comparer-assureurs-primes-2026') && (
           <CompareInsurers2026Page
             onNavigate={setTab}
             onStartComparison={() => setTab('health-comparator')}

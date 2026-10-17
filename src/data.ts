@@ -20,10 +20,10 @@ export const SWISS_CANTONS = [
 
 export const FRANCHISES = [300, 500, 1000, 1500, 2000, 2500];
 
-// insurer id = official OFSP numeric code (matches insurer_code in data/premiums_2026.csv).
-// name = official registry name (assureurs-maladie-admis-2026-01-01.xlsx).
+// insurer id = official OFSP numeric code (matches Versicherer in data/premiums_2027.csv).
+// name = official registry name.
 // basePrice is NOT used for display — real premiums always come from the
-// live lookup against premiums_2026.json (see premiumLookupService.ts).
+// live lookup against premiums_2027.json (see premiumLookupService.ts).
 // rating / ratingStars / notes are editorial marketing copy, NOT sourced
 // from OFSP data — review/replace them separately if accuracy matters here.
 export const CAISSES_MALADIE: CaisseMaladie[] = [

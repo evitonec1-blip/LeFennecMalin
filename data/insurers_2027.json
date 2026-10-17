@@ -1,0 +1,238 @@
+{
+  "insurers": {
+    "8": {
+      "name": "CSS Assurance-maladie SA",
+      "ide": "CHE-105.940.380",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "32": {
+      "name": "Aquilana Versicherungen",
+      "ide": "CHE-105.981.879",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "134": {
+      "name": "Einsiedler Krankenkasse",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "194": {
+      "name": "Sumiswalder Krankenkasse",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "246": {
+      "name": "Genossenschaft Krankenkasse Steffisburg",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "290": {
+      "name": "CONCORDIA Assurance suisse de maladie et accidents SA",
+      "ide": "CHE-105.882.383",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "312": {
+      "name": "Atupri Assurance de la santé SA",
+      "ide": "CHE-105.972.102",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "343": {
+      "name": "Avenir Assurance",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "360": {
+      "name": "Krankenkasse Luzerner Hinterland",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "376": {
+      "name": "KPT Caisse-maladie SA",
+      "ide": "CHE-105.975.291",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "455": {
+      "name": "ÖKK Kranken- und Unfallversicherungen AG",
+      "ide": "CHE-105.945.022",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "509": {
+      "name": "Vivao Sympany SA",
+      "ide": "CHE-105.977.102",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "780": {
+      "name": "Genossenschaft Glarner Krankenversicherung",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "820": {
+      "name": "curaulta",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "881": {
+      "name": "EGK Grundversicherungen AG",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "923": {
+      "name": "Genossenschaft KRANKENKASSE SLKK",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "941": {
+      "name": "sodalis gesundheitsgruppe",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "966": {
+      "name": "vita surselva",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1040": {
+      "name": "Verein Krankenkasse Visperterminen",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1113": {
+      "name": "Caisse-maladie de la vallée d\\",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1179": {
+      "name": "Mutuelle",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1318": {
+      "name": "Stiftung Krankenkasse Wädenswil",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1322": {
+      "name": "Krankenkasse Birchmeier",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1384": {
+      "name": "SWICA Assurance-maladie SA",
+      "ide": "CHE-105.978.211",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1386": {
+      "name": "Galenos AG",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1401": {
+      "name": "rhenusana",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1402": {
+      "name": "Taggeldkasse bildende KünstlerInnen",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1479": {
+      "name": "Mutuel Assurance",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1491": {
+      "name": "Gewerbliche Krankenkasse",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1507": {
+      "name": "AMB Assurances SA",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1509": {
+      "name": "Sanitas Grundversicherungen AG",
+      "ide": "CHE-105.980.111",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1520": {
+      "name": "HOTELA Caisse maladie",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1522": {
+      "name": "Krankenkasse Schweizerischer Metallbaufirmen",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1535": {
+      "name": "Philos Assurance",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1542": {
+      "name": "Assura-Basis SA",
+      "ide": "CHE-105.982.302",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1555": {
+      "name": "Visana AG",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1560": {
+      "name": "Agrisano Krankenkasse AG",
+      "ide": "",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1562": {
+      "name": "Helsana Assurances SA",
+      "ide": "CHE-105.983.411",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    },
+    "1568": {
+      "name": "sana24 AG",
+      "ide": "CHE-105.984.522",
+      "legal_form": "SA",
+      "daily_allowance_only": false
+    }
+  }
+}

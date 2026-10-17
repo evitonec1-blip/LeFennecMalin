@@ -95,33 +95,32 @@ const FAILURE_THRESHOLD = 3;
 const COOLDOWN_DURATION_MS = 5 * 60 * 1000; // 5 minutes
 
 /**
- * Fetches and caches the local 2026 premiums database on the client-side.
+ * Fetches and caches the official 2027 premiums database on the client-side.
  */
 async function getClientPremiumsDb(): Promise<Record<string, { premium: number; modelName: string }>> {
   if (clientPremiumsDbCache && Object.keys(clientPremiumsDbCache).length > 0) {
     return clientPremiumsDbCache;
   }
-  try {
-    const res = await fetch("/premiums_2026.json", {
-      headers: { "Accept": "application/json" },
-      cache: "default"
-    });
-    if (!res.ok) {
-      console.warn(`[PriminfoService] premiums_2026.json status: ${res.status}`);
-      return {};
+  const candidateUrls = ["/premiums_2027.json", "/premiums_2026.json"];
+  for (const url of candidateUrls) {
+    try {
+      const res = await fetch(url, {
+        headers: { "Accept": "application/json" },
+        cache: "default"
+      });
+      if (!res.ok) continue;
+      const text = await res.text();
+      if (!text || !text.trim().startsWith('{')) continue;
+      const data = JSON.parse(text);
+      if (Object.keys(data).length > 0) {
+        clientPremiumsDbCache = data;
+        return data;
+      }
+    } catch (err) {
+      console.warn(`[PriminfoService] Could not load ${url}:`, err);
     }
-    const text = await res.text();
-    if (!text || !text.trim().startsWith('{')) {
-      console.warn(`[PriminfoService] premiums_2026.json returned invalid or non-JSON content (length: ${text?.length || 0})`);
-      return {};
-    }
-    const data = JSON.parse(text);
-    clientPremiumsDbCache = data;
-    return data;
-  } catch (err) {
-    console.error("[PriminfoService] Error loading local client-side JSON cache:", err);
-    return {};
   }
+  return {};
 }
 
 export interface NpaRegionEntry {

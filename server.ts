@@ -549,7 +549,7 @@ Prime mensuelle calculée : ${computedPrem ? `CHF ${computedPrem.toFixed(2)} / m
               <table style="width: 100%; border-collapse: collapse; font-size: 13px; color: #4A4036;">
                 <tr>
                   <td style="padding: 5px 0; font-weight: bold; width: 45%;">Caisse demandée :</td>
-                  <td style="padding: 5px 0; font-weight: 700; color: #2F2921;">${caisse?.name || "LAMal 2026"}</td>
+                  <td style="padding: 5px 0; font-weight: 700; color: #2F2921;">${caisse?.name || "LAMal 2027"}</td>
                 </tr>
                 <tr>
                   <td style="padding: 5px 0; font-weight: bold;">Prime calculée :</td>
@@ -931,9 +931,13 @@ function loadNpaToRegionMap() {
   if (Object.keys(npaMap).length > 0) return npaMap;
   const cwd = process.cwd();
   const candidatePaths = [
+    path.join(cwd, "data", "npa_to_region_2027.csv"),
     path.join(cwd, "data", "npa_to_region_2026.csv"),
+    path.join(cwd, "public", "npa_to_region_2027.csv"),
     path.join(cwd, "public", "npa_to_region_2026.csv"),
+    path.join(__dirname_resolved, "data", "npa_to_region_2027.csv"),
     path.join(__dirname_resolved, "data", "npa_to_region_2026.csv"),
+    path.join(__dirname_resolved, "..", "data", "npa_to_region_2027.csv"),
     path.join(__dirname_resolved, "..", "data", "npa_to_region_2026.csv"),
   ];
   const existingPath = candidatePaths.find(p => fs.existsSync(p));
@@ -965,7 +969,7 @@ function loadNpaToRegionMap() {
         }
       }
     } catch (err) {
-      console.error("[Server] Error loading npa_to_region_2026.csv:", err);
+      console.error("[Server] Error loading npa_to_region CSV:", err);
     }
   }
   return npaMap;
@@ -982,7 +986,13 @@ async function loadPremiums() {
 
   const cwd = process.cwd();
   const candidatePaths = [
+    path.join(cwd, "public", "premiums_2027.json"),
+    path.join(cwd, "premiums_2027.json"),
+    path.join(cwd, "dist", "premiums_2027.json"),
+    path.join(__dirname_resolved, "public", "premiums_2027.json"),
+    path.join(__dirname_resolved, "..", "public", "premiums_2027.json"),
     path.join(cwd, "public", "premiums_2026.json"),
+    path.join(cwd, "premiums_2026.json"),
     path.join(cwd, "dist", "premiums_2026.json"),
     path.join(__dirname_resolved, "public", "premiums_2026.json"),
     path.join(__dirname_resolved, "..", "public", "premiums_2026.json"),
@@ -991,7 +1001,7 @@ async function loadPremiums() {
   const existingPath = candidatePaths.find(p => fs.existsSync(p));
 
   if (!existingPath) {
-    premiumsLoadError = `premiums_2026.json not found. Looked in: ${candidatePaths.join(", ")}`;
+    premiumsLoadError = `Neither premiums_2027.json nor premiums_2026.json found. Looked in: ${candidatePaths.join(", ")}`;
     console.error(`[Server] ${premiumsLoadError}`);
     return premiumsDb;
   }
@@ -1001,8 +1011,9 @@ async function loadPremiums() {
   try {
     premiumsDb = JSON.parse(raw);
     premiumsLoadError = null;
+    console.log(`[Server] Successfully loaded ${Object.keys(premiumsDb).length} premiums from ${existingPath}`);
   } catch (parseErr: any) {
-    premiumsLoadError = `premiums_2026.json at ${existingPath} is not valid JSON (file length: ${raw.length} chars): ${parseErr.message}`;
+    premiumsLoadError = `premiums JSON at ${existingPath} is not valid JSON (file length: ${raw.length} chars): ${parseErr.message}`;
     console.error(`[Server] ${premiumsLoadError}`);
   }
 
@@ -1173,7 +1184,7 @@ app.get("/api/priminfo/praemien", async (req, res) => {
             modelName: translateModelNameToFrench(record.modelName || getInsurerModelFallbackName(insurerId, modelType), modelType),
             modelType,
             premium: record.premium,
-            sourceNotice: "Source : OFSP/priminfo, primes 2026"
+            sourceNotice: "Source : OFSP/priminfo, primes 2027"
           });
         }
       }
@@ -1184,7 +1195,7 @@ app.get("/api/priminfo/praemien", async (req, res) => {
 
     res.json({
       success: true,
-      source: "Source : OFSP/priminfo, primes 2026",
+      source: "Source : OFSP/priminfo, primes 2027",
       canton,
       region,
       count: results.length,

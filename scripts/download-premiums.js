@@ -1,14 +1,6 @@
 /**
- * Builds public/premiums_2026.json and public/npa_to_region.json
- * from the REAL official OFSP data files already committed in data/.
- *
- * IMPORTANT: this script does NOT download anything and does NOT invent any
- * insurer mapping. It reads data/premiums_2026.csv, data/insurers_2026.json
- * and data/npa_to_region_2026.csv exactly as generated from the official
- * priminfo.admin.ch / opendata.swiss files, and only reformats them into
- * the lookup-key format the app expects. If you need to refresh the source
- * data (e.g. next year's premiums), replace the files in data/ with fresh
- * downloads from priminfo.admin.ch — do not hand-edit insurer mappings here.
+ * Builds public/premiums_2027.json, public/premiums_2026.json and public/npa_to_region.json
+ * from the REAL official OFSP/BAG data files committed in data/.
  *
  * This script runs automatically via `npm install` (postinstall) and `npm run build`.
  */
@@ -19,19 +11,48 @@ import zlib from 'zlib';
 const DATA_DIR = path.join(process.cwd(), 'data');
 const PUBLIC_DIR = path.join(process.cwd(), 'public');
 
-const AGE_MAP = { 'AKL-KIN': 'child', 'AKL-JUG': 'young', 'AKL-ERW': 'adult' };
-const MODEL_MAP = { 'TAR-BASE': 'standard', 'TAR-HAM': 'family', 'TAR-HMO': 'hmo', 'TAR-DIV': 'telemed' };
-const ACCIDENT_MAP = { 'MIT-UNF': true, 'OHN-UNF': false };
+const AGE_MAP = {
+  // 2026 codes
+  'AKL-KIN': 'child',
+  'AKL-JUG': 'young',
+  'AKL-ERW': 'adult',
+  // 2027 official BAG/OFSP codes
+  'AKA_01_KIN': 'child',
+  'AKA_02_JUG': 'young',
+  'AKA_03_ERW': 'adult'
+};
+
+const MODEL_MAP = {
+  // 2026 codes
+  'TAR-BASE': 'standard',
+  'TAR-HAM': 'family',
+  'TAR-HMO': 'hmo',
+  'TAR-DIV': 'telemed',
+  // 2027 official BAG/OFSP codes
+  'BASE': 'standard',
+  'PRAXIS': 'family',
+  'TEL_DIG': 'telemed',
+  'FLEX': 'hmo'
+};
+
+const ACCIDENT_MAP = {
+  // 2026 codes
+  'MIT-UNF': true,
+  'OHN-UNF': false,
+  // 2027 official BAG/OFSP codes
+  'MIT_UNF': true,
+  'OHN_UNF': false
+};
 
 function parseCsv(text) {
-  // Simple CSV parser: handles quoted fields, \r\n line endings, no embedded newlines in fields.
   const lines = text.split(/\r?\n/).filter(l => l.length > 0);
-  const headers = lines[0].split(',');
+  if (lines.length === 0) return [];
+  const headers = lines[0].replace(/^\uFEFF/, '').split(',').map(h => h.trim());
   const rows = [];
   for (let i = 1; i < lines.length; i++) {
     const cells = lines[i].split(',');
     const row = {};
-    headers.forEach((h, idx) => { row[h] = cells[idx]; });
+    headers.forEach((h, idx) => { row[h] = cells[idx] ? cells[idx].trim() : ''; });
     rows.push(row);
   }
   return rows;
@@ -49,86 +70,153 @@ function isJsonValid(filePath, minSize = 10000) {
   }
 }
 
-function buildPremiums() {
-  const csvPath = path.join(DATA_DIR, 'premiums_2026.csv');
-  const gzPath = path.join(DATA_DIR, 'premiums_2026.csv.gz');
-  const jsonPath = path.join(PUBLIC_DIR, 'premiums_2026.json');
-  const rootJsonPath = path.join(process.cwd(), 'premiums_2026.json');
-  let text = '';
+function normalizeRegion(raw) {
+  if (!raw) return 'PR-REG CH0';
+  const clean = raw.trim();
+  if (clean.startsWith('PR-REG CH')) return clean;
+  const match = clean.match(/(\d+)/);
+  if (match) {
+    return `PR-REG CH${match[1]}`;
+  }
+  return clean;
+}
 
+function parseDeductible(row) {
+  if (row.deductible_chf !== undefined && row.deductible_chf !== '') {
+    return parseInt(row.deductible_chf, 10);
+  }
+  const franchiseRaw = row.Franchise || row.franchise || '';
+  const match = franchiseRaw.match(/(\d+)$/);
+  if (match) {
+    return parseInt(match[1], 10);
+  }
+  return NaN;
+}
+
+function parseRow(row) {
+  const ageRaw = row.Altersklasse || row.age_class_code;
+  const modelRaw = row.Tariftyp || row.tariff_type_code;
+  const accidentRaw = row.Unfalleinschluss || row.accident_inclusion_code;
+
+  let age = AGE_MAP[ageRaw];
+  if (!age && ageRaw) {
+    if (ageRaw.includes('KIN')) age = 'child';
+    else if (ageRaw.includes('JUG')) age = 'young';
+    else if (ageRaw.includes('ERW')) age = 'adult';
+  }
+
+  let model = MODEL_MAP[modelRaw];
+  if (!model && modelRaw) {
+    const m = modelRaw.toUpperCase();
+    if (m === 'BASE') model = 'standard';
+    else if (m === 'PRAXIS') model = 'family';
+    else if (m === 'TEL_DIG') model = 'telemed';
+    else if (m === 'FLEX') model = 'hmo';
+  }
+
+  let accident = ACCIDENT_MAP[accidentRaw];
+  if (accident === undefined && accidentRaw) {
+    if (accidentRaw.includes('MIT')) accident = true;
+    else if (accidentRaw.includes('OHN')) accident = false;
+  }
+
+  if (age === undefined || model === undefined || accident === undefined) {
+    return null;
+  }
+
+  const insurer = (row.Versicherer || row.insurer_code || '').trim();
+  const canton = (row.Kanton || row.canton_code || '').trim().toUpperCase();
+  const region = normalizeRegion(row.Region || row.premium_region_code);
+  const deductible = parseDeductible(row);
+  const premiumRaw = row['Prämie'] || row.monthly_premium_chf || '';
+  const premium = parseFloat(premiumRaw);
+  const modelName = (row.Tarifbezeichnung || row.tariff_name_raw || '').trim();
+
+  if (!insurer || !canton || !region || isNaN(deductible) || isNaN(premium)) {
+    return null;
+  }
+
+  const key = `${insurer}_${canton}_${region}_${age}_${deductible}_${model}_${accident}`;
+  return { key, premium, modelName };
+}
+
+function buildPremiumsForYear(year) {
+  const csvPath = path.join(DATA_DIR, `premiums_${year}.csv`);
+  const gzPath = path.join(DATA_DIR, `premiums_${year}.csv.gz`);
+  const jsonPath = path.join(PUBLIC_DIR, `premiums_${year}.json`);
+  const rootJsonPath = path.join(process.cwd(), `premiums_${year}.json`);
+
+  let text = '';
   if (isJsonValid(jsonPath, 100000)) {
-    console.log('[download-premiums] public/premiums_2026.json is already valid, skipping CSV parse.');
+    console.log(`[download-premiums] public/premiums_${year}.json is already valid, skipping CSV parse.`);
     if (!isJsonValid(rootJsonPath, 100000)) {
       fs.copyFileSync(jsonPath, rootJsonPath);
     }
     return;
   } else if (fs.existsSync(csvPath)) {
+    console.log(`[download-premiums] Reading data/premiums_${year}.csv...`);
     text = fs.readFileSync(csvPath, 'utf-8');
   } else if (fs.existsSync(gzPath)) {
-    console.log('[download-premiums] Decompressing data/premiums_2026.csv.gz...');
+    console.log(`[download-premiums] Decompressing data/premiums_${year}.csv.gz...`);
     const buffer = fs.readFileSync(gzPath);
     text = zlib.gunzipSync(buffer).toString('utf-8');
   } else {
-    throw new Error(`Missing source files: checked data/premiums_2026.csv, data/premiums_2026.csv.gz, and public/premiums_2026.json.`);
+    console.warn(`[download-premiums] No data file found for year ${year}.`);
+    return;
   }
 
   const rows = parseCsv(text);
-
   const db = {};
   let skipped = 0;
+
   for (const row of rows) {
-    const age = AGE_MAP[row.age_class_code];
-    const model = MODEL_MAP[row.tariff_type_code];
-    const accident = ACCIDENT_MAP[row.accident_inclusion_code];
-    if (age === undefined || model === undefined || accident === undefined) { skipped++; continue; }
-
-    const insurer = (row.insurer_code || '').trim();
-    const canton = (row.canton_code || '').trim().toUpperCase();
-    const region = (row.premium_region_code || '').trim();
-    const deductible = parseInt(row.deductible_chf, 10);
-    const premium = parseFloat(row.monthly_premium_chf);
-    if (!insurer || !canton || !region || isNaN(deductible) || isNaN(premium)) { skipped++; continue; }
-
-    const key = `${insurer}_${canton}_${region}_${age}_${deductible}_${model}_${accident}`;
+    const parsed = parseRow(row);
+    if (!parsed) {
+      skipped++;
+      continue;
+    }
+    const { key, premium, modelName } = parsed;
     if (!db[key] || premium < db[key].premium) {
-      db[key] = { premium, modelName: row.tariff_name_raw || '' };
+      db[key] = { premium, modelName };
     }
   }
 
-  console.log(`[download-premiums] Parsed ${rows.length} rows, skipped ${skipped}, wrote ${Object.keys(db).length} unique keys.`);
+  console.log(`[download-premiums] [${year}] Parsed ${rows.length} rows, skipped ${skipped}, wrote ${Object.keys(db).length} unique keys.`);
 
   if (!fs.existsSync(PUBLIC_DIR)) fs.mkdirSync(PUBLIC_DIR, { recursive: true });
   const serialized = JSON.stringify(db);
   fs.writeFileSync(jsonPath, serialized);
   fs.writeFileSync(rootJsonPath, serialized);
+
   const distDir = path.join(process.cwd(), 'dist');
   if (fs.existsSync(distDir)) {
-    fs.writeFileSync(path.join(distDir, 'premiums_2026.json'), serialized);
+    fs.writeFileSync(path.join(distDir, `premiums_${year}.json`), serialized);
   }
-  console.log(`[download-premiums] Wrote public/premiums_2026.json (${(fs.statSync(jsonPath).size / 1024 / 1024).toFixed(2)} MB)`);
+  console.log(`[download-premiums] Wrote public/premiums_${year}.json (${(fs.statSync(jsonPath).size / 1024 / 1024).toFixed(2)} MB)`);
 }
 
 function buildNpaMap() {
-  const csvPath = path.join(DATA_DIR, 'npa_to_region_2026.csv');
+  const csvPath = fs.existsSync(path.join(DATA_DIR, 'npa_to_region_2027.csv'))
+    ? path.join(DATA_DIR, 'npa_to_region_2027.csv')
+    : path.join(DATA_DIR, 'npa_to_region_2026.csv');
   const gzPath = path.join(DATA_DIR, 'npa_to_region_2026.csv.gz');
   const jsonPath = path.join(PUBLIC_DIR, 'npa_to_region.json');
-  let text = '';
 
+  let text = '';
   if (isJsonValid(jsonPath, 1000)) {
     console.log('[download-premiums] public/npa_to_region.json is valid, skipping NPA build.');
     return;
   } else if (fs.existsSync(csvPath)) {
     text = fs.readFileSync(csvPath, 'utf-8');
   } else if (fs.existsSync(gzPath)) {
-    console.log('[download-premiums] Decompressing data/npa_to_region_2026.csv.gz...');
+    console.log('[download-premiums] Decompressing NPA data gz...');
     const buffer = fs.readFileSync(gzPath);
     text = zlib.gunzipSync(buffer).toString('utf-8');
   } else {
-    throw new Error(`Missing source files for NPA: checked data/npa_to_region_2026.csv, data/npa_to_region_2026.csv.gz, and public/npa_to_region.json.`);
+    throw new Error('Missing source files for NPA map.');
   }
 
   const rows = parseCsv(text);
-
   const npaMap = {};
   for (const row of rows) {
     const npa = (row.npa || '').trim();
@@ -149,20 +237,14 @@ function buildNpaMap() {
   console.log(`[download-premiums] Parsed ${rows.length} NPA rows, ${Object.keys(npaMap).length} distinct postal codes.`);
   if (!fs.existsSync(PUBLIC_DIR)) fs.mkdirSync(PUBLIC_DIR, { recursive: true });
   fs.writeFileSync(jsonPath, JSON.stringify(npaMap));
-  console.log(`[download-premiums] Wrote public/npa_to_region.json`);
+  console.log('[download-premiums] Wrote public/npa_to_region.json');
 }
 
 try {
-  buildPremiums();
+  buildPremiumsForYear(2027);
+  buildPremiumsForYear(2026);
   buildNpaMap();
-  console.log('[download-premiums] Done — data built entirely from local official OFSP files, no network calls, no invented insurers.');
+  console.log('[download-premiums] Done — official 2027 & 2026 premium databases successfully generated.');
 } catch (err) {
   console.warn('[download-premiums] Warning during premiums build:', err.message);
-  // Do not crash postinstall if data files already exist
-  const jsonPath = path.join(PUBLIC_DIR, 'premiums_2026.json');
-  if (isJsonValid(jsonPath, 100000)) {
-    console.log('[download-premiums] Existing valid premiums_2026.json found, continuing safely.');
-  } else {
-    console.warn('[download-premiums] Continuing without failing postinstall hook.');
-  }
 }

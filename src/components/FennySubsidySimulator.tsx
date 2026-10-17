@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  *
  * Fenny Subsidy Interactive Simulator (Simulateur Fenny de Subside d'Assurance Maladie)
- * Mobile-first, friendly, conversion-optimized, compliant with Swiss cantonal rules (2026).
+ * Mobile-first, friendly, conversion-optimized, compliant with Swiss cantonal rules (2027).
  */
 
 import React, { useState, useEffect } from 'react';
@@ -196,7 +196,7 @@ export default function FennySubsidySimulator({
       case 6:
         return "Dernière étape ! Votre statut de résidence nous permet de valider les conditions d'octroi de votre canton.";
       default:
-        return "Voici l'estimation personnalisée de votre droit au subside calculée selon les directives officielles 2026 !";
+        return "Voici l'estimation personnalisée de votre droit au subside calculée selon les directives officielles 2027 !";
     }
   };
 
@@ -252,7 +252,7 @@ export default function FennySubsidySimulator({
             <div>
               <div className="flex items-center gap-2">
                 <span className="px-2.5 py-0.5 bg-fennec-terracotta text-white font-bold text-[10px] uppercase tracking-wider rounded-full">
-                  Simulateur Fenny 2026
+                  Simulateur Fenny 2027
                 </span>
                 <span className="text-white/60 text-xs font-mono">
                   Données officielles 26 cantons

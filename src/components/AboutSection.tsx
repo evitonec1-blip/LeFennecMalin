@@ -27,7 +27,7 @@ export default function AboutSection({ onStartComparison, onTabChange }: AboutSe
       
       authority_title: "Notre Expertise & Rigueur Actuarielle Suisse",
       authority_desc: "La crédibilité de nos comparateurs repose sur une méthodologie mathématique rigoureuse et des sources de données officielles certifiées par la Confédération suisse.",
-      auth_1_title: "Données Officielles OFSP 2026",
+      auth_1_title: "Données Officielles OFSP 2027",
       auth_1_desc: "Nos algorithmes intègrent l'intégralité des 250'000+ tarifs officiels publiés par l'Office Fédéral de la Santé Publique (OFSP / priminfo.admin.ch) pour les 26 cantons suisses.",
       auth_2_title: "Indépendance & Neutralité 100%",
       auth_2_desc: "Aucune compagnie d'assurance ne détient de participation dans le capital de notre société éditrice SAITHAMA Sàrl. Les résultats sont classés par ordre objectif de prix et de prestations.",
@@ -77,7 +77,7 @@ export default function AboutSection({ onStartComparison, onTabChange }: AboutSe
       
       authority_title: "Unsere Fachkompetenz & Schweizer Datenqualität",
       authority_desc: "Unsere Vergleiche basieren auf exakten mathematischen Modellen und offiziellen Bundesdaten.",
-      auth_1_title: "Offizielle BAG-Daten 2026",
+      auth_1_title: "Offizielle BAG-Daten 2027",
       auth_1_desc: "Über 250'000 offizielle Tarife des Bundesamts für Gesundheit (BAG / priminfo.admin.ch) für alle 26 Schweizer Kantone.",
       auth_2_title: "100% Unabhängig & Neutral",
       auth_2_desc: "Keine Versicherungsgesellschaft hält Anteile an unserer Betreibergesellschaft SAITHAMA Sàrl.",
@@ -127,7 +127,7 @@ export default function AboutSection({ onStartComparison, onTabChange }: AboutSe
       
       authority_title: "Our Expertise & Swiss Actuarial Standards",
       authority_desc: "Our comparison engines are built on strict mathematical modeling and official Swiss government datasets.",
-      auth_1_title: "Official FOPH 2026 Dataset",
+      auth_1_title: "Official FOPH 2027 Dataset",
       auth_1_desc: "We integrate over 250,000 official tariffs published by the Federal Office of Public Health (FOPH / priminfo.admin.ch) for all 26 Swiss cantons.",
       auth_2_title: "100% Independence & Neutrality",
       auth_2_desc: "No insurance carrier holds equity in our publishing company SAITHAMA Sàrl. Results are ordered strictly by price and policy value.",
@@ -177,7 +177,7 @@ export default function AboutSection({ onStartComparison, onTabChange }: AboutSe
       
       authority_title: "Esperienza & Standard Attuariali Svizzeri",
       authority_desc: "I nostri calcoli si basano su formule precise e sui dati ufficiali della Confederazione svizzera.",
-      auth_1_title: "Dati Ufficiali UFSP 2026",
+      auth_1_title: "Dati Ufficiali UFSP 2027",
       auth_1_desc: "Oltre 250'000 tariffe ufficiali pubblicate dall'Ufficio Federale della Sanità Pubblica (UFSP / priminfo.admin.ch) per tutti i 26 cantoni.",
       auth_2_title: "Indipendenza e Neutralità 100%",
       auth_2_desc: "Nessuna compagnia assicurativa partecipa al capitale della nostra società SAITHAMA Sàrl.",
@@ -227,7 +227,7 @@ export default function AboutSection({ onStartComparison, onTabChange }: AboutSe
       
       authority_title: "Nuestra Experiencia & Rigor Actuarial Suizo",
       authority_desc: "Nuestros comparadores se fundamentan en modelos matemáticos rigurosos y datos oficiales de la Confederación Suiza.",
-      auth_1_title: "Datos Oficiales OFSP 2026",
+      auth_1_title: "Datos Oficiales OFSP 2027",
       auth_1_desc: "Más de 250'000 tarifas oficiales de la Oficina Federal de Salud Pública (OFSP / priminfo.admin.ch) en los 26 cantones.",
       auth_2_title: "Independencia 100%",
       auth_2_desc: "Ninguna aseguradora tiene participación en nuestra empresa editora SAITHAMA Sàrl.",
@@ -277,7 +277,7 @@ export default function AboutSection({ onStartComparison, onTabChange }: AboutSe
       
       authority_title: "Nossa Especialização & Rigor Atuarial Suíço",
       authority_desc: "Os nossos comparadores assentam em modelos matemáticos e dados oficiais da Confederação Suíça.",
-      auth_1_title: "Dados Oficiais OFSP 2026",
+      auth_1_title: "Dados Oficiais OFSP 2027",
       auth_1_desc: "Mais de 250'000 tarifas oficiais publicadas pelo Departamento Federal de Saúde Pública (OFSP / priminfo.admin.ch) para os 26 cantões.",
       auth_2_title: "Independência 100%",
       auth_2_desc: "Nenhuma seguradora tem participação no capital da nossa empresa SAITHAMA Sàrl.",
@@ -326,7 +326,7 @@ export default function AboutSection({ onStartComparison, onTabChange }: AboutSe
     mascot_intro: "Notre mission est de simplifier les démarches d'assurance et d'optimiser le budget des ménages suisses.",
     authority_title: "Notre Expertise & Données Officielles",
     authority_desc: "Calculs basés sur les données officielles de la Confédération suisse.",
-    auth_1_title: "Données OFSP 2026", auth_1_desc: "250'000+ tarifs officiels intégrés.",
+    auth_1_title: "Données OFSP 2027", auth_1_desc: "250'000+ tarifs officiels intégrés.",
     auth_2_title: "Indépendance 100%", auth_2_desc: "Aucune participation de compagnies d'assurance.",
     auth_3_title: "Conformité FINMA", auth_3_desc: "Conseillers conformes à l'Art. 45 LSA.",
     why_fennec: "Pourquoi le Fennec ?", why_fennec_desc: "Symbole d'écoute et d'agilité.",

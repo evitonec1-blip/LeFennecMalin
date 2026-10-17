@@ -32,7 +32,7 @@ export interface PremiumLookupQuery {
  * - Young Adults (19–25 years): yob between currentYear - 25 and currentYear - 19 (e.g., 2001..2007)
  * - Adults (26+ years): yob <= currentYear - 26 (e.g., <= 2000)
  */
-export function getAgeCategoryFromYob(yob: number | string, referenceYear: number = 2026): AgeCategory {
+export function getAgeCategoryFromYob(yob: number | string, referenceYear: number = 2027): AgeCategory {
   const year = typeof yob === 'number' ? yob : parseInt(String(yob), 10);
   if (isNaN(year) || year <= 0) return 'adult';
   const age = referenceYear - year;
@@ -54,21 +54,21 @@ export function getStatutoryFranchises(ageCategory: string): number[] {
 }
 
 /**
- * Normalizes Priminfo model codes (BASE, HAM, HMO, TEL) to app model types.
+ * Normalizes Priminfo model codes (BASE, PRAXIS, FLEX, TEL_DIG, HAM, HMO, TEL) to app model types.
  */
 export function normalizeModelCode(model: string): ModelType {
   const m = model.toLowerCase().trim();
   if (m === 'base' || m === 'standard') return 'standard';
-  if (m === 'ham' || m === 'family' || m === 'hausarzt') return 'family';
-  if (m === 'hmo') return 'hmo';
-  if (m === 'tel' || m === 'telemed' || m === 'télémédecine') return 'telemed';
+  if (m === 'praxis' || m === 'ham' || m === 'family' || m === 'hausarzt') return 'family';
+  if (m === 'flex' || m === 'hmo') return 'hmo';
+  if (m === 'tel_dig' || m === 'tel' || m === 'telemed' || m === 'télémédecine') return 'telemed';
   return 'standard';
 }
 
 /**
  * Generates the standard lookup key for the pre-compiled premiums database.
  * Key structure: `insurerId_canton_region_ageCategory_deductible_model_accident`
- * E.g., `css_GE_PR-REG CH1_adult_2500_telemed_true`
+ * E.g., `8_GE_PR-REG CH0_adult_2500_telemed_true`
  */
 export function generatePremiumKey(query: PremiumLookupQuery): string {
   const insurer = query.insurerId.toLowerCase().trim();
@@ -77,7 +77,7 @@ export function generatePremiumKey(query: PremiumLookupQuery): string {
   
   // Resolve age category from yob if provided, otherwise clean string
   const resolvedAgeCat = query.yob 
-    ? getAgeCategoryFromYob(query.yob) 
+    ? getAgeCategoryFromYob(query.yob, 2027) 
     : (query.ageCategory || 'adult').toLowerCase().trim();
     
   const deductible = Number(query.deductible);

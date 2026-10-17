@@ -29,7 +29,7 @@ export default function Footer({ onTabChange }: FooterProps) {
       tagline: '"Malin, pour vous. Proche de vous."',
       desc: "Le comparateur astucieux et indépendant en Suisse pour vos assurances maladie, 3ème pilier et prévoyance familiale.",
       col2_title: "Assurance Maladie",
-      col2_l1: "Comparatif des caisses 2026",
+      col2_l1: "Comparatif des caisses 2027",
       col2_l2: "Comprendre la loi LAMal",
       col2_l3: "Assurances complémentaires LCA",
       col2_l4: "Primes par canton suisse",
@@ -58,7 +58,7 @@ export default function Footer({ onTabChange }: FooterProps) {
       lca_hosp_desc: "Choix du médecin traitant à l'hôpital et séjour en division mi-privée ou privée partout en Suisse.",
       cantons_desc: "Chaque canton suisse définit ses propres primes d'assurance obligatoire (LAMal) en fonction des coûts de la santé régionaux.",
       canton_col: "Canton",
-      estimate_col: "Estimation Moyenne 2026",
+      estimate_col: "Estimation Moyenne 2027",
       per_month: "/ mois",
       rendements_desc: "Le choix du support pour votre 3e pilier détermine le rendement à long terme et la croissance de votre capital de retraite.",
       classic_title: "🏦 Compte 3a Épargne Classique",
@@ -74,7 +74,7 @@ export default function Footer({ onTabChange }: FooterProps) {
       tagline: '"Schlau für Sie. Nah bei Ihnen."',
       desc: "Der schlaue und unabhängige Schweizer Vergleichsdienst für Krankenversicherungen, 3. Säule und Familienvorsorge.",
       col2_title: "Krankenversicherung",
-      col2_l1: "Krankenkassenvergleich 2026",
+      col2_l1: "Krankenkassenvergleich 2027",
       col2_l2: "Das KVG-Gesetz verstehen",
       col2_l3: "Zusatzversicherungen VVG",
       col2_l4: "Prämien nach Schweizer Kanton",
@@ -103,7 +103,7 @@ export default function Footer({ onTabChange }: FooterProps) {
       lca_hosp_desc: "Freie Arztwahl im Spital und Aufenthalt in der Halbprivat- oder Privatabteilung in der ganzen Schweiz.",
       cantons_desc: "Jeder Schweizer Kanton legt seine eigenen Grundversicherungsprämien (KVG) je nach regionalen Gesundheitskosten fest.",
       canton_col: "Kanton",
-      estimate_col: "Durchschnittsschätzung 2026",
+      estimate_col: "Durchschnittsschätzung 2027",
       per_month: "/ Monat",
       rendements_desc: "Die Wahl der Anlageform für Ihre 3. Säule bestimmt die langfristige Rendite und das Wachstum Ihres Alterskapitals.",
       classic_title: "🏦 Klassisches 3a Sparkonto",
@@ -119,7 +119,7 @@ export default function Footer({ onTabChange }: FooterProps) {
       tagline: '"Smart for you. Close to you."',
       desc: "The smart and independent Swiss comparison platform for health insurance, 3rd pillar, and family financial security.",
       col2_title: "Health Insurance",
-      col2_l1: "Health insurance comparison 2026",
+      col2_l1: "Health insurance comparison 2027",
       col2_l2: "Understanding Swiss health law",
       col2_l3: "Supplementary insurance (LCA/VVG)",
       col2_l4: "Premiums by Swiss canton",
@@ -148,7 +148,7 @@ export default function Footer({ onTabChange }: FooterProps) {
       lca_hosp_desc: "Choice of treating physician in hospital and semi-private or private ward stays anywhere in Switzerland.",
       cantons_desc: "Each Swiss canton sets its own mandatory insurance (LAMal/KVG) premiums based on regional healthcare costs.",
       canton_col: "Canton",
-      estimate_col: "2026 Average Estimate",
+      estimate_col: "2027 Average Estimate",
       per_month: "/ month",
       rendements_desc: "The investment vehicle you choose for your 3rd pillar determines its long-term return and the growth of your retirement capital.",
       classic_title: "🏦 Classic 3a Savings Account",
@@ -164,7 +164,7 @@ export default function Footer({ onTabChange }: FooterProps) {
       tagline: '"Intelligente per te. Vicino a te."',
       desc: "Il comparatore intelligente e indipendente in Svizzera per assicurazioni malattia, 3° pilastro e previdenza familiare.",
       col2_title: "Assicurazione Malattia",
-      col2_l1: "Confronto casse malati 2026",
+      col2_l1: "Confronto casse malati 2027",
       col2_l2: "Comprendere la legge LAMal",
       col2_l3: "Assicurazioni complementari LCA",
       col2_l4: "Premi per cantone svizzero",
@@ -193,7 +193,7 @@ export default function Footer({ onTabChange }: FooterProps) {
       lca_hosp_desc: "Scelta del medico curante in ospedale e soggiorno in reparto semi-privato o privato in tutta la Svizzera.",
       cantons_desc: "Ogni cantone svizzero stabilisce i propri premi dell'assicurazione obbligatoria (LAMal) in base ai costi sanitari regionali.",
       canton_col: "Cantone",
-      estimate_col: "Stima Media 2026",
+      estimate_col: "Stima Media 2027",
       per_month: "/ mese",
       rendements_desc: "La scelta del supporto per il tuo 3° pilastro determina il rendimento a lungo termine e la crescita del tuo capitale pensionistico.",
       classic_title: "🏦 Conto 3a Risparmio Classico",
@@ -209,7 +209,7 @@ export default function Footer({ onTabChange }: FooterProps) {
       tagline: '"Inteligente para ti. Cerca de ti."',
       desc: "El comparador inteligente e independiente en Suiza para seguros de enfermedad, 3er pilar y previsión familiar.",
       col2_title: "Seguro de Enfermedad",
-      col2_l1: "Comparativa cajas de salud 2026",
+      col2_l1: "Comparativa cajas de salud 2027",
       col2_l2: "Entender la ley LAMal",
       col2_l3: "Seguros complementarios LCA",
       col2_l4: "Primas por cantón suizo",
@@ -238,7 +238,7 @@ export default function Footer({ onTabChange }: FooterProps) {
       lca_hosp_desc: "Elección del médico tratante en el hospital y estancia en habitación semiprivada o privada en toda Suiza.",
       cantons_desc: "Cada cantón suizo establece sus propias primas del seguro obligatorio (LAMal) en función de los costes sanitarios regionales.",
       canton_col: "Cantón",
-      estimate_col: "Estimación Media 2026",
+      estimate_col: "Estimación Media 2027",
       per_month: "/ mes",
       rendements_desc: "La elección del soporte para tu 3er pilar determina el rendimiento a largo plazo y el crecimiento de tu capital de jubilación.",
       classic_title: "🏦 Cuenta 3a Ahorro Clásico",
@@ -254,7 +254,7 @@ export default function Footer({ onTabChange }: FooterProps) {
       tagline: '"Inteligente para si. Perto de si."',
       desc: "O comparador inteligente e independente na Suíça para seguros de saúde, 3º pilar e previdência familiar.",
       col2_title: "Seguro de Saúde",
-      col2_l1: "Comparativo caixas de saúde 2026",
+      col2_l1: "Comparativo caixas de saúde 2027",
       col2_l2: "Compreender a lei LAMal",
       col2_l3: "Seguros complementares LCA",
       col2_l4: "Prémios por cantão suíço",
@@ -283,7 +283,7 @@ export default function Footer({ onTabChange }: FooterProps) {
       lca_hosp_desc: "Escolha do médico assistente no hospital e estadia em quarto semiprivado ou privado em toda a Suíça.",
       cantons_desc: "Cada cantão suíço estabelece os seus próprios prémios do seguro obrigatório (LAMal) em função dos custos de saúde regionais.",
       canton_col: "Cantão",
-      estimate_col: "Estimativa Média 2026",
+      estimate_col: "Estimativa Média 2027",
       per_month: "/ mês",
       rendements_desc: "A escolha do suporte para o seu 3º pilar determina o rendimento a longo prazo e o crescimento do seu capital de reforma.",
       classic_title: "🏦 Conta 3a Poupança Clássica",
@@ -299,7 +299,7 @@ export default function Footer({ onTabChange }: FooterProps) {
     tagline: '"Malin, pour vous. Proche de vous."',
     desc: "Le comparateur astucieux et indépendant en Suisse.",
     col2_title: "Assurance Maladie",
-    col2_l1: "Comparatif des caisses 2026",
+    col2_l1: "Comparatif des caisses 2027",
     col2_l2: "Comprendre la loi LAMal",
     col2_l3: "Assurances complémentaires LCA",
     col2_l4: "Primes par canton suisse",
@@ -524,7 +524,7 @@ export default function Footer({ onTabChange }: FooterProps) {
 
           <div>
             <span className="font-display font-bold text-white uppercase text-[11px] tracking-wider block mb-3">
-              🏥 Caisses maladie suisses agréées OFSP (Profils & Avis 2026) :
+              🏥 Caisses maladie suisses agréées OFSP (Profils & Avis 2027) :
             </span>
             <div className="flex flex-wrap gap-x-3 gap-y-2">
               <button onClick={() => handleNavClick('insurer-css')} className="hover:text-white hover:underline cursor-pointer">CSS Assurance</button>
@@ -562,9 +562,9 @@ export default function Footer({ onTabChange }: FooterProps) {
               📐 Simulateurs d'optimisation & Guides d'experts :
             </span>
             <div className="flex flex-wrap gap-x-3 gap-y-2">
-              <button onClick={() => handleNavClick('comparer-assureurs-primes-2026')} className="hover:text-white hover:underline cursor-pointer font-bold text-amber-300">Comparez les Assureurs (Nouvelles Primes 2026)</button>
+              <button onClick={() => handleNavClick('comparer-assureurs-primes-2026')} className="hover:text-white hover:underline cursor-pointer font-bold text-amber-300">Comparez les Assureurs (Nouvelles Primes 2027)</button>
               <span>·</span>
-              <button onClick={() => handleNavClick('lamal-primes-2026')} className="hover:text-white hover:underline cursor-pointer font-bold text-fennec-sand">Étude Primes OFSP 2026 (26 Cantons)</button>
+              <button onClick={() => handleNavClick('lamal-primes-2026')} className="hover:text-white hover:underline cursor-pointer font-bold text-fennec-sand">Étude Primes OFSP 2027 (26 Cantons)</button>
               <span>·</span>
               <button onClick={() => handleNavClick('observatoire')} className="hover:text-white hover:underline cursor-pointer font-bold text-emerald-300">Observatoire des Primes (Open Data)</button>
               <span>·</span>
@@ -630,7 +630,7 @@ export default function Footer({ onTabChange }: FooterProps) {
         {/* Bottom copyright and official links */}
         <div className="pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-fennec-cream/60 space-y-4 md:space-y-0">
           <div className="flex items-center space-x-3">
-            <span>© 2026 Le Fennec Malin — {t('footer_rights')}</span>
+            <span>© 2027 Le Fennec Malin — {t('footer_rights')}</span>
           </div>
           
           <div className="flex flex-wrap gap-4 items-center justify-center">
