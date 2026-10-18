@@ -1818,6 +1818,8 @@ export default function HealthComparator({ isEmbedded = false, initialCanton, on
   const [verificationError, setVerificationError] = useState<string | null>(null);
   const [isSendingCode, setIsSendingCode] = useState<boolean>(false);
   const [verificationToken, setVerificationToken] = useState<string | null>(null);
+  const [codeSentByEmail, setCodeSentByEmail] = useState<boolean>(false);
+  const [fallbackDevCode, setFallbackDevCode] = useState<string | null>(null);
   const [consentAccepted, setConsentAccepted] = useState<boolean>(false);
   const [modalConsentAccepted, setModalConsentAccepted] = useState<boolean>(false);
 
@@ -3466,6 +3468,16 @@ export default function HealthComparator({ isEmbedded = false, initialCanton, on
                                       }
                                       if (data.verificationToken) setVerificationToken(data.verificationToken);
                                       
+                                      const isDelivered = !!data.emailSent;
+                                      setCodeSentByEmail(isDelivered);
+                                      const fallback = data.fallbackCode || data.devCodeNotice || null;
+                                      setFallbackDevCode(fallback);
+                                      if (!isDelivered && fallback) {
+                                        setVerificationCodeInput(fallback);
+                                      } else {
+                                        setVerificationCodeInput('');
+                                      }
+
                                       // Log lead as pre-verify
                                       fetch('/api/submit-lead', {
                                         method: 'POST',
@@ -3494,9 +3506,44 @@ export default function HealthComparator({ isEmbedded = false, initialCanton, on
                               </div>
                             ) : (
                               <div className="space-y-4">
-                                <div className="bg-amber-50 border border-amber-200 text-[11px] text-amber-800 p-3.5 rounded-xl leading-relaxed">
-                                  <strong>💡 {ui.codeSentTitle}</strong> {ui.codeSentBody.replace('{email}', formData.email)}
-                                </div>
+                                {codeSentByEmail ? (
+                                  <div className="bg-emerald-50 border border-emerald-200 text-xs text-emerald-950 p-3.5 rounded-xl leading-relaxed flex items-start space-x-2.5 shadow-2xs">
+                                    <span className="text-base leading-none">📬</span>
+                                    <div>
+                                      <strong className="font-bold text-emerald-950 block mb-0.5">{ui.codeSentTitle || "Code envoyé par e-mail !"}</strong>
+                                      <span className="text-[11px] text-emerald-900">{ui.codeSentBody.replace('{email}', formData.email)} N'oubliez pas de vérifier vos spams ou courriers indésirables.</span>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div className="bg-amber-50/90 border border-amber-300 text-xs text-amber-950 p-3.5 rounded-xl leading-relaxed space-y-2.5 shadow-2xs">
+                                    <div className="flex items-start space-x-2.5">
+                                      <span className="text-base leading-none">⚡</span>
+                                      <div className="flex-1">
+                                        <strong className="font-bold text-amber-950 block mb-0.5">Mode démonstration / E-mail non envoyé</strong>
+                                        <p className="text-[11px] text-amber-900 leading-snug">
+                                          Le service d'envoi d'e-mails (SMTP) n'est pas actif dans cet environnement de test. Votre code de sécurité a été généré ci-dessous pour débloquer votre comparatif :
+                                        </p>
+                                      </div>
+                                    </div>
+                                    {fallbackDevCode && (
+                                      <div className="flex items-center justify-between bg-white border border-amber-200 rounded-xl p-2.5 shadow-2xs">
+                                        <span className="text-[11px] font-semibold text-fennec-dark">Code de vérification :</span>
+                                        <div className="flex items-center space-x-2">
+                                          <span className="font-mono text-base font-black tracking-widest text-fennec-terracotta bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200">
+                                            {fallbackDevCode}
+                                          </span>
+                                          <button
+                                            type="button"
+                                            onClick={() => setVerificationCodeInput(fallbackDevCode)}
+                                            className="text-[11px] font-bold text-fennec-terracotta hover:underline cursor-pointer"
+                                          >
+                                            Insérer
+                                          </button>
+                                        </div>
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
 
                                 <div className="space-y-1">
                                   <label className="text-[10px] font-black text-fennec-brown uppercase tracking-wider block">{ui.enterCodeLabel}</label>
@@ -3563,13 +3610,52 @@ export default function HealthComparator({ isEmbedded = false, initialCanton, on
                                   {isSendingCode ? ui.verifyingBtn : ui.validateCodeBtn}
                                 </button>
 
-                                <button 
-                                  type="button"
-                                  onClick={() => setVerificationStep('details')}
-                                  className="w-full text-center text-[10px] text-fennec-dark/50 hover:text-fennec-dark underline font-semibold cursor-pointer"
-                                >
-                                  {ui.editDetailsBtn}
-                                </button>
+                                <div className="flex items-center justify-between pt-1 text-[11px]">
+                                  <button 
+                                    type="button"
+                                    onClick={() => setVerificationStep('details')}
+                                    className="text-fennec-dark/60 hover:text-fennec-dark underline font-semibold cursor-pointer"
+                                  >
+                                    {ui.editDetailsBtn}
+                                  </button>
+                                  <button 
+                                    type="button"
+                                    disabled={isSendingCode}
+                                    onClick={async () => {
+                                      setIsSendingCode(true);
+                                      setVerificationError(null);
+                                      try {
+                                        const res = await fetch('/api/send-verification-code', {
+                                          method: 'POST',
+                                          headers: { 'Content-Type': 'application/json' },
+                                          body: JSON.stringify({ 
+                                            email: formData.email, 
+                                            firstName: formData.firstName, 
+                                            lastName: formData.lastName, 
+                                            phone: formData.phone 
+                                          })
+                                        });
+                                        const data = await res.json();
+                                        setIsSendingCode(false);
+                                        if (res.ok && data.success) {
+                                          if (data.verificationToken) setVerificationToken(data.verificationToken);
+                                          const isDelivered = !!data.emailSent;
+                                          setCodeSentByEmail(isDelivered);
+                                          const fallback = data.fallbackCode || data.devCodeNotice || null;
+                                          setFallbackDevCode(fallback);
+                                          if (!isDelivered && fallback) {
+                                            setVerificationCodeInput(fallback);
+                                          }
+                                        }
+                                      } catch {
+                                        setIsSendingCode(false);
+                                      }
+                                    }}
+                                    className="text-fennec-terracotta hover:text-fennec-dark underline font-bold cursor-pointer"
+                                  >
+                                    {isSendingCode ? "Envoi..." : "Renvoyer le code"}
+                                  </button>
+                                </div>
                               </div>
                             )}
 

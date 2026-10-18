@@ -128,6 +128,115 @@ function verifyVerificationToken(token: string): { email: string; code: string; 
 // Legacy in-memory fallback (only used if token not provided — keeps backwards compat)
 const verificationCodes = new Map<string, { code: string; expiresAt: number; phone?: string; firstName?: string; lastName?: string }>();
 
+interface SendEmailOptions {
+  to: string;
+  subject: string;
+  text: string;
+  html: string;
+  attachments?: Array<{
+    filename: string;
+    content: Buffer;
+    cid?: string;
+    contentDisposition?: "inline" | "attachment";
+  }>;
+}
+
+interface SendEmailResult {
+  sent: boolean;
+  provider: "resend" | "smtp" | "none";
+  error?: string;
+  reason?: string;
+}
+
+async function sendEmail(options: SendEmailOptions): Promise<SendEmailResult> {
+  // 1. Resend API (HTTP REST — reliable across Vercel & Cloud containers without SMTP port blocks)
+  const resendApiKey = process.env.RESEND_API_KEY;
+  if (resendApiKey) {
+    try {
+      const fromAddr = process.env.RESEND_FROM || process.env.SMTP_FROM || "Le Fennec Malin <contact@lefennecmalin.ch>";
+      const res = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${resendApiKey}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          from: fromAddr,
+          to: [options.to],
+          subject: options.subject,
+          text: options.text,
+          html: options.html
+        })
+      });
+      if (res.ok) {
+        return { sent: true, provider: "resend" };
+      }
+      const errData: any = await res.json().catch(() => ({}));
+      const errMsg = errData.message || `Resend HTTP ${res.status}`;
+      console.error(`[Email/Resend] Error sending to ${options.to}:`, errMsg);
+      return { sent: false, provider: "resend", error: errMsg, reason: "RESEND_ERROR" };
+    } catch (err: any) {
+      console.error(`[Email/Resend] Network exception:`, err.message);
+      return { sent: false, provider: "resend", error: err.message, reason: "RESEND_EXCEPTION" };
+    }
+  }
+
+  // 2. SMTP Transport via Nodemailer
+  const smtpHost = process.env.SMTP_HOST;
+  const smtpPort = process.env.SMTP_PORT;
+  const smtpUser = process.env.SMTP_USER;
+  const smtpPass = process.env.SMTP_PASS;
+
+  if (smtpUser && smtpPass && (smtpHost || process.env.SMTP_SERVICE)) {
+    try {
+      const portNum = parseInt(smtpPort || "587", 10);
+      const isSecure = process.env.SMTP_SECURE === "true" || portNum === 465;
+
+      const transportOptions: any = {
+        connectionTimeout: 8000,
+        greetingTimeout: 8000,
+        socketTimeout: 10000,
+        auth: {
+          user: smtpUser,
+          pass: smtpPass
+        }
+      };
+
+      if (process.env.SMTP_SERVICE) {
+        transportOptions.service = process.env.SMTP_SERVICE;
+      } else if (smtpHost?.includes("gmail.com")) {
+        transportOptions.service = "gmail";
+      } else {
+        transportOptions.host = smtpHost;
+        transportOptions.port = portNum;
+        transportOptions.secure = isSecure;
+        if (!isSecure) {
+          transportOptions.tls = {
+            rejectUnauthorized: false
+          };
+        }
+      }
+
+      const transporter = nodemailer.createTransport(transportOptions);
+      await transporter.sendMail({
+        from: process.env.SMTP_FROM || `"Le Fennec Malin" <${smtpUser}>`,
+        to: options.to,
+        subject: options.subject,
+        text: options.text,
+        html: options.html,
+        attachments: options.attachments || []
+      });
+
+      return { sent: true, provider: "smtp" };
+    } catch (mailErr: any) {
+      console.error(`[Email/SMTP] Failed sending to ${options.to}:`, mailErr.message);
+      return { sent: false, provider: "smtp", error: mailErr.message, reason: "SMTP_ERROR" };
+    }
+  }
+
+  return { sent: false, provider: "none", reason: "SMTP_NOT_CONFIGURED" };
+}
+
 // Helper to get Fennec logo buffer and base64 URI across Vercel/Node environments
 function getLogoData() {
   const possiblePaths = [
@@ -180,16 +289,9 @@ app.post("/api/send-verification-code", async (req, res) => {
     // Also create a signed token (works across serverless instances)
     const verificationToken = signVerificationToken(cleanEmail, generatedCode, expiresAt);
 
-
     // Get logo data
     const logoData = getLogoData();
-    const logoImgSrc = "cid:fenneclogo";
-
-    // Try to send email via Nodemailer if SMTP configured
-    const smtpHost = process.env.SMTP_HOST;
-    const smtpPort = process.env.SMTP_PORT;
-    const smtpUser = process.env.SMTP_USER;
-    const smtpPass = process.env.SMTP_PASS;
+    const logoImgSrc = logoData ? "cid:fenneclogo" : "https://www.lefennecmalin.ch/fennec-logo.jpg";
 
     const subject = `🔒 Votre code de sécurité Le Fennec Malin : ${generatedCode}`;
     const textBody = `Bonjour ${firstName || ''},\n\nVotre code de vérification pour accéder à votre comparatif d'assurances est : ${generatedCode}\n\nCe code est valable pendant 10 minutes.\n\nCordialement,\nL'équipe Le Fennec Malin`;
@@ -213,44 +315,39 @@ app.post("/api/send-verification-code", async (req, res) => {
       </div>
     `;
 
-    if (smtpHost && smtpUser && smtpPass) {
-      try {
-        const transporter = nodemailer.createTransport({
-          host: smtpHost,
-          port: parseInt(smtpPort || "587"),
-          secure: process.env.SMTP_SECURE === "true",
-          auth: { user: smtpUser, pass: smtpPass }
-        });
-
-        const attachments = logoData ? [
-          {
-            filename: "fennec-logo.jpg",
-            content: logoData.buffer,
-            cid: "fenneclogo",
-            contentDisposition: "inline" as const
-          }
-        ] : [];
-
-        await transporter.sendMail({
-          from: process.env.SMTP_FROM || `"Le Fennec Malin" <${smtpUser}>`,
-          to: cleanEmail,
-          subject,
-          text: textBody,
-          html: htmlBody,
-          attachments
-        });
-      } catch (mailErr: any) {
-        console.error(`[Verification] SMTP failed to send email to ${cleanEmail}:`, mailErr.message);
+    const attachments = logoData ? [
+      {
+        filename: "fennec-logo.jpg",
+        content: logoData.buffer,
+        cid: "fenneclogo",
+        contentDisposition: "inline" as const
       }
-    } else {
-      console.log(`[Verification] SMTP not configured. Code logged for development: ${generatedCode}`);
-    }
+    ] : [];
+
+    const emailResult = await sendEmail({
+      to: cleanEmail,
+      subject,
+      text: textBody,
+      html: htmlBody,
+      attachments
+    });
+
+    console.log(`[Verification] Email to ${cleanEmail}: ${emailResult.sent ? "SENT via " + emailResult.provider : "NOT SENT (" + (emailResult.reason || "") + ": " + (emailResult.error || "") + ")"}. Verification code: ${generatedCode}`);
 
     return res.json({ 
       success: true, 
-      message: `Code de vérification envoyé à ${cleanEmail}`,
+      emailSent: emailResult.sent,
+      emailProvider: emailResult.provider,
+      emailError: emailResult.sent ? undefined : emailResult.error,
+      deliveryStatus: emailResult.sent ? "sent" : (emailResult.reason || "not_configured"),
+      message: emailResult.sent 
+        ? `Code de vérification envoyé à ${cleanEmail}`
+        : (emailResult.reason === "SMTP_NOT_CONFIGURED"
+            ? `Serveur SMTP non configuré (mode démonstration). Utilisez le code de secours ci-dessous pour continuer.`
+            : `L'envoi par e-mail a échoué (${emailResult.error || "erreur serveur"}). Utilisez le code de secours ci-dessous pour continuer.`),
       verificationToken,
-      devCodeNotice: !smtpHost ? generatedCode : undefined
+      devCodeNotice: !emailResult.sent ? generatedCode : undefined,
+      fallbackCode: !emailResult.sent ? generatedCode : undefined
     });
   } catch (error: any) {
     console.error("[SendVerificationError]", error);
@@ -840,69 +937,48 @@ Gain fiscal total estimé : ${totalTaxSavings ? `CHF ${totalTaxSavings.toLocaleS
       `;
     }
 
-    // SMTP sending
-    const smtpHost = process.env.SMTP_HOST;
-    const smtpPort = process.env.SMTP_PORT;
-    const smtpUser = process.env.SMTP_USER;
-    const smtpPass = process.env.SMTP_PASS;
-
-    if (smtpHost && smtpUser && smtpPass) {
-
-      const transporter = nodemailer.createTransport({
-        host: smtpHost,
-        port: parseInt(smtpPort || "587"),
-        secure: process.env.SMTP_SECURE === "true",
-        auth: { user: smtpUser, pass: smtpPass }
-      });
-
-      const attachments = logoData ? [
-        {
-          filename: "fennec-logo.jpg",
-          content: logoData.buffer,
-          cid: "fenneclogo",
-          contentDisposition: "inline" as const
-        }
-      ] : [];
-
-      // 1. Send Admin Lead Email
-      await transporter.sendMail({
-        from: process.env.SMTP_FROM || `"Feny Leads" <${smtpUser}>`,
-        to: recipientEmail,
-        subject: subject,
-        text: textBody,
-        html: htmlBody,
-        attachments
-      });
-
-      // 2. Send User Confirmation Email (if valid prospect email provided)
-      if (lead.email && lead.email.toLowerCase() !== recipientEmail.toLowerCase()) {
-        try {
-          await transporter.sendMail({
-            from: process.env.SMTP_FROM || `"Le Fennec Malin" <${smtpUser}>`,
-            to: lead.email,
-            subject: `✅ Confirmation de votre demande — Le Fennec Malin`,
-            text: userConfirmationText,
-            html: userConfirmationHtml,
-            attachments
-          });
-        } catch (userErr: any) {
-          console.error(`[SMTP] Failed sending prospect confirmation:`, userErr.message);
-        }
+    const attachments = logoData ? [
+      {
+        filename: "fennec-logo.jpg",
+        content: logoData.buffer,
+        cid: "fenneclogo",
+        contentDisposition: "inline" as const
       }
+    ] : [];
 
-      return res.json({ success: true, method: "smtp" });
+    // 1. Send Admin Lead Email
+    const adminEmailResult = await sendEmail({
+      to: recipientEmail,
+      subject,
+      text: textBody,
+      html: htmlBody,
+      attachments
+    });
+
+    // 2. Send User Confirmation Email (if valid prospect email provided)
+    if (lead.email && lead.email.toLowerCase() !== recipientEmail.toLowerCase()) {
+      await sendEmail({
+        to: lead.email,
+        subject: `✅ Confirmation de votre demande — Le Fennec Malin`,
+        text: userConfirmationText,
+        html: userConfirmationHtml,
+        attachments
+      }).catch(err => console.error("[LeadUserConfirmation] Error:", err));
+    }
+
+    if (adminEmailResult.sent) {
+      return res.json({ success: true, method: adminEmailResult.provider });
     } else {
       console.log("\n=======================================================");
-      console.log("⚠️ SMTP NOT YET CONFIGURED IN ENV VARIABLES.");
+      console.log("⚠️ EMAIL NOT SENT (" + adminEmailResult.reason + "): " + (adminEmailResult.error || "No SMTP / Resend credentials"));
       console.log(`Recipient: ${recipientEmail}`);
       console.log(`Subject: ${subject}`);
-      console.log(`Text Body:\n${textBody}`);
       console.log("=======================================================\n");
 
       return res.json({ 
         success: true, 
         method: "console_log", 
-        info: "Lead logged to server console. To receive actual emails, configure your SMTP environment variables in your workspace settings."
+        info: "Lead logged to server console. To receive actual emails, configure SMTP_HOST / SMTP_USER / SMTP_PASS or RESEND_API_KEY."
       });
     }
   } catch (error: any) {
