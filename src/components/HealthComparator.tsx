@@ -4035,9 +4035,14 @@ export default function HealthComparator({ isEmbedded = false, initialCanton, on
                       </div>
 
                       {/* Middle: Prime pricing */}
-                      <div className="text-center sm:text-right shrink-0 space-y-1.5">
+                      <div className="text-center sm:text-right shrink-0 space-y-1">
                         <div>
-                          <span className="text-[10px] font-bold tracking-widest text-fennec-brown uppercase block">
+                          {caisse.rawPremium && caisse.rawPremium > 0 && (
+                            <span className="text-[11px] text-fennec-dark/70 font-semibold block">
+                              Prime OFSP : <strong className="text-fennec-dark font-extrabold">CHF {caisse.rawPremium.toFixed(2)}</strong> / mois
+                            </span>
+                          )}
+                          <span className="text-[10px] font-bold tracking-widest text-fennec-brown uppercase block mt-0.5">
                             {ui.netPriceLabel}
                           </span>
                           <div className="flex items-baseline justify-center sm:justify-end min-h-[36px]">
@@ -4047,6 +4052,7 @@ export default function HealthComparator({ isEmbedded = false, initialCanton, on
                                 <span className="text-3xl font-display font-black text-fennec-dark tracking-tight">
                                   {caisse.computedPremium.toFixed(2)}
                                 </span>
+                                <span className="text-xs text-fennec-dark/70 font-semibold ml-1">/ mois</span>
                               </>
                             ) : (
                               <span className="text-sm font-bold text-fennec-brown/80 bg-fennec-cream/40 px-3 py-1 rounded-lg">

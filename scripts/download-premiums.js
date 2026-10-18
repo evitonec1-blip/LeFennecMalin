@@ -22,19 +22,6 @@ const AGE_MAP = {
   'AKA_03_ERW': 'adult'
 };
 
-const MODEL_MAP = {
-  // 2026 codes
-  'TAR-BASE': 'standard',
-  'TAR-HAM': 'family',
-  'TAR-HMO': 'hmo',
-  'TAR-DIV': 'telemed',
-  // 2027 official BAG/OFSP codes
-  'BASE': 'standard',
-  'PRAXIS': 'family',
-  'TEL_DIG': 'telemed',
-  'FLEX': 'hmo'
-};
-
 const ACCIDENT_MAP = {
   // 2026 codes
   'MIT-UNF': true,
@@ -43,6 +30,135 @@ const ACCIDENT_MAP = {
   'MIT_UNF': true,
   'OHN_UNF': false
 };
+
+const INSURER_SLUGS = {
+  '8': 'css',
+  '32': 'aquilana',
+  '134': 'einsiedeln',
+  '194': 'sumiswalder',
+  '246': 'steffisburg',
+  '290': 'concordia',
+  '312': 'atupri',
+  '343': 'avenir',
+  '360': 'luzernerhinterland',
+  '376': 'kpt',
+  '455': 'okk',
+  '509': 'sympany',
+  '780': 'glarner',
+  '820': 'curaulta',
+  '881': 'egk',
+  '923': 'slkk',
+  '941': 'sodalis',
+  '966': 'surselva',
+  '1040': 'visperterminen',
+  '1113': 'entremont',
+  '1318': 'waedenswil',
+  '1322': 'birchmeier',
+  '1384': 'swica',
+  '1386': 'galenos',
+  '1401': 'rhenusana',
+  '1479': 'mutuel',
+  '1507': 'amb',
+  '1509': 'sanitas',
+  '1535': 'philos',
+  '1542': 'assura',
+  '1555': 'visana',
+  '1560': 'agrisano',
+  '1562': 'helsana',
+  '1568': 'sana24'
+};
+
+/**
+ * Intelligent Swiss health model classifier.
+ * Categorizes each tariff name into standard, family (Hausarzt), telemed, or hmo.
+ */
+function classifyModel(tariftyp, tarifbezeichnung) {
+  const tClean = (tarifbezeichnung || '').trim().toLowerCase();
+  const ttClean = (tariftyp || '').trim().toUpperCase();
+
+  if (ttClean === 'BASE' || tClean.includes('grundversicherung') || tClean === 'base') {
+    return 'standard';
+  }
+
+  // HMO models
+  if (
+    tClean.includes('hmo') ||
+    tClean.includes('bestcare') ||
+    tClean.includes('santé') ||
+    tClean.includes('sante') ||
+    tClean.includes('optimed') ||
+    tClean.includes('ärztenetz') ||
+    tClean.includes('aerztenetz') ||
+    tClean.includes('multiaccess') ||
+    tClean.includes('managed care') ||
+    tClean.includes('gesundheitszentrum') ||
+    tClean.includes('viva')
+  ) {
+    return 'hmo';
+  }
+
+  // Telemed models
+  if (
+    tClean.includes('telmed') ||
+    tClean.includes('telemed') ||
+    tClean.includes('callmed') ||
+    tClean.includes('smartdoc') ||
+    tClean.includes('smartcare') ||
+    tClean.includes('telfirst') ||
+    tClean.includes('sanatel') ||
+    tClean.includes('premed') ||
+    tClean.includes('flexcare') ||
+    tClean.includes('primaflex') ||
+    tClean.includes('med call') ||
+    tClean.includes('tel care') ||
+    tClean.includes('tel doc') ||
+    tClean.includes('smartmed') ||
+    tClean.includes('sanmed') ||
+    tClean.includes('select') ||
+    tClean.includes('flexhelp') ||
+    tClean.includes('glarnermed') ||
+    tClean.includes('meditel') ||
+    tClean.includes('gesundheitnetz') ||
+    tClean.includes('sumis24') ||
+    tClean.includes('telcare')
+  ) {
+    return 'telemed';
+  }
+
+  // Family doctor models
+  if (
+    tClean.includes('hausarzt') ||
+    tClean.includes('caremed') ||
+    tClean.includes('mydoc') ||
+    tClean.includes('primacare') ||
+    tClean.includes('casa') ||
+    tClean.includes('pharmed') ||
+    tClean.includes('qualimed') ||
+    tClean.includes('feminavita') ||
+    tClean.includes('hausspital') ||
+    tClean.includes('preventomed') ||
+    tClean.includes('med direct') ||
+    tClean.includes('regiomed') ||
+    tClean.includes('sparmed') ||
+    tClean.includes('homecare') ||
+    tClean.includes('gesundheitspraxis') ||
+    tClean.includes('multimed') ||
+    tClean.includes('flexmed') ||
+    tClean.includes('medica') ||
+    tClean.includes('medpharm') ||
+    tClean.includes('multichoice') ||
+    tClean.includes('kptwin.doc') ||
+    tClean.includes('kptwin.win')
+  ) {
+    return 'family';
+  }
+
+  // Fallbacks based on official Tariftyp
+  if (ttClean === 'TEL_DIG' || ttClean === 'TAR-DIV') return 'telemed';
+  if (ttClean === 'FLEX' || ttClean === 'TAR-HMO') return 'hmo';
+  if (ttClean === 'PRAXIS' || ttClean === 'TAR-HAM') return 'family';
+  return 'standard';
+}
 
 function parseCsv(text) {
   const lines = text.split(/\r?\n/).filter(l => l.length > 0);
@@ -56,18 +172,6 @@ function parseCsv(text) {
     rows.push(row);
   }
   return rows;
-}
-
-function isJsonValid(filePath, minSize = 10000) {
-  if (!fs.existsSync(filePath)) return false;
-  if (fs.statSync(filePath).size < minSize) return false;
-  try {
-    const raw = fs.readFileSync(filePath, 'utf-8');
-    JSON.parse(raw);
-    return true;
-  } catch {
-    return false;
-  }
 }
 
 function normalizeRegion(raw) {
@@ -97,6 +201,7 @@ function parseRow(row) {
   const ageRaw = row.Altersklasse || row.age_class_code;
   const modelRaw = row.Tariftyp || row.tariff_type_code;
   const accidentRaw = row.Unfalleinschluss || row.accident_inclusion_code;
+  const modelName = (row.Tarifbezeichnung || row.tariff_name_raw || '').trim();
 
   let age = AGE_MAP[ageRaw];
   if (!age && ageRaw) {
@@ -105,14 +210,7 @@ function parseRow(row) {
     else if (ageRaw.includes('ERW')) age = 'adult';
   }
 
-  let model = MODEL_MAP[modelRaw];
-  if (!model && modelRaw) {
-    const m = modelRaw.toUpperCase();
-    if (m === 'BASE') model = 'standard';
-    else if (m === 'PRAXIS') model = 'family';
-    else if (m === 'TEL_DIG') model = 'telemed';
-    else if (m === 'FLEX') model = 'hmo';
-  }
+  const model = classifyModel(modelRaw, modelName);
 
   let accident = ACCIDENT_MAP[accidentRaw];
   if (accident === undefined && accidentRaw) {
@@ -130,39 +228,28 @@ function parseRow(row) {
   const deductible = parseDeductible(row);
   const premiumRaw = row['Prämie'] || row.monthly_premium_chf || '';
   const premium = parseFloat(premiumRaw);
-  const modelName = (row.Tarifbezeichnung || row.tariff_name_raw || '').trim();
 
   if (!insurer || !canton || !region || isNaN(deductible) || isNaN(premium)) {
     return null;
   }
 
-  const key = `${insurer}_${canton}_${region}_${age}_${deductible}_${model}_${accident}`;
-  return { key, premium, modelName };
+  return { insurer, canton, region, age, deductible, model, accident, premium, modelName };
 }
 
-function buildPremiumsForYear(year) {
-  const csvPath = path.join(DATA_DIR, `premiums_${year}.csv`);
-  const gzPath = path.join(DATA_DIR, `premiums_${year}.csv.gz`);
-  const jsonPath = path.join(PUBLIC_DIR, `premiums_${year}.json`);
-  const rootJsonPath = path.join(process.cwd(), `premiums_${year}.json`);
+function buildPremiumsDatabase() {
+  const gzPath27 = path.join(DATA_DIR, 'premiums_2027.csv.gz');
+  const csvPath27 = path.join(DATA_DIR, 'premiums_2027.csv');
 
   let text = '';
-  if (isJsonValid(jsonPath, 100000)) {
-    console.log(`[download-premiums] public/premiums_${year}.json is already valid, skipping CSV parse.`);
-    if (!isJsonValid(rootJsonPath, 100000)) {
-      fs.copyFileSync(jsonPath, rootJsonPath);
-    }
-    return;
-  } else if (fs.existsSync(csvPath)) {
-    console.log(`[download-premiums] Reading data/premiums_${year}.csv...`);
-    text = fs.readFileSync(csvPath, 'utf-8');
-  } else if (fs.existsSync(gzPath)) {
-    console.log(`[download-premiums] Decompressing data/premiums_${year}.csv.gz...`);
-    const buffer = fs.readFileSync(gzPath);
+  if (fs.existsSync(csvPath27)) {
+    console.log('[download-premiums] Reading data/premiums_2027.csv...');
+    text = fs.readFileSync(csvPath27, 'utf-8');
+  } else if (fs.existsSync(gzPath27)) {
+    console.log('[download-premiums] Decompressing data/premiums_2027.csv.gz...');
+    const buffer = fs.readFileSync(gzPath27);
     text = zlib.gunzipSync(buffer).toString('utf-8');
   } else {
-    console.warn(`[download-premiums] No data file found for year ${year}.`);
-    return;
+    throw new Error('data/premiums_2027.csv.gz not found.');
   }
 
   const rows = parseCsv(text);
@@ -175,24 +262,47 @@ function buildPremiumsForYear(year) {
       skipped++;
       continue;
     }
-    const { key, premium, modelName } = parsed;
+    const { insurer, canton, region, age, deductible, model, accident, premium, modelName } = parsed;
+
+    // 1. Primary key with numeric insurer code: e.g. 8_VD_PR-REG CH1_adult_2500_telemed_true
+    const key = `${insurer}_${canton}_${region}_${age}_${deductible}_${model}_${accident}`;
     if (!db[key] || premium < db[key].premium) {
       db[key] = { premium, modelName };
     }
+
+    // 2. Also register with slug key if known: e.g. css_VD_PR-REG CH1_adult_2500_telemed_true
+    const slug = INSURER_SLUGS[insurer];
+    if (slug) {
+      const slugKey = `${slug}_${canton}_${region}_${age}_${deductible}_${model}_${accident}`;
+      if (!db[slugKey] || premium < db[slugKey].premium) {
+        db[slugKey] = { premium, modelName };
+      }
+    }
   }
 
-  console.log(`[download-premiums] [${year}] Parsed ${rows.length} rows, skipped ${skipped}, wrote ${Object.keys(db).length} unique keys.`);
+  console.log(`[download-premiums] Parsed ${rows.length} rows, skipped ${skipped}, generated ${Object.keys(db).length} keys (with dual code/slug index).`);
 
   if (!fs.existsSync(PUBLIC_DIR)) fs.mkdirSync(PUBLIC_DIR, { recursive: true });
   const serialized = JSON.stringify(db);
-  fs.writeFileSync(jsonPath, serialized);
-  fs.writeFileSync(rootJsonPath, serialized);
+
+  // Write to both 2027 and 2026 targets so all routes receive the new 2027 primes
+  const targetPaths = [
+    path.join(PUBLIC_DIR, 'premiums_2027.json'),
+    path.join(PUBLIC_DIR, 'premiums_2026.json'),
+    path.join(process.cwd(), 'premiums_2027.json'),
+    path.join(process.cwd(), 'premiums_2026.json'),
+  ];
 
   const distDir = path.join(process.cwd(), 'dist');
   if (fs.existsSync(distDir)) {
-    fs.writeFileSync(path.join(distDir, `premiums_${year}.json`), serialized);
+    targetPaths.push(path.join(distDir, 'premiums_2027.json'));
+    targetPaths.push(path.join(distDir, 'premiums_2026.json'));
   }
-  console.log(`[download-premiums] Wrote public/premiums_${year}.json (${(fs.statSync(jsonPath).size / 1024 / 1024).toFixed(2)} MB)`);
+
+  for (const p of targetPaths) {
+    fs.writeFileSync(p, serialized);
+    console.log(`[download-premiums] Wrote ${p} (${(fs.statSync(p).size / 1024 / 1024).toFixed(2)} MB)`);
+  }
 }
 
 function buildNpaMap() {
@@ -203,13 +313,9 @@ function buildNpaMap() {
   const jsonPath = path.join(PUBLIC_DIR, 'npa_to_region.json');
 
   let text = '';
-  if (isJsonValid(jsonPath, 1000)) {
-    console.log('[download-premiums] public/npa_to_region.json is valid, skipping NPA build.');
-    return;
-  } else if (fs.existsSync(csvPath)) {
+  if (fs.existsSync(csvPath)) {
     text = fs.readFileSync(csvPath, 'utf-8');
   } else if (fs.existsSync(gzPath)) {
-    console.log('[download-premiums] Decompressing NPA data gz...');
     const buffer = fs.readFileSync(gzPath);
     text = zlib.gunzipSync(buffer).toString('utf-8');
   } else {
@@ -241,10 +347,10 @@ function buildNpaMap() {
 }
 
 try {
-  buildPremiumsForYear(2027);
-  buildPremiumsForYear(2026);
+  buildPremiumsDatabase();
   buildNpaMap();
-  console.log('[download-premiums] Done — official 2027 & 2026 premium databases successfully generated.');
+  console.log('[download-premiums] Done — official 2027 premium databases successfully generated.');
 } catch (err) {
-  console.warn('[download-premiums] Warning during premiums build:', err.message);
+  console.error('[download-premiums] Error during premiums build:', err);
+  process.exit(1);
 }
