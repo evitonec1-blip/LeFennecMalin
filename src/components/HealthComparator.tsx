@@ -54,6 +54,9 @@ import CompanyLogo from './CompanyLogo';
 // Client-side cache for Vercel static deployment lookup fallback
 let cachedClientDb: Record<string, { premium: number; modelName: string }> | null = null;
 
+// Swiss Federal Environmental Tax Redistribution deduction (OFEV / LAMal redistribution)
+const REDISTRIBUTION_DEDUCTION = 4.75;
+
 const HEALTH_ADVICE_MAPS: Record<string, Record<string, string>> = {
   fr: {
     canton: "Le canton de résidence est le critère numéro 1 de calcul de la prime LAMal. L'OFSP ajuste les prix selon le coût des infrastructures hospitalières de votre région.",
@@ -277,7 +280,7 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     cheapestLabel: "Le plus avantageux",
     netPriceLabel: "Prix total net 2027",
     notAvailableLabel: "Non disponible",
-    envTaxLabel: "-5.15 CHF déduits (taxe environnementale)",
+    envTaxLabel: "-4.75 CHF déduits (redistribution taxe environnementale)",
     sourceLabel: "Source : OFSP/priminfo, primes 2027",
     modelLabel: "Modèle :",
     getOfferBtn: "Obtenir l'offre",
@@ -588,7 +591,7 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     cheapestLabel: "Günstigstes Angebot",
     netPriceLabel: "Nettopreis 2027",
     notAvailableLabel: "Nicht verfügbar",
-    envTaxLabel: "-5.15 CHF abgezogen (Umweltsteuer)",
+    envTaxLabel: "-4.75 CHF abgezogen (Umweltabgaben-Rückverteilung)",
     sourceLabel: "Quelle: BAG/priminfo, Prämien 2027",
     modelLabel: "Modell:",
     getOfferBtn: "Angebot erhalten",
@@ -899,7 +902,7 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     cheapestLabel: "Best value",
     netPriceLabel: "Net price 2027",
     notAvailableLabel: "Not available",
-    envTaxLabel: "-CHF 5.15 deducted (environmental tax)",
+    envTaxLabel: "-CHF 4.75 deducted (environmental tax redistribution)",
     sourceLabel: "Source: FOPH/priminfo, 2027 premiums",
     modelLabel: "Model:",
     getOfferBtn: "Get offer",
@@ -1210,7 +1213,7 @@ const HEALTH_UI_TEXTS: Record<string, Record<string, any>> = {
     cheapestLabel: "Il più vantaggioso",
     netPriceLabel: "Prezzo netto 2027",
     notAvailableLabel: "Non disponibile",
-    envTaxLabel: "-CHF 5.15 dedotti (tassa ambientale)",
+    envTaxLabel: "-CHF 4.75 dedotti (redistribuzione tassa ambientale)",
     sourceLabel: "Fonte: UFSP/priminfo, premi 2027",
     modelLabel: "Modello:",
     getOfferBtn: "Ottieni l'offerta",
@@ -1897,8 +1900,8 @@ export default function HealthComparator({ isEmbedded = false, initialCanton, on
           );
 
           if (matchedCurrent && !userHasEditedCurrentPremium) {
-            // Cut 5.15 CHF environmental tax deduction
-            const netCurrent = Math.max(0, Math.round((matchedCurrent.premium - 5.15) * 100) / 100);
+            // Cut 4.75 CHF environmental tax redistribution deduction
+            const netCurrent = Math.max(0, Math.round((matchedCurrent.premium - REDISTRIBUTION_DEDUCTION) * 100) / 100);
             setCurrentPremiumInput(netCurrent);
           }
         }
@@ -1938,8 +1941,8 @@ export default function HealthComparator({ isEmbedded = false, initialCanton, on
           notes: ui.sourceLabel,
         };
 
-        // Requirement: "for the prices of the offers you show the prime price i want you to show the total price it means you must cut 5.15 for all prices"
-        const netPremium = Math.max(0, rp.premium - 5.15);
+        // Requirement: show total net price deducting 4.75 CHF environmental tax redistribution
+        const netPremium = Math.max(0, Math.round((rp.premium - REDISTRIBUTION_DEDUCTION) * 100) / 100);
 
         return {
           id: `${rp.insurerId}-${rp.modelType}-${rp.modelName.replace(/\s+/g, '_')}-${rp.premium}`,
